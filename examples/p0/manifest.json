@@ -11,9 +11,18 @@
     "P04",
     "P05",
     "P07",
+    "P09",
     "P10",
+    "P11",
+    "P12",
+    "P13",
+    "P14",
+    "P15",
+    "P17",
     "P19",
-    "P20"
+    "P20",
+    "P21",
+    "P22"
   ],
   "files": [
     {
@@ -93,6 +102,90 @@
       "path": "unsafe-inclusions.json",
       "sha256": "aec75acbe29a614e859b7be71369ac8f7e30e6d1b2d9af5fa4f011e3b4a38bba",
       "bytes": 1875
+    },
+    {
+      "fixture_id": "P09",
+      "path": "ai-human-confirmation.json",
+      "sha256": "7a1e255d244db18319243e4e5111d713fcaa922ae8d05a5018b339f8c0f9d9c2",
+      "bytes": 3467
+    },
+    {
+      "fixture_id": "P09",
+      "path": "ai-unreviewed.json",
+      "sha256": "52021a83736836d0a442062706a7d7d66eed5e7bb9fc10f1d1ec00b609a17cd8",
+      "bytes": 2813
+    },
+    {
+      "fixture_id": "P12",
+      "path": "derived-conflict.json",
+      "sha256": "14e7de57b7cbfed2ec5e790eb68c2dfd46912a8967c8db1d96a65cf65e3974d0",
+      "bytes": 5302
+    },
+    {
+      "fixture_id": "P11",
+      "path": "family-contexts.json",
+      "sha256": "4203190e8fd4de1fcf6e2cd2b75635992b5ef06e4b0fa0db839ce1e63f24aabf",
+      "bytes": 4386
+    },
+    {
+      "fixture_id": "P21",
+      "path": "negative-defined-symbol.json",
+      "sha256": "dd9a0fa88a10836614a2a3503c060d353cee6efc7efa78264976373cc41c3700",
+      "bytes": 3753
+    },
+    {
+      "fixture_id": "P13",
+      "path": "record-review-times.json",
+      "sha256": "abc6bf5c649da5f40a5b3886bc95c44e310eabbd185cf59457814e0a92b1c037",
+      "bytes": 4117
+    },
+    {
+      "fixture_id": "P22",
+      "path": "reproducibility-original.json",
+      "sha256": "a1ebe6e143015ceb23ad18a877ae0f6523271f632f21b3cc43e9183e915a5f6f",
+      "bytes": 5776
+    },
+    {
+      "fixture_id": "P22",
+      "path": "reproducibility-reordered.json",
+      "sha256": "3c3d1507929ce8b126b8b6076ff24b9b637378b15fda1a037595cd165eac50be",
+      "bytes": 5776
+    },
+    {
+      "fixture_id": "P15",
+      "path": "required-method-missing.json",
+      "sha256": "d0308a2458c9b8a0bdf56cf42bb3374897b75daefe7af996c87fae9282400d38",
+      "bytes": 4239
+    },
+    {
+      "fixture_id": "P15",
+      "path": "required-method-present.json",
+      "sha256": "b5109162b0e5b2c4aa9eb5b1f1b0ae37f04b04b6d7af71f3a728adf4578103e7",
+      "bytes": 4264
+    },
+    {
+      "fixture_id": "P10",
+      "path": "revision-with-definitions.json",
+      "sha256": "f9fc11b6ab10642d7d64de4997bd7489230bb0fe5495c93ce53f07edb40d91c8",
+      "bytes": 6039
+    },
+    {
+      "fixture_id": "P14",
+      "path": "unknown-capability.json",
+      "sha256": "b4a010d9a571b9f128d3d001005c4f2fca1ec53d8317818703e99329e1c003e8",
+      "bytes": 6246
+    },
+    {
+      "fixture_id": "P12",
+      "path": "unresolved-conflict.json",
+      "sha256": "cfe4a2814144b62a121e46d650212b046aa57e8b25f388567f93289396f64d1f",
+      "bytes": 4489
+    },
+    {
+      "fixture_id": "P17",
+      "path": "unsupported-existence-profile.json",
+      "sha256": "8f8e061b6ae43ab931ecd89c91e0fd525af7887ff88b10b3f938ac0ff5e4aa53",
+      "bytes": 2787
     }
   ]
 }

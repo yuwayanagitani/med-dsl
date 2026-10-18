@@ -81,6 +81,8 @@ def run_query(request, ordered_packages):
                 if context in unknown:
                     row["reason_codes"] = ["unknown_capability"]
                     row["missing_capabilities"] = sorted(unknown[context])
+                    row["blocking_assertion_refs"] = sorted({
+                        ref for refs in unknown[context].values() for ref in refs})
                 else:
                     if context in failures:
                         raise Problem(failures[context], status="resource_limit")
@@ -94,9 +96,14 @@ def run_query(request, ordered_packages):
                     collisions = sorted(set(facts) & set(denials))
                     if collisions:
                         proof = Proof()
+                        conflicts = []
                         for fact in collisions:
                             proof = proof.merge(facts[fact]).merge(denials[fact])
+                            conflicts.append({"atom": {"predicate": fact.predicate, "args": list(fact.args)},
+                                              "positive_evidence": facts[fact].evidence(()),
+                                              "negative_evidence": denials[fact].evidence(())})
                         row.update(status="conflict", evidence=[proof.evidence(())],
+                                   conflicts=conflicts,
                                    reason_codes=["conflicting_assertions"])
                     else:
                         status, bindings, evidence = _answer(query, facts, denials, budget)

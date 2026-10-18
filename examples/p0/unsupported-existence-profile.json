@@ -1,0 +1,129 @@
+{
+  "fixture_id": "P17",
+  "fixture_version": 1,
+  "schema_version": "p0-fixture-draft-1",
+  "fictional": true,
+  "review_state": "author_draft",
+  "source_cases": [
+    "K05"
+  ],
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "query",
+    "package": {
+      "ref": "fiction:definitions:revision@1",
+      "profile": "fiction:existential-witness@1",
+      "predicates": [
+        {
+          "ref": "fiction:uses_p@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "contexts": [
+      {
+        "ref": "fiction:context:revision@1",
+        "subject_ref": "fiction:person:1",
+        "effective_at": "2026-01-09T09:00:00Z",
+        "purpose": "fiction:research"
+      }
+    ],
+    "ledger": {
+      "ref": "fiction:ledger:revision@1",
+      "assertions": [
+        {
+          "id": "h1",
+          "context_ref": "fiction:context:revision@1",
+          "atom": {
+            "predicate": "fiction:uses_p@1",
+            "args": [
+              "fiction:person:1"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "judgment",
+            "ref": "fiction:P17:source:h1@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        }
+      ],
+      "reviews": [
+        {
+          "id": "r1",
+          "assertion_ref": "h1",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T11:00:00Z",
+          "outcome": "confirmed"
+        }
+      ]
+    },
+    "views": [
+      {
+        "id": "v1",
+        "as_of": "2026-01-10T12:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "context_ref": "fiction:context:revision@1",
+        "atoms": [
+          {
+            "predicate": "fiction:uses_p@1",
+            "args": [
+              "fiction:person:1"
+            ]
+          }
+        ],
+        "required": false
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "unsupported_profile"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "unsupported_profile"
+        ]
+      },
+      {
+        "path": [
+          "error_path"
+        ],
+        "equals": "package.profile"
+      },
+      {
+        "path": [
+          "incomplete"
+        ],
+        "equals": [
+          "request"
+        ]
+      }
+    ]
+  }
+}

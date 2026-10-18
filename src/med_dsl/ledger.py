@@ -18,8 +18,8 @@ def select_view(ledger, view):
     unknown = {}
     for item in visible.values():
         missing = set(item["required_capabilities"]) - {PROFILE}
-        if missing:
-            unknown.setdefault(item["context_ref"], set()).update(missing)
+        for capability in missing:
+            unknown.setdefault(item["context_ref"], {}).setdefault(capability, set()).add(item["id"])
     positive, negative = {}, {}
     for key in sorted(adopted):
         item = visible[key]

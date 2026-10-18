@@ -1,6 +1,6 @@
 # R6：P0 の意味・入出力・受入条件
 
-作成日：2026-10-18。契約版：`p0-draft-1`。状態：P0 全体の研究仕様。P0-a/P0-b の実装・開発テストは [最新の実行記録](08-p0-b-results.md)、全体の受入評価・独立確認は未完了です。期待結果は作成者草案です。[短い試作仕様と D07](06-prototype-brief.md) を入口にします。
+作成日：2026-10-18。契約版：`p0-draft-1`。状態：P0 全体の研究仕様。P0-a〜c の実装・開発テストは [最新の実行記録](09-p0-c-results.md)、全体の受入評価・独立確認は未完了です。期待結果は作成者草案です。[短い試作仕様と D07](06-prototype-brief.md) を入口にします。
 
 ## 1. 三つの操作
 
@@ -97,13 +97,15 @@ query は `id, context_ref, atoms, required` を持ちます。atoms は一つ�
 
 未知の `required_capabilities` を持つ可視主張がある文脈は、その意味上の影響を判断できないため unassessed とします。未知の否定修飾を削除して肯定を返しません。表示専用として無視できる項目は、既知の意味契約で確認したものだけに限ります。
 
+この停止は保留・訂正済みを含む全ての可視主張を対象にし、未来の主張は対象にしません。未知修飾が訂正や主張選択の意味まで変えるかを判断できないため、既存方針で訂正済みになったことだけを理由に無視しません。停止は該当文脈に限定し、別文脈の回答を止めません。P0-c は不足能力の `missing_capabilities` に加え、その能力を必要とする可視主張 ID の和を `blocking_assertion_refs` としてソートして返します。単に未知の名前を原情報として保持できることは、意味を理解できることではありません。
+
 ## 5. 前後比較と出力
 
 compare は同じ view の参照時点・方針と同じ Q を二つの snapshot に適用します。新旧の context 参照を対応付ける場合は `context_map` を明示し、subject/effective_at/purpose の一致を確認します。初期例では同じ context_ref を使います。
 
 前では支持され後では支持されない binding を `lost`、後で新たに支持される binding を `added` とします。これは**指定した支持問い合わせの差**で、外部コード全体の意味差分や、医学的な新事実の有無とは別です。左右いずれかが unassessed/conflict ならその問い合わせを比較不能として残し、lost/added を空集合と断言しません。追加の補助情報・原記録を使う場合は別 snapshot として B0/B1 を分けます。
 
-結果は `schema_version="p0-result-draft-1"`, `status`, `profile`, `input_sha256` と操作固有の値を持ちます。query の `results` は view ID・query ID 順、各 binding は変数名順に比較した組の順とし、根拠 ID の集合もソートします。result は `view, query, status, bindings, evidence, reason_codes` を持ちます。evidence は各成功 binding に対する `{binding, assertion_refs, review_refs, definition_refs}` の配列です。opposed/conflict の場合も、それを支持する同形式の根拠を残します。
+結果は `schema_version="p0-result-draft-1"`, `status`, `profile`, `input_sha256` と操作固有の値を持ちます。query の `results` は view ID・query ID 順、各 binding は変数名順に比較した組の順とし、根拠 ID の集合もソートします。result は `view, query, status, bindings, evidence, reason_codes` を持ちます。evidence は各成功 binding に対する `{binding, assertion_refs, review_refs, definition_refs}` の配列です。opposed/conflict の場合も、それを支持する同形式の根拠を残します。P0-c の conflict は `conflicts` 配列に、衝突した ground `atom` と `positive_evidence`、`negative_evidence` を atom 順で返します。既存の evidence に集約した両根拠も維持し、どの主張・定義がどちらの符号を支えるかを区別できます。
 
 P0-b の定義根拠は `package_ref#/definitions/添字` または `package_ref#/inclusions/添字` です。query の `definition_sources` に参照・package_ref・package_sha256・入力内 pointer を返し、不変な入力の規則へ遡れます。配列順を変更したパッケージは別ハッシュ・別実体です。同じ直接 atom の主張・確認は集約し、導出では深さの小さい証明を優先、同じ深さなら assertion/review/definition のソート済み参照列を順に辞書比較して一つを選びます。事実ごとに証明を改善して固定点まで計算する方式で、全証明の列挙・全ての代替根拠・全体最小の証明は保証しません。問い合わせの結合で同じ binding に集まった根拠は従来どおり集合としてまとめます。
 
@@ -136,7 +138,7 @@ P0-b の認定操作は開始に 1、追加包含の検査・新記号の定義�
 
 ## 7. 受入ケース P01〜P22
 
-R4 の既存ケースを置き換える評価セットではありません。P0 の実装受入条件です。全件は作成者草案、P01〜P05・P07・P10・P19・P20 の 9 ケースを [13 の JSON 入出力例](../../examples/p0/README.md) に具体化し、P0-b で実行しました。残りのケースの JSON 化・全件の実行は後続の実装作業に含めます。
+R4 の既存ケースを置き換える評価セットではありません。P0 の実装受入条件です。全件は作成者草案、P0-c までに 18 ケースを [27 の JSON 入出力例](../../examples/p0/README.md) に具体化・実行しました。未 JSON 化の P06・P08・P16・P18 と、compare・全件の受入評価は P0-d の作業に含めます。
 
 | ID | 入力・操作 | 必須の期待結果 | 根拠・対応 |
 | --- | --- | --- | --- |
@@ -162,6 +164,8 @@ R4 の既存ケースを置き換える評価セットではありません。P0
 | P20 | 同じ新 N に S1 の `N↔A` と S2 の `N⊑B` を別々に付ける | 同じ N の二重導入を invalid_input として拒否。個別認定を足して A⊑B を保存扱いにしない | 合成の反例 |
 | P21 | 定義 `N↔A`、確認済み negative N のみ | N の ground query は opposed、A は P0 では未決。古典論理の対偶未対応を明記し、一般の ¬A の非含意とは言わない | 支持と含意の分離 |
 | P22 | 同じ架空入力の二回実行、入力配列を並べ替えた実行 | 意味結果・binding・根拠集合が一致。生入力・正規化 hash の違いは別記。原入力を変更しない | I2・I8 の一部 |
+
+P22 の並べ替えは、同じパッケージ実体を固定したまま contexts/views/queries/assertions/reviews と、結合問い合わせの atoms の順を変更するものです。役割の順と atom の引数順は意味を持つため変えません。定義配列の並べ替えもパッケージのハッシュ・根拠 pointer を変えるので、同一実体の並べ替え試験には含めません。正規化入力ハッシュを除いた結果全体を比較し、ハッシュの違い自体は保持します。これは契約版・実装・上限を固定した再現性の検証で、異なる実装間の互換性の証明ではありません。
 
 P01・P02・P07・P10・P15 の正例は必ず結果を返すことを求め、全棄権を通しません。全件の期待値からの逸脱 0、誤認定・裏付けのない確定 0 を最低条件にします。未対応の一件を結果表から削除して分母を縮めません。原理の証明、未見性能、臨床精度をこの 22 件だけで認定しません。
 
