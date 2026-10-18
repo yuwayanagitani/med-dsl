@@ -1,0 +1,6 @@
+{
+  "name": "med-dsl",
+  "version": "0.0.0",
+  "private": true,
+  "description": "医療コード体系間の翻訳と共通中間表現を探る実験プロジェクト"
+}

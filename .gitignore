@@ -1,0 +1,25 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# External terminology, local mappings and private working data
+/data/
+/local/
+/private/
+
+# Generated files and dependencies
+node_modules/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+*.log
+
+# OS and editor state
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
