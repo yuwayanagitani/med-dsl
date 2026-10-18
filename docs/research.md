@@ -10,7 +10,9 @@ R2 の検索方法、出典、参照版・コミット、確認範囲は [出典
 
 保守的拡張、用途に応じた論理差分、institution、知識改訂の先行理論を調べました。資料の確認済み範囲と、本プロジェクトの作業定義・導出は区別しています。採用仕様・永続性の証明・実行検証は未完了です。
 
-[R3 の資料・条件確認](research/03-data-access.md) で、RxNorm CPC の二版と FHIR の版付き定義を初期材料に選定し、[4 ファイルの取得・初期照合](research/03-acquisition.md) を完了しました。[出典](research/03-sources.md) と [取得状態・実測値の台帳](research/03-materials.json) を残しています。WHO・LOINC 等の内容を独自体系開発に取り込む条件は保留し、次は取得資料を使った R4 の評価設計へ進めます。
+[R3 の資料・条件確認](research/03-data-access.md) で、RxNorm CPC の二版と FHIR の版付き定義を初期材料に選定し、[4 ファイルの取得・初期照合](research/03-acquisition.md) を完了しました。[出典](research/03-sources.md) と [取得状態・実測値の台帳](research/03-materials.json) を残しています。WHO・LOINC 等の内容を独自体系開発に取り込む条件は保留します。
+
+[R4 の評価設計](research/04-evaluation.md) では、体系の原理と中間用途を分け、[14 原理ケース・架空 40 ケース](research/04-cases.md) の期待結果草案と指標を用意しました。CPC 9 月→10 月を主実験とし、[実資料の部分追跡](research/04-material-probes.md) と [一次資料の確認範囲](research/04-sources.md) を残しました。独立確認・正解凍結・実行は未完了です。次は R5 で設計案を比較します。
 
 ## 最初に読む一次資料
 
