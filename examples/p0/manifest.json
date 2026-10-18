@@ -1,0 +1,32 @@
+{
+  "schema_version": "p0-fixture-manifest-draft-1",
+  "contract": "../../docs/research/06-p0-contract.md",
+  "status": "author_draft_snapshot",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "fixture_ids": [
+    "P01",
+    "P07",
+    "P10"
+  ],
+  "files": [
+    {
+      "fixture_id": "P01",
+      "path": "definition-extension.json",
+      "sha256": "54e28ef58196edbe7ffb86d3be5fa2ae4bba62e6991de52bacd28b452873a345",
+      "bytes": 2127
+    },
+    {
+      "fixture_id": "P07",
+      "path": "linked-observations.json",
+      "sha256": "e18b75a8bd74e71e474ae0d605fd6b82f82d9efbf72790b19e059a565c0d2823",
+      "bytes": 4740
+    },
+    {
+      "fixture_id": "P10",
+      "path": "assertion-revision.json",
+      "sha256": "5b01edddad0655930eae27e7741e4711a33c1a9a8ad19c836fbfb68473db3554",
+      "bytes": 4539
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "fixture_id": "P10",
+  "fixture_version": 1,
+  "schema_version": "p0-fixture-draft-1",
+  "fictional": true,
+  "review_state": "author_draft",
+  "source_cases": [
+    "K07",
+    "R1"
+  ],
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "query",
+    "package": {
+      "ref": "fiction:definitions:revision@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:uses_p@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "contexts": [
+      {
+        "ref": "fiction:context:revision@1",
+        "subject_ref": "fiction:person:1",
+        "effective_at": "2026-01-09T09:00:00Z",
+        "purpose": "fiction:research"
+      }
+    ],
+    "ledger": {
+      "ref": "fiction:ledger:revision@1",
+      "assertions": [
+        {
+          "id": "h1",
+          "context_ref": "fiction:context:revision@1",
+          "atom": {
+            "predicate": "fiction:uses_p@1",
+            "args": [
+              "fiction:person:1"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "suspected",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "judgment",
+            "ref": "fiction:P10:source:h1@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h2",
+          "context_ref": "fiction:context:revision@1",
+          "atom": {
+            "predicate": "fiction:uses_p@1",
+            "args": [
+              "fiction:person:1"
+            ]
+          },
+          "polarity": "negative",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-11T10:00:00Z",
+          "origin": {
+            "kind": "judgment",
+            "ref": "fiction:P10:source:h2@1"
+          },
+          "supersedes": [
+            "h1"
+          ],
+          "required_capabilities": [],
+          "change_reason": "架空の再確認による明示的な訂正"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "r1",
+          "assertion_ref": "h1",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T11:00:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r2",
+          "assertion_ref": "h2",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-11T11:00:00Z",
+          "outcome": "confirmed"
+        }
+      ]
+    },
+    "views": [
+      {
+        "id": "v1",
+        "as_of": "2026-01-10T12:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      },
+      {
+        "id": "v2",
+        "as_of": "2026-01-11T12:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "context_ref": "fiction:context:revision@1",
+        "atoms": [
+          {
+            "predicate": "fiction:uses_p@1",
+            "args": [
+              "fiction:person:1"
+            ]
+          }
+        ],
+        "required": false
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "view"
+        ],
+        "equals": "v1"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "undetermined"
+      },
+      {
+        "path": [
+          "views",
+          0,
+          "pending_assertions"
+        ],
+        "equals": [
+          "h1"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "view"
+        ],
+        "equals": "v2"
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "status"
+        ],
+        "equals": "opposed"
+      },
+      {
+        "path": [
+          "views",
+          1,
+          "superseded_assertions"
+        ],
+        "equals": [
+          "h1"
+        ]
+      },
+      {
+        "path": [
+          "views",
+          1,
+          "adopted_assertions"
+        ],
+        "equals": [
+          "h2"
+        ]
+      },
+      {
+        "path": [
+          "retained_assertions"
+        ],
+        "equals": [
+          "h1",
+          "h2"
+        ]
+      }
+    ]
+  }
+}
