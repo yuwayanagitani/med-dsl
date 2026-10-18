@@ -12,7 +12,9 @@ R2 の検索方法、出典、参照版・コミット、確認範囲は [出典
 
 [R3 の資料・条件確認](research/03-data-access.md) で、RxNorm CPC の二版と FHIR の版付き定義を初期材料に選定し、[4 ファイルの取得・初期照合](research/03-acquisition.md) を完了しました。[出典](research/03-sources.md) と [取得状態・実測値の台帳](research/03-materials.json) を残しています。WHO・LOINC 等の内容を独自体系開発に取り込む条件は保留します。
 
-[R4 の評価設計](research/04-evaluation.md) では、体系の原理と中間用途を分け、[14 原理ケース・架空 40 ケース](research/04-cases.md) の期待結果草案と指標を用意しました。CPC 9 月→10 月を主実験とし、[実資料の部分追跡](research/04-material-probes.md) と [一次資料の確認範囲](research/04-sources.md) を残しました。独立確認・正解凍結・実行は未完了です。次は R5 で設計案を比較します。
+[R4 の評価設計](research/04-evaluation.md) では、体系の原理と中間用途を分け、[14 原理ケース・架空 40 ケース](research/04-cases.md) の期待結果草案と指標を用意しました。CPC 9 月→10 月を主実験とし、[実資料の部分追跡](research/04-material-probes.md) と [一次資料の確認範囲](research/04-sources.md) を残しました。独立確認・正解凍結・実行は未完了です。
+
+[R5 の設計比較](research/05-model-study.md) で、定義追加・意味モジュール・コア改訂を分ける構成と、役割付き事象・主張・採用判断の分離を研究用に選びました。[原理と小さな導出](research/05-principles.md)、[原著・仕様の追加確認](research/05-sources.md) を残しています。条件内の保存と意味の引き継ぎを示す入口で、全将来の意味への対応・実行性能の証明ではありません。次は R6 の試作仕様へ進みます。
 
 ## 最初に読む一次資料
 
