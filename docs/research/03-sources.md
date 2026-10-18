@@ -1,12 +1,12 @@
 # R3：出典・確認記録
 
-確認日：2026-10-18。対象は [資料選定・利用条件](03-data-access.md)。外部マスターの取得・契約・全項目の検証は行っていません。技術仕様と利用条件を、発行元の一次資料で確認しました。
+確認日：2026-10-18。対象は [資料選定・利用条件](03-data-access.md)。技術仕様と利用条件を発行元の一次資料で確認し、続いて選定した CPC 二版と FHIR Procedure 二版の HTML を取得・初期検査しました。[実測結果](03-acquisition.md) を参照してください。保留した外部マスターの取得・契約や、全概念の意味の検証は行っていません。
 
 ## 方法
 
 既存の WHO・HL7・SNOMED・MEDIS から公式の利用条件と配布ページへ進みました。`site.loinc.org license downloads`、`site.nlm.nih.gov RxNorm current prescribable content license`、`site.cdc.gov ICD-10-CM public domain` 等で補いました。第三者が付けた公開ライセンスや「無料データ」の紹介を、元データの許諾の根拠にはしていません。
 
-確認段階は「公式文書を確認」「ファイルへの公開導線を確認」「実体取得・照合」「内容検証」を分けます。今回は初めの二段階までです。以下の版・更新日はページの表示で、手元のデータを解析して得た値ではありません。
+確認段階は「公式文書を確認」「ファイルへの公開導線を確認」「実体取得・初期照合」「意味の検証」を分けます。選定 4 ファイルは第三段階まで完了しました。以下の公表版・更新日と、自分たちが実測したハッシュ・行数は区別しています。
 
 ## S01：RxNorm CPC の範囲と条件
 
@@ -14,7 +14,7 @@
 
 確認：CPC は public domain・ライセンスと UTS ログイン不要と説明。収録対象・除外対象、三つの RRF ファイル、月次と週次の区別。RxNorm の NLM 作成部分と第三者由来部分、謝辞・推薦の否定・再配布時の版表示等の条件も確認しました。
 
-適用：CPC 二版の初期選定。CPC の古い説明を、現在の ZIP 内容や RxNorm 全体版すべてへの許諾と一般化しません。実際の出典集合・README の照合は取得後に残しています。一般条件の外部内容への参照が、第三者の権利まで許諾するとは扱いません。
+適用：CPC 二版の初期選定。取得後、README の版と実際の出典集合を確認しました。古い説明を RxNorm 全体版すべてへの許諾と一般化せず、一般条件の外部内容への参照が第三者の権利まで許諾するとは扱いません。
 
 ## S02：RxNorm の固定配布先と版
 
@@ -22,7 +22,7 @@
 
 確認：CPC の固定日付 URL は `https://download.nlm.nih.gov/rxnorm/RxNorm_full_prescribe_09082026.zip` と `https://download.nlm.nih.gov/rxnorm/RxNorm_full_prescribe_10052026.zip`。ブラウズで両リンクをたどると application/zip 非対応となりました。10 月 CPC の公表 MD5 は `a3bfab544c6a67c127ebcd10ab914aa9`。9 月版の値は未確認です。
 
-適用：日付を固定した資料台帳。ノートは全体版のものであり、件数を CPC の集計に使いません。端末の名前解決失敗もあり、ZIP のバイト列・展開・自前ハッシュは未確認です。
+適用：日付を固定した資料台帳。端末での再試行と待ち時間の延長により二版を取得し、10 月の公表 MD5 は一致しました。9 月の公表値は現行本文で未確認のため、計算値との独立照合は未実施です。二版の SHA-256・CRC・RRF 行数は実測しました。ノートは全体版のものであり、件数を CPC の集計に使いません。
 
 ## S03：RxNorm のファイル形式と関係の向き
 
@@ -38,7 +38,7 @@ HL7 International。[R5 License and Legal Terms](https://hl7.org/fhir/R5/license
 
 参照した構造定義の入口：[Observation](https://hl7.org/fhir/R5/observation.html)、[Specimen](https://hl7.org/fhir/R5/specimen.html)、[Procedure R4](https://hl7.org/fhir/R4/procedure.html)／[R5](https://hl7.org/fhir/R5/procedure.html)、[MedicationRequest](https://hl7.org/fhir/R5/medicationrequest.html)。状態・由来は既存調査の [Condition](https://hl7.org/fhir/R5/condition-definitions.html)・[Provenance](https://hl7.org/fhir/R5/provenance.html) も継続参照します。
 
-今回の個別確認は、Observation の検体・方法、Procedure の時点と参加者を中心とした該当欄です。R4 `performed[x]` と R5 `occurrence[x]` の型選択肢の差を確認しました。全リソース・全版差の精読、構造定義 JSON の実体取得、変換器の実行は未完了です。
+今回の個別確認は、Observation の検体・方法、Procedure の時点と参加者を中心とした該当欄です。Procedure 二版の HTML はローカル保存し、ページ名・版・時点の項目とハッシュを記録しました。全リソース・全版差の精読、構造定義 JSON の実体取得、変換器の実行は未完了です。
 
 ## S05：WHO の利用条件
 
@@ -94,4 +94,4 @@ MEDIS-DC。[総合入口](https://www.medis.or.jp/4_hyojyun/medis-master/)、[�
 
 ## 残る実施事項
 
-選定二組の実体取得・照合と、許諾条件を追加確認する候補は [R3 本文](03-data-access.md) に記録しました。取得失敗を収録内容の問題とせず、公式の記載値と自分たちの実測値を分けます。外部への問い合わせ・登録・料金が必要な候補を使わずに、R4 の評価設計を進められます。
+選定二組の [実体取得・初期照合](03-acquisition.md) は完了しました。許諾条件を追加確認する候補は [R3 本文](03-data-access.md) に残しています。公式の記載値と自分たちの実測値を分け、次は取得資料の意味を使った R4 の評価設計へ進めます。

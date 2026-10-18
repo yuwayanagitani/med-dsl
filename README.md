@@ -75,8 +75,10 @@ ICD-10 → ICD-11 も候補に残していますが、独自体系開発とい�
 │   │   ├── 02b-sources.md # R2b：一次資料と実際の確認範囲
 │   │   ├── 03-data-access.md # R3：資料選定・版・利用条件
 │   │   ├── 03-sources.md  # R3：一次資料と確認範囲
-│   │   └── 03-materials.json # R3：選定した資料と未取得の状態
+│   │   ├── 03-materials.json # R3：資料の版・実測ハッシュ・取得状態
+│   │   └── 03-acquisition.md # R3：実ファイルの取得・初期照合の結果
 │   └── roadmap.md        # 調査項目・決定事項・各段階の完了条件
+├── scripts/research/verify-r3-materials.py # ローカル資料の初期検査
 ├── packages/README.md    # 将来の実装分割案
 └── examples/README.md    # 架空例と評価ケースの方針
 ```
@@ -91,7 +93,7 @@ ICD-10 → ICD-11 も候補に残していますが、独自体系開発とい�
 
 [R1：目的と中間用途の定義](docs/research/01-use-case.md)、[R2：既存方式の一次比較](docs/research/02-landscape.md)、[R2b：変化・不変条件・拡張原理の基礎調査](docs/research/02b-change-model.md) を整理済みです。R2b では変化を 8 種類に分け、不変条件の候補 8 項目、設計案 3 案、14 件の例・反例をまとめました。既存の意味を保つ拡張と、意図して知識・定義を改訂する操作を分けて比較します。
 
-[R3 の資料・条件確認](docs/research/03-data-access.md) では初期材料と保存範囲を選定しました。データ実体の取得・照合、体系の採用仕様、普遍性・永続性の証明、実行検証は未完了です。HAPI FHIR と ROBOT は中間用途の実験候補のままです。次は R4 で評価方法と期待結果を設計します。
+[R3](docs/research/03-data-access.md) で初期材料を選定し、[4 ファイルの取得・初期照合](docs/research/03-acquisition.md) を完了しました。公表ハッシュ未確認の範囲と、意味の検証は別に記録しています。体系の採用仕様、普遍性・永続性の証明、変換等の実行検証は未完了です。HAPI FHIR と ROBOT は中間用途の実験候補のままです。次は R4 で評価方法と期待結果を設計します。
 
 ## 非公開運用・権利
 

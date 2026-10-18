@@ -1,6 +1,6 @@
 {
   "format_version": 1,
-  "purpose": "R3 の資料選定と取得状態の記録。外部データ本体や検証済みの意味対応は含まない。",
+  "purpose": "R3 の資料選定、取得状態、ファイルの初期照合の記録。外部データ本体や検証済みの意味対応は含まない。",
   "checked_on": "2026-10-18",
   "decision_document": "03-data-access.md",
   "source_log": "03-sources.md",
@@ -22,14 +22,77 @@
         "https://www.nlm.nih.gov/research/umls/rxnorm/docs/termsofservice.html"
       ],
       "project_use": "研究用のローカル取得・比較対象として選定。全体版は含めない。旧版資料と明示する。",
-      "acquisition_status": "not_acquired",
-      "access_observation": "公式配布リンクと application/zip の応答種別を確認。端末は名前解決に失敗。",
+      "acquisition_status": "acquired_file_checks_passed",
+      "access_observation": "実ファイルのハッシュと初期構造を検査。意味対応の検証は未実施。",
       "publisher_md5": null,
-      "local_sha256": null,
-      "local_bytes": null,
-      "local_path": null,
+      "local_sha256": "82cc1679aff08005c6715d68aaf4f6f00a12a14516e6be1c0c2c5950d586fbb4",
+      "local_bytes": 74751736,
+      "local_path": "data/research/r3/RxNorm_full_prescribe_09082026.zip",
       "content_verified": false,
-      "commit_payload": false
+      "commit_payload": false,
+      "local_filename": "RxNorm_full_prescribe_09082026.zip",
+      "last_check_status": "file_checks_passed",
+      "last_checked_at": "2026-10-18T15:22:22.743905+00:00",
+      "local_md5": "88bbe4cefabd8e71f58651c1c3188646",
+      "retrieved_at": "2026-10-18T15:15:31.577726+00:00",
+      "verified_at": "2026-10-18T15:22:22.743905+00:00",
+      "publisher_md5_status": "not_available",
+      "initial_file_checks_passed": true,
+      "inspection": {
+        "kind": "cpc_archive_structure",
+        "crc_passed": true,
+        "members": [
+          "Readme_Full_Prescribe_09082026.txt",
+          "rrf/RXNCONSO.RRF",
+          "rrf/RXNREL.RRF",
+          "rrf/RXNSAT.RRF",
+          "scripts/mysql/Indexes_mysql_rxn.sql",
+          "scripts/mysql/Load_scripts_mysql_rxn_unix.sql",
+          "scripts/mysql/Load_scripts_mysql_rxn_win.sql",
+          "scripts/mysql/Table_scripts_mysql_rxn.sql",
+          "scripts/mysql/Populate_mysql_rxn.bat",
+          "scripts/mysql/populate_mysql_rxn.sh",
+          "scripts/oracle/RXNCONSO.ctl",
+          "scripts/oracle/RXNREL.ctl",
+          "scripts/oracle/RXNSAT.ctl",
+          "scripts/oracle/rxn_index.sql",
+          "scripts/oracle/RxNormDDL.sql",
+          "scripts/oracle/populate_oracle_rxn_db.bat"
+        ],
+        "readme_files": [
+          "Readme_Full_Prescribe_09082026.txt"
+        ],
+        "release_marker_found": true,
+        "rrf": {
+          "RXNCONSO.RRF": {
+            "rows": 246241,
+            "columns": 18,
+            "sources": {
+              "MTHCMSFRF": 11,
+              "MTHSPL": 105389,
+              "RXNORM": 140841
+            }
+          },
+          "RXNREL.RRF": {
+            "rows": 2578453,
+            "columns": 16,
+            "sources": {
+              "MTHSPL": 1966106,
+              "RXNORM": 612347
+            }
+          },
+          "RXNSAT.RRF": {
+            "rows": 3370462,
+            "columns": 13,
+            "sources": {
+              "MTHSPL": 2900511,
+              "RXNORM": 469951
+            }
+          }
+        }
+      },
+      "final_url": "https://download.nlm.nih.gov/rxnorm/RxNorm_full_prescribe_09082026.zip",
+      "response_content_type": "application/zip"
     },
     {
       "id": "rxnorm-cpc-2026-10-05",
@@ -48,14 +111,77 @@
         "https://www.nlm.nih.gov/research/umls/rxnorm/docs/termsofservice.html"
       ],
       "project_use": "研究用のローカル取得・比較対象として選定。全体版は含めない。",
-      "acquisition_status": "not_acquired",
-      "access_observation": "公式配布リンクと application/zip の応答種別を確認。端末は名前解決に失敗。",
+      "acquisition_status": "acquired_file_checks_passed",
+      "access_observation": "実ファイルのハッシュと初期構造を検査。意味対応の検証は未実施。",
       "publisher_md5": "a3bfab544c6a67c127ebcd10ab914aa9",
-      "local_sha256": null,
-      "local_bytes": null,
-      "local_path": null,
+      "local_sha256": "8ed351c29f3cb56bedeb8e2bcb8fa56931f8d7eb88e2280dc9772d7d3eb16977",
+      "local_bytes": 74994831,
+      "local_path": "data/research/r3/RxNorm_full_prescribe_10052026.zip",
       "content_verified": false,
-      "commit_payload": false
+      "commit_payload": false,
+      "local_filename": "RxNorm_full_prescribe_10052026.zip",
+      "last_check_status": "file_checks_passed",
+      "last_checked_at": "2026-10-18T15:22:22.743905+00:00",
+      "local_md5": "a3bfab544c6a67c127ebcd10ab914aa9",
+      "retrieved_at": "2026-10-18T15:15:33.741613+00:00",
+      "verified_at": "2026-10-18T15:22:22.743905+00:00",
+      "publisher_md5_status": "matched",
+      "initial_file_checks_passed": true,
+      "inspection": {
+        "kind": "cpc_archive_structure",
+        "crc_passed": true,
+        "members": [
+          "Readme_Full_Prescribe_10052026.txt",
+          "rrf/RXNCONSO.RRF",
+          "rrf/RXNREL.RRF",
+          "rrf/RXNSAT.RRF",
+          "scripts/mysql/Indexes_mysql_rxn.sql",
+          "scripts/mysql/Load_scripts_mysql_rxn_unix.sql",
+          "scripts/mysql/Load_scripts_mysql_rxn_win.sql",
+          "scripts/mysql/Table_scripts_mysql_rxn.sql",
+          "scripts/mysql/Populate_mysql_rxn.bat",
+          "scripts/mysql/populate_mysql_rxn.sh",
+          "scripts/oracle/RXNCONSO.ctl",
+          "scripts/oracle/RXNREL.ctl",
+          "scripts/oracle/RXNSAT.ctl",
+          "scripts/oracle/rxn_index.sql",
+          "scripts/oracle/RxNormDDL.sql",
+          "scripts/oracle/populate_oracle_rxn_db.bat"
+        ],
+        "readme_files": [
+          "Readme_Full_Prescribe_10052026.txt"
+        ],
+        "release_marker_found": true,
+        "rrf": {
+          "RXNCONSO.RRF": {
+            "rows": 247028,
+            "columns": 18,
+            "sources": {
+              "MTHCMSFRF": 11,
+              "MTHSPL": 105943,
+              "RXNORM": 141074
+            }
+          },
+          "RXNREL.RRF": {
+            "rows": 2589722,
+            "columns": 16,
+            "sources": {
+              "MTHSPL": 1976750,
+              "RXNORM": 612972
+            }
+          },
+          "RXNSAT.RRF": {
+            "rows": 3382290,
+            "columns": 13,
+            "sources": {
+              "MTHSPL": 2912337,
+              "RXNORM": 469953
+            }
+          }
+        }
+      },
+      "final_url": "https://download.nlm.nih.gov/rxnorm/RxNorm_full_prescribe_10052026.zip",
+      "response_content_type": "application/zip"
     },
     {
       "id": "fhir-procedure-4.0.1",
@@ -72,13 +198,28 @@
         "https://hl7.org/fhir/R4/license.html"
       ],
       "project_use": "HL7 作成部分の構造・時点・役割の比較。第三者用語は別条件。",
-      "acquisition_status": "web_sections_reviewed",
-      "access_observation": "公開 HTML の時点・参加者等の該当箇所を確認。ローカル実体未保存。",
-      "local_sha256": null,
-      "local_bytes": null,
-      "local_path": null,
+      "acquisition_status": "acquired_file_checks_passed",
+      "access_observation": "実ファイルのハッシュと初期構造を検査。意味対応の検証は未実施。",
+      "local_sha256": "b61257b1a5f1dea38251ce8c9bdf04322215696d195f53aae3c4a604e25e7173",
+      "local_bytes": 369317,
+      "local_path": "data/research/r3/fhir-procedure-4.0.1.html",
       "content_verified": false,
-      "commit_payload": false
+      "commit_payload": false,
+      "local_filename": "fhir-procedure-4.0.1.html",
+      "last_check_status": "file_checks_passed",
+      "last_checked_at": "2026-10-18T15:22:22.743905+00:00",
+      "local_md5": "c5a8ded13d9ee015d0a418051f01cf13",
+      "retrieved_at": "2026-10-18T15:09:08.349449+00:00",
+      "verified_at": "2026-10-18T15:22:22.743905+00:00",
+      "publisher_md5_status": "not_available",
+      "initial_file_checks_passed": true,
+      "inspection": {
+        "kind": "html_identity",
+        "title": "Procedure - FHIR v4.0.1",
+        "time_field": "performed[x]"
+      },
+      "final_url": "https://hl7.org/fhir/R4/procedure.html",
+      "response_content_type": "text/html"
     },
     {
       "id": "fhir-procedure-5.0.0",
@@ -95,13 +236,28 @@
         "https://hl7.org/fhir/R5/license.html"
       ],
       "project_use": "HL7 作成部分の構造・時点・役割の比較。第三者用語は別条件。",
-      "acquisition_status": "web_sections_reviewed",
-      "access_observation": "公開 HTML の時点・参加者等の該当箇所を確認。ローカル実体未保存。",
-      "local_sha256": null,
-      "local_bytes": null,
-      "local_path": null,
+      "acquisition_status": "acquired_file_checks_passed",
+      "access_observation": "実ファイルのハッシュと初期構造を検査。意味対応の検証は未実施。",
+      "local_sha256": "0f3e18702aa7b2f22451da360a8cef666e06b15aaecee1376caf8ecf48671d08",
+      "local_bytes": 437501,
+      "local_path": "data/research/r3/fhir-procedure-5.0.0.html",
       "content_verified": false,
-      "commit_payload": false
+      "commit_payload": false,
+      "local_filename": "fhir-procedure-5.0.0.html",
+      "last_check_status": "file_checks_passed",
+      "last_checked_at": "2026-10-18T15:22:22.743905+00:00",
+      "local_md5": "a188e7264be689cceb4b6da54cc5af46",
+      "retrieved_at": "2026-10-18T15:09:10.577780+00:00",
+      "verified_at": "2026-10-18T15:22:22.743905+00:00",
+      "publisher_md5_status": "not_available",
+      "initial_file_checks_passed": true,
+      "inspection": {
+        "kind": "html_identity",
+        "title": "Procedure - FHIR v5.0.0",
+        "time_field": "occurrence[x]"
+      },
+      "final_url": "https://hl7.org/fhir/R5/procedure.html",
+      "response_content_type": "text/html"
     }
   ]
 }
