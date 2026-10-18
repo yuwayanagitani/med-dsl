@@ -1,0 +1,109 @@
+{
+  "fixture_id": "P05",
+  "fixture_version": 1,
+  "schema_version": "p0-fixture-draft-1",
+  "fictional": true,
+  "review_state": "author_draft",
+  "source_cases": [
+    "S1"
+  ],
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "check_extension",
+    "base_package": {
+      "ref": "fiction:definitions:base@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:A@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:B@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "extension": {
+      "ref": "fiction:definitions:extension@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:N@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:M@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [
+        {
+          "kind": "defined",
+          "symbol": "fiction:N@1",
+          "all_of": [
+            "fiction:M@1"
+          ]
+        },
+        {
+          "kind": "defined",
+          "symbol": "fiction:M@1",
+          "all_of": [
+            "fiction:N@1"
+          ]
+        }
+      ],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "reason_codes"
+        ],
+        "equals": [
+          "cyclic_definitions"
+        ]
+      },
+      {
+        "path": [
+          "certificate",
+          "scope",
+          "old_data_only"
+        ],
+        "equals": true
+      }
+    ]
+  }
+}

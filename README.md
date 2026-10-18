@@ -2,7 +2,7 @@
 
 **未来永劫、原理的に変化に耐えうる医療コード体系を確立するための研究プロジェクト。** 医学・制度・システム・AI の変化を受け止める、意味の表現と拡張の原理を探ります。
 
-**現在は非公開での調査・試作段階です。** 架空資料に対する問い合わせの初期実装 P0-a があり、体系全体・変換器・実対応表は未完成です。取得済みの外部資料は Git 管理外です。名称、言語仕様、技術スタックは調査と試作で見直します。
+**現在は非公開での調査・試作段階です。** 架空資料に対する問い合わせ・定義追加の認定を実装した P0-b があり、体系全体・変換器・実対応表は未完成です。取得済みの外部資料は Git 管理外です。名称、言語仕様、技術スタックは調査と試作で見直します。
 
 ## 何を目指すか
 
@@ -86,7 +86,8 @@ ICD-10 → ICD-11 も候補に残していますが、独自体系開発とい�
 │   │   ├── 05-sources.md   # R5：一次資料の追加確認と限界
 │   │   ├── 06-prototype-brief.md # R6：試作範囲・構成・着手判断
 │   │   ├── 06-p0-contract.md # R6：P0 の意味・入出力・22 受入条件
-│   │   └── 07-p0-a-results.md # P0-a：実装範囲、実行結果、未対応
+│   │   ├── 07-p0-a-results.md # P0-a：初期実装の実行記録
+│   │   └── 08-p0-b-results.md # P0-b：定義認定・推論・反例の検証
 │   └── roadmap.md        # 調査項目・決定事項・各段階の完了条件
 ├── scripts/research/     # ローカル資料の初期検査・R4 の部分追跡
 ├── src/med_dsl/          # P0 のライブラリと JSON CLI
@@ -94,12 +95,14 @@ ICD-10 → ICD-11 も候補に残していますが、独自体系開発とい�
 ├── packages/README.md    # 将来の実装分割案
 └── examples/            # 架空例と評価ケースの方針
     ├── README.md
-    └── p0/              # P0 の三つの JSON 例と草案のハッシュ台帳
+    └── p0/              # P0 の 13 JSON 例と草案のハッシュ台帳
 ```
 
 P0 は Python 3.11 以降・標準ライブラリ・JSON を使い、Python 3.14.4 で動作を確認しました。外部パッケージのインストールは不要です。リポジトリのルートで実行します。
 
 ```bash
+PYTHONPATH=src python3 -m med_dsl --fixture examples/p0/definition-extension.json
+PYTHONPATH=src python3 -m med_dsl --fixture examples/p0/definition-entailment.json
 PYTHONPATH=src python3 -m med_dsl --fixture examples/p0/linked-observations.json
 PYTHONPATH=src python3 -m med_dsl --fixture examples/p0/assertion-revision.json
 python3 -m unittest discover -s tests
@@ -119,9 +122,9 @@ python3 -m unittest discover -s tests
 
 [R5](docs/research/05-model-study.md) で三案を比較し、不変な定義参照、役割付き事象・文脈付き主張を基礎とする構成を研究用に選定しました。通常の定義追加、意味能力の追加、コアの改訂を別の契約で扱います。[保存原理](docs/research/05-principles.md) に、条件内の定義追加、有限回の合成、役割付き表現への意味引き継ぎの小さな導出を記録しました。
 
-[R6 の試作仕様](docs/research/06-prototype-brief.md) と [P0 契約](docs/research/06-p0-contract.md) を定め、[P0-a](docs/research/07-p0-a-results.md) を実装しました。役割付き事実の結合、根拠追跡、確認・時点・訂正の選択が動作し、P07/P10 の草案と一致、36 件のテストが通過しました。期待結果は作成者草案で、22 件全体や R4 の実行評価は未完了です。
+[R6 の試作仕様](docs/research/06-prototype-brief.md) と [P0 契約](docs/research/06-p0-contract.md) を定め、[P0-a](docs/research/07-p0-a-results.md) に続き [P0-b](docs/research/08-p0-b-results.md) を実装しました。S1/S2 の保存認定、単項包含・連言定義による推論、根拠追跡、確認・時点・訂正の選択が動作します。9 ケースの草案を 13 JSON に具体化し、62 件の開発テストで確認しました。期待結果は作成者草案で、22 件全体や R4 の実行評価は未完了です。
 
-次は P0-b の定義追加の認定・定義推論です。check_extension と compare は未実装を明示し、定義推論が必要な query は unassessed にします。完全な形式仕様、永続性全体の証明、臨床変換の実証は未完了です。HAPI FHIR と ROBOT は後続の中間用途で再評価します。
+次は P0-c の主張・未知能力・否定の境界を JSON ケースとして整え、その後 P0-d の compare と全体評価へ進みます。compare は未実装を明示します。保存認定は旧データ固定の限定した十分条件です。完全な形式仕様、永続性全体の証明、臨床変換の実証は未完了です。HAPI FHIR と ROBOT は後続の中間用途で再評価します。
 
 ## 非公開運用・権利
 

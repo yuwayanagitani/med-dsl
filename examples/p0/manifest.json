@@ -6,8 +6,14 @@
   "evaluation_frozen": false,
   "fixture_ids": [
     "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
     "P07",
-    "P10"
+    "P10",
+    "P19",
+    "P20"
   ],
   "files": [
     {
@@ -27,6 +33,66 @@
       "path": "assertion-revision.json",
       "sha256": "5b01edddad0655930eae27e7741e4711a33c1a9a8ad19c836fbfb68473db3554",
       "bytes": 4539
+    },
+    {
+      "fixture_id": "P05",
+      "path": "cyclic-definitions.json",
+      "sha256": "b901b655408df0fc3f19f4cc5ccc277401b2b45aeba74b073327e9f968357f7f",
+      "bytes": 2065
+    },
+    {
+      "fixture_id": "P01",
+      "path": "definition-entailment.json",
+      "sha256": "f68694ca5536e8a8691b9052b9a37bae095acf7830c652c3bba5e50a5112e362",
+      "bytes": 4312
+    },
+    {
+      "fixture_id": "P20",
+      "path": "duplicate-definition.json",
+      "sha256": "31d0db18c6812ddcc6e6bcfe18f71917a0810c516bef21102a79bb6d75a96601",
+      "bytes": 1677
+    },
+    {
+      "fixture_id": "P19",
+      "path": "membership-added.json",
+      "sha256": "64d67981b95dbd936441b6bdb3ed0b148ac66202212aa58a4cea2e7657243d95",
+      "bytes": 3763
+    },
+    {
+      "fixture_id": "P19",
+      "path": "membership-before.json",
+      "sha256": "7c19a612b78fea88c272902778ba303a0244ec7691c88deee44c1c5bf6723a05",
+      "bytes": 2563
+    },
+    {
+      "fixture_id": "P04",
+      "path": "shared-symbol-extensions.json",
+      "sha256": "8eea7a8c9129fda53b8e822e08b3ab83d085d0e6126390d50f86a5dc7ae704db",
+      "bytes": 2256
+    },
+    {
+      "fixture_id": "P02",
+      "path": "subtype-entailment.json",
+      "sha256": "987e1be396a60b49014a1bcd068045f093c94ee675c06b402fb886eb7e70ad24",
+      "bytes": 3481
+    },
+    {
+      "fixture_id": "P02",
+      "path": "subtype-extension.json",
+      "sha256": "fc6c392cce7f69342abd13651c029ecf86aa94abe3bc160fbab629d9630b312b",
+      "bytes": 1845
+    },
+    {
+      "fixture_id": "P03",
+      "path": "unsafe-entailment.json",
+      "sha256": "43039ccfd0392e58abb13983e9619d1830ec454d8b4c12f80fd878be43dda2b5",
+      "bytes": 3191
+    },
+    {
+      "fixture_id": "P03",
+      "path": "unsafe-inclusions.json",
+      "sha256": "aec75acbe29a614e859b7be71369ac8f7e30e6d1b2d9af5fa4f011e3b4a38bba",
+      "bytes": 1875
     }
   ]
 }

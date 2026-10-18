@@ -178,13 +178,13 @@ class QueryTests(unittest.TestCase):
         a["recorded_at"] = "2026-01-11T10:00:00Z"
         self.assertEqual(self.result()["status"], "supported")
 
-    def test_definition_reasoning_is_explicitly_unassessed(self):
+    def test_unrelated_unary_inclusion_keeps_role_query_supported(self):
         package = self.request["package"]
         package["predicates"].extend([{"ref": x, "roles": ["subject"]} for x in ("fiction:A@1", "fiction:B@1")])
         package["inclusions"] = [{"sub": "fiction:A@1", "super": "fiction:B@1"}]
         row = self.result()
-        self.assertEqual(row["status"], "unassessed")
-        self.assertEqual(row["reason_codes"], ["definition_reasoning_not_implemented"])
+        self.assertEqual(row["status"], "supported")
+        self.assertEqual(row["reason_codes"], [])
 
     def test_revision_chain_does_not_resurrect_original(self):
         request = fixture("assertion-revision")["request"]
@@ -318,7 +318,9 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual(evaluate(request)["status"], "resource_limit")
 
     def test_unsupported_operation_and_profile_are_explicit(self):
-        self.assertEqual(evaluate(fixture("definition-extension")["request"])["reason_codes"], ["operation_not_implemented"])
+        compare = {"schema_version": "p0-request-draft-1", "operation": "compare",
+                   "before": {}, "after": {}, "view": {}, "queries": [], "budget": {"max_steps": 100}}
+        self.assertEqual(evaluate(compare)["reason_codes"], ["operation_not_implemented"])
         self.request["package"]["profile"] = "fiction:exists@1"
         self.assertEqual(evaluate(self.request)["status"], "unsupported_profile")
 
@@ -348,7 +350,11 @@ class CliTests(unittest.TestCase):
     def test_io_failure_and_unimplemented_operation_exit_codes(self):
         self.assertEqual(self.run_cli("does-not-exist.json").returncode, 2)
         process = self.run_cli("--fixture", "examples/p0/definition-extension.json")
-        self.assertEqual(process.returncode, 3)
+        self.assertEqual(process.returncode, 0)
+        self.assertEqual(json.loads(process.stdout)["certificate"]["status"], "certified")
+        request = {"schema_version": "p0-request-draft-1", "operation": "compare",
+                   "before": {}, "after": {}, "view": {}, "queries": [], "budget": {"max_steps": 100}}
+        self.assertEqual(self.run_cli("-", raw=json.dumps(request).encode()).returncode, 3)
 
 
 if __name__ == "__main__":

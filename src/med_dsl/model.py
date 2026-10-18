@@ -25,13 +25,22 @@ class Atom:
 class Proof:
     assertions: frozenset[str] = frozenset()
     reviews: frozenset[str] = frozenset()
+    definitions: frozenset[str] = frozenset()
+    depth: int = 0
 
     def merge(self, other):
-        return Proof(self.assertions | other.assertions, self.reviews | other.reviews)
+        return Proof(self.assertions | other.assertions, self.reviews | other.reviews,
+                     self.definitions | other.definitions, max(self.depth, other.depth))
+
+    def derive(self, reference):
+        return Proof(self.assertions, self.reviews, self.definitions | {reference}, self.depth + 1)
+
+    def rank(self):
+        return (self.depth, sorted(self.assertions), sorted(self.reviews), sorted(self.definitions))
 
     def evidence(self, binding):
         return {"binding": dict(binding), "assertion_refs": sorted(self.assertions),
-                "review_refs": sorted(self.reviews), "definition_refs": []}
+                "review_refs": sorted(self.reviews), "definition_refs": sorted(self.definitions)}
 
 
 @dataclass

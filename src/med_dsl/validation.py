@@ -158,9 +158,9 @@ def _package(package):
             raise Problem("invalid_hash", "dependency.sha256")
 
 
-def packages(root, supplied):
+def _registry(roots, supplied):
     registry = {}
-    for package in [root, *values(supplied, 64, "dependency_packages")]:
+    for package in [*roots, *values(supplied, 64, "dependency_packages")]:
         _package(package)
         ref = package["ref"]
         if ref in registry and digest(registry[ref]) != digest(package):
@@ -168,6 +168,10 @@ def packages(root, supplied):
         registry[ref] = package
     if len(registry) > 64:
         raise Problem("package_limit", status="resource_limit")
+    return registry
+
+
+def _closure(roots, registry):
     ordered, seen, active = [], set(), set()
 
     def visit(ref):
@@ -187,7 +191,12 @@ def packages(root, supplied):
         seen.add(ref)
         ordered.append(registry[ref])
 
-    visit(root["ref"])
+    for root in roots:
+        visit(root["ref"])
+    return ordered
+
+
+def _signature(ordered):
     predicates = {}
     definition_count = inclusion_count = 0
     for package in ordered:
@@ -216,7 +225,23 @@ def packages(root, supplied):
             roles = [predicates[ref]["roles"] for ref in refs]
             if len(roles[0]) != 1 or roles[0] != roles[1]:
                 raise Problem("invalid_inclusion_roles")
-    return ordered, predicates
+    return predicates
+
+
+def packages(root, supplied):
+    ordered = _closure([root], _registry([root], supplied))
+    return ordered, _signature(ordered)
+
+
+def validate_extension(request):
+    base, extension = request["base_package"], request["extension"]
+    registry = _registry([base, extension], request.get("dependency_packages", []))
+    old = _closure([base], registry)
+    # 旧側を単独検証し、追加語彙が旧側の未解決参照を埋めることを防ぐ。
+    old_signature = _signature(old)
+    combined = _closure([base, extension], registry)
+    _signature(combined)
+    return old, combined, old_signature
 
 
 def _atom(value, predicates, pattern=False):

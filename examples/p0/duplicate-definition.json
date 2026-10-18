@@ -1,0 +1,87 @@
+{
+  "fixture_id": "P20",
+  "fixture_version": 1,
+  "schema_version": "p0-fixture-draft-1",
+  "fictional": true,
+  "review_state": "author_draft",
+  "source_cases": [
+    "S1",
+    "S2",
+    "K04"
+  ],
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "check_extension",
+    "base_package": {
+      "ref": "fiction:definitions:base@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:A@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:B@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "extension": {
+      "ref": "fiction:definitions:extension@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:N@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [
+        {
+          "kind": "defined",
+          "symbol": "fiction:N@1",
+          "all_of": [
+            "fiction:A@1"
+          ]
+        },
+        {
+          "kind": "subtype",
+          "symbol": "fiction:N@1",
+          "parent": "fiction:B@1"
+        }
+      ],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "duplicate_definition"
+        ]
+      }
+    ]
+  }
+}

@@ -1,10 +1,10 @@
 # R6：P0 の意味・入出力・受入条件
 
-作成日：2026-10-18。契約版：`p0-draft-1`。状態：P0 全体の研究仕様。P0-a の実装・開発テストは [実行記録](07-p0-a-results.md)、全体の受入評価・独立確認は未完了です。期待結果は作成者草案です。[短い試作仕様と D07](06-prototype-brief.md) を入口にします。
+作成日：2026-10-18。契約版：`p0-draft-1`。状態：P0 全体の研究仕様。P0-a/P0-b の実装・開発テストは [最新の実行記録](08-p0-b-results.md)、全体の受入評価・独立確認は未完了です。期待結果は作成者草案です。[短い試作仕様と D07](06-prototype-brief.md) を入口にします。
 
 ## 1. 三つの操作
 
-CLI は `PYTHONPATH=src python3 -m med_dsl <request.json>`、草案例は `--fixture <fixture.json>` で request だけを読みます。ライブラリの `evaluate(request)` を同じ入口で使い、入力を変更せず結果を返します。現在は query の事実照合と主張選択を実装済みで、check_extension/compare は明示的な未実装、定義推論を必要とする query は unassessed です。
+CLI は `PYTHONPATH=src python3 -m med_dsl <request.json>`、草案例は `--fixture <fixture.json>` で request だけを読みます。ライブラリの `evaluate(request)` を同じ入口で使い、入力を変更せず結果を返します。現在は check_extension と、query の事実照合・定義推論・主張選択を実装済みで、compare は明示的な未実装です。
 
 | operation | 入力 | 主な出力 |
 | --- | --- | --- |
@@ -25,7 +25,7 @@ CLI は `PYTHONPATH=src python3 -m med_dsl <request.json>`、草案例は `--fix
 | `inclusions` | `{sub:A, super:B}`。既存パッケージでは単項包含として解釈。追加パッケージの一般的な包含は構文上受け取れても自動認定の対象外 |
 | `dependencies` | `{ref, sha256}`。指定参照と実体ハッシュを照合。最新版へ自動解決しない。P0 の依存実体は request 内のパッケージ集合で与える |
 
-最初の三例は依存なしです。依存ありの request は操作共通の `dependency_packages` 配列を持ち、空の場合は省略可とします。同じ参照で異なる実体、未解決・循環する依存は入力不正です。profile 自体の版も照合します。
+最初の三例は依存なしです。依存ありの request は操作共通の `dependency_packages` 配列を持ち、空の場合は省略可とします。同じ参照で異なる実体、未解決・循環する依存は入力不正です。profile 自体の版も照合します。check_extension では旧側の依存閉包を先に単独検証し、extension の参照は旧側と追加側の和で解決します。旧側が追加側の新語彙を暗黙に参照することは許しません。
 
 `extension` は同じ項目を持ち、旧 package の内容を置き換えず追加します。認定には、次の条件を**全モジュールの依存閉包**で要求します。
 
@@ -79,7 +79,7 @@ assertion/review のローカル ID は ledger の版付き参照と組み合わ
 | 否定記録 | 採用した negative assertion の検索。これを任意の古典論理の否定推論器へ投入せず、対偶・背理・未記載からの否定を行わない |
 | 衝突 | 正の閉包と同じ context・同じ atom の否定記録がある場合。該当文脈の確定回答を止め、双方の根拠を返す |
 
-S1 の計算は `N→A`, `N→B`, `A∧B→N` に対応します。定義依存が非循環でもこの実行規則には往復があるため、単純な再帰展開を無制限に繰り返さず、有限の atom 集合の固定点として計算します。保存認定の範囲と、実装する問い合わせ断片も別に宣言します。
+S1 の計算は `N→A`, `N→B`, `A∧B→N` に対応します。定義依存が非循環でもこの実行規則には往復があるため、単純な再帰展開を無制限に繰り返さず、有限の atom 集合の固定点として計算します。保存認定の範囲と、実装する問い合わせ断片も別に宣言します。P0-b の query は循環包含・循環定義も有限の固定点として計算できますが、循環定義に保存認定は発行しません。各 view・context の閉包を完了してから衝突を調べ、同じ view・context の後続質問には閉包を再利用します。打切った閉包は再利用しません。
 
 query は `id, context_ref, atoms, required` を持ちます。atoms は一つ以上の正の atom パターン、定数は参照文字列、変数は `{var:"result"}` です。同じ変数は同じ参照に結合し、変数の直積を根拠なく生成しません。query 中の変数はすべて返す集合の意味とし、重複 binding を除きます。参照文字列の同一性だけで結合し、別参照間の同一人物・同一事象を暗黙に推論しません。未束縛変数の返却、同一文脈を越えた暗黙の結合、集約、OR、一般の NOT は対象外です。
 
@@ -105,6 +105,8 @@ compare は同じ view の参照時点・方針と同じ Q を二つの snapshot
 
 結果は `schema_version="p0-result-draft-1"`, `status`, `profile`, `input_sha256` と操作固有の値を持ちます。query の `results` は view ID・query ID 順、各 binding は変数名順に比較した組の順とし、根拠 ID の集合もソートします。result は `view, query, status, bindings, evidence, reason_codes` を持ちます。evidence は各成功 binding に対する `{binding, assertion_refs, review_refs, definition_refs}` の配列です。opposed/conflict の場合も、それを支持する同形式の根拠を残します。
 
+P0-b の定義根拠は `package_ref#/definitions/添字` または `package_ref#/inclusions/添字` です。query の `definition_sources` に参照・package_ref・package_sha256・入力内 pointer を返し、不変な入力の規則へ遡れます。配列順を変更したパッケージは別ハッシュ・別実体です。同じ直接 atom の主張・確認は集約し、導出では深さの小さい証明を優先、同じ深さなら assertion/review/definition のソート済み参照列を順に辞書比較して一つを選びます。事実ごとに証明を改善して固定点まで計算する方式で、全証明の列挙・全ての代替根拠・全体最小の証明は保証しません。問い合わせの結合で同じ binding に集まった根拠は従来どおり集合としてまとめます。
+
 応答のトップレベル status は `ok / invalid_input / unsupported_profile / resource_limit`。意味上の衝突・未知能力等は `results[]` の status と理由にも残します。`ok` は医学的妥当性や全項目の評価完了を意味しません。入力の正規化 SHA-256・契約版を結果に固定し、実装コミット・実行日時・所要時間は再現比較から分けた実験票で記録します。操作が失敗した場合は reason_codes と未完了の範囲を必須にし、成功時だけの項目を偽装して埋めません。
 
 ## 6. JSON・資源・再現性
@@ -128,11 +130,13 @@ UTF-8 の単一 JSON object を受け取り、重複 object key、NaN/Infinity�
 
 steps は規則の ground 適用候補の検査一回、または問い合わせで一つの候補 atom と現在の binding の照合一回ごとに 1 とし、実行順序は参照・atom・規則の辞書順で固定します。上限を超える次の操作の前に止め、完了していない一問の途中 binding を完全回答として返しません。0 は計算開始前の打切りです。時間や CPU に依存する決定不能性の判定ではありません。
 
+P0-b の認定操作は開始に 1、追加包含の検査・新記号の定義有無の検査・未訪問の定義の訪問・定義依存辺の検査に各 1 step を使います。構文・依存ハッシュの検証には件数・サイズ上限を適用し、認定計算の途中打切りでは certificate を返しません。推論は body の辞書順先頭の述語にある各 atom を ground 候補として数え、残りの連言要素も同じ引数で検査します。証明改善後の再走査・固定点の確認にも候補ごとに課金します。
+
 サイズ・件数上限も request の resource_limit とし、未完了の結果は unassessed、比較不能の理由を `resource_limit` にします。上限に合わせて黙って入力や候補を削除しません。Python の最小版 3.11 と実行確認済みの版は別記し、3.11 自体は現環境で未検証です。
 
 ## 7. 受入ケース P01〜P22
 
-R4 の既存ケースを置き換える評価セットではありません。P0 の実装受入条件です。全件は作成者草案、最初の P01・P07・P10 のみ [JSON 入出力例](../../examples/p0/README.md) を作成済みです。残りのケースの JSON 化・全件の実行は次の実装作業に含めます。
+R4 の既存ケースを置き換える評価セットではありません。P0 の実装受入条件です。全件は作成者草案、P01〜P05・P07・P10・P19・P20 の 9 ケースを [13 の JSON 入出力例](../../examples/p0/README.md) に具体化し、P0-b で実行しました。残りのケースの JSON 化・全件の実行は後続の実装作業に含めます。
 
 | ID | 入力・操作 | 必須の期待結果 | 根拠・対応 |
 | --- | --- | --- | --- |
@@ -165,6 +169,6 @@ P01・P02・P07・P10・P15 の正例は必ず結果を返すことを求め、�
 
 Python の [json](https://docs.python.org/3.11/library/json.html) の重複キー取得・非有限数の処理、[hashlib](https://docs.python.org/3.11/library/hashlib.html) の SHA-256、[unittest](https://docs.python.org/3.11/library/unittest.html) のテスト実行を使う方針です。2026-10-18 に公式の 3.11 系文書で確認しました。独自に作るのは、P0 の参照検証、意味の断片、選択方針、認定と比較です。
 
-配置は `src/med_dsl/`、テストは `python3 -m unittest discover -s tests` です。model/validation/ledger/query/cli と公開 evaluate を実装済みで、definitions/compare は後続です。標準ライブラリの unittest を使い、新しいテスト framework、サーバー、アカウント、JavaScript 依存は追加していません。
+配置は `src/med_dsl/`、テストは `python3 -m unittest discover -s tests` です。model/validation/definitions/ledger/query/cli と公開 evaluate を実装済みで、compare は後続です。標準ライブラリの unittest を使い、新しいテスト framework、サーバー、アカウント、JavaScript 依存は追加していません。
 
 各段階の開発テストは、事前草案とテスト内の明示的な派生入力で進めます。P01〜P22 の全受入評価の前には全件を JSON 化し、実装コミット、草案入力・期待値の hash、profile、上限を実験票へ固定します。これは作成者草案による工学的検証です。R4 の独立確認・裁定後の正解凍結は別途行い、現在の草案スナップショットを独立確認済みと呼びません。

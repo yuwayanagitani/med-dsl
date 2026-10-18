@@ -1,5 +1,6 @@
-"""P0-a: 定義を必要としない有限の役割付き事実への問い合わせ。"""
+"""文脈ごとの正の閉包と、有限の役割付き事実への問い合わせ。"""
 
+from .definitions import compile_rules, positive_closure
 from .ledger import select_view
 from .model import Budget, Proof, Problem, atom
 
@@ -62,10 +63,13 @@ def run_query(request, ordered_packages):
     result = {"status": "ok", "views": [], "results": [], "reason_codes": [],
               "retained_assertions": sorted(x["id"] for x in request["ledger"]["assertions"]),
               "incomplete": []}
-    needs_reasoner = any(p["definitions"] or p["inclusions"] for p in ordered_packages)
+    rules, sources = compile_rules(ordered_packages)
+    if sources:
+        result["definition_sources"] = sources
     for view in sorted(request["views"], key=lambda x: x["id"]):
         metadata, positive, negative, unknown = select_view(request["ledger"], view)
         result["views"].append(metadata)
+        closures, failures = {}, {}
         for query in sorted(request["queries"], key=lambda x: x["id"]):
             context = query["context_ref"]
             facts, denials = positive.get(context, {}), negative.get(context, {})
@@ -77,9 +81,16 @@ def run_query(request, ordered_packages):
                 if context in unknown:
                     row["reason_codes"] = ["unknown_capability"]
                     row["missing_capabilities"] = sorted(unknown[context])
-                elif needs_reasoner:
-                    row["reason_codes"] = ["definition_reasoning_not_implemented"]
                 else:
+                    if context in failures:
+                        raise Problem(failures[context], status="resource_limit")
+                    if context not in closures:
+                        try:
+                            closures[context] = positive_closure(facts, rules, budget)
+                        except Problem as problem:
+                            failures[context] = problem.code
+                            raise
+                    facts = closures[context]
                     collisions = sorted(set(facts) & set(denials))
                     if collisions:
                         proof = Proof()

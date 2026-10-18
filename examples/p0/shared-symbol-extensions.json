@@ -1,0 +1,109 @@
+{
+  "fixture_id": "P04",
+  "fixture_version": 1,
+  "schema_version": "p0-fixture-draft-1",
+  "fictional": true,
+  "review_state": "author_draft",
+  "source_cases": [
+    "K04"
+  ],
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "check_extension",
+    "base_package": {
+      "ref": "fiction:definitions:base@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:A@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:B@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "extension": {
+      "ref": "fiction:definitions:extension@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:N@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [
+        {
+          "kind": "defined",
+          "symbol": "fiction:N@1",
+          "all_of": [
+            "fiction:A@1",
+            "fiction:B@1"
+          ]
+        }
+      ],
+      "inclusions": [],
+      "dependencies": [
+        {
+          "ref": "fiction:definitions:other-extension@1",
+          "sha256": "de7908cfd806ca3a6761998250b4edcde2b3613e72ca1ec2e1f78c89e3673c42"
+        }
+      ]
+    },
+    "budget": {
+      "max_steps": 100000
+    },
+    "dependency_packages": [
+      {
+        "ref": "fiction:definitions:other-extension@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:N@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [
+          {
+            "kind": "subtype",
+            "symbol": "fiction:N@1",
+            "parent": "fiction:A@1"
+          }
+        ],
+        "inclusions": [],
+        "dependencies": []
+      }
+    ]
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "predicate_owner_conflict"
+        ]
+      }
+    ]
+  }
+}

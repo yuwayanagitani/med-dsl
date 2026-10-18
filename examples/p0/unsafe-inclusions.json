@@ -1,0 +1,98 @@
+{
+  "fixture_id": "P03",
+  "fixture_version": 1,
+  "schema_version": "p0-fixture-draft-1",
+  "fictional": true,
+  "review_state": "author_draft",
+  "source_cases": [
+    "K03"
+  ],
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "check_extension",
+    "base_package": {
+      "ref": "fiction:definitions:base@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:A@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:B@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "extension": {
+      "ref": "fiction:definitions:extension@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:N@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [
+        {
+          "sub": "fiction:A@1",
+          "super": "fiction:N@1"
+        },
+        {
+          "sub": "fiction:N@1",
+          "super": "fiction:B@1"
+        }
+      ],
+      "dependencies": []
+    },
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "reason_codes"
+        ],
+        "equals": [
+          "additional_inclusions",
+          "missing_definition"
+        ]
+      },
+      {
+        "path": [
+          "certificate",
+          "scope",
+          "old_data_only"
+        ],
+        "equals": true
+      }
+    ]
+  }
+}
