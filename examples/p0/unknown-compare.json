@@ -1,0 +1,407 @@
+{
+  "fixture_id": "P14",
+  "fixture_version": 1,
+  "schema_version": "p0-fixture-draft-1",
+  "fictional": true,
+  "review_state": "author_draft",
+  "source_cases": [
+    "K13"
+  ],
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "compare",
+    "before": {
+      "package": {
+        "ref": "fiction:definitions:combined@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:A@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:B@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:N@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [
+          {
+            "kind": "defined",
+            "symbol": "fiction:N@1",
+            "all_of": [
+              "fiction:A@1",
+              "fiction:B@1"
+            ]
+          }
+        ],
+        "inclusions": [],
+        "dependencies": []
+      },
+      "contexts": [
+        {
+          "ref": "fiction:context:observation@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2026-01-10T09:00:00Z",
+          "purpose": "fiction:research"
+        },
+        {
+          "ref": "fiction:context:other@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2026-01-10T09:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:definitions@1",
+        "assertions": [
+          {
+            "id": "h1",
+            "context_ref": "fiction:context:observation@1",
+            "atom": {
+              "predicate": "fiction:A@1",
+              "args": [
+                "fiction:a"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P14:source:h1@1"
+            },
+            "supersedes": [],
+            "required_capabilities": []
+          },
+          {
+            "id": "h2",
+            "context_ref": "fiction:context:observation@1",
+            "atom": {
+              "predicate": "fiction:B@1",
+              "args": [
+                "fiction:a"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P14:source:h2@1"
+            },
+            "supersedes": [],
+            "required_capabilities": []
+          },
+          {
+            "id": "h3",
+            "context_ref": "fiction:context:other@1",
+            "atom": {
+              "predicate": "fiction:A@1",
+              "args": [
+                "fiction:a"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P14:source:h3@1"
+            },
+            "supersedes": [],
+            "required_capabilities": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "r1",
+            "assertion_ref": "h1",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T10:05:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "r2",
+            "assertion_ref": "h2",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T10:05:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "r3",
+            "assertion_ref": "h3",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T11:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      }
+    },
+    "after": {
+      "package": {
+        "ref": "fiction:definitions:combined@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:A@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:B@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:N@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [
+          {
+            "kind": "defined",
+            "symbol": "fiction:N@1",
+            "all_of": [
+              "fiction:A@1",
+              "fiction:B@1"
+            ]
+          }
+        ],
+        "inclusions": [],
+        "dependencies": []
+      },
+      "contexts": [
+        {
+          "ref": "fiction:context:observation@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2026-01-10T09:00:00Z",
+          "purpose": "fiction:research"
+        },
+        {
+          "ref": "fiction:context:other@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2026-01-10T09:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:unknown@1",
+        "assertions": [
+          {
+            "id": "h1",
+            "context_ref": "fiction:context:observation@1",
+            "atom": {
+              "predicate": "fiction:A@1",
+              "args": [
+                "fiction:a"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P14:source:h1@1"
+            },
+            "supersedes": [],
+            "required_capabilities": [
+              "fiction:unknown-negation@1"
+            ]
+          },
+          {
+            "id": "h2",
+            "context_ref": "fiction:context:observation@1",
+            "atom": {
+              "predicate": "fiction:B@1",
+              "args": [
+                "fiction:a"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P14:source:h2@1"
+            },
+            "supersedes": [],
+            "required_capabilities": []
+          },
+          {
+            "id": "h3",
+            "context_ref": "fiction:context:other@1",
+            "atom": {
+              "predicate": "fiction:A@1",
+              "args": [
+                "fiction:a"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P14:source:h3@1"
+            },
+            "supersedes": [],
+            "required_capabilities": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "r1",
+            "assertion_ref": "h1",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T10:05:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "r2",
+            "assertion_ref": "h2",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T10:05:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "r3",
+            "assertion_ref": "h3",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T11:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      }
+    },
+    "view": {
+      "id": "v1",
+      "as_of": "2026-01-10T12:00:00Z",
+      "policy_ref": "fiction:confirmed-explicit-revision@1"
+    },
+    "queries": [
+      {
+        "id": "q1",
+        "context_ref": "fiction:context:observation@1",
+        "atoms": [
+          {
+            "predicate": "fiction:N@1",
+            "args": [
+              "fiction:a"
+            ]
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "q2",
+        "context_ref": "fiction:context:other@1",
+        "atoms": [
+          {
+            "predicate": "fiction:A@1",
+            "args": [
+              "fiction:a"
+            ]
+          }
+        ],
+        "required": true
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "incomparable"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "lost"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "added"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reason_codes"
+        ],
+        "equals": [
+          "after_unassessed",
+          "after_unknown_capability"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "status"
+        ],
+        "equals": "compared"
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "unchanged"
+        ],
+        "equals": [
+          {}
+        ]
+      },
+      {
+        "path": [
+          "after",
+          "results",
+          0,
+          "blocking_assertion_refs"
+        ],
+        "equals": [
+          "h1"
+        ]
+      }
+    ]
+  }
+}

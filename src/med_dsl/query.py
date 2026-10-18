@@ -58,8 +58,9 @@ def _answer(query, facts, negative, budget):
     return "undetermined", [], []
 
 
-def run_query(request, ordered_packages):
-    budget = Budget(request["budget"]["max_steps"])
+def run_query(request, ordered_packages, budget=None):
+    if budget is None:
+        budget = Budget(request["budget"]["max_steps"])
     result = {"status": "ok", "views": [], "results": [], "reason_codes": [],
               "retained_assertions": sorted(x["id"] for x in request["ledger"]["assertions"]),
               "incomplete": []}

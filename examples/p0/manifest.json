@@ -10,7 +10,9 @@
     "P03",
     "P04",
     "P05",
+    "P06",
     "P07",
+    "P08",
     "P09",
     "P10",
     "P11",
@@ -18,7 +20,9 @@
     "P13",
     "P14",
     "P15",
+    "P16",
     "P17",
+    "P18",
     "P19",
     "P20",
     "P21",
@@ -186,6 +190,66 @@
       "path": "unsupported-existence-profile.json",
       "sha256": "8f8e061b6ae43ab931ecd89c91e0fd525af7887ff88b10b3f938ac0ff5e4aa53",
       "bytes": 2787
+    },
+    {
+      "fixture_id": "P18",
+      "path": "binding-limit.json",
+      "sha256": "6ba64477b3dec670698a2f89607963ed5b0fc1c3b25242989e5f382ef5bc96c5",
+      "bytes": 27532
+    },
+    {
+      "fixture_id": "P12",
+      "path": "conflict-compare.json",
+      "sha256": "3649a46dfb8567fe9fc310ad0be2cb74a245e42f9efe68235b3fa4f298c80a27",
+      "bytes": 5745
+    },
+    {
+      "fixture_id": "P06",
+      "path": "dependency-hash-mismatch.json",
+      "sha256": "7de0799fabccabd56e58f84fa7d176e76964e439ab506f20d96dae7e82d40991",
+      "bytes": 4777
+    },
+    {
+      "fixture_id": "P16",
+      "path": "duplicate-assertion.json",
+      "sha256": "0332ef09a5e33d8741df61bd4d7e27a5209c028dce5feffaa93a444a6dc99e9a",
+      "bytes": 4909
+    },
+    {
+      "fixture_id": "P11",
+      "path": "mapped-context-compare.json",
+      "sha256": "3f408a4d10ff2041f27de12018e8d4a9eada42c4c8c53bc8056af530dab46aed",
+      "bytes": 7524
+    },
+    {
+      "fixture_id": "P19",
+      "path": "membership-compare.json",
+      "sha256": "91d4b70f54a3106cbfa3fbd07da5aed6eb5b5a2ef305796c894393b34cf4d8c1",
+      "bytes": 5802
+    },
+    {
+      "fixture_id": "P08",
+      "path": "projection-compare.json",
+      "sha256": "b18fc5f2c3a8ffb7f9f295eb05b5d679c383018f90429347f45875285c166ab9",
+      "bytes": 13534
+    },
+    {
+      "fixture_id": "P16",
+      "path": "redefined-package.json",
+      "sha256": "9546c315f334f9469ad799af890fbecdb3f5ad5284fe5996bbfa3f5ba768a67c",
+      "bytes": 7283
+    },
+    {
+      "fixture_id": "P14",
+      "path": "unknown-compare.json",
+      "sha256": "dfd3d2c54a54db16fd891832214f9a60251033fe77cfbc56be18401902623682",
+      "bytes": 9992
+    },
+    {
+      "fixture_id": "P18",
+      "path": "zero-step-budget.json",
+      "sha256": "a6c9e9dffd520c8335254053cf855820189f1c50e477018aad6efa71a88fd17f",
+      "bytes": 4525
     }
   ]
 }

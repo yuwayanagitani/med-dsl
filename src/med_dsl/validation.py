@@ -263,15 +263,20 @@ def _atom(value, predicates, pattern=False):
     return variables
 
 
-def validate_query(request):
-    fields(request, ("schema_version", "operation", "package", "contexts", "ledger", "views", "queries", "budget"), ("dependency_packages",))
-    ordered, predicates = packages(request["package"], request.get("dependency_packages", []))
-    contexts = indexed(request["contexts"], "ref", 1000, "contexts")
+def _contexts(items):
+    contexts = indexed(items, "ref", 1000, "contexts")
     for context in contexts.values():
         fields(context, ("ref", "subject_ref", "effective_at", "purpose"))
         for key in ("subject_ref", "purpose"):
             string(context[key], "context." + key)
         timestamp(context["effective_at"], "context.effective_at")
+    return contexts
+
+
+def validate_query(request):
+    fields(request, ("schema_version", "operation", "package", "contexts", "ledger", "views", "queries", "budget"), ("dependency_packages",))
+    ordered, predicates = packages(request["package"], request.get("dependency_packages", []))
+    contexts = _contexts(request["contexts"])
     ledger = request["ledger"]
     fields(ledger, ("ref", "assertions", "reviews"), path="ledger")
     string(ledger["ref"], "ledger.ref")
@@ -334,6 +339,67 @@ def validate_query(request):
         if len(variables) > 4:
             raise Problem("variable_limit", status="resource_limit")
     return ordered
+
+
+def validate_compare(request):
+    before, after = request["before"], request["after"]
+    for side in ("before", "after"):
+        fields(request[side], ("package", "contexts", "ledger"), path=side)
+    # 両側を一つの参照空間で検査するが、理論の閉包・所有者は各側で解決する。
+    registry = _registry([before["package"], after["package"]], request.get("dependency_packages", []))
+    contexts = {side: _contexts(request[side]["contexts"]) for side in ("before", "after")}
+    left, right = contexts["before"], contexts["after"]
+    for ref in sorted(set(left) & set(right)):
+        if left[ref] != right[ref]:
+            raise Problem("context_redefined", ref)
+    mapping = {}
+    for pair in values(request.get("context_map", []), 1000, "context_map"):
+        fields(pair, ("before_ref", "after_ref"), path="context_map")
+        for key in ("before_ref", "after_ref"):
+            string(pair[key], "context_map." + key)
+        source, target = pair["before_ref"], pair["after_ref"]
+        if source in mapping:
+            raise Problem("duplicate_context_mapping", source)
+        if source not in left or target not in right:
+            raise Problem("unresolved_context_mapping", source)
+        if any(left[source][key] != right[target][key] for key in ("subject_ref", "effective_at", "purpose")):
+            raise Problem("context_mismatch", source)
+        mapping[source] = target
+    resolved = {ref: mapping.get(ref, ref) for ref in left if mapping.get(ref, ref) in right}
+    if len(set(resolved.values())) != len(resolved):
+        raise Problem("noninjective_context_mapping", "context_map")
+    inputs, closures = {}, {}
+    for side in ("before", "after"):
+        queries = request["queries"]
+        if side == "after":
+            # before 側で全 query の構文検証を完了してから複製する。
+            queries = [{**q, "context_ref": mapping.get(q["context_ref"], q["context_ref"])} for q in queries]
+        side_input = {"schema_version": request["schema_version"], "operation": "query",
+                      **request[side], "views": [request["view"]], "queries": queries,
+                      "dependency_packages": list(registry.values()), "budget": request["budget"]}
+        try:
+            closures[side] = validate_query(side_input)
+        except Problem as problem:
+            raise Problem(problem.code, side + "." + problem.path, problem.status) from problem
+        inputs[side] = side_input
+    if before["ledger"]["ref"] == after["ledger"]["ref"] and digest(before["ledger"]) != digest(after["ledger"]):
+        raise Problem("ledger_reference_redefined", before["ledger"]["ref"])
+    # 同じ述語参照の役割・明示定義は左右で不変。一般包含の版更新とは分ける。
+    meanings, union = {}, {}
+    for side in ("before", "after"):
+        for package in closures[side]:
+            union[package["ref"]] = package
+            definitions = {d["symbol"]: d for d in package["definitions"]}
+            for predicate in package["predicates"]:
+                descriptor = (predicate, definitions.get(predicate["ref"]))
+                ref = predicate["ref"]
+                if ref in meanings and meanings[ref] != descriptor:
+                    raise Problem("predicate_redefined", ref)
+                meanings[ref] = descriptor
+    if (len(meanings) > 64 or sum(len(p["definitions"]) for p in union.values()) > 64
+            or sum(len(p["inclusions"]) for p in union.values()) > 64):
+        raise Problem("definition_limit", status="resource_limit")
+    return inputs, closures
 
 
 def validate_header(request):

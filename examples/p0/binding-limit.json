@@ -1,0 +1,986 @@
+{
+  "fixture_id": "P18",
+  "fixture_version": 1,
+  "schema_version": "p0-fixture-draft-1",
+  "fictional": true,
+  "review_state": "author_draft",
+  "source_cases": [
+    "D16"
+  ],
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "query",
+    "package": {
+      "ref": "fiction:definitions:binding-limit@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:item@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "contexts": [
+      {
+        "ref": "fiction:context:observation@1",
+        "subject_ref": "fiction:person:1",
+        "effective_at": "2026-01-10T09:00:00Z",
+        "purpose": "fiction:research"
+      }
+    ],
+    "ledger": {
+      "ref": "fiction:ledger:binding-limit@1",
+      "assertions": [
+        {
+          "id": "h00",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:00"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:0@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h01",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:01"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:1@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h02",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:02"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:2@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h03",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:03"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:3@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h04",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:04"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:4@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h05",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:05"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:5@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h06",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:06"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:6@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h07",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:07"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:7@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h08",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:08"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:8@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h09",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:09"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:9@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h10",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:10"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:10@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h11",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:11"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:11@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h12",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:12"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:12@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h13",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:13"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:13@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h14",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:14"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:14@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h15",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:15"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:15@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h16",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:16"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:16@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h17",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:17"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:17@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h18",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:18"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:18@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h19",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:19"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:19@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h20",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:20"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:20@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h21",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:21"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:21@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h22",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:22"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:22@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h23",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:23"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:23@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h24",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:24"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:24@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h25",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:25"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:25@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h26",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:26"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:26@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h27",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:27"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:27@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h28",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:28"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:28@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h29",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:29"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:29@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h30",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:30"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:30@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h31",
+          "context_ref": "fiction:context:observation@1",
+          "atom": {
+            "predicate": "fiction:item@1",
+            "args": [
+              "fiction:item:31"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2026-01-10T10:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:P18:source:31@1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        }
+      ],
+      "reviews": [
+        {
+          "id": "r00",
+          "assertion_ref": "h00",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r01",
+          "assertion_ref": "h01",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r02",
+          "assertion_ref": "h02",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r03",
+          "assertion_ref": "h03",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r04",
+          "assertion_ref": "h04",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r05",
+          "assertion_ref": "h05",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r06",
+          "assertion_ref": "h06",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r07",
+          "assertion_ref": "h07",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r08",
+          "assertion_ref": "h08",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r09",
+          "assertion_ref": "h09",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r10",
+          "assertion_ref": "h10",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r11",
+          "assertion_ref": "h11",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r12",
+          "assertion_ref": "h12",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r13",
+          "assertion_ref": "h13",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r14",
+          "assertion_ref": "h14",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r15",
+          "assertion_ref": "h15",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r16",
+          "assertion_ref": "h16",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r17",
+          "assertion_ref": "h17",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r18",
+          "assertion_ref": "h18",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r19",
+          "assertion_ref": "h19",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r20",
+          "assertion_ref": "h20",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r21",
+          "assertion_ref": "h21",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r22",
+          "assertion_ref": "h22",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r23",
+          "assertion_ref": "h23",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r24",
+          "assertion_ref": "h24",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r25",
+          "assertion_ref": "h25",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r26",
+          "assertion_ref": "h26",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r27",
+          "assertion_ref": "h27",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r28",
+          "assertion_ref": "h28",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r29",
+          "assertion_ref": "h29",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r30",
+          "assertion_ref": "h30",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r31",
+          "assertion_ref": "h31",
+          "reviewer_ref": "fiction:reviewer:H1",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-01-10T10:05:00Z",
+          "outcome": "confirmed"
+        }
+      ]
+    },
+    "views": [
+      {
+        "id": "v1",
+        "as_of": "2026-01-10T12:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "context_ref": "fiction:context:observation@1",
+        "atoms": [
+          {
+            "predicate": "fiction:item@1",
+            "args": [
+              {
+                "var": "x"
+              }
+            ]
+          },
+          {
+            "predicate": "fiction:item@1",
+            "args": [
+              {
+                "var": "y"
+              }
+            ]
+          }
+        ],
+        "required": false
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "binding_limit"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "unassessed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "bindings"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "evidence"
+        ],
+        "equals": []
+      }
+    ]
+  }
+}

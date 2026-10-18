@@ -2,8 +2,9 @@
 
 from .model import PROFILE, Problem
 from .definitions import check_extension
+from .compare import run_compare
 from .query import run_query
-from .validation import check_json, validate_extension, validate_header, validate_query
+from .validation import check_json, validate_compare, validate_extension, validate_header, validate_query
 
 __all__ = ["evaluate"]
 
@@ -19,7 +20,7 @@ def evaluate(request):
             packages = validate_query(request)
             response = run_query(request, packages)
         else:
-            raise Problem("operation_not_implemented", "operation", "unsupported_profile")
+            response = run_compare(request, *validate_compare(request))
     except Problem as problem:
         response = {"status": problem.status, "reason_codes": [problem.code],
                     "error_path": problem.path, "incomplete": ["request"]}

@@ -4,7 +4,7 @@
 
 ## 1. 三つの操作
 
-CLI は `PYTHONPATH=src python3 -m med_dsl <request.json>`、草案例は `--fixture <fixture.json>` で request だけを読みます。ライブラリの `evaluate(request)` を同じ入口で使い、入力を変更せず結果を返します。現在は check_extension と、query の事実照合・定義推論・主張選択を実装済みで、compare は明示的な未実装です。
+CLI は `PYTHONPATH=src python3 -m med_dsl <request.json>`、草案例は `--fixture <fixture.json>` で request だけを読みます。ライブラリの `evaluate(request)` を同じ入口で使い、入力を変更せず結果を返します。check_extension、query、compare を実装済みです。P0-d で指定した支持問い合わせの前後比較を追加しました。
 
 | operation | 入力 | 主な出力 |
 | --- | --- | --- |
@@ -103,7 +103,19 @@ query は `id, context_ref, atoms, required` を持ちます。atoms は一つ�
 
 compare は同じ view の参照時点・方針と同じ Q を二つの snapshot に適用します。新旧の context 参照を対応付ける場合は `context_map` を明示し、subject/effective_at/purpose の一致を確認します。初期例では同じ context_ref を使います。
 
+P0-d の snapshot は `package, contexts, ledger` だけを持ちます。`view` は共通の一つで、各 query の context_ref は before 側を指します。context_map の形式は `[{before_ref, after_ref}]`。省略した参照は同じ参照へ対応し、明示対応は存在する参照間で一対一に限ります。暗黙の同一参照への対応も含めて合流を拒否し、subject_ref/effective_at/purpose の一致を検査します。同じ context_ref のメタデータを変える入力も拒否します。Q の述語・役割・引数は左右両方で妥当であることを要求し、片側の未宣言語彙を自動注入しません。
+
+両側のパッケージ参照と supplied dependency_packages を一つのレジストリで照合します。各側の推論はその側の明示依存閉包だけで実行し、他方の理論を暗黙に混ぜません。同じ package ref の異なる実体を拒否し、異なる package 版でも同じ predicate ref の roles と明示定義は構造が一致することを要求します。一般包含を別版で追加・除去することとは分けます。明示定義の構造比較は論理的同値の完全判定ではなく、同じ all_of の並べ替えも同一構造とはしません。
+
+同じ ledger ref に異なる実体を与えることも入力不正です。台帳を変更した snapshot は別の版付き参照にします。異なる台帳の同じローカル h1 を同一主張として統合しません。両側を検証し終えてから計算するため、計算予算 0 でも入力不正を先に返します。
+
 前では支持され後では支持されない binding を `lost`、後で新たに支持される binding を `added` とします。これは**指定した支持問い合わせの差**で、外部コード全体の意味差分や、医学的な新事実の有無とは別です。左右いずれかが unassessed/conflict ならその問い合わせを比較不能として残し、lost/added を空集合と断言しません。追加の補助情報・原記録を使う場合は別 snapshot として B0/B1 を分けます。
+
+compare の `scope` は `positive_query_bindings`。before/after にそれぞれ query の結果・採用履歴・定義根拠と、package_ref・ledger_ref・snapshot_sha256 を返します。snapshot のハッシュは package/contexts/ledger 全体の正規化 SHA-256、依存実体は package の指定ハッシュと入力全体のハッシュで固定します。
+
+compare の `results` は query ID 順です。各行は view/query、before_context_ref/after_context_ref、before_status/after_status、status、lost/added/unchanged、lost_evidence/added_evidence、reason_codes を持ちます。左右が supported/opposed/undetermined のいずれかなら status=compared とし、binding の差・共通部分をソートして返します。喪失根拠は before、追加根拠は after から取り、それぞれ ledger_ref を付けてローカル ID の所属を明示します。否定支持や根拠だけの変化は支持 binding の追加・喪失とはしませんが、両側の状態・根拠は残します。
+
+どちらかが conflict/unassessed なら status=incomparable とし、差分・共通部分・差分根拠の五項目は null、理由には側を付けます（after_conflict、after_unknown_capability、after_step_limit 等）。比較不能の query を incomplete に列挙します。上限到達で全体 status が resource_limit になっても、既に左右の計算を完了した query の比較は残します。根拠が異なるだけで同じ binding が支持され続ける場合は unchanged で、両側の evidence を参照します。
 
 結果は `schema_version="p0-result-draft-1"`, `status`, `profile`, `input_sha256` と操作固有の値を持ちます。query の `results` は view ID・query ID 順、各 binding は変数名順に比較した組の順とし、根拠 ID の集合もソートします。result は `view, query, status, bindings, evidence, reason_codes` を持ちます。evidence は各成功 binding に対する `{binding, assertion_refs, review_refs, definition_refs}` の配列です。opposed/conflict の場合も、それを支持する同形式の根拠を残します。P0-c の conflict は `conflicts` 配列に、衝突した ground `atom` と `positive_evidence`、`negative_evidence` を atom 順で返します。既存の evidence に集約した両根拠も維持し、どの主張・定義がどちらの符号を支えるかを区別できます。
 
@@ -132,13 +144,15 @@ UTF-8 の単一 JSON object を受け取り、重複 object key、NaN/Infinity�
 
 steps は規則の ground 適用候補の検査一回、または問い合わせで一つの候補 atom と現在の binding の照合一回ごとに 1 とし、実行順序は参照・atom・規則の辞書順で固定します。上限を超える次の操作の前に止め、完了していない一問の途中 binding を完全回答として返しません。0 は計算開始前の打切りです。時間や CPU に依存する決定不能性の判定ではありません。
 
+compare の max_steps は左右で共有し、before の query ID 順を計算してから after を計算します。片側ごとに予算をリセットしません。一般の集合差の計算は ground 規則・atom 照合とは別であり、このカウンターへ追加しません。入力サイズは request 全体、パッケージ数・述語・定義・包含は両側の到達閉包の和を対象とします。パッケージは参照で、述語は同じ不変な参照で重複を除き、定義・包含は別パッケージの項目数を合計します。文脈と台帳の各件数上限は snapshot ごとです。
+
 P0-b の認定操作は開始に 1、追加包含の検査・新記号の定義有無の検査・未訪問の定義の訪問・定義依存辺の検査に各 1 step を使います。構文・依存ハッシュの検証には件数・サイズ上限を適用し、認定計算の途中打切りでは certificate を返しません。推論は body の辞書順先頭の述語にある各 atom を ground 候補として数え、残りの連言要素も同じ引数で検査します。証明改善後の再走査・固定点の確認にも候補ごとに課金します。
 
 サイズ・件数上限も request の resource_limit とし、未完了の結果は unassessed、比較不能の理由を `resource_limit` にします。上限に合わせて黙って入力や候補を削除しません。Python の最小版 3.11 と実行確認済みの版は別記し、3.11 自体は現環境で未検証です。
 
 ## 7. 受入ケース P01〜P22
 
-R4 の既存ケースを置き換える評価セットではありません。P0 の実装受入条件です。全件は作成者草案、P0-c までに 18 ケースを [27 の JSON 入出力例](../../examples/p0/README.md) に具体化・実行しました。未 JSON 化の P06・P08・P16・P18 と、compare・全件の受入評価は P0-d の作業に含めます。
+R4 の既存ケースを置き換える評価セットではありません。P0 の実装受入条件です。全件は作成者草案、P0-d で全 22 ケースを [37 の JSON 入出力例](../../examples/p0/README.md) に具体化しました。作成者草案の指定パス・再実行の照合を評価スクリプトで記録します。独立確認後の正解による評価・R4 全体の評価とは分けます。
 
 | ID | 入力・操作 | 必須の期待結果 | 根拠・対応 |
 | --- | --- | --- | --- |
@@ -173,6 +187,6 @@ P01・P02・P07・P10・P15 の正例は必ず結果を返すことを求め、�
 
 Python の [json](https://docs.python.org/3.11/library/json.html) の重複キー取得・非有限数の処理、[hashlib](https://docs.python.org/3.11/library/hashlib.html) の SHA-256、[unittest](https://docs.python.org/3.11/library/unittest.html) のテスト実行を使う方針です。2026-10-18 に公式の 3.11 系文書で確認しました。独自に作るのは、P0 の参照検証、意味の断片、選択方針、認定と比較です。
 
-配置は `src/med_dsl/`、テストは `python3 -m unittest discover -s tests` です。model/validation/definitions/ledger/query/cli と公開 evaluate を実装済みで、compare は後続です。標準ライブラリの unittest を使い、新しいテスト framework、サーバー、アカウント、JavaScript 依存は追加していません。
+配置は `src/med_dsl/`、テストは `python3 -m unittest discover -s tests` です。model/validation/definitions/ledger/query/compare/cli と公開 evaluate を実装済みです。全 22 ケースの記録は `python3 scripts/research/evaluate-p0.py --cli` で再現できます。標準ライブラリの unittest を使い、新しいテスト framework、サーバー、アカウント、JavaScript 依存は追加していません。
 
 各段階の開発テストは、事前草案とテスト内の明示的な派生入力で進めます。P01〜P22 の全受入評価の前には全件を JSON 化し、実装コミット、草案入力・期待値の hash、profile、上限を実験票へ固定します。これは作成者草案による工学的検証です。R4 の独立確認・裁定後の正解凍結は別途行い、現在の草案スナップショットを独立確認済みと呼びません。

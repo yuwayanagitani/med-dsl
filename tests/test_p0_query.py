@@ -317,10 +317,10 @@ class ValidationTests(unittest.TestCase):
         request = deepcopy(self.request); request["cycle"] = request
         self.assertEqual(evaluate(request)["status"], "resource_limit")
 
-    def test_unsupported_operation_and_profile_are_explicit(self):
+    def test_invalid_compare_and_unsupported_profile_are_explicit(self):
         compare = {"schema_version": "p0-request-draft-1", "operation": "compare",
                    "before": {}, "after": {}, "view": {}, "queries": [], "budget": {"max_steps": 100}}
-        self.assertEqual(evaluate(compare)["reason_codes"], ["operation_not_implemented"])
+        self.assertEqual(evaluate(compare)["reason_codes"], ["missing_field"])
         self.request["package"]["profile"] = "fiction:exists@1"
         self.assertEqual(evaluate(self.request)["status"], "unsupported_profile")
 
@@ -347,14 +347,15 @@ class CliTests(unittest.TestCase):
         self.assertEqual(process.returncode, 4)
         self.assertEqual(json.loads(process.stdout)["status"], "resource_limit")
 
-    def test_io_failure_and_unimplemented_operation_exit_codes(self):
+    def test_io_failure_invalid_compare_and_unsupported_profile_exit_codes(self):
         self.assertEqual(self.run_cli("does-not-exist.json").returncode, 2)
         process = self.run_cli("--fixture", "examples/p0/definition-extension.json")
         self.assertEqual(process.returncode, 0)
         self.assertEqual(json.loads(process.stdout)["certificate"]["status"], "certified")
         request = {"schema_version": "p0-request-draft-1", "operation": "compare",
                    "before": {}, "after": {}, "view": {}, "queries": [], "budget": {"max_steps": 100}}
-        self.assertEqual(self.run_cli("-", raw=json.dumps(request).encode()).returncode, 3)
+        self.assertEqual(self.run_cli("-", raw=json.dumps(request).encode()).returncode, 2)
+        self.assertEqual(self.run_cli("--fixture", "examples/p0/unsupported-existence-profile.json").returncode, 3)
 
 
 if __name__ == "__main__":

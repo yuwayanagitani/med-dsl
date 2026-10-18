@@ -1,0 +1,278 @@
+{
+  "fixture_id": "P19",
+  "fixture_version": 1,
+  "schema_version": "p0-fixture-draft-1",
+  "fictional": true,
+  "review_state": "author_draft",
+  "source_cases": [
+    "S2"
+  ],
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "compare",
+    "before": {
+      "package": {
+        "ref": "fiction:definitions:combined@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:A@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:B@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:N@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [
+          {
+            "kind": "subtype",
+            "symbol": "fiction:N@1",
+            "parent": "fiction:A@1"
+          }
+        ],
+        "inclusions": [
+          {
+            "sub": "fiction:A@1",
+            "super": "fiction:B@1"
+          }
+        ],
+        "dependencies": []
+      },
+      "contexts": [
+        {
+          "ref": "fiction:context:observation@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2026-01-10T09:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:definitions@1",
+        "assertions": [],
+        "reviews": []
+      }
+    },
+    "after": {
+      "package": {
+        "ref": "fiction:definitions:combined@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:A@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:B@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:N@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [
+          {
+            "kind": "subtype",
+            "symbol": "fiction:N@1",
+            "parent": "fiction:A@1"
+          }
+        ],
+        "inclusions": [
+          {
+            "sub": "fiction:A@1",
+            "super": "fiction:B@1"
+          }
+        ],
+        "dependencies": []
+      },
+      "contexts": [
+        {
+          "ref": "fiction:context:observation@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2026-01-10T09:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:membership-added@1",
+        "assertions": [
+          {
+            "id": "h1",
+            "context_ref": "fiction:context:observation@1",
+            "atom": {
+              "predicate": "fiction:N@1",
+              "args": [
+                "fiction:a"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P07:source:h1@1"
+            },
+            "supersedes": [],
+            "required_capabilities": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "r1",
+            "assertion_ref": "h1",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T10:05:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      }
+    },
+    "view": {
+      "id": "v1",
+      "as_of": "2026-01-10T12:00:00Z",
+      "policy_ref": "fiction:confirmed-explicit-revision@1"
+    },
+    "queries": [
+      {
+        "id": "q1",
+        "context_ref": "fiction:context:observation@1",
+        "atoms": [
+          {
+            "predicate": "fiction:A@1",
+            "args": [
+              "fiction:a"
+            ]
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "q2",
+        "context_ref": "fiction:context:observation@1",
+        "atoms": [
+          {
+            "predicate": "fiction:B@1",
+            "args": [
+              "fiction:a"
+            ]
+          }
+        ],
+        "required": false
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "compared"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "lost"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "added"
+        ],
+        "equals": [
+          {}
+        ]
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "added"
+        ],
+        "equals": [
+          {}
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "added_evidence",
+          0,
+          "ledger_ref"
+        ],
+        "equals": "fiction:ledger:membership-added@1"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "added_evidence",
+          0,
+          "assertion_refs"
+        ],
+        "equals": [
+          "h1"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "added_evidence",
+          0,
+          "review_refs"
+        ],
+        "equals": [
+          "r1"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "added_evidence",
+          0,
+          "definition_refs"
+        ],
+        "equals": [
+          "fiction:definitions:combined@1#/definitions/0"
+        ]
+      }
+    ]
+  }
+}
