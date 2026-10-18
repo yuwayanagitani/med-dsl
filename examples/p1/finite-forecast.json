@@ -1,0 +1,122 @@
+{
+  "schema_version": "p1-design-case-draft-1",
+  "case_id": "H01",
+  "case_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "execution_state": "not_implemented",
+  "kind": "forecast_query_design",
+  "input": {
+    "artifact": {
+      "ref": "fiction:forecast:toy@1",
+      "profile": "p1-finite-forecast-draft-1",
+      "profile_spec_sha256": "7cf9fa922ec73ebf8b5eadceebc4c9a448eab0ba5d4402ea74fb2839a691402e",
+      "subject_ref": "fiction:subject:a",
+      "context_ref": "fiction:context:forecast@1",
+      "interval": {
+        "start": "2026-10-18T00:00:00Z",
+        "end": "2026-10-25T00:00:00Z"
+      },
+      "model_ref": "fiction:model:toy@1",
+      "sample_space_ref": "fiction:worlds:toy@1",
+      "worlds": [
+        {
+          "ref": "fiction:wx",
+          "weight": {
+            "numerator": 7,
+            "denominator": 10
+          }
+        },
+        {
+          "ref": "fiction:wn",
+          "weight": {
+            "numerator": 3,
+            "denominator": 10
+          }
+        }
+      ],
+      "events": [
+        {
+          "ref": "fiction:event:X@1",
+          "world_refs": [
+            "fiction:wx"
+          ]
+        }
+      ]
+    },
+    "artifact_sha256": "ab986d5960d0e3f5c7f07e35271078ff57b9957ffe02b7ea667d109ee825bbfc",
+    "report": {
+      "ledger_ref": "fiction:ledger:forecasts@1",
+      "assertion": {
+        "id": "h-forecast",
+        "context_ref": "fiction:context:forecast@1",
+        "atom": {
+          "predicate": "fiction:forecast_reported@1",
+          "args": [
+            "fiction:subject:a",
+            "fiction:forecast:toy@1"
+          ]
+        },
+        "polarity": "positive",
+        "certainty": "confirmed",
+        "recorded_at": "2026-10-18T09:00:00Z",
+        "origin": {
+          "kind": "ai_candidate",
+          "ref": "fiction:generator:toy@1"
+        },
+        "supersedes": [],
+        "required_capabilities": [
+          "p1-finite-forecast-draft-1"
+        ]
+      },
+      "review": {
+        "id": "r-forecast",
+        "assertion_ref": "h-forecast",
+        "reviewer_ref": "fiction:reviewer:human@1",
+        "reviewer_kind": "human",
+        "recorded_at": "2026-10-18T10:00:00Z",
+        "outcome": "confirmed"
+      }
+    },
+    "view": {
+      "as_of": "2026-10-18T12:00:00Z",
+      "policy_ref": "fiction:confirmed-explicit-revision@1"
+    },
+    "planned_consumer": {
+      "profile": "p1-finite-forecast-draft-1",
+      "profile_spec_sha256": "7cf9fa922ec73ebf8b5eadceebc4c9a448eab0ba5d4402ea74fb2839a691402e",
+      "operations": [
+        "query_forecast"
+      ],
+      "handler_state": "planned"
+    },
+    "query": {
+      "forecast_ref": "fiction:forecast:toy@1",
+      "all_of": [
+        "fiction:event:X@1"
+      ]
+    },
+    "clinical_before": {
+      "positive_atoms": [],
+      "negative_atoms": []
+    }
+  },
+  "expected": {
+    "status": "computed",
+    "answer_kind": "forecast_probability",
+    "value": {
+      "numerator": 7,
+      "denominator": 10
+    },
+    "clinical_assertions_added": [],
+    "report_assertion_refs": [
+      "h-forecast"
+    ],
+    "review_refs": [
+      "r-forecast"
+    ]
+  },
+  "source_cases": [
+    "K11"
+  ]
+}

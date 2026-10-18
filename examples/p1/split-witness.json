@@ -1,0 +1,71 @@
+{
+  "schema_version": "p1-design-case-draft-1",
+  "case_id": "H10",
+  "case_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "execution_state": "not_implemented",
+  "kind": "countermodel_design",
+  "input": {
+    "source_tuples": [
+      [
+        "fiction:e1",
+        "fiction:s1",
+        "fiction:m1",
+        "fiction:positive"
+      ],
+      [
+        "fiction:e2",
+        "fiction:s2",
+        "fiction:m2",
+        "fiction:negative"
+      ]
+    ],
+    "target_events": [
+      {
+        "ref": "fiction:internal:h1@1",
+        "active": true,
+        "key": "fiction:e1",
+        "specimen": "fiction:s1",
+        "method": "fiction:m1",
+        "value": "fiction:positive",
+        "source_assertion": {
+          "ledger_ref": "fiction:ledger:measurement@1",
+          "id": "h1"
+        }
+      },
+      {
+        "ref": "fiction:internal:h2@1",
+        "active": true,
+        "key": "fiction:e2",
+        "specimen": "fiction:s2",
+        "method": "fiction:m2",
+        "value": "fiction:negative",
+        "source_assertion": {
+          "ledger_ref": "fiction:ledger:measurement@1",
+          "id": "h2"
+        }
+      }
+    ],
+    "query": "exists k: O(k,fiction:s2,fiction:m1,fiction:positive)",
+    "correct_translation": "exists z: Active(z) and specimen(z)=fiction:s2 and method(z)=fiction:m1 and value(z)=fiction:positive",
+    "incorrect_translation": "exists zs,zm,zv: Active(zs) and Active(zm) and Active(zv) and specimen(zs)=fiction:s2 and method(zm)=fiction:m1 and value(zv)=fiction:positive",
+    "bad_witnesses": {
+      "zs": "fiction:internal:h2@1",
+      "zm": "fiction:internal:h1@1",
+      "zv": "fiction:internal:h1@1"
+    }
+  },
+  "expected": {
+    "meaning_mode": "truth_in_listed_model",
+    "source_truth": false,
+    "correct_target_truth": false,
+    "incorrect_target_truth": true,
+    "certificate_status": "not_certified",
+    "reason": "satisfaction_condition_failed"
+  },
+  "source_cases": [
+    "C1-a",
+    "G1"
+  ]
+}

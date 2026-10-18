@@ -1,0 +1,59 @@
+{
+  "schema_version": "p1-design-case-draft-1",
+  "case_id": "H17",
+  "case_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "execution_state": "not_implemented",
+  "kind": "composition_design",
+  "input": {
+    "source_a": [
+      [
+        "fiction:e1",
+        "fiction:s1",
+        "fiction:m1",
+        "fiction:positive"
+      ],
+      [
+        "fiction:e2",
+        "fiction:s2",
+        "fiction:m2",
+        "fiction:negative"
+      ]
+    ],
+    "source_b": [
+      [
+        "fiction:e1",
+        "fiction:s1",
+        "fiction:m2",
+        "fiction:positive"
+      ],
+      [
+        "fiction:e2",
+        "fiction:s2",
+        "fiction:m1",
+        "fiction:negative"
+      ]
+    ],
+    "first_step": "discard_tuple_bindings_keep_only_set_of_all_values",
+    "second_step": "lossless_encoding_of_value_set",
+    "query": "result for specimen fiction:s1 and method fiction:m1",
+    "source_sidecar_available": false
+  },
+  "expected": {
+    "projected_value_sets_equal": true,
+    "source_a_bindings": [
+      {
+        "result": "fiction:positive"
+      }
+    ],
+    "source_b_bindings": [],
+    "whole_path_certificate_status": "not_certified",
+    "reason": "intermediate_projection_lost_query_distinction",
+    "full_difference_status": "incomparable"
+  },
+  "source_cases": [
+    "U1",
+    "P08"
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "schema_version": "p1-design-case-draft-1",
+  "case_id": "H07",
+  "case_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "execution_state": "not_implemented",
+  "kind": "handover_design",
+  "input": {
+    "source_fixture": {
+      "path": "../p0/linked-observations.json",
+      "sha256": "e18b75a8bd74e71e474ae0d605fd6b82f82d9efbf72790b19e059a565c0d2823"
+    },
+    "source_profile": "p0-positive-1",
+    "source_tuples": [
+      [
+        "fiction:e1",
+        "fiction:s1",
+        "fiction:m1",
+        "fiction:positive"
+      ],
+      [
+        "fiction:e2",
+        "fiction:s2",
+        "fiction:m2",
+        "fiction:negative"
+      ]
+    ],
+    "target_profile": "p1-events-draft-1",
+    "target_events": [
+      {
+        "ref": "fiction:internal:h1@1",
+        "active": true,
+        "key": "fiction:e1",
+        "specimen": "fiction:s1",
+        "method": "fiction:m1",
+        "value": "fiction:positive",
+        "source_assertion": {
+          "ledger_ref": "fiction:ledger:measurement@1",
+          "id": "h1"
+        }
+      },
+      {
+        "ref": "fiction:internal:h2@1",
+        "active": true,
+        "key": "fiction:e2",
+        "specimen": "fiction:s2",
+        "method": "fiction:m2",
+        "value": "fiction:negative",
+        "source_assertion": {
+          "ledger_ref": "fiction:ledger:measurement@1",
+          "id": "h2"
+        }
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "context_ref": "fiction:context:observation@1",
+        "atoms": [
+          {
+            "predicate": "fiction:measurement@1",
+            "args": [
+              "fiction:e1",
+              "fiction:s1",
+              "fiction:m1",
+              {
+                "var": "result"
+              }
+            ]
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "q2",
+        "context_ref": "fiction:context:observation@1",
+        "atoms": [
+          {
+            "predicate": "fiction:measurement@1",
+            "args": [
+              {
+                "var": "event"
+              },
+              "fiction:s2",
+              "fiction:m1",
+              {
+                "var": "result"
+              }
+            ]
+          }
+        ],
+        "required": false
+      }
+    ],
+    "preserve_assertion_envelopes": true
+  },
+  "expected": {
+    "evidence_level": "template_argument_draft",
+    "public_bindings": {
+      "q1": [
+        {
+          "result": "fiction:positive"
+        }
+      ],
+      "q2": []
+    },
+    "hidden_variables_exported": [],
+    "original_assertion_refs": [
+      "h1",
+      "h2"
+    ],
+    "original_review_refs": [
+      "r1",
+      "r2"
+    ],
+    "legacy_replay_is_separate": true
+  },
+  "source_cases": [
+    "C1-a",
+    "K09",
+    "P07"
+  ]
+}

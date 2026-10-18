@@ -1,0 +1,72 @@
+{
+  "schema_version": "p1-design-manifest-draft-1",
+  "status": "author_draft_design",
+  "runtime_implemented": false,
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "case_inventory": {
+    "specified_count": 20,
+    "json_count": 8,
+    "executed_count": 0
+  },
+  "dependencies": [
+    {
+      "path": "../../docs/research/11-p1-contract.md",
+      "sha256": "7cf9fa922ec73ebf8b5eadceebc4c9a448eab0ba5d4402ea74fb2839a691402e"
+    },
+    {
+      "path": "../p0/linked-observations.json",
+      "sha256": "e18b75a8bd74e71e474ae0d605fd6b82f82d9efbf72790b19e059a565c0d2823"
+    }
+  ],
+  "files": [
+    {
+      "case_id": "H03",
+      "path": "correlated-forecast.json",
+      "sha256": "10bfbc3dbcd63a40933823630d2731769d94ed0e917e9ef3ac47eecc24d7ca7c",
+      "bytes": 3872
+    },
+    {
+      "case_id": "H07",
+      "path": "event-reification.json",
+      "sha256": "46ec9b3d5e5d35cc6f120f021330a135817e17942d9615d6669b6d431257f0b7",
+      "bytes": 2783
+    },
+    {
+      "case_id": "H14",
+      "path": "existential-witness.json",
+      "sha256": "cfc15bbdfcee698d48c4025df03c9d49508ed580d6428904eaef4b8ae5564da3",
+      "bytes": 1326
+    },
+    {
+      "case_id": "H18",
+      "path": "finite-check-only.json",
+      "sha256": "e792547155460c1da104b48f3c3a7cbf365fd93ea95db405155386421bdeacf6",
+      "bytes": 902
+    },
+    {
+      "case_id": "H01",
+      "path": "finite-forecast.json",
+      "sha256": "b2b8cc1c14cb7b2a3151b5db8e0ec4c550238c6fa82093380c5b660898b2a75d",
+      "bytes": 3177
+    },
+    {
+      "case_id": "H17",
+      "path": "lossy-composition.json",
+      "sha256": "a800f9101a4d9a8bddb22839387e50b5c8fe79808499772f92e2a9e21352c521",
+      "bytes": 1340
+    },
+    {
+      "case_id": "H13",
+      "path": "model-coverage-counterexample.json",
+      "sha256": "52a9fef7fe7b3e9585e9e23236560d54b6d7f6f16cfa7cdf69d7ce1dacf99eab",
+      "bytes": 1135
+    },
+    {
+      "case_id": "H10",
+      "path": "split-witness.json",
+      "sha256": "4e87e392d6679ce300192e925af58cc95e6ba8fb0e7defdde4f80f802c6a5837",
+      "bytes": 1989
+    }
+  ]
+}

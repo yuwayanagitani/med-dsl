@@ -1,0 +1,77 @@
+{
+  "schema_version": "p1-design-case-draft-1",
+  "case_id": "H14",
+  "case_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "execution_state": "not_implemented",
+  "kind": "reference_semantics_design",
+  "input": {
+    "source_theory": [
+      "forall x: A(x) -> exists y: r(x,y) and B(y)"
+    ],
+    "target_theory": [],
+    "data": [
+      "A(a)"
+    ],
+    "queries": [
+      "B(a)",
+      "exists x: B(x)"
+    ],
+    "source_model": {
+      "domain": [
+        "u",
+        "v"
+      ],
+      "constants": {
+        "a": "u"
+      },
+      "predicates": {
+        "A": [
+          "u"
+        ],
+        "B": [
+          "v"
+        ],
+        "r": [
+          [
+            "u",
+            "v"
+          ]
+        ]
+      }
+    },
+    "target_countermodel": {
+      "domain": [
+        "u"
+      ],
+      "constants": {
+        "a": "u"
+      },
+      "predicates": {
+        "A": [
+          "u"
+        ],
+        "B": [],
+        "r": []
+      }
+    }
+  },
+  "expected": {
+    "meaning_mode": "first_order_entailment",
+    "source_entails": [
+      false,
+      true
+    ],
+    "target_entails": [
+      false,
+      false
+    ],
+    "named_witness_assertions_added": [],
+    "certificate_status": "not_certified",
+    "initial_runtime_supported": false
+  },
+  "source_cases": [
+    "K05"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "p1-design-case-draft-1",
+  "case_id": "H13",
+  "case_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "execution_state": "not_implemented",
+  "kind": "countermodel_design",
+  "input": {
+    "source_theory": [],
+    "target_theory": [
+      {
+        "kind": "inclusion",
+        "sub": "A",
+        "super": "B"
+      }
+    ],
+    "data": [
+      {
+        "predicate": "A",
+        "args": [
+          "a"
+        ]
+      }
+    ],
+    "sentence_translation": "identity",
+    "model_reduct": "identity_on_old_symbols",
+    "query": {
+      "predicate": "B",
+      "args": [
+        "a"
+      ]
+    },
+    "old_countermodel": {
+      "domain": [
+        "u"
+      ],
+      "constants": {
+        "a": "u"
+      },
+      "predicates": {
+        "A": [
+          "u"
+        ],
+        "B": []
+      }
+    }
+  },
+  "expected": {
+    "meaning_mode": "first_order_entailment",
+    "source_entails": false,
+    "target_entails": true,
+    "model_coverage": false,
+    "certificate_status": "not_certified",
+    "reason": "old_model_not_liftable"
+  },
+  "source_cases": [
+    "C1",
+    "K03"
+  ]
+}

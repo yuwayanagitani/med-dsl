@@ -1,0 +1,40 @@
+{
+  "schema_version": "p1-design-case-draft-1",
+  "case_id": "H18",
+  "case_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "execution_state": "not_implemented",
+  "kind": "countermodel_design",
+  "input": {
+    "source_theory": [],
+    "target_theory": [
+      "forall x,y,z: x=y or x=z or y=z"
+    ],
+    "query": "forall x,y,z: x=y or x=z or y=z",
+    "checked_domain_sizes": [
+      1,
+      2
+    ],
+    "uncovered_source_model": {
+      "domain": [
+        "u",
+        "v",
+        "w"
+      ],
+      "equality": "identity"
+    }
+  },
+  "expected": {
+    "meaning_mode": "first_order_entailment",
+    "finite_checks_can_agree": true,
+    "source_entails": false,
+    "target_entails": true,
+    "all_old_models_covered": false,
+    "certificate_status": "not_certified",
+    "reason": "finite_checks_do_not_establish_model_coverage"
+  },
+  "source_cases": [
+    "C1"
+  ]
+}
