@@ -1,0 +1,48 @@
+{
+  "profile": "p1-finite-forecast-draft-1",
+  "request_schema": "p1-request-draft-1",
+  "result_schema": "p1-result-draft-1",
+  "operations": ["query_forecast"],
+  "answer_kind": "forecast_probability",
+  "report_predicate": "fiction:forecast_reported@1",
+  "report_purpose": "fiction:forecast-reporting@1",
+  "policy": "fiction:confirmed-explicit-revision@1",
+  "semantics": {
+    "weight": "nonnegative rational; denominator positive; sum exactly one",
+    "event": "declared subset of one artifact's finite worlds",
+    "conjunction": "intersection in one artifact; no independence assumption",
+    "adoption": "P0 explicit revision and separate human confirmation at the same view",
+    "unknown_capability": "any visible report in the context blocks interpretation",
+    "conflict": "any adopted positive/negative report pair in the context blocks answers",
+    "output": "reduced rational with artifact, model, interval and ledger evidence",
+    "clinical_conversion": "no operation or rule produces clinical assertions"
+  },
+  "limits": {
+    "request_bytes": 1048576,
+    "json_depth": 64,
+    "artifacts": 64,
+    "queries": 64,
+    "views": 64,
+    "worlds": 64,
+    "events": 64,
+    "all_of": 8,
+    "contexts": 1000,
+    "assertions": 1000,
+    "reviews": 1000,
+    "integer_bits": 63,
+    "intermediate_bits": 4096,
+    "max_steps": 100000
+  },
+  "steps": [
+    "one at request start",
+    "one for each world weight added, then one for normalization comparison, per artifact in ref order",
+    "one per assertion and review before selecting each view in id order",
+    "one at each query start in id order within each view",
+    "one for every world/event membership pair, including zero-weight worlds, without short circuit",
+    "one for each selected world weight added",
+    "one before committing each computed answer"
+  ],
+  "validation_order": "JSON and structural/reference/hash/rational validation before steps; exact weight normalization before views",
+  "budget_stop": "retain completed queries; all unfinished queries unassessed with null answer; no partial probability",
+  "hashes": "native spec raw SHA-256 pinned in handler; artifact SHA-256 over canonical JSON, UTF-8, sorted keys, compact separators, ensure_ascii=false"
+}

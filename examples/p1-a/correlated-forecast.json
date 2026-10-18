@@ -1,0 +1,235 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "H03",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p1-request-draft-1",
+    "operation": "query_forecast",
+    "consumer": {
+      "profile": "p1-finite-forecast-draft-1",
+      "profile_spec_sha256": "a918397c96ba9f6035b81c1d20839a544058f12adfbcb41f27df4328b9ad2704",
+      "operations": [
+        "query_forecast"
+      ]
+    },
+    "artifacts": [
+      {
+        "artifact": {
+          "ref": "fiction:forecast:toy@1",
+          "profile": "p1-finite-forecast-draft-1",
+          "profile_spec_sha256": "a918397c96ba9f6035b81c1d20839a544058f12adfbcb41f27df4328b9ad2704",
+          "subject_ref": "fiction:subject:a",
+          "context_ref": "fiction:context:forecast@1",
+          "interval": {
+            "start": "2026-10-18T00:00:00Z",
+            "end": "2026-10-25T00:00:00Z"
+          },
+          "model_ref": "fiction:model:toy@1",
+          "sample_space_ref": "fiction:worlds:toy@1",
+          "worlds": [
+            {
+              "ref": "fiction:w11",
+              "weight": {
+                "numerator": 3,
+                "denominator": 10
+              }
+            },
+            {
+              "ref": "fiction:w10",
+              "weight": {
+                "numerator": 3,
+                "denominator": 10
+              }
+            },
+            {
+              "ref": "fiction:w01",
+              "weight": {
+                "numerator": 3,
+                "denominator": 10
+              }
+            },
+            {
+              "ref": "fiction:w00",
+              "weight": {
+                "numerator": 1,
+                "denominator": 10
+              }
+            }
+          ],
+          "events": [
+            {
+              "ref": "fiction:event:A@1",
+              "world_refs": [
+                "fiction:w11",
+                "fiction:w10"
+              ]
+            },
+            {
+              "ref": "fiction:event:B@1",
+              "world_refs": [
+                "fiction:w11",
+                "fiction:w01"
+              ]
+            }
+          ]
+        },
+        "sha256": "c23ae470d070b5667ef7cb08a2c603bd7c01d6a64e541cdc85bb0f7f582d1b12"
+      }
+    ],
+    "report_snapshot": {
+      "kind": "forecast_reports",
+      "contexts": [
+        {
+          "ref": "fiction:context:forecast@1",
+          "subject_ref": "fiction:subject:a",
+          "effective_at": "2026-10-18T00:00:00Z",
+          "purpose": "fiction:forecast-reporting@1"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:forecasts@1",
+        "assertions": [
+          {
+            "id": "h1",
+            "context_ref": "fiction:context:forecast@1",
+            "atom": {
+              "predicate": "fiction:forecast_reported@1",
+              "args": [
+                "fiction:subject:a",
+                "fiction:forecast:toy@1"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-18T09:00:00Z",
+            "origin": {
+              "kind": "ai_candidate",
+              "ref": "fiction:generator:toy@1"
+            },
+            "supersedes": [],
+            "required_capabilities": [
+              "p1-finite-forecast-draft-1"
+            ]
+          }
+        ],
+        "reviews": [
+          {
+            "id": "r1",
+            "assertion_ref": "h1",
+            "reviewer_ref": "fiction:reviewer:human@1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-18T10:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      }
+    },
+    "views": [
+      {
+        "id": "v1",
+        "as_of": "2026-10-18T12:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "a",
+        "forecast_ref": "fiction:forecast:toy@1",
+        "all_of": [
+          "fiction:event:A@1"
+        ]
+      },
+      {
+        "id": "b",
+        "forecast_ref": "fiction:forecast:toy@1",
+        "all_of": [
+          "fiction:event:B@1"
+        ]
+      },
+      {
+        "id": "joint",
+        "forecast_ref": "fiction:forecast:toy@1",
+        "all_of": [
+          "fiction:event:A@1",
+          "fiction:event:B@1"
+        ]
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "computed"
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "status"
+        ],
+        "equals": "computed"
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "status"
+        ],
+        "equals": "computed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "answer",
+          "probability"
+        ],
+        "equals": {
+          "numerator": 3,
+          "denominator": 5
+        }
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "answer",
+          "probability"
+        ],
+        "equals": {
+          "numerator": 3,
+          "denominator": 5
+        }
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "answer",
+          "probability"
+        ],
+        "equals": {
+          "numerator": 3,
+          "denominator": 10
+        }
+      }
+    ]
+  }
+}

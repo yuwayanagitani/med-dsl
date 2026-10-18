@@ -3,7 +3,9 @@
 from .model import PROFILE, Proof, atom
 
 
-def select_view(ledger, view):
+def select_view(ledger, view, *, known_capabilities=None):
+    # 既存 P0 呼び出しは従来通り。追加能力は検証済み native handler だけが渡す。
+    understood = {PROFILE} if known_capabilities is None else set(known_capabilities)
     visible = {item["id"]: item for item in ledger["assertions"]
                if item["recorded_at"] <= view["as_of"]}
     reviews = {}
@@ -17,7 +19,7 @@ def select_view(ledger, view):
     adopted = eligible - superseded
     unknown = {}
     for item in visible.values():
-        missing = set(item["required_capabilities"]) - {PROFILE}
+        missing = set(item["required_capabilities"]) - understood
         for capability in missing:
             unknown.setdefault(item["context_ref"], {}).setdefault(capability, set()).add(item["id"])
     positive, negative = {}, {}

@@ -11,7 +11,7 @@ from .validation import decode_json
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="研究用 P0 の JSON 問い合わせ")
+    parser = argparse.ArgumentParser(description="研究用 P0 / P1-a の JSON 問い合わせ")
     parser.add_argument("file", nargs="?", default="-", help="request JSON または - (標準入力)")
     parser.add_argument("--fixture", action="store_true", help="草案例から request のみを読む")
     args = parser.parse_args(argv)
@@ -24,7 +24,7 @@ def main(argv=None):
         request = decode_json(raw)
         if args.fixture:
             if (type(request) is not dict
-                    or request.get("schema_version") != "p0-fixture-draft-1"
+                    or request.get("schema_version") not in ("p0-fixture-draft-1", "p1-fixture-draft-1")
                     or type(request.get("request")) is not dict):
                 raise Problem("invalid_fixture")
             request = request["request"]
