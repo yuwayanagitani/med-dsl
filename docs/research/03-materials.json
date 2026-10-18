@@ -1,0 +1,107 @@
+{
+  "format_version": 1,
+  "purpose": "R3 の資料選定と取得状態の記録。外部データ本体や検証済みの意味対応は含まない。",
+  "checked_on": "2026-10-18",
+  "decision_document": "03-data-access.md",
+  "source_log": "03-sources.md",
+  "materials": [
+    {
+      "id": "rxnorm-cpc-2026-09-08",
+      "pair": "rxnorm-cpc-monthly",
+      "role": "source",
+      "publisher": "U.S. National Library of Medicine",
+      "title": "RxNorm Current Prescribable Content",
+      "version": "2026-09-08",
+      "language": "en",
+      "jurisdiction": "US",
+      "format": "ZIP containing UTF-8 pipe-delimited RRF",
+      "url": "https://download.nlm.nih.gov/rxnorm/RxNorm_full_prescribe_09082026.zip",
+      "listing_url": "https://www.nlm.nih.gov/research/umls/rxnorm/docs/rxnormfiles.html",
+      "terms_urls": [
+        "https://www.nlm.nih.gov/research/umls/rxnorm/docs/prescribe.html",
+        "https://www.nlm.nih.gov/research/umls/rxnorm/docs/termsofservice.html"
+      ],
+      "project_use": "研究用のローカル取得・比較対象として選定。全体版は含めない。旧版資料と明示する。",
+      "acquisition_status": "not_acquired",
+      "access_observation": "公式配布リンクと application/zip の応答種別を確認。端末は名前解決に失敗。",
+      "publisher_md5": null,
+      "local_sha256": null,
+      "local_bytes": null,
+      "local_path": null,
+      "content_verified": false,
+      "commit_payload": false
+    },
+    {
+      "id": "rxnorm-cpc-2026-10-05",
+      "pair": "rxnorm-cpc-monthly",
+      "role": "target",
+      "publisher": "U.S. National Library of Medicine",
+      "title": "RxNorm Current Prescribable Content",
+      "version": "2026-10-05",
+      "language": "en",
+      "jurisdiction": "US",
+      "format": "ZIP containing UTF-8 pipe-delimited RRF",
+      "url": "https://download.nlm.nih.gov/rxnorm/RxNorm_full_prescribe_10052026.zip",
+      "listing_url": "https://www.nlm.nih.gov/research/umls/rxnorm/docs/rxnormfiles.html",
+      "terms_urls": [
+        "https://www.nlm.nih.gov/research/umls/rxnorm/docs/prescribe.html",
+        "https://www.nlm.nih.gov/research/umls/rxnorm/docs/termsofservice.html"
+      ],
+      "project_use": "研究用のローカル取得・比較対象として選定。全体版は含めない。",
+      "acquisition_status": "not_acquired",
+      "access_observation": "公式配布リンクと application/zip の応答種別を確認。端末は名前解決に失敗。",
+      "publisher_md5": "a3bfab544c6a67c127ebcd10ab914aa9",
+      "local_sha256": null,
+      "local_bytes": null,
+      "local_path": null,
+      "content_verified": false,
+      "commit_payload": false
+    },
+    {
+      "id": "fhir-procedure-4.0.1",
+      "pair": "fhir-procedure-definitions",
+      "role": "source",
+      "publisher": "HL7 International",
+      "title": "FHIR Procedure resource definition",
+      "version": "4.0.1",
+      "language": "en",
+      "jurisdiction": "international",
+      "format": "HTML resource definition",
+      "url": "https://hl7.org/fhir/R4/procedure.html",
+      "terms_urls": [
+        "https://hl7.org/fhir/R4/license.html"
+      ],
+      "project_use": "HL7 作成部分の構造・時点・役割の比較。第三者用語は別条件。",
+      "acquisition_status": "web_sections_reviewed",
+      "access_observation": "公開 HTML の時点・参加者等の該当箇所を確認。ローカル実体未保存。",
+      "local_sha256": null,
+      "local_bytes": null,
+      "local_path": null,
+      "content_verified": false,
+      "commit_payload": false
+    },
+    {
+      "id": "fhir-procedure-5.0.0",
+      "pair": "fhir-procedure-definitions",
+      "role": "target",
+      "publisher": "HL7 International",
+      "title": "FHIR Procedure resource definition",
+      "version": "5.0.0",
+      "language": "en",
+      "jurisdiction": "international",
+      "format": "HTML resource definition",
+      "url": "https://hl7.org/fhir/R5/procedure.html",
+      "terms_urls": [
+        "https://hl7.org/fhir/R5/license.html"
+      ],
+      "project_use": "HL7 作成部分の構造・時点・役割の比較。第三者用語は別条件。",
+      "acquisition_status": "web_sections_reviewed",
+      "access_observation": "公開 HTML の時点・参加者等の該当箇所を確認。ローカル実体未保存。",
+      "local_sha256": null,
+      "local_bytes": null,
+      "local_path": null,
+      "content_verified": false,
+      "commit_payload": false
+    }
+  ]
+}
