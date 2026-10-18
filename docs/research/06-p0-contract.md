@@ -1,10 +1,10 @@
 # R6：P0 の意味・入出力・受入条件
 
-作成日：2026-10-18。契約版：`p0-draft-1`。状態：実装前の研究仕様。定義・ケースの期待結果は作成者草案で、独立確認と実行は未完了です。[短い試作仕様と D07](06-prototype-brief.md) を入口にします。
+作成日：2026-10-18。契約版：`p0-draft-1`。状態：P0 全体の研究仕様。P0-a の実装・開発テストは [実行記録](07-p0-a-results.md)、全体の受入評価・独立確認は未完了です。期待結果は作成者草案です。[短い試作仕様と D07](06-prototype-brief.md) を入口にします。
 
 ## 1. 三つの操作
 
-CLI は将来の実装時に `PYTHONPATH=src python3 -m med_dsl <request.json>` を入口とします。現時点ではこのコマンドを実行できません。ライブラリの `evaluate(request)` を CLI からも使い、入力を変更せず結果を返す構成にします。
+CLI は `PYTHONPATH=src python3 -m med_dsl <request.json>`、草案例は `--fixture <fixture.json>` で request だけを読みます。ライブラリの `evaluate(request)` を同じ入口で使い、入力を変更せず結果を返します。現在は query の事実照合と主張選択を実装済みで、check_extension/compare は明示的な未実装、定義推論を必要とする query は unassessed です。
 
 | operation | 入力 | 主な出力 |
 | --- | --- | --- |
@@ -116,7 +116,10 @@ UTF-8 の単一 JSON object を受け取り、重複 object key、NaN/Infinity�
 | 上限 | 初期値 |
 | --- | ---: |
 | 入力ファイル | 1 MiB |
+| パッケージ数／view 数／JSON の深さ | 各 64 |
+| 文脈数 | 1,000 |
 | 全パッケージの述語／定義 | 各 64 |
+| 全パッケージの包含／一問の atom 数 | 各 64 |
 | 台帳の主張／確認記録 | 各 1,000 |
 | 関係のアリティ | 8 |
 | 問い合わせ数／一問の変数数 | 64／4 |
@@ -162,6 +165,6 @@ P01・P02・P07・P10・P15 の正例は必ず結果を返すことを求め、�
 
 Python の [json](https://docs.python.org/3.11/library/json.html) の重複キー取得・非有限数の処理、[hashlib](https://docs.python.org/3.11/library/hashlib.html) の SHA-256、[unittest](https://docs.python.org/3.11/library/unittest.html) のテスト実行を使う方針です。2026-10-18 に公式の 3.11 系文書で確認しました。独自に作るのは、P0 の参照検証、意味の断片、選択方針、認定と比較です。
 
-最初の実装では `src/med_dsl/{model,validation,definitions,ledger,query,compare,cli}.py` と `__main__.py` 程度にまとめます。テストは `python3 -m unittest discover -s tests` で実行する予定で、まだファイル・コマンドは用意していません。新しいテスト framework、サーバー、アカウント、JavaScript 依存は追加しません。
+配置は `src/med_dsl/`、テストは `python3 -m unittest discover -s tests` です。model/validation/ledger/query/cli と公開 evaluate を実装済みで、definitions/compare は後続です。標準ライブラリの unittest を使い、新しいテスト framework、サーバー、アカウント、JavaScript 依存は追加していません。
 
-試作の実行前に P01〜P22 を JSON 化し、実装コミット、草案入力・期待値の hash、profile、上限を実験票へ固定します。これは作成者草案による開発の記録です。R4 の独立確認・裁定後の正解凍結は別途行い、現在の草案スナップショットを独立確認済みと呼びません。
+各段階の開発テストは、事前草案とテスト内の明示的な派生入力で進めます。P01〜P22 の全受入評価の前には全件を JSON 化し、実装コミット、草案入力・期待値の hash、profile、上限を実験票へ固定します。これは作成者草案による工学的検証です。R4 の独立確認・裁定後の正解凍結は別途行い、現在の草案スナップショットを独立確認済みと呼びません。

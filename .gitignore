@@ -17,6 +17,8 @@ build/
 coverage/
 *.tsbuildinfo
 *.log
+__pycache__/
+*.py[cod]
 
 # OS and editor state
 .DS_Store
