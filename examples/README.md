@@ -10,6 +10,8 @@ R4 の例は研究文書の [ケース仕様](../docs/research/04-cases.md) に�
 
 [事前監査用のPR01](audits/existential-reversed.json) は、逆向きの存在規則に対して現行処理系が未評価を維持する例です。[追加監査結果](../docs/research/16-pre-review-results.md) の別系列で扱い、P1の20条件・80 JSONには加えません。
 
+[レビュー負例系列](review/README.md) は、独立レビュー前の AI レビュー AI-001 の指摘 RV-01 に対する負例12件と、RV-05 の裁定で生じた既知の逸脱1件です。固定した168ファイルと P1 の20条件・80 JSON・231テストの分母には加えず、`python3 -m unittest discover -s tests/review` で別に実行します。独立確認・評価用正解の凍結は未完了です。
+
 ## 体系そのものの変化への耐性
 
 [最終目標](../docs/vision.md) に向けて、R2b で変化の種類と不変条件の候補を整理し、[R4](../docs/research/04-evaluation.md) で以下の例と K01〜K14 の評価方法を具体化しました。移行の成否だけで体系の普遍性・永続性を評価しません。

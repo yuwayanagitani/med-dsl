@@ -1,0 +1,156 @@
+{
+  "schema_version": "review-negatives-manifest-draft-1",
+  "status": "ai_reviewer_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "base_commit": "e73d4bab30cbb40b9354724c361610d5c22033c1",
+  "baseline_manifest_sha256": "1f01ed6593f555b42e370661c225fac1012bdf89b115bc29fd91513474d35efb",
+  "note": "P1の20条件・80 JSON・417必須パスとは別の分母。固定済みの168ファイルは変更せず、期待結果は意味から手で指定した。",
+  "files": [
+    {
+      "fixture_id": "RN01",
+      "path": "chain-forged-start-endpoint.json",
+      "bytes": 15568,
+      "sha256": "d01c24dc1b686ed7c0907404728533a3538606c35d3dcbb3cbf85d5d7afeca74",
+      "finding": "RV-01",
+      "po": [
+        "PO07"
+      ],
+      "gate": "handover.py:176 始端の票"
+    },
+    {
+      "fixture_id": "RN02",
+      "path": "chain-forged-end-endpoint.json",
+      "bytes": 15568,
+      "sha256": "de5bd15c0e5f94f39fabc51019e1f1550d8d1b3b2815d0fce2050ad81ae44b86",
+      "finding": "RV-01",
+      "po": [
+        "PO07"
+      ],
+      "gate": "handover.py:176 終端の票"
+    },
+    {
+      "fixture_id": "RN03",
+      "path": "chain-consistently-forged-policy.json",
+      "bytes": 15974,
+      "sha256": "aa151dc2c90a880be055ffb4f9340a3a5a4af950bd5a0620204863e8a536b285",
+      "finding": "RV-01",
+      "po": [
+        "PO07"
+      ],
+      "gate": "handover.py:176 両段で一貫した偽の採用方針"
+    },
+    {
+      "fixture_id": "RN04",
+      "path": "chain-consistently-forged-dependencies.json",
+      "bytes": 15204,
+      "sha256": "a16171ec615ede49965dbf7ead972ea6d1be6b31c7c741f9b3f4642b27f59cff",
+      "finding": "RV-01",
+      "po": [
+        "PO07"
+      ],
+      "gate": "handover.py:176 両段で一貫した偽の依存"
+    },
+    {
+      "fixture_id": "RN05",
+      "path": "chain-consistently-forged-scope.json",
+      "bytes": 16042,
+      "sha256": "60c32e4aa4117b97f41cb42969d36a6e996bb22c267742e6b6f385aef8f15c5b",
+      "finding": "RV-01",
+      "po": [
+        "PO07"
+      ],
+      "gate": "handover.py:176 両段で一貫した偽の翻訳後Q範囲"
+    },
+    {
+      "fixture_id": "RN06",
+      "path": "archive-runtime-wrong-hash.json",
+      "bytes": 4475,
+      "sha256": "72798d65ee1577eb27a712380b65dd839ba7eb2ecc0751bd92fd949af8dc5405",
+      "finding": "RV-01",
+      "po": [
+        "PO11"
+      ],
+      "gate": "handover.py:320 runtime 要求の hash"
+    },
+    {
+      "fixture_id": "RN07",
+      "path": "archive-dependency-hash-mismatch.json",
+      "bytes": 4576,
+      "sha256": "b832978b468916394d40a465afc572cab8b9cf42f69d92171a14405213fe987d",
+      "finding": "RV-01",
+      "po": [
+        "PO11"
+      ],
+      "gate": "handover.py:319 依存要求の hash と保存 hash"
+    },
+    {
+      "fixture_id": "RN08",
+      "path": "archive-no-runtime-requirement.json",
+      "bytes": 3877,
+      "sha256": "de15d36e9156de936196edf2e44174c52b045db91dd4c58ec70fa4fe166c48f7",
+      "finding": "RV-01",
+      "po": [
+        "PO11"
+      ],
+      "gate": "handover.py:282-283 runtime 要求が 0 件"
+    },
+    {
+      "fixture_id": "RN09",
+      "path": "archive-two-runtime-requirements.json",
+      "bytes": 4235,
+      "sha256": "6fd05ed69401d85dadbd783f5ef62d9853c4e5da9f8315d465fa4d2d313e76a7",
+      "finding": "RV-01",
+      "po": [
+        "PO11"
+      ],
+      "gate": "handover.py:282-283 runtime 要求が 2 件"
+    },
+    {
+      "fixture_id": "RN10",
+      "path": "projection-mixed-scope.json",
+      "bytes": 2846,
+      "sha256": "fe39fdae46492780497cdcee91ff10ad07a1758831968806192105305fdf49c6",
+      "finding": "RV-01",
+      "po": [
+        "PO08"
+      ],
+      "gate": "projection.py:122 全 Q が保持列に収まるときだけ認定"
+    },
+    {
+      "fixture_id": "RN11",
+      "path": "projection-collision-evidence.json",
+      "bytes": 3169,
+      "sha256": "37615db583f5d368dc484f6992f9c4f47586d093bb287e61c949942696564a3c",
+      "finding": "RV-01",
+      "po": [
+        "PO08"
+      ],
+      "gate": "projection.py:119 同じ射影値で旧回答が異なる反例の記録"
+    },
+    {
+      "fixture_id": "RN12",
+      "path": "projection-sidecar-mismatch.json",
+      "bytes": 2318,
+      "sha256": "444af6604a3692c3b0933b5258affc6ce3454fde462f2e71c72b7eb813f43bfc",
+      "finding": "RV-01",
+      "po": [
+        "PO08"
+      ],
+      "gate": "projection.py:69-70 別添えが元記録と一致しない"
+    }
+  ],
+  "known_deviations": [
+    {
+      "fixture_id": "KD01",
+      "path": "known-deviation-review-precedes-assertion.json",
+      "bytes": 3474,
+      "sha256": "d6c5d56ac5da7ccd0bd89e9d0292a13d63992de690924f7b679ca3867a6e1c91",
+      "finding": "RV-05",
+      "po": [
+        "PO04"
+      ],
+      "gate": "validation.py:313-319 先行する確認の受理"
+    }
+  ]
+}
