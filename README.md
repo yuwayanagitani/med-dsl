@@ -2,7 +2,7 @@
 
 **未来永劫、原理的に変化に耐えうる医療コード体系を確立するための研究プロジェクト。** 医学・制度・システム・AI の変化を受け止める、意味の表現と拡張の原理を探ります。
 
-**現在は非公開での調査・試作段階です。** P1-d まで進め、有限予測、役割付き事象、モデル被覆の反例、限定した合成の認定を実装しました。[共通台帳による総合評価](docs/research/15-p1-d-results.md) で P1 全20条件・80 JSON・417必須パスと、別枠の P0 全22条件を照合済みです。開発テスト231件が通過しています。[独立レビュー計画書](docs/research/16-review-plan.md)、12の証明義務と追加監査8テストを整備しました。続いて AI による単独の内部レビュー（裁定者・指摘者・レビュアーが同一）を最後まで実施し、契約版 `p0-draft-2` として指摘 RV-01〜RV-08 を処理しました（[内部実施の完了記録](docs/research/17-internal-run-ai-001.md)）。独立レビューは未実施で、外部の協力が得られた時点で G0 から再開します。未確認だった経路の追加検査（[18](docs/research/18-additional-checks-ai-001.md)）と、次の段階 P2「意味能力の拡張契約」の研究設計（[19](docs/research/19-p2-design.md)）を作成しました。認定は既知の十分条件に限り、一般の保存判定、体系全体・変換器・実対応表は未完成です。取得済みの外部資料は Git 管理外です。名称、言語仕様、技術スタックは調査と試作で見直します。
+**現在は非公開での調査・試作段階です。** P1-d まで進め、有限予測、役割付き事象、モデル被覆の反例、限定した合成の認定を実装しました。[共通台帳による総合評価](docs/research/15-p1-d-results.md) で P1 全20条件・80 JSON・417必須パスと、別枠の P0 全22条件を照合済みです。開発テスト231件が通過しています。[独立レビュー計画書](docs/research/16-review-plan.md)、12の証明義務と追加監査8テストを整備しました。続いて AI による単独の内部レビュー（裁定者・指摘者・レビュアーが同一）を最後まで実施し、契約版 `p0-draft-2` として指摘 RV-01〜RV-08 を処理しました（[内部実施の完了記録](docs/research/17-internal-run-ai-001.md)）。独立レビューは未実施で、外部の協力が得られた時点で G0 から再開します。未確認だった経路の追加検査（[18](docs/research/18-additional-checks-ai-001.md)）を行い、次の段階 P2「意味能力の拡張契約」の研究設計（[19](docs/research/19-p2-design.md)）を作成しました。P2-a として、既存の handler 10件に拡張契約の宣言を後付けし、登録・非干渉・再検証範囲の検査を実装しました（[実行契約](docs/research/20-p2-a-contract.md)、[結果](docs/research/21-p2-a-results.md)。独立確認前。防護例のない義務が24件残り、新しい意味能力の追加（P2-b）は未着手です）。認定は既知の十分条件に限り、一般の保存判定、体系全体・変換器・実対応表は未完成です。取得済みの外部資料は Git 管理外です。名称、言語仕様、技術スタックは調査と試作で見直します。
 
 ## 何を目指すか
 
@@ -103,11 +103,18 @@ ICD-10 → ICD-11 も候補に残していますが、独自体系開発とい�
 │   │   ├── 14-p1-c-contract.md # P1-c：モデル反例・合成・可用性の契約
 │   │   ├── 14-p1-c-results.md # P1-c：7条件の照合と限定した認定
 │   │   ├── 15-p1-d-contract.md # P1-d：共通台帳・実体固定・評価契約
-│   │   └── 15-p1-d-results.md # P1-d：全20条件の総合照合・認定範囲
+│   │   ├── 15-p1-d-results.md # P1-d：全20条件の総合照合・認定範囲
+│   │   ├── 16-*.md        # 独立レビューの計画・証明義務・様式、AI-001 の記録
+│   │   ├── 17-internal-run-ai-001.md # AI による内部レビューの完了記録と再開点
+│   │   ├── 18-additional-checks-ai-001.md # compare・split_roles・Python 3.11 の追加検査
+│   │   ├── 19-p2-design.md # P2：意味能力の拡張契約の研究設計
+│   │   ├── 20-p2-a-contract.md # P2-a：宣言の書式・登録・再検証範囲の実行契約
+│   │   └── 21-p2-a-results.md # P2-a：10件の後付け・非干渉・限界
 │   └── roadmap.md        # 調査項目・決定事項・各段階の完了条件
 ├── scripts/research/     # ローカル資料の初期検査・R4 の部分追跡・P0/P1 評価
 ├── src/med_dsl/          # P0/P1 のライブラリ・固定仕様・JSON CLI
-├── tests/               # 架空資料の情報保持・棄権・境界の検証
+├── extensions/          # P2-a：拡張契約の宣言10件と索引（作成者草案）
+├── tests/               # 架空資料の情報保持・棄権・境界の検証（review/ はレビュー系列、p2/ は拡張契約）
 ├── packages/README.md    # 将来の実装分割案
 └── examples/            # 架空例と評価ケースの方針
     ├── README.md
@@ -116,10 +123,12 @@ ICD-10 → ICD-11 も候補に残していますが、独自体系開発とい�
     ├── p1-a/            # 有限予測の31実行例・草案ハッシュ台帳
     ├── p1-b/            # 事象への引き継ぎの22実行例・草案ハッシュ台帳
     ├── p1-c/            # 反例・合成・可用性の27実行例・草案ハッシュ台帳
-    └── p1-evaluation/   # 全20条件とP0回帰の共通台帳・固定実体
+    ├── p1-evaluation/   # 全20条件とP0回帰の共通台帳・固定実体
+    ├── audits/          # 追加監査の例
+    └── review/          # レビュー負例系列（別の分母）
 ```
 
-P0/P1 は Python 3.11 以降・標準ライブラリ・JSON を使い、Python 3.14.4 で動作を確認しました。3.11での実行は未確認です。外部パッケージのインストールは不要です。リポジトリのルートで実行します。
+P0/P1 は Python 3.11 以降・標準ライブラリ・JSON を使い、Python 3.14.4 と 3.11.17（conda-forge のビルド）で全テスト系列と評価を実行しました（[18](docs/research/18-additional-checks-ai-001.md)）。他のパッチ版・ビルド・OS は未確認です。外部パッケージのインストールは不要です。リポジトリのルートで実行します。
 
 ```bash
 PYTHONPATH=src python3 -m med_dsl --fixture examples/p0/definition-extension.json
@@ -136,6 +145,9 @@ PYTHONPATH=src python3 -m med_dsl --fixture examples/p1-c/coverage-countermodel.
 PYTHONPATH=src python3 -m med_dsl --fixture examples/p1-c/event-renaming-chain.json
 PYTHONPATH=src python3 -m med_dsl --fixture examples/p1-c/lossy-composition.json
 python3 -m unittest discover -s tests
+python3 -m unittest discover -s tests/review
+python3 -m unittest discover -s tests/p2
+python3 scripts/research/check-extensions.py
 python3 scripts/research/evaluate-p0.py --cli
 python3 scripts/research/evaluate-p1-a.py --cli
 python3 scripts/research/evaluate-p1-b.py --cli
