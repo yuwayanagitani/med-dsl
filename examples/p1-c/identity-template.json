@@ -1,0 +1,137 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "H13",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p1-handover-request-draft-1",
+    "operation": "check_reference_change",
+    "consumer": {
+      "profile": "p1-handover-draft-1",
+      "profile_spec_sha256": "1289d2ee015723885a2dba39c42d7066d738146eda87339d29d55c5faf075e78",
+      "operations": [
+        "check_reference_change"
+      ]
+    },
+    "budget": {
+      "max_steps": 100000
+    },
+    "signature": {
+      "predicates": [
+        {
+          "ref": "A",
+          "arity": 1
+        },
+        {
+          "ref": "B",
+          "arity": 1
+        }
+      ],
+      "constants": [
+        "a"
+      ]
+    },
+    "source": {
+      "theory": [],
+      "data": [
+        {
+          "kind": "atom",
+          "predicate": "A",
+          "args": [
+            {
+              "const": "a"
+            }
+          ]
+        }
+      ]
+    },
+    "target": {
+      "theory": [],
+      "data": [
+        {
+          "kind": "atom",
+          "predicate": "A",
+          "args": [
+            {
+              "const": "a"
+            }
+          ]
+        }
+      ]
+    },
+    "queries": [
+      {
+        "id": "q1",
+        "formula": {
+          "kind": "atom",
+          "predicate": "B",
+          "args": [
+            {
+              "const": "a"
+            }
+          ]
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "old",
+        "model": {
+          "domain": [
+            "u"
+          ],
+          "constants": {
+            "a": "u"
+          },
+          "predicates": {
+            "A": [
+              [
+                "u"
+              ]
+            ],
+            "B": []
+          }
+        }
+      }
+    ],
+    "finite_domain_sizes": []
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "evidence_level"
+        ],
+        "equals": "checked_identity_template"
+      },
+      {
+        "path": [
+          "model_coverage"
+        ],
+        "equals": true
+      },
+      {
+        "path": [
+          "model_reduct"
+        ],
+        "equals": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "H15",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p1-handover-request-draft-1",
+    "operation": "check_absence_policy",
+    "consumer": {
+      "profile": "p1-handover-draft-1",
+      "profile_spec_sha256": "1289d2ee015723885a2dba39c42d7066d738146eda87339d29d55c5faf075e78",
+      "operations": [
+        "check_absence_policy"
+      ]
+    },
+    "budget": {
+      "max_steps": 100000
+    },
+    "source": {
+      "package": {
+        "ref": "fiction:definitions:measurement@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:measurement@1",
+            "roles": [
+              "event",
+              "specimen",
+              "method",
+              "result"
+            ]
+          }
+        ],
+        "definitions": [],
+        "inclusions": [],
+        "dependencies": []
+      },
+      "contexts": [
+        {
+          "ref": "fiction:context:observation@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2026-01-10T09:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:measurement@1",
+        "assertions": [
+          {
+            "id": "h1",
+            "context_ref": "fiction:context:observation@1",
+            "atom": {
+              "predicate": "fiction:measurement@1",
+              "args": [
+                "fiction:e1",
+                "fiction:s1",
+                "fiction:m1",
+                "fiction:positive"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P07:source:h1@1"
+            },
+            "supersedes": [],
+            "required_capabilities": []
+          },
+          {
+            "id": "h2",
+            "context_ref": "fiction:context:observation@1",
+            "atom": {
+              "predicate": "fiction:measurement@1",
+              "args": [
+                "fiction:e2",
+                "fiction:s2",
+                "fiction:m2",
+                "fiction:negative"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:01:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P07:source:h2@1"
+            },
+            "supersedes": [],
+            "required_capabilities": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "r1",
+            "assertion_ref": "h1",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T10:05:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "r2",
+            "assertion_ref": "h2",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T10:06:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      },
+      "dependency_packages": []
+    },
+    "views": [
+      {
+        "id": "v1",
+        "as_of": "2026-01-10T12:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "context_ref": "fiction:context:observation@1",
+        "atoms": [
+          {
+            "predicate": "fiction:measurement@1",
+            "args": [
+              "fiction:e1",
+              "fiction:s1",
+              "fiction:m1",
+              "fiction:positive"
+            ]
+          }
+        ],
+        "required": false
+      }
+    ]
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "before_status"
+        ],
+        "equals": "supported"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "after_status"
+        ],
+        "equals": "supported"
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      }
+    ]
+  }
+}

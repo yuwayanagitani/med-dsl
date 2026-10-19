@@ -1,0 +1,148 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "H13",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p1-handover-request-draft-1",
+    "operation": "check_reference_change",
+    "consumer": {
+      "profile": "p1-handover-draft-1",
+      "profile_spec_sha256": "1289d2ee015723885a2dba39c42d7066d738146eda87339d29d55c5faf075e78",
+      "operations": [
+        "check_reference_change"
+      ]
+    },
+    "budget": {
+      "max_steps": 100000
+    },
+    "signature": {
+      "predicates": [
+        {
+          "ref": "A",
+          "arity": 1
+        },
+        {
+          "ref": "B",
+          "arity": 1
+        }
+      ],
+      "constants": [
+        "a"
+      ]
+    },
+    "source": {
+      "theory": [],
+      "data": [
+        {
+          "kind": "atom",
+          "predicate": "A",
+          "args": [
+            {
+              "const": "a"
+            }
+          ]
+        }
+      ]
+    },
+    "target": {
+      "theory": [
+        {
+          "kind": "forall",
+          "var": "x",
+          "body": {
+            "kind": "implies",
+            "left": {
+              "kind": "atom",
+              "predicate": "A",
+              "args": [
+                {
+                  "var": "x"
+                }
+              ]
+            },
+            "right": {
+              "kind": "atom",
+              "predicate": "B",
+              "args": [
+                {
+                  "var": "x"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "data": [
+        {
+          "kind": "atom",
+          "predicate": "A",
+          "args": [
+            {
+              "const": "a"
+            }
+          ]
+        }
+      ]
+    },
+    "queries": [
+      {
+        "id": "q1",
+        "formula": {
+          "kind": "atom",
+          "predicate": "B",
+          "args": [
+            {
+              "const": "a"
+            }
+          ]
+        }
+      }
+    ],
+    "models": [],
+    "finite_domain_sizes": []
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "model_coverage"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "source",
+          "status"
+        ],
+        "equals": "unassessed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "source",
+          "entails"
+        ],
+        "equals": null
+      }
+    ]
+  }
+}

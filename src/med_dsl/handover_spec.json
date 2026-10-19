@@ -1,0 +1,38 @@
+{
+  "profile": "p1-handover-draft-1",
+  "request_schema": "p1-handover-request-draft-1",
+  "result_schema": "p1-handover-result-draft-1",
+  "operations": ["check_reference_change", "check_absence_policy", "rename_events", "check_event_chain", "check_projection_chain", "audit_replay"],
+  "p0_contract_sha256": "79c04736f38c46e0a2f9672cd23ffd2eddddfcca8efb1cd292b3330bdb3ead92",
+  "p0_runtime_sha256": "9e1c271cc4eaed2aa391247435e907722823edccc8e54857a22e7716d76681f9",
+  "event_spec_sha256": "0fd014dd4904b2773839a8577675a59f7386ef2ea81ddb00c0def2ebbdf99cf3",
+  "semantics": {
+    "reference": "closed relational first-order AST; explicit finite models are witnesses, never general completeness",
+    "entailment_proofs": "asserted sentence, ground unary Horn derivation, or checked unary/binary existential-rule consequence; never a named witness",
+    "identity_template": "identical sentence sets over the same signature certify identity model coverage",
+    "event_chain": "native four-role/history template plus total injective fresh event renaming; actual endpoint, dependencies, policy and translated query scope hashes checked",
+    "event_guarantee": "original history and completed P0 positive support contract; excludes new event identity/count and general first-order inference",
+    "projection": "known column projection or set of all values; canonical JSON encoding preserves only its actual input",
+    "absence": "diagnostic closed-world policy probe; does not create clinical assertions",
+    "replay": "verified supplied inventory and native handler registry; stored bytes alone are not execution or interpretation"
+  },
+  "limits": {
+    "request_bytes": 1048576, "json_depth": 64, "max_steps": 100000,
+    "predicates": 8, "constants": 8, "arity": 4, "domain": 8,
+    "models": 16, "theory_sentences": 16, "data_atoms": 16,
+    "logic_queries": 16, "formula_nodes": 512, "formula_depth": 16,
+    "relation_rows": 64, "projection_queries": 16, "resources": 16,
+    "event_assertions": 1000, "event_queries": 64, "event_views": 64
+  },
+  "steps": [
+    "one at request start; structural, reference, size and hash syntax validation precede execution",
+    "reference: each visited formula node and quantifier assignment; each proof candidate; each identity/subset obligation and committed certificate",
+    "absence: existing P0 replay charges and one per completed diagnostic row",
+    "rename: one per assertion and review and final commit",
+    "chain: one per endpoint/scope/history/renaming obligation, existing P0 and native-event evaluation charges, final certificate commit",
+    "projection: each row projected and queried, second encoding verification, each scope check and final certificate commit",
+    "replay: archive verification, each resource requirement, optional independent semantic-chain charges and final report commit"
+  ],
+  "resource_stop": "resource_limit; no partial certificate, probability, bindings or diagnostic report; no semantic loss inferred",
+  "evidence": "countermodels, checked native templates, completed execution checks and inventory availability remain separately typed"
+}

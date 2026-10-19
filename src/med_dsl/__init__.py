@@ -7,6 +7,7 @@ from .query import run_query
 from .validation import check_json, validate_compare, validate_extension, validate_header, validate_query
 from .forecast import FORECAST_PROFILE, run_forecast
 from .events import EVENT_PROFILE, run_events
+from .handover import HANDOVER_PROFILE, run_handover
 
 __all__ = ["evaluate"]
 
@@ -15,9 +16,12 @@ def evaluate(request):
     fingerprint = None
     is_forecast = type(request) is dict and request.get("schema_version") == "p1-request-draft-1"
     is_events = type(request) is dict and request.get("schema_version") == "p1-events-request-draft-1"
+    is_handover = type(request) is dict and request.get("schema_version") == "p1-handover-request-draft-1"
     try:
         fingerprint = check_json(request)
-        if is_events:
+        if is_handover:
+            response = run_handover(request)
+        elif is_events:
             response = run_events(request)
         elif is_forecast:
             response = run_forecast(request)
@@ -33,6 +37,6 @@ def evaluate(request):
     except Problem as problem:
         response = {"status": problem.status, "reason_codes": [problem.code],
                     "error_path": problem.path, "incomplete": ["request"]}
-    return {"schema_version": "p1-events-result-draft-1" if is_events else "p1-result-draft-1" if is_forecast else "p0-result-draft-1",
-            "profile": EVENT_PROFILE if is_events else FORECAST_PROFILE if is_forecast else PROFILE,
+    return {"schema_version": "p1-handover-result-draft-1" if is_handover else "p1-events-result-draft-1" if is_events else "p1-result-draft-1" if is_forecast else "p0-result-draft-1",
+            "profile": HANDOVER_PROFILE if is_handover else EVENT_PROFILE if is_events else FORECAST_PROFILE if is_forecast else PROFILE,
             "input_sha256": fingerprint, **response}

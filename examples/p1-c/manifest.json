@@ -1,0 +1,181 @@
+{
+  "schema_version": "p1-c-manifest-draft-1",
+  "status": "author_draft_snapshot",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "fixture_ids": [
+    "H13",
+    "H14",
+    "H15",
+    "H16",
+    "H17",
+    "H18",
+    "H19"
+  ],
+  "profile": "p1-handover-draft-1",
+  "profile_spec_sha256": "1289d2ee015723885a2dba39c42d7066d738146eda87339d29d55c5faf075e78",
+  "files": [
+    {
+      "fixture_id": "H13",
+      "path": "coverage-countermodel.json",
+      "bytes": 3246,
+      "sha256": "0df088e632bb54770909df193be316e50b91669615804ed73f9436ba3abacaec"
+    },
+    {
+      "fixture_id": "H13",
+      "path": "identity-template.json",
+      "bytes": 2443,
+      "sha256": "c10d8560f2f71c132bf608b720de9dedbc2a2219af1856648cd018c70bb7ebeb"
+    },
+    {
+      "fixture_id": "H13",
+      "path": "no-countermodel-no-proof.json",
+      "bytes": 2725,
+      "sha256": "c9228d5790d53a959a8b9fa778a64e32a558cf3f2de4c445a803ec82d4cc9172"
+    },
+    {
+      "fixture_id": "H14",
+      "path": "existential-without-named-witness.json",
+      "bytes": 5124,
+      "sha256": "a975a3146a70ddc2ae64dbae189650f9ba56b61b5b2cc7967389859cf682eb2e"
+    },
+    {
+      "fixture_id": "H15",
+      "path": "absence-is-negative.json",
+      "bytes": 4491,
+      "sha256": "0eee03be6c9c23270ac9a5b9255c4299d5756ed6fa46fd0033d40f76df64df0a"
+    },
+    {
+      "fixture_id": "H15",
+      "path": "same-current-answer.json",
+      "bytes": 4491,
+      "sha256": "00b40cfcf19ab9181792126840528611d57fadeca2978292a376cce225ad3811"
+    },
+    {
+      "fixture_id": "H15",
+      "path": "unknown-does-not-become-negative.json",
+      "bytes": 4539,
+      "sha256": "f5a9096e1eb739dd44ad18f4646ede582e056387a8425e28da90096d1b8e279c"
+    },
+    {
+      "fixture_id": "H16",
+      "path": "event-renaming-chain.json",
+      "bytes": 15649,
+      "sha256": "c15d7fc1a0f70b0ab89af4c1ad32d771443a1bc281fb1234707a57f5f7c8a0d0"
+    },
+    {
+      "fixture_id": "H16",
+      "path": "rename-events.json",
+      "bytes": 4877,
+      "sha256": "47f90eab303f84015829ee65fa17eefaf1c0ace283e1e24a12c87ca93b0cf366"
+    },
+    {
+      "fixture_id": "H16",
+      "path": "wrong-intermediate.json",
+      "bytes": 14923,
+      "sha256": "1bfd04d73e3652580dfe85fb0285f462fbe0baacf38ec452237eef213dbd6bcc"
+    },
+    {
+      "fixture_id": "H16",
+      "path": "wrong-policy.json",
+      "bytes": 14906,
+      "sha256": "8f647ba65114486780a9bfcc1de460e24260b885c1645c58afcdb5d9226240d8"
+    },
+    {
+      "fixture_id": "H16",
+      "path": "wrong-dependencies.json",
+      "bytes": 14735,
+      "sha256": "87782cf3a3d75fff0a5cef6ddf6c640fba1a380106403bad65b7c3428fcad036"
+    },
+    {
+      "fixture_id": "H16",
+      "path": "wrong-translated-scope.json",
+      "bytes": 14923,
+      "sha256": "8fd6efbb1d7cee86ccba8206af0039c7689568852e2481734ff0e9999b8fff00"
+    },
+    {
+      "fixture_id": "H16",
+      "path": "noninjective-renaming.json",
+      "bytes": 14909,
+      "sha256": "6c0ac2fbfc61849dfa80799da297b9f8ac0d631ddb4ff85cc71430512a2fd01b"
+    },
+    {
+      "fixture_id": "H17",
+      "path": "lossy-composition.json",
+      "bytes": 2586,
+      "sha256": "5b688c63881b01402ec2f2aa2383a0fa93af644aee81275626bf9b1ce1746998"
+    },
+    {
+      "fixture_id": "H17",
+      "path": "sidecar-is-additional-input.json",
+      "bytes": 2611,
+      "sha256": "4bdb3b9b3d52b3770bd48ff81090afb646d2c1992f53df673062c15be4fff472"
+    },
+    {
+      "fixture_id": "H17",
+      "path": "full-column-identity.json",
+      "bytes": 2145,
+      "sha256": "b4459c15781f8feb7817df0d8ce57392f2314fa899db11477c8d81d63a2817a1"
+    },
+    {
+      "fixture_id": "H17",
+      "path": "kept-query-scope.json",
+      "bytes": 2045,
+      "sha256": "61c12423008befb139147d0d5ae63c850c82668124581fa7a9eb0b791e25617f"
+    },
+    {
+      "fixture_id": "H17",
+      "path": "discarded-query-scope.json",
+      "bytes": 2066,
+      "sha256": "060269d913d0b116eab0c034c815113119eeeb3096c27f2d31902f9084af3282"
+    },
+    {
+      "fixture_id": "H18",
+      "path": "finite-check-is-not-coverage.json",
+      "bytes": 4235,
+      "sha256": "9f468ee6137dac2ec161adbbd8b893b089e7655f6fb144399ff64bc9a7fa2b3c"
+    },
+    {
+      "fixture_id": "H18",
+      "path": "finite-check-without-countermodel.json",
+      "bytes": 3754,
+      "sha256": "6fc84d54f42f02da0aca1634bd095720f205a58093a468dd432e1e305b6d62f7"
+    },
+    {
+      "fixture_id": "H19",
+      "path": "missing-runtime.json",
+      "bytes": 3693,
+      "sha256": "46c0e4df52a2bcef59d81c2d2445333bce89a58ce2ee79239b1664bb5a361c8a"
+    },
+    {
+      "fixture_id": "H19",
+      "path": "stored-runtime-is-not-handler.json",
+      "bytes": 3904,
+      "sha256": "a6666848ba0369daf7533fff4254f6b65f4dd61015cd7d32259d00cdaa980114"
+    },
+    {
+      "fixture_id": "H19",
+      "path": "missing-dependency.json",
+      "bytes": 3685,
+      "sha256": "f5b49d70cf5fdc3a39c45fb64486396c1764d631459a841bdfb98198cc5e52c5"
+    },
+    {
+      "fixture_id": "H19",
+      "path": "known-native-ready.json",
+      "bytes": 3995,
+      "sha256": "0d7dad5131957788f484d1d58d4a3353d52eb7419333ea13c04f63bf6d884dad"
+    },
+    {
+      "fixture_id": "H19",
+      "path": "new-guarantee-independent-of-old-binary.json",
+      "bytes": 18470,
+      "sha256": "ff8d7cb28633138848df00a87454639fca197fa66a1837d254a142e869338b91"
+    },
+    {
+      "fixture_id": "H19",
+      "path": "corrupt-archive.json",
+      "bytes": 3485,
+      "sha256": "399cae4606a6792a4c42ec36d9b8b5f163bb9cf608f5d9483963b633df46262e"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "H17",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p1-handover-request-draft-1",
+    "operation": "check_projection_chain",
+    "consumer": {
+      "profile": "p1-handover-draft-1",
+      "profile_spec_sha256": "1289d2ee015723885a2dba39c42d7066d738146eda87339d29d55c5faf075e78",
+      "operations": [
+        "check_projection_chain"
+      ]
+    },
+    "budget": {
+      "max_steps": 100000
+    },
+    "source_a": [
+      [
+        "fiction:e1",
+        "fiction:s1",
+        "fiction:m1",
+        "fiction:positive"
+      ],
+      [
+        "fiction:e2",
+        "fiction:s2",
+        "fiction:m2",
+        "fiction:negative"
+      ]
+    ],
+    "source_b": [
+      [
+        "fiction:e1",
+        "fiction:s1",
+        "fiction:m2",
+        "fiction:positive"
+      ],
+      [
+        "fiction:e2",
+        "fiction:s2",
+        "fiction:m1",
+        "fiction:negative"
+      ]
+    ],
+    "projection": {
+      "kind": "columns",
+      "positions": [
+        3
+      ]
+    },
+    "queries": [
+      {
+        "id": "q1",
+        "where": [
+          {
+            "position": 1,
+            "value": "fiction:s1"
+          },
+          {
+            "position": 2,
+            "value": "fiction:m1"
+          }
+        ],
+        "select": [
+          {
+            "position": 3,
+            "var": "result"
+          }
+        ]
+      }
+    ],
+    "source_sidecar": null
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "out_of_scope"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "target_bindings"
+        ],
+        "equals": null
+      }
+    ]
+  }
+}

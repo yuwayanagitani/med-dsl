@@ -2,7 +2,7 @@
 
 **未来永劫、原理的に変化に耐えうる医療コード体系を確立するための研究プロジェクト。** 医学・制度・システム・AI の変化を受け止める、意味の表現と拡張の原理を探ります。
 
-**現在は非公開での調査・試作段階です。** P0-d、P1-a の有限予測に続き、P1-b の事象への引き継ぎを実装しました。四項関係を四つの役割へ移し、原履歴と旧問い合わせの支持回答を照合します。177件の開発テスト、P0 全22条件と P1 の13/20条件を作成者草案で照合済みです。全モデルの保存認定、体系全体・変換器・実対応表は未完成です。取得済みの外部資料は Git 管理外です。名称、言語仕様、技術スタックは調査と試作で見直します。
+**現在は非公開での調査・試作段階です。** P1-c まで実装し、有限予測、役割付き事象、モデル被覆の反例、限定した合成の認定を検証しました。216件の開発テスト、P0 全22条件と各段階の P1 全20条件を作成者草案で照合済みです。認定は既知の十分条件に限り、一般の保存判定、体系全体・変換器・実対応表は未完成です。取得済みの外部資料は Git 管理外です。名称、言語仕様、技術スタックは調査と試作で見直します。
 
 ## 何を目指すか
 
@@ -97,7 +97,9 @@ ICD-10 → ICD-11 も候補に残していますが、独自体系開発とい�
 │   │   ├── 12-p1-a-contract.md # P1-a：有限予測の実行形式・能力・上限
 │   │   ├── 12-p1-a-results.md # P1-a：7条件の照合と制限
 │   │   ├── 13-p1-b-contract.md # P1-b：事象化・読み戻し・役割表の問い合わせ
-│   │   └── 13-p1-b-results.md # P1-b：6条件の照合と有限検査の制限
+│   │   ├── 13-p1-b-results.md # P1-b：6条件の照合と有限検査の制限
+│   │   ├── 14-p1-c-contract.md # P1-c：モデル反例・合成・可用性の契約
+│   │   └── 14-p1-c-results.md # P1-c：7条件の照合と限定した認定
 │   └── roadmap.md        # 調査項目・決定事項・各段階の完了条件
 ├── scripts/research/     # ローカル資料の初期検査・R4 の部分追跡・P0/P1 評価
 ├── src/med_dsl/          # P0/P1 のライブラリ・固定仕様・JSON CLI
@@ -108,7 +110,8 @@ ICD-10 → ICD-11 も候補に残していますが、独自体系開発とい�
     ├── p0/              # P0 の 37 JSON 例と草案のハッシュ台帳
     ├── p1/              # P1 の8設計例。設計用形式は実行不可
     ├── p1-a/            # 有限予測の31実行例・草案ハッシュ台帳
-    └── p1-b/            # 事象への引き継ぎの22実行例・草案ハッシュ台帳
+    ├── p1-b/            # 事象への引き継ぎの22実行例・草案ハッシュ台帳
+    └── p1-c/            # 反例・合成・可用性の27実行例・草案ハッシュ台帳
 ```
 
 P0/P1 は Python 3.11 以降・標準ライブラリ・JSON を使い、Python 3.14.4 で動作を確認しました。3.11での実行は未確認です。外部パッケージのインストールは不要です。リポジトリのルートで実行します。
@@ -124,10 +127,14 @@ PYTHONPATH=src python3 -m med_dsl --fixture examples/p1-a/correlated-forecast.js
 PYTHONPATH=src python3 -m med_dsl --fixture examples/p1-b/reify-events.json
 PYTHONPATH=src python3 -m med_dsl --fixture examples/p1-b/linked-observations.json
 PYTHONPATH=src python3 -m med_dsl --fixture examples/p1-b/split-witness.json
+PYTHONPATH=src python3 -m med_dsl --fixture examples/p1-c/coverage-countermodel.json
+PYTHONPATH=src python3 -m med_dsl --fixture examples/p1-c/event-renaming-chain.json
+PYTHONPATH=src python3 -m med_dsl --fixture examples/p1-c/lossy-composition.json
 python3 -m unittest discover -s tests
 python3 scripts/research/evaluate-p0.py --cli
 python3 scripts/research/evaluate-p1-a.py --cli
 python3 scripts/research/evaluate-p1-b.py --cli
+python3 scripts/research/evaluate-p1-c.py --cli
 ```
 
 `--fixture` は草案例の request だけを処理し、expected を推論へ渡しません。`package.json` は名称と非公開設定等の初期メタデータです。次の作業は [ロードマップ](docs/roadmap.md) を参照してください。
@@ -146,7 +153,7 @@ python3 scripts/research/evaluate-p1-b.py --cli
 
 [R6 の試作仕様](docs/research/06-prototype-brief.md) と [P0 契約](docs/research/06-p0-contract.md) を定め、[P0-a](docs/research/07-p0-a-results.md) に続き [P0-b](docs/research/08-p0-b-results.md) を実装しました。S1/S2 の保存認定、単項包含・連言定義による推論、根拠追跡、確認・時点・訂正の選択が動作します。[P0-c](docs/research/09-p0-c-results.md) では未知能力の停止元・衝突の両根拠を具体化し、18 ケースの草案を整えました。続いて [P0-d](docs/research/10-p0-d-results.md) で compare を実装し、全22ケースを37 JSON で具体化しました。116 件の開発テストが通過し、作成者草案の22/22ケース・指定チェック221/221と、API/CLI の一致・再実行を確認しました。独立確認と R4 の実行評価は未完了です。
 
-[P1 の研究設計](docs/research/11-p1-design.md) と [引き継ぎ契約](docs/research/11-p1-contract.md) で、20受入条件・8設計JSONを用意しました。[P1-a](docs/research/12-p1-a-results.md) で仕様・能力の照合と有限予測を実装し、確率1を臨床事実へ変換しない7条件を照合しました。[P1-b の実行契約](docs/research/13-p1-b-contract.md) と [6条件・22 JSON・150必須パスの照合結果](docs/research/13-p1-b-results.md) では、四項関係から事象への引き継ぎ、原履歴の復元、役割表での問い合わせと誤翻訳の反例を扱います。有限照合が一致しても全モデルの保存を認定しません。次は P1-c のモデル被覆・合成です。P0/P1 の独立レビュー、完全な形式仕様、永続性全体の証明、臨床変換の実証は未完了です。HAPI FHIR と ROBOT は後続の中間用途で再評価します。
+[P1 の研究設計](docs/research/11-p1-design.md) と [引き継ぎ契約](docs/research/11-p1-contract.md) で、20受入条件・8設計JSONを用意しました。[P1-a](docs/research/12-p1-a-results.md) は型付き有限予測、[P1-b](docs/research/13-p1-b-results.md) は事象化・原履歴・有限回答を実装しました。[P1-c の実行契約](docs/research/14-p1-c-contract.md) と [7条件・27 JSON・126必須パスの照合結果](docs/research/14-p1-c-results.md) では、モデル被覆の反例、既知条件による合成の認定、射影の喪失、原保存と再実行の可用性を区別します。有限一致だけで認定せず、保証範囲を明記します。次は P1-d の全20条件の共通台帳・固定・総合評価です。独立レビュー、完全な形式仕様、永続性全体の証明、臨床変換の実証は未完了です。HAPI FHIR と ROBOT は後続の中間用途で再評価します。
 
 ## 非公開運用・権利
 
