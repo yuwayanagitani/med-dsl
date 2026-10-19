@@ -18,6 +18,8 @@ R2 の検索方法、出典、参照版・コミット、確認範囲は [出典
 
 [R6](research/06-prototype-brief.md) で最初の P0 の範囲と着手条件を決め、[意味・入出力・22 件の受入契約](research/06-p0-contract.md) と [三つの架空 JSON 例](../examples/p0/README.md) を作成しました。[P0-a の実行記録](research/07-p0-a-results.md) では、事実照合と主張選択、草案 P07/P10 との一致と開発テストを記録しています。[P0-b](research/08-p0-b-results.md) で S1/S2 の認定と定義推論を追加し、共有記号・循環・新規所属データの境界を検証しました。[P0-c](research/09-p0-c-results.md) で主張・否定・未知能力のケースを具体化し、18 ケースの 27 JSON と停止理由を検証しました。[P0-d](research/10-p0-d-results.md) で比較を実装し、22ケースの37 JSON・指定チェック221件を照合しました。[P1 の研究設計](research/11-p1-design.md)、[意味・引き継ぎ契約](research/11-p1-contract.md)、[20受入条件](research/11-p1-cases.md)、[一次資料の確認範囲](research/11-p1-sources.md) を作成しました。続いて [P1-a の実行契約](research/12-p1-a-contract.md) と有限予測を実装し、[147開発テスト・7条件・31 JSON・141必須パスと P0 回帰](research/12-p1-a-results.md) を照合しました。続いて [P1-b の実行契約](research/13-p1-b-contract.md) を具体化し、[177開発テスト・6条件・22 JSON・150必須パスと既存回帰](research/13-p1-b-results.md) を照合しました。役割表から新側の回答を求め、原履歴も読み戻します。有限照合の一致を全モデルの認定とはしません。[P1-c の実行契約](research/14-p1-c-contract.md) と [216開発テスト・7条件・27 JSON・126必須パスと既存回帰](research/14-p1-c-results.md) では、参考モデルの反例、既知条件による合成認定、射影の喪失、原保存と旧実行環境の可用性を分けました。各段階で全20条件の実行例が揃い、8設計JSONは設計資料のまま保持しています。[P1-d の総合評価](research/15-p1-d-results.md) で、共通台帳と168ファイルの実体を固定し、231開発テスト・P1全20条件/80 JSON/417必須パス・別枠のP0回帰を照合しました。独立レビューは未完了です。草案との工学的な一致と、独立確認後の評価用正解による検証を分けます。
 
+[保存条件の形式化](research/16-proof-obligations.md) で12の証明義務と手作業の導出を整理し、[追加の有限監査](research/16-pre-review-results.md) で定義追加200プログラムと参考意味を検査しました。[独立レビュー計画書](research/16-review-plan.md) と [記録様式](research/16-review-record-template.md) を作成済みです。担当割当・独立レビュー・正解凍結は未実施です。
+
 ## 最初に読む一次資料
 
 以下の公式ページは 2026-10-18 に確認しました。リンク先の確認と個々の機能・適合性の検証は区別し、詳細仕様、対象版、利用条件は各調査で記録します。

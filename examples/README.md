@@ -8,6 +8,8 @@ R4 の例は研究文書の [ケース仕様](../docs/research/04-cases.md) に�
 
 後続の [P1-a](p1-a/README.md) は7条件・31 JSON・141必須パス、[P1-b](p1-b/README.md) は6条件・22 JSON・150必須パス、[P1-c](p1-c/README.md) は7条件・27 JSON・126必須パスを照合済みです。[P1-d の共通台帳](p1-evaluation/README.md) で仕様・依存・実装・期待条件を固定し、全20条件・80 JSON・417必須パスと別枠のP0回帰を総合照合しました。開発テストは現在231件。元の8設計JSONと依存ハッシュを保持し、独立レビュー・評価用正解の凍結は未完了です。
 
+[事前監査用のPR01](audits/existential-reversed.json) は、逆向きの存在規則に対して現行処理系が未評価を維持する例です。[追加監査結果](../docs/research/16-pre-review-results.md) の別系列で扱い、P1の20条件・80 JSONには加えません。
+
 ## 体系そのものの変化への耐性
 
 [最終目標](../docs/vision.md) に向けて、R2b で変化の種類と不変条件の候補を整理し、[R4](../docs/research/04-evaluation.md) で以下の例と K01〜K14 の評価方法を具体化しました。移行の成否だけで体系の普遍性・永続性を評価しません。
