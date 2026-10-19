@@ -1,5 +1,6 @@
 """小さな一階参考意味。有限モデルの反例と既知の導出だけを返す。"""
 
+from .handover_common import Operation
 from .model import Problem
 from .validation import canonical_bytes, digest, fields, indexed, string, strings, values
 
@@ -252,3 +253,14 @@ def run_reference(request, budget):
                             "scope": "same_signature_identity_first_order_sentences" if identity else None},
             "reason_codes": [], "incomplete": [{"query_id": r["query_id"], "side": side}
                 for r in results for side in ("source", "target") if r[side]["status"] == "unassessed"]}
+
+
+def _validate(request, budget):
+    return validate_reference(request)
+
+
+def _run(request, validated, budget):
+    return run_reference(request, budget)
+
+
+CHECK_REFERENCE_CHANGE = Operation("check_reference_change", ("signature", "source", "target", "queries", "models", "finite_domain_sizes"), False, _validate, _run)

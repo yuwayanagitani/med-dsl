@@ -12,7 +12,7 @@
   "contract_doc": "docs/research/14-p1-c-contract.md",
   "implementation": {
     "modules": [
-      "src/med_dsl/handover.py"
+      "src/med_dsl/replay.py"
     ]
   },
   "pins": [],
@@ -216,8 +216,24 @@
       "checks": [
         "tests/test_p1_handover.py::test_replay_and_independent_chain_share_one_budget"
       ],
-      "guards": [],
-      "guard_gap": "共有予算はテストで検査している"
+      "guards": [
+        {
+          "example": "examples/p2/budget-below-replay.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2/budget-exact-replay.json",
+          "path": [
+            "status"
+          ],
+          "equals": "ok",
+          "kind": "boundary"
+        }
+      ]
     }
   ],
   "stops": {
@@ -236,11 +252,13 @@
   "evaluation": {
     "examples": [
       "examples/p1-c/*.json",
-      "examples/review/*.json"
+      "examples/review/*.json",
+      "examples/p2/*.json"
     ],
     "tests": [
       "tests/test_p1_handover.py",
-      "tests/review/test_review_negatives.py"
+      "tests/review/test_review_negatives.py",
+      "tests/p2/test_guard_examples.py"
     ],
     "budget_sweep": true,
     "oracle": "tests/review/reference_oracle.py"

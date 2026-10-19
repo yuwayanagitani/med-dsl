@@ -37,6 +37,12 @@ MODES = {**{f"H{i:02}": "typed_forecast" for i in range(1, 7)},
          "H19": "replay_inventory_and_separate_handover", "H20": "resource_boundary"}
 
 
+# P2-a：拡張の宣言と、宣言が根拠として引く実体（防護例・検査・オラクル・登録の入口）。
+# scripts/research/audit-preservation.py は lock の hash を定数に持つので、載せると循環する（載せない）。
+EXTENSION_PATTERNS = ("extensions/*.json", "examples/p2/*.json", "examples/review/*.json", "tests/review/*.py",
+                      "tests/p2/*.py", "tests/audits/*.py", "scripts/research/check-extensions.py")
+
+
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -46,7 +52,7 @@ def inventory(root):
     paths = {root / f"docs/research/{name}.md" for name in CONTRACTS}
     for pattern in ("src/med_dsl/*.py", "src/med_dsl/*.json", "tests/*.py",
                     "scripts/research/evaluate-*.py", "examples/p1/*.json",
-                    *(f"examples/{name}/*.json" for name in SUITES)):
+                    *(f"examples/{name}/*.json" for name in SUITES), *EXTENSION_PATTERNS):
         paths.update(root.glob(pattern))
     return sorted(str(path.relative_to(root)) for path in paths)
 

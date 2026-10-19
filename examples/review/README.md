@@ -8,6 +8,17 @@
 python3 -m unittest discover -s tests/review -v   # 52テスト、約30秒。tests/ 直下の discover には含まれない
 ```
 
+## 行番号の注記（拡張ホストの分離後）
+
+表と各例の `gate` 欄にある行番号（`handover.py:176` など）は、拡張ホストの分離前（`5c8efd4`）の位置です。固定した例の `gate` 欄は書き換えていません。分離後の位置は次のとおりです。
+
+| 分離前 | 分離後 |
+| --- | --- |
+| `handover.py:176`（鎖の段の票の照合） | `chain.py:104` |
+| `handover.py:282-283`（runtime 要求の数） | `replay.py:52-53` |
+| `handover.py:319`・`:320`（依存・runtime の hash） | `replay.py:89`・`:90` |
+| `projection.py:69-70`・`:119`・`:122` | `projection.py:70-71`・`:120`・`:123`（import が 1 行増えた） |
+
 ## 負例13件（RV-01・RV-05）
 
 各例は、固定済みの例を最小限に書き換えたもので、どのゲートを壊すと検出できなくなるかを `gate` に記録しています。

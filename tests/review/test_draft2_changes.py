@@ -118,7 +118,7 @@ class ReferenceReasonCodeTests(unittest.TestCase):
     def test_a_chain_mismatch_is_not_reported_as_incomparable(self):
         data = request("p1-c", "event-renaming-chain")
         fake = {"status": "ok", "comparison": {"status": "mismatch", "results": []}}
-        with patch("med_dsl.handover._compare", return_value=fake):
+        with patch("med_dsl.chain._compare", return_value=fake):
             result = evaluate(data)
         self.assertEqual(result["certificate"]["status"], "not_certified")
         self.assertEqual(result["certificate"]["reason_codes"], ["answers_mismatch"])

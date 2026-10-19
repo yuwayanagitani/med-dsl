@@ -3,6 +3,7 @@
 import base64
 import json
 
+from .handover_common import Operation
 from .model import Problem
 from .validation import canonical_bytes, digest, fields, indexed, string, values
 
@@ -132,3 +133,14 @@ def run_projection(request, budget):
             "source_sidecar_available": request["source_sidecar"] is not None,
             "additional_source_used": any("sidecar_answer" in row for row in results),
             "reason_codes": [], "incomplete": []}
+
+
+def _validate(request, budget):
+    return validate_projection(request)
+
+
+def _run(request, validated, budget):
+    return run_projection(request, budget)
+
+
+CHECK_PROJECTION_CHAIN = Operation("check_projection_chain", ("source_a", "source_b", "projection", "queries", "source_sidecar"), False, _validate, _run)

@@ -12,7 +12,7 @@
   "contract_doc": "docs/research/14-p1-c-contract.md",
   "implementation": {
     "modules": [
-      "src/med_dsl/handover.py"
+      "src/med_dsl/chain.py"
     ]
   },
   "pins": [],
@@ -165,8 +165,29 @@
         "tests/test_p1_handover.py::test_unknown_capability_and_outside_query_do_not_disappear",
         "tests/test_p1_handover.py::test_new_event_queries_are_not_included_in_the_old_query_certificate"
       ],
-      "guards": [],
-      "guard_gap": "範囲外の問いで認定が出ないことはテストで検査している（例なし）"
+      "guards": [
+        {
+          "example": "examples/p2/chain-out-of-scope-query.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "query_out_of_scope"
+          ],
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2/chain-out-of-scope-query.json",
+          "path": [
+            "out_of_scope_query_ids"
+          ],
+          "equals": [
+            "q3"
+          ],
+          "kind": "non_conversion"
+        }
+      ]
     },
     {
       "id": "COMP-3",
@@ -206,8 +227,19 @@
       "checks": [
         "tests/test_p1_handover.py::test_unknown_capability_and_outside_query_do_not_disappear"
       ],
-      "guards": [],
-      "guard_gap": "例ではなく、乱数照合（tests/review/test_event_paths.py）が衝突・未知を含む鎖の認定可否を検査している"
+      "guards": [
+        {
+          "example": "examples/p2/chain-unknown-capability.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "incomparable_execution"
+          ],
+          "kind": "refusal"
+        }
+      ]
     },
     {
       "id": "K-INV",
@@ -216,8 +248,21 @@
       "checks": [
         "tests/review/test_event_paths.py::ChainCertificationTests.test_certified_exactly_when_every_answer_is_complete"
       ],
-      "guards": [],
-      "guard_gap": "認定を拒否する例は COMP-1 の防護例が担う"
+      "guards": [
+        {
+          "example": "examples/p2/chain-ai-candidate-not-adopted.json",
+          "path": [
+            "finite_checks",
+            1,
+            "target_result",
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "undetermined",
+          "kind": "non_conversion"
+        }
+      ]
     },
     {
       "id": "K-RES",
@@ -226,8 +271,24 @@
       "checks": [
         "tests/test_p1_handover.py::test_shared_chain_budget_includes_final_certificate_commit"
       ],
-      "guards": [],
-      "guard_gap": "共有予算はテストで検査している"
+      "guards": [
+        {
+          "example": "examples/p2/budget-below-event-chain.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2/budget-exact-event-chain.json",
+          "path": [
+            "status"
+          ],
+          "equals": "ok",
+          "kind": "boundary"
+        }
+      ]
     }
   ],
   "stops": {
@@ -246,12 +307,14 @@
   "evaluation": {
     "examples": [
       "examples/p1-c/*.json",
-      "examples/review/*.json"
+      "examples/review/*.json",
+      "examples/p2/*.json"
     ],
     "tests": [
       "tests/test_p1_handover.py",
       "tests/review/test_review_negatives.py",
-      "tests/review/test_event_paths.py"
+      "tests/review/test_event_paths.py",
+      "tests/p2/test_guard_examples.py"
     ],
     "budget_sweep": true,
     "oracle": "tests/review/reference_oracle.py"

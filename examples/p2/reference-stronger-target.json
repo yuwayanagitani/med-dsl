@@ -1,0 +1,133 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "GD33",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p1-reference",
+  "obligation": "R3-4",
+  "kind": "non_conversion",
+  "gate": "新理論が文を一つ追加するとき、保存を認定せず、被覆を真にも偽にもしない",
+  "derived_from": "p1-c/identity-template",
+  "request": {
+    "schema_version": "p1-handover-request-draft-1",
+    "operation": "check_reference_change",
+    "consumer": {
+      "profile": "p1-handover-draft-1",
+      "profile_spec_sha256": "f5b1709c8c538ede98dd58b0eea79a6c4b4a145d6b7248daaa586cffe660a54d",
+      "operations": [
+        "check_reference_change"
+      ]
+    },
+    "budget": {
+      "max_steps": 100000
+    },
+    "signature": {
+      "predicates": [
+        {
+          "ref": "A",
+          "arity": 1
+        },
+        {
+          "ref": "B",
+          "arity": 1
+        }
+      ],
+      "constants": [
+        "a"
+      ]
+    },
+    "source": {
+      "theory": [],
+      "data": [
+        {
+          "kind": "atom",
+          "predicate": "A",
+          "args": [
+            {
+              "const": "a"
+            }
+          ]
+        }
+      ]
+    },
+    "target": {
+      "theory": [],
+      "data": [
+        {
+          "kind": "atom",
+          "predicate": "A",
+          "args": [
+            {
+              "const": "a"
+            }
+          ]
+        },
+        {
+          "kind": "atom",
+          "predicate": "B",
+          "args": [
+            {
+              "const": "a"
+            }
+          ]
+        }
+      ]
+    },
+    "queries": [
+      {
+        "id": "q1",
+        "formula": {
+          "kind": "atom",
+          "predicate": "B",
+          "args": [
+            {
+              "const": "a"
+            }
+          ]
+        }
+      }
+    ],
+    "models": [],
+    "finite_domain_sizes": []
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "reason_codes"
+        ],
+        "equals": [
+          "model_coverage_not_established"
+        ]
+      },
+      {
+        "path": [
+          "model_coverage"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "model_reduct"
+        ],
+        "equals": true
+      }
+    ]
+  }
+}

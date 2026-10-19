@@ -1,0 +1,370 @@
+{
+  "schema_version": "p2-guard-examples-manifest-draft-1",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "contract_version": "p0-draft-2",
+  "note": "P2-a の防護例（宣言の guards が引く）。P1の20条件・80 JSON・417必須パス、231開発テスト、レビュー系列とは別の分母。期待結果はゲートの意味から手で指定した。予算の境界の n（完了に要る最小の steps）だけは無制限の実行から測った。",
+  "measured_budgets": {
+    "definitions": 5,
+    "absence": 5,
+    "event-chain": 97,
+    "events": 34,
+    "rename-events": 6,
+    "projection": 15,
+    "reference": 9,
+    "replay": 100
+  },
+  "files": [
+    {
+      "fixture_id": "GD01",
+      "path": "budget-below-definitions.json",
+      "bytes": 1858,
+      "sha256": "39aba1e40b622b58ec5828d78e93374ce50e33777798b8f303e7b83e197f8289",
+      "extension": "p0-definitions",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps が 4（完了に要る 5 より 1 少ない）で止まる"
+    },
+    {
+      "fixture_id": "GD02",
+      "path": "budget-exact-definitions.json",
+      "bytes": 2324,
+      "sha256": "098707864af98fec3bde4accefeba1c37f9c83ed1de908508ce70360c85dc2f9",
+      "extension": "p0-definitions",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps がちょうど 5 で完了する（上限を厳しくしすぎない）"
+    },
+    {
+      "fixture_id": "GD03",
+      "path": "budget-below-absence.json",
+      "bytes": 4460,
+      "sha256": "81dddf10fd14d63a0797fd7100812ed081bfae0b6a51182c57186c5eaea0cf85",
+      "extension": "p1-absence",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps が 4（完了に要る 5 より 1 少ない）で止まる"
+    },
+    {
+      "fixture_id": "GD04",
+      "path": "budget-exact-absence.json",
+      "bytes": 4808,
+      "sha256": "92a411b2a6340c9f2b55abc384b3db21c4bb9e921261958d831476fb2fdc3443",
+      "extension": "p1-absence",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps がちょうど 5 で完了する（上限を厳しくしすぎない）"
+    },
+    {
+      "fixture_id": "GD05",
+      "path": "budget-below-event-chain.json",
+      "bytes": 15115,
+      "sha256": "612123fb1364275d7842e6281da1687ae5e88c8263deab822d0849bd425bbaf6",
+      "extension": "p1-event-chain",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps が 96（完了に要る 97 より 1 少ない）で止まる"
+    },
+    {
+      "fixture_id": "GD06",
+      "path": "budget-exact-event-chain.json",
+      "bytes": 15974,
+      "sha256": "d10c811ffa843ba3fda4e03127c12f4d04d942e24e4eeec23469402053ca1140",
+      "extension": "p1-event-chain",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps がちょうど 97 で完了する（上限を厳しくしすぎない）"
+    },
+    {
+      "fixture_id": "GD07",
+      "path": "budget-below-events.json",
+      "bytes": 5767,
+      "sha256": "eeaf7e08be54e53e6b9142fa82bd260728ce980c2e7e42b4d663c6a866eab5f9",
+      "extension": "p1-events",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps が 33（完了に要る 34 より 1 少ない）で止まる"
+    },
+    {
+      "fixture_id": "GD08",
+      "path": "budget-exact-events.json",
+      "bytes": 6303,
+      "sha256": "44ec0715f6c478438bd4cbe0da445675e67e3842ddf12d54ab9226f4b6652f92",
+      "extension": "p1-events",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps がちょうど 34 で完了する（上限を厳しくしすぎない）"
+    },
+    {
+      "fixture_id": "GD09",
+      "path": "budget-below-rename-events.json",
+      "bytes": 4983,
+      "sha256": "5d24b519bb676d4e8a670b6c6faf5cd4fcb3a66c6da6d001ee6b819b8dca209e",
+      "extension": "p1-handover-host",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps が 5（完了に要る 6 より 1 少ない）で止まる"
+    },
+    {
+      "fixture_id": "GD10",
+      "path": "budget-exact-rename-events.json",
+      "bytes": 5194,
+      "sha256": "53b32d4b95082fdd3ad1a703350c7e25c02934bec0927dad4654aff87c68f07f",
+      "extension": "p1-handover-host",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps がちょうど 6 で完了する（上限を厳しくしすぎない）"
+    },
+    {
+      "fixture_id": "GD11",
+      "path": "budget-below-projection.json",
+      "bytes": 1972,
+      "sha256": "9a52bb538b0da00a7380d013c5bb06c6c2431364ece52dfe1b67c00d82c4dd17",
+      "extension": "p1-projection",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps が 14（完了に要る 15 より 1 少ない）で止まる"
+    },
+    {
+      "fixture_id": "GD12",
+      "path": "budget-exact-projection.json",
+      "bytes": 2365,
+      "sha256": "e8380f080fdf669f32c485fc6afd83e2e01b8fce20669aaf1090ce249dff2882",
+      "extension": "p1-projection",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps がちょうど 15 で完了する（上限を厳しくしすぎない）"
+    },
+    {
+      "fixture_id": "GD13",
+      "path": "budget-below-reference.json",
+      "bytes": 2459,
+      "sha256": "fc9ceb5861b67df335c6ff38dbb4aac17f9720a34345630c35cbe2af45ca450e",
+      "extension": "p1-reference",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps が 8（完了に要る 9 より 1 少ない）で止まる"
+    },
+    {
+      "fixture_id": "GD14",
+      "path": "budget-exact-reference.json",
+      "bytes": 2760,
+      "sha256": "986ecada62906dec9a6c6581030bf7b602ed47b05da158afab8f292f89ece654",
+      "extension": "p1-reference",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps がちょうど 9 で完了する（上限を厳しくしすぎない）"
+    },
+    {
+      "fixture_id": "GD15",
+      "path": "budget-below-replay.json",
+      "bytes": 18540,
+      "sha256": "d1b24fa2349bab3bfa6dae183e0fd44c4a912b7cfd5fa71e5c7e8a68a3ae2483",
+      "extension": "p1-replay",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps が 99（完了に要る 100 より 1 少ない）で止まる"
+    },
+    {
+      "fixture_id": "GD16",
+      "path": "budget-exact-replay.json",
+      "bytes": 18812,
+      "sha256": "b1472dbd7c3b66d6669b61d729acf3f6a563e9f0078632b03e05053585f26a11",
+      "extension": "p1-replay",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "課金の境界：steps がちょうど 100 で完了する（上限を厳しくしすぎない）"
+    },
+    {
+      "fixture_id": "GD17",
+      "path": "definitions-zero-budget.json",
+      "bytes": 1814,
+      "sha256": "fce8e23ea388ea19dbada1244cb9ed5aefc4577a774c8166183b584b542ac8e1",
+      "extension": "p0-definitions",
+      "obligation": "K-STOP",
+      "kind": "refusal",
+      "gate": "予算 0 では認定票を出さない"
+    },
+    {
+      "fixture_id": "GD18",
+      "path": "definitions-empty-extension-zero-budget.json",
+      "bytes": 1555,
+      "sha256": "4e9b670017181e13d945da82123dcf24e14bc5ed812c0c9efb8cb72553dca8b9",
+      "extension": "p0-definitions",
+      "obligation": "K-STOP",
+      "kind": "refusal",
+      "gate": "追加が空でも、予算 0 は未評価（認定票を出さない）"
+    },
+    {
+      "fixture_id": "GD19",
+      "path": "definitions-empty-extension-one-step.json",
+      "bytes": 1417,
+      "sha256": "2a4f1cd1a9615ec50534ca88b66ba8529aae2877aed749ea0d928d0f9f5b133b",
+      "extension": "p0-definitions",
+      "obligation": "K-STOP",
+      "kind": "boundary",
+      "gate": "追加が空なら 1 step で認定する（予算 0 との境界）"
+    },
+    {
+      "fixture_id": "GD20",
+      "path": "chain-unknown-capability.json",
+      "bytes": 15410,
+      "sha256": "46d825443693af600b6034f6b3ea02c5cf707ba701cd9c2ac62ebf362b9c0075",
+      "extension": "p1-event-chain",
+      "obligation": "K-STOP",
+      "kind": "refusal",
+      "gate": "未知の能力を含む履歴の鎖は、未評価を残して認定しない"
+    },
+    {
+      "fixture_id": "GD21",
+      "path": "host-unsupported-operation.json",
+      "bytes": 4978,
+      "sha256": "e6df06b18beb128109bc22c0707aae709d0a3ec23390eb3015bd45738acc06b7",
+      "extension": "p1-handover-host",
+      "obligation": "K-STOP",
+      "kind": "refusal",
+      "gate": "未登録の操作は、別の操作で代用せず unsupported_profile"
+    },
+    {
+      "fixture_id": "GD22",
+      "path": "host-consumer-operation-unsupported.json",
+      "bytes": 4993,
+      "sha256": "b84b281400d7861ccbb92daefe3f6424f9184b992dfbdc8f458b39925d25672e",
+      "extension": "p1-handover-host",
+      "obligation": "K-STOP",
+      "kind": "refusal",
+      "gate": "consumer が未登録の操作を宣言していれば止まる"
+    },
+    {
+      "fixture_id": "GD23",
+      "path": "host-consumer-profile.json",
+      "bytes": 4959,
+      "sha256": "8f679de6fe14ab98ec9bbb01fa1a111a4fb34181b31b6543d8b02d3072e91762",
+      "extension": "p1-handover-host",
+      "obligation": "K-STOP",
+      "kind": "refusal",
+      "gate": "consumer の profile が違えば unsupported_profile"
+    },
+    {
+      "fixture_id": "GD24",
+      "path": "reference-finite-probe-unsupported.json",
+      "bytes": 2399,
+      "sha256": "0c7ea0d281c37baff445642a84aeae9f601e8eadc3a454c9f05f1e443461ba2f",
+      "extension": "p1-reference",
+      "obligation": "K-STOP",
+      "kind": "refusal",
+      "gate": "語彙を持つ入力への有限領域の探査は未対応として止まる（非含意にしない）"
+    },
+    {
+      "fixture_id": "GD25",
+      "path": "reference-formula-depth-limit.json",
+      "bytes": 4378,
+      "sha256": "a51521d6a1ab60d84c2b5b9a7ee37f133f1d7cb401e0124f223e95704abb661f",
+      "extension": "p1-reference",
+      "obligation": "K-STOP",
+      "kind": "boundary",
+      "gate": "式の深さが上限（16）を超えれば resource_limit（非含意に見せない）"
+    },
+    {
+      "fixture_id": "GD26",
+      "path": "reference-formula-depth-exact.json",
+      "bytes": 4200,
+      "sha256": "e7e046064d7a12fbbe1654af58308f9a2a85de93a256715df8a39c95eff7e523",
+      "extension": "p1-reference",
+      "obligation": "K-RES",
+      "kind": "boundary",
+      "gate": "式の深さがちょうど上限（16）なら評価する（上限を厳しくしすぎない）"
+    },
+    {
+      "fixture_id": "GD27",
+      "path": "definitions-ledger-field-refused.json",
+      "bytes": 1954,
+      "sha256": "7d03bac4105e67affec71cd2781b2f743969e4d39362f967a17ec9e2207a9e5a",
+      "extension": "p0-definitions",
+      "obligation": "K-INV",
+      "kind": "refusal",
+      "gate": "認定は定義パッケージだけを読む：台帳（採用・確認）を受け付けない"
+    },
+    {
+      "fixture_id": "GD28",
+      "path": "chain-ai-candidate-not-adopted.json",
+      "bytes": 15068,
+      "sha256": "8449b5c15b804bd791b545c25b9b6a297de11e0167f49759e9ff43b00c64d4b4",
+      "extension": "p1-event-chain",
+      "obligation": "K-INV",
+      "kind": "non_conversion",
+      "gate": "確認のない AI 候補は、鎖を通っても支持にならない（未決のまま両計算が一致）"
+    },
+    {
+      "fixture_id": "GD29",
+      "path": "chain-zero-budget.json",
+      "bytes": 15105,
+      "sha256": "5cb772d66bbade185510a4121b01120b00a58b4bcbf44ad65dc896e215ca7658",
+      "extension": "p1-handover-host",
+      "obligation": "K-INV",
+      "kind": "non_conversion",
+      "gate": "打切り（予算 0）で認定票・部分の報告を出さない"
+    },
+    {
+      "fixture_id": "GD30",
+      "path": "chain-out-of-scope-query.json",
+      "bytes": 15609,
+      "sha256": "cf705e373ba062916d97afd052dfa1794c68379b92be1a7fa59f94e6887c6e2a",
+      "extension": "p1-event-chain",
+      "obligation": "COMP-2",
+      "kind": "non_conversion",
+      "gate": "鎖の範囲外の問い（事象の同一性）を、旧の問いの認定に含めない"
+    },
+    {
+      "fixture_id": "GD31",
+      "path": "forecast-arbitrary-package-refused.json",
+      "bytes": 4174,
+      "sha256": "166e47ce69754221db4afd97e8e40d5a1bddc4229e1eb3bb0b0317cdea694e76",
+      "extension": "p1-finite-forecast",
+      "obligation": "R2-2",
+      "kind": "refusal",
+      "gate": "任意の package を受け付けない（報告専用の固定 package だけ）"
+    },
+    {
+      "fixture_id": "GD32",
+      "path": "forecast-nonreport-predicate-refused.json",
+      "bytes": 4123,
+      "sha256": "fd796da507c4c8d7a8156232d2cb370e1351c310b7b96172d14bd4fa3a52ae31",
+      "extension": "p1-finite-forecast",
+      "obligation": "R2-2",
+      "kind": "refusal",
+      "gate": "報告専用の述語以外（基底の語彙の述語）を台帳に持ち込めない"
+    },
+    {
+      "fixture_id": "GD33",
+      "path": "reference-stronger-target.json",
+      "bytes": 2556,
+      "sha256": "a5aca13c1741f2fbbc22a7b354a0f6475fe10aad9c66618c1badc889e46bf472",
+      "extension": "p1-reference",
+      "obligation": "R3-4",
+      "kind": "non_conversion",
+      "gate": "新理論が文を一つ追加するとき、保存を認定せず、被覆を真にも偽にもしない"
+    },
+    {
+      "fixture_id": "GD34",
+      "path": "reference-ledger-field-refused.json",
+      "bytes": 2533,
+      "sha256": "f731b9376b56c30d3cf32fbb2874c339dc5d774ba5f8496ce3364cb8100f8e5d",
+      "extension": "p1-reference",
+      "obligation": "R3-5",
+      "kind": "refusal",
+      "gate": "参考意味は履歴・採用を持たない：台帳を受け付けない"
+    },
+    {
+      "fixture_id": "GD35",
+      "path": "reference-new-name-refused.json",
+      "bytes": 2539,
+      "sha256": "a362b0616cb38773529adebf92f66bb198b23c5ab83d305f94a389ad8783dbc9",
+      "extension": "p1-reference",
+      "obligation": "R3-6",
+      "kind": "refusal",
+      "gate": "翻訳は新しい名前を導入しない：宣言した語彙にない述語を目標に持ち込めない"
+    }
+  ]
+}

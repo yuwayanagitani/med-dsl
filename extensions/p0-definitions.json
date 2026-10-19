@@ -179,8 +179,43 @@
         "tests/test_p0_definitions.py::test_certification_budget_zero_and_mid_graph_never_issue_certificate",
         "tests/review/test_boundaries.py::P0LimitTests.test_extension_certification_costs_one_step_even_when_nothing_is_added"
       ],
-      "guards": [],
-      "guard_gap": "拡張認定の予算0は例ではなくテストで検査している"
+      "guards": [
+        {
+          "example": "examples/p2/definitions-zero-budget.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2/definitions-zero-budget.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "step_limit"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2/definitions-empty-extension-zero-budget.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2/definitions-empty-extension-one-step.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "certified",
+          "kind": "boundary"
+        }
+      ]
     },
     {
       "id": "K-INV",
@@ -189,8 +224,18 @@
       "checks": [
         "tests/test_p0_query.py::test_serialization_and_input_are_preserved"
       ],
-      "guards": [],
-      "guard_gap": "認定は定義パッケージだけを読み、台帳・採用に触れないため、不変条件 I1〜I5 の新しい出力はない。拒否例はなし"
+      "guards": [
+        {
+          "example": "examples/p2/definitions-ledger-field-refused.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_field"
+          ],
+          "kind": "refusal"
+        }
+      ]
     },
     {
       "id": "K-RES",
@@ -199,8 +244,24 @@
       "checks": [
         "tests/test_p0_definitions.py::test_certification_budget_zero_and_mid_graph_never_issue_certificate"
       ],
-      "guards": [],
-      "guard_gap": "認定の課金は P0 契約 §6 に定め、テストで境界を検査している（例なし）"
+      "guards": [
+        {
+          "example": "examples/p2/budget-below-definitions.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2/budget-exact-definitions.json",
+          "path": [
+            "status"
+          ],
+          "equals": "ok",
+          "kind": "boundary"
+        }
+      ]
     }
   ],
   "stops": {
@@ -216,11 +277,13 @@
   },
   "evaluation": {
     "examples": [
-      "examples/p0/*.json"
+      "examples/p0/*.json",
+      "examples/p2/*.json"
     ],
     "tests": [
       "tests/test_p0_definitions.py",
-      "tests/audits/test_preservation_audit.py"
+      "tests/audits/test_preservation_audit.py",
+      "tests/p2/test_guard_examples.py"
     ],
     "budget_sweep": true,
     "oracle": "scripts/research/audit-preservation.py"

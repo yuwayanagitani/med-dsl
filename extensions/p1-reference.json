@@ -12,8 +12,7 @@
   "contract_doc": "docs/research/14-p1-c-contract.md",
   "implementation": {
     "modules": [
-      "src/med_dsl/reference.py",
-      "src/med_dsl/handover.py"
+      "src/med_dsl/reference.py"
     ]
   },
   "pins": [],
@@ -114,8 +113,27 @@
       "checks": [
         "tests/test_p1_handover.py::test_reference_rules_are_not_hardcoded_to_example_symbols"
       ],
-      "guards": [],
-      "guard_gap": "文集合の比較は R3-1 の防護例が担う"
+      "guards": [
+        {
+          "example": "examples/p2/reference-stronger-target.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "model_coverage_not_established"
+          ],
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2/reference-stronger-target.json",
+          "path": [
+            "model_coverage"
+          ],
+          "equals": null,
+          "kind": "non_conversion"
+        }
+      ]
     },
     {
       "id": "R3-5",
@@ -124,8 +142,18 @@
       "checks": [
         "tests/test_p1_handover.py::test_invalid_models_and_open_or_shadowed_formulas_are_rejected"
       ],
-      "guards": [],
-      "guard_gap": "該当なし：参考意味は履歴を持たない",
+      "guards": [
+        {
+          "example": "examples/p2/reference-ledger-field-refused.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_field"
+          ],
+          "kind": "refusal"
+        }
+      ],
       "derivation": "docs/research/14-p1-c-contract.md"
     },
     {
@@ -135,8 +163,18 @@
       "checks": [
         "tests/test_p1_handover.py::test_invalid_models_and_open_or_shadowed_formulas_are_rejected"
       ],
-      "guards": [],
-      "guard_gap": "該当なし：恒等の翻訳で新しい名前を導入しない",
+      "guards": [
+        {
+          "example": "examples/p2/reference-new-name-refused.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "undeclared_predicate"
+          ],
+          "kind": "refusal"
+        }
+      ],
       "derivation": "docs/research/14-p1-c-contract.md"
     },
     {
@@ -196,8 +234,28 @@
       "checks": [
         "tests/test_p1_handover.py::test_quantifier_and_formula_limits_never_look_like_nonentailment"
       ],
-      "guards": [],
-      "guard_gap": "上限の挙動はテストで検査している"
+      "guards": [
+        {
+          "example": "examples/p2/reference-finite-probe-unsupported.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_finite_probe"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2/reference-formula-depth-limit.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "formula_limit"
+          ],
+          "kind": "boundary"
+        }
+      ]
     },
     {
       "id": "K-INV",
@@ -227,8 +285,32 @@
       "checks": [
         "tests/test_p1_handover.py::test_quantifier_and_formula_limits_never_look_like_nonentailment"
       ],
-      "guards": [],
-      "guard_gap": "上限の境界はテストで検査している"
+      "guards": [
+        {
+          "example": "examples/p2/budget-below-reference.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2/budget-exact-reference.json",
+          "path": [
+            "status"
+          ],
+          "equals": "ok",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2/reference-formula-depth-exact.json",
+          "path": [
+            "status"
+          ],
+          "equals": "ok",
+          "kind": "boundary"
+        }
+      ]
     }
   ],
   "stops": {
@@ -245,12 +327,14 @@
   "evaluation": {
     "examples": [
       "examples/p1-c/*.json",
-      "examples/review/*.json"
+      "examples/review/*.json",
+      "examples/p2/*.json"
     ],
     "tests": [
       "tests/test_p1_handover.py",
       "tests/review/test_review_negatives.py",
-      "tests/audits/test_preservation_audit.py"
+      "tests/audits/test_preservation_audit.py",
+      "tests/p2/test_guard_examples.py"
     ],
     "budget_sweep": true,
     "oracle": "tests/review/reference_oracle.py"

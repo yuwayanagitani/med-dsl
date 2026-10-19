@@ -1,0 +1,157 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "GD32",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p1-finite-forecast",
+  "obligation": "R2-2",
+  "kind": "refusal",
+  "gate": "報告専用の述語以外（基底の語彙の述語）を台帳に持ち込めない",
+  "derived_from": "p1-a/finite-forecast",
+  "request": {
+    "schema_version": "p1-request-draft-1",
+    "operation": "query_forecast",
+    "consumer": {
+      "profile": "p1-finite-forecast-draft-1",
+      "profile_spec_sha256": "a918397c96ba9f6035b81c1d20839a544058f12adfbcb41f27df4328b9ad2704",
+      "operations": [
+        "query_forecast"
+      ]
+    },
+    "artifacts": [
+      {
+        "artifact": {
+          "ref": "fiction:forecast:toy@1",
+          "profile": "p1-finite-forecast-draft-1",
+          "profile_spec_sha256": "a918397c96ba9f6035b81c1d20839a544058f12adfbcb41f27df4328b9ad2704",
+          "subject_ref": "fiction:subject:a",
+          "context_ref": "fiction:context:forecast@1",
+          "interval": {
+            "start": "2026-10-18T00:00:00Z",
+            "end": "2026-10-25T00:00:00Z"
+          },
+          "model_ref": "fiction:model:toy@1",
+          "sample_space_ref": "fiction:worlds:toy@1",
+          "worlds": [
+            {
+              "ref": "fiction:wx",
+              "weight": {
+                "numerator": 7,
+                "denominator": 10
+              }
+            },
+            {
+              "ref": "fiction:wn",
+              "weight": {
+                "numerator": 3,
+                "denominator": 10
+              }
+            }
+          ],
+          "events": [
+            {
+              "ref": "fiction:event:X@1",
+              "world_refs": [
+                "fiction:wx"
+              ]
+            }
+          ]
+        },
+        "sha256": "90fbd3c7ef8543f982d348f51d0fd628a9deba811131f0781e4baa10e9121b03"
+      }
+    ],
+    "report_snapshot": {
+      "kind": "forecast_reports",
+      "contexts": [
+        {
+          "ref": "fiction:context:forecast@1",
+          "subject_ref": "fiction:subject:a",
+          "effective_at": "2026-10-18T00:00:00Z",
+          "purpose": "fiction:forecast-reporting@1"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:forecasts@1",
+        "assertions": [
+          {
+            "id": "h1",
+            "context_ref": "fiction:context:forecast@1",
+            "atom": {
+              "predicate": "fiction:clinical-X@1",
+              "args": [
+                "fiction:subject:a",
+                "fiction:forecast:toy@1"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-18T09:00:00Z",
+            "origin": {
+              "kind": "ai_candidate",
+              "ref": "fiction:generator:toy@1"
+            },
+            "supersedes": [],
+            "required_capabilities": [
+              "p1-finite-forecast-draft-1"
+            ]
+          }
+        ],
+        "reviews": [
+          {
+            "id": "r1",
+            "assertion_ref": "h1",
+            "reviewer_ref": "fiction:reviewer:human@1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-18T10:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      }
+    },
+    "views": [
+      {
+        "id": "v1",
+        "as_of": "2026-10-18T12:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "forecast_ref": "fiction:forecast:toy@1",
+        "all_of": [
+          "fiction:event:X@1"
+        ]
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "undeclared_predicate"
+        ]
+      },
+      {
+        "path": [
+          "error_path"
+        ],
+        "equals": "atom.predicate"
+      }
+    ]
+  }
+}

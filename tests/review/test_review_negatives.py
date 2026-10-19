@@ -63,8 +63,9 @@ class ReviewNegativeSeriesTests(unittest.TestCase):
         spec = importlib.util.spec_from_file_location("p1d", ROOT / "scripts/research/evaluate-p1-d.py")
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
-        pinned = module.inventory(ROOT)
-        self.assertFalse([n for n in pinned if n.startswith(("examples/review/", "tests/review/"))])
+        # 共通の評価の分母（P1 の 20 条件・80 JSON・417 必須パスと P0）に入るのは、この 4 系列だけ。
+        # この系列は、宣言が根拠として引く実体として lock に載るが（P2-a の追加作業）、分母には加えない
+        self.assertEqual(set(module.SUITES), {"p0", "p1-a", "p1-b", "p1-c"})
 
     def test_every_negative_expects_a_refusal_or_a_failed_gate_and_not_a_positive_claim(self):
         for entry, data in fixtures():

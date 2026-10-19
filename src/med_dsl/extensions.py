@@ -390,29 +390,52 @@ def module_graph(root):
     return graph
 
 
-def _closure(graph, start):
+def _closure(graph, start, skip=()):
+    """start から import を辿って届くモジュール。skip に含まれるモジュールへの辺は辿らない（start は常に含む）。"""
     seen, stack = set(), list(start)
     while stack:
         name = stack.pop()
         if name in seen or name not in graph:
             continue
         seen.add(name)
-        stack.extend(graph[name])
+        stack.extend(e for e in graph[name] if e not in skip)
     return seen
+
+
+def _dependents(registry):
+    """拡張 ID -> それに（推移的に）依存する拡張 ID の集合。"""
+    direct = {ext["id"]: {d["id"] for d in ext["depends_on"]} for ext in registry}
+    found = {ident: set() for ident in direct}
+    grew = True
+    while grew:
+        grew = False
+        for ident, deps in direct.items():
+            for dep in deps:
+                new = {ident} | found[ident]
+                if dep in found and not new <= found[dep]:
+                    found[dep] |= new
+                    grew = True
+    return found
 
 
 def affected(registry, changed, root=None):
     """変更したファイル（リポジトリ相対）から、再検証する拡張と、hash を埋め込んだため再生成が要る実体を列挙する。
 
-    拡張は、(1) 実装モジュールまたはその import 閉包、(2) 仕様・契約文書、(3) 固定した pin の変更で影響を受け、
+    拡張は、(1) 実装モジュールまたはその import 閉包（自分に依存する拡張のモジュールへの登録の辺を除く）、
+    (2) 仕様・契約文書、(3) 固定した pin の変更で影響を受け、
     (4) 影響を受けた拡張に依存する拡張も影響を受ける。再生成が要るのは、pin が変わった拡張の `embedded_in`。"""
     root = Path(root if root is not None else registry.root)
     changed = {str(c) for c in changed}
     graph = module_graph(root)
+    modules = {ext["id"]: {Path(m).stem for m in ext["implementation"]["modules"]} for ext in registry}
+    later = _dependents(registry)
     reasons, pinned = {}, {}
     for ext in registry:
-        stems = {Path(m).stem for m in ext["implementation"]["modules"]}
-        paths = {f"src/med_dsl/{s}.py" for s in _closure(graph, stems)}
+        stems = modules[ext["id"]]
+        # 自分に依存する拡張が宣言したモジュールへの import は、登録（振り分け）のための辺として辿らない。
+        # 依存の向きは宣言（その拡張が自分に依存する）に書かれており、逆向きの読み取りは非干渉の検査（X03）が見る
+        registration = set().union(*(modules[d] for d in later[ext["id"]]))
+        paths = {f"src/med_dsl/{s}.py" for s in _closure(graph, stems, registration)}
         if ext["spec"] is not None:
             paths.add(ext["spec"]["path"])
         paths.add(ext["contract_doc"])

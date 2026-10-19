@@ -15,7 +15,8 @@
   "contract_doc": "docs/research/14-p1-c-contract.md",
   "implementation": {
     "modules": [
-      "src/med_dsl/handover.py"
+      "src/med_dsl/handover.py",
+      "src/med_dsl/handover_common.py"
     ]
   },
   "pins": [
@@ -54,10 +55,12 @@
   ],
   "embedded_in": [
     "src/med_dsl/handover.py",
+    "src/med_dsl/handover_common.py",
     "src/med_dsl/handover_spec.json",
     "examples/p1-c/*.json",
     "examples/audits/*.json",
-    "examples/review/*.json"
+    "examples/review/*.json",
+    "examples/p2/*.json"
   ],
   "depends_on": [
     {
@@ -113,8 +116,38 @@
       "checks": [
         "tests/test_p1_handover.py::test_each_operation_zero_budget_has_no_partial_report_or_certificate"
       ],
-      "guards": [],
-      "guard_gap": "host 独自の拒否例ファイルはなく、各操作の拒否例とテストが担う"
+      "guards": [
+        {
+          "example": "examples/p2/host-unsupported-operation.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_operation"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2/host-consumer-operation-unsupported.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_operation"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2/host-consumer-profile.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_profile"
+          ],
+          "kind": "refusal"
+        }
+      ]
     },
     {
       "id": "K-INV",
@@ -123,8 +156,18 @@
       "checks": [
         "tests/test_p1_handover.py::test_author_draft_all_paths_replay_and_input_preservation"
       ],
-      "guards": [],
-      "guard_gap": "host 独自の拒否例はなく、全例の入力保持をテストで検査している"
+      "guards": [
+        {
+          "example": "examples/p2/chain-zero-budget.json",
+          "path": [
+            "incomplete"
+          ],
+          "equals": [
+            "request"
+          ],
+          "kind": "non_conversion"
+        }
+      ]
     },
     {
       "id": "K-RES",
@@ -134,8 +177,24 @@
         "tests/test_p1_handover.py::test_replay_and_independent_chain_share_one_budget",
         "tests/test_p1_handover.py::test_shared_chain_budget_includes_final_certificate_commit"
       ],
-      "guards": [],
-      "guard_gap": "共有予算は例ではなくテストで検査している"
+      "guards": [
+        {
+          "example": "examples/p2/budget-below-rename-events.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2/budget-exact-rename-events.json",
+          "path": [
+            "status"
+          ],
+          "equals": "ok",
+          "kind": "boundary"
+        }
+      ]
     }
   ],
   "stops": {
@@ -151,10 +210,12 @@
   },
   "evaluation": {
     "examples": [
-      "examples/p1-c/*.json"
+      "examples/p1-c/*.json",
+      "examples/p2/*.json"
     ],
     "tests": [
-      "tests/test_p1_handover.py"
+      "tests/test_p1_handover.py",
+      "tests/p2/test_guard_examples.py"
     ],
     "budget_sweep": true,
     "oracle": "tests/review/reference_oracle.py"

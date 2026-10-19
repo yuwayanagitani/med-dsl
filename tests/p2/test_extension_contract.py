@@ -4,8 +4,11 @@
 `python3 -m unittest discover -s tests/p2 -v`。宣言は意味の正しさを検査するものではない。
 """
 
+from contextlib import ExitStack, contextmanager
 from copy import deepcopy
 import hashlib
+import importlib
+import inspect
 import json
 from pathlib import Path
 import subprocess
@@ -25,17 +28,12 @@ from med_dsl.validation import canonical_bytes, decode_json, digest
 
 IDS = ["p0-positive", "p0-definitions", "p1-finite-forecast", "p1-events", "p1-handover-host", "p1-event-chain",
        "p1-projection", "p1-reference", "p1-absence", "p1-replay"]
-# 防護例のない義務（理由は宣言の guard_gap）。増やすときはここも更新して、検査の見逃しが黙って増えないようにする
+# 防護例のない義務（理由は宣言の guard_gap）。増やすときはここも更新して、検査の見逃しが黙って増えないようにする。
+# 残る 3 件は、拒否する入力を構成できない（構文の十分条件による保証・手作業の導出・損失のある段がない）
 KNOWN_GAPS = {
-    "p0-definitions": ["K-INV", "K-RES", "K-STOP", "R1-3"],
-    "p1-finite-forecast": ["R2-2"],
-    "p1-events": ["K-RES", "R3-3", "R3-4"],
-    "p1-handover-host": ["K-INV", "K-RES", "K-STOP"],
-    "p1-event-chain": ["COMP-2", "COMP-3", "K-INV", "K-RES", "K-STOP"],
-    "p1-projection": ["K-RES"],
-    "p1-reference": ["K-RES", "K-STOP", "R3-4", "R3-5", "R3-6"],
-    "p1-absence": ["K-RES"],
-    "p1-replay": ["K-RES"],
+    "p0-definitions": ["R1-3"],
+    "p1-events": ["R3-3"],
+    "p1-event-chain": ["COMP-3"],
 }
 
 
@@ -115,6 +113,38 @@ class ShippedDeclarationTests(unittest.TestCase):
     def test_no_declaration_claims_an_independent_review(self):
         for manifest in self.registry:
             self.assertEqual(manifest["status"], {"review_state": "author_draft", "independent_review": False})
+
+    def cited_files(self):
+        """宣言と、宣言が根拠として引く実体（実装・仕様・契約・pin・防護例・検査・オラクル・評価の例）。"""
+        cited = {"extensions/index.json"}
+        for manifest in self.registry:
+            cited.add(f"extensions/{manifest['id']}.json")
+            cited.add(manifest["contract_doc"])
+            if manifest["spec"] is not None:
+                cited.add(manifest["spec"]["path"])
+            cited.update(manifest["implementation"]["modules"])
+            cited.update(pin["path"] for pin in manifest["pins"])
+            for pattern in manifest["evaluation"]["examples"]:
+                cited.update(str(path.relative_to(ROOT)) for path in ROOT.glob(pattern))
+            cited.update(manifest["evaluation"]["tests"])
+            if manifest["evaluation"].get("oracle"):
+                cited.add(manifest["evaluation"]["oracle"])
+            for obligation in manifest["obligations"]:
+                cited.update(check.split("::")[0] for check in obligation["checks"])
+                cited.update(guard["example"] for guard in obligation["guards"])
+        return cited
+
+    def test_the_lock_pins_the_declarations_and_everything_they_cite(self):
+        """宣言を変えたり、宣言が根拠として引く実体を差し替えたりすると、共通 manifest（lock）の再固定が要る。
+        例外は audit-preservation.py だけ：lock の hash を定数に持つので、載せると循環する。"""
+        listed = set(decode_json((ROOT / LOCK).read_bytes())["files"])
+        self.assertEqual(sorted(self.cited_files() - listed), ["scripts/research/audit-preservation.py"])
+        self.assertTrue({"extensions/index.json", "scripts/research/check-extensions.py"} <= listed)
+
+    def test_the_audit_script_is_outside_the_lock_because_it_holds_the_lock_hash(self):
+        """例外の理由が今も成り立つこと：audit-preservation.py は lock 自身の sha256 を含む（載せると循環する）。"""
+        lock_sha = hashlib.sha256((ROOT / LOCK).read_bytes()).hexdigest()
+        self.assertIn(lock_sha, (ROOT / "scripts/research/audit-preservation.py").read_text(encoding="utf-8"))
 
     def test_embedded_in_covers_every_artifact_that_embeds_a_pinned_hash(self):
         """pin の hash を実際に埋め込んでいる実体（src／examples）が、その pin を宣言した拡張の embedded_in の和に含まれる。
@@ -206,14 +236,11 @@ class RefusalTests(unittest.TestCase):
 
     def test_guard_rules(self):
         def no_reason(m):
-            for o in m["obligations"]:
-                if o["id"] == "R2-2":
-                    o.pop("guard_gap")
+            m["obligations"][0]["guards"] = []
+            m["obligations"][0].pop("guard_gap", None)
         self.check_refusal(no_reason, "unexplained_guard_gap")
         def both(m):
-            for o in m["obligations"]:
-                if o["id"] == "R2-2":
-                    o["guards"] = [{"example": "examples/p1-a/extra-operation.json", "path": ["status"], "equals": "unsupported_profile", "kind": "refusal"}]
+            m["obligations"][0]["guard_gap"] = "防護例もあるのに欠落の理由を書く"
         self.check_refusal(both, "guard_gap_with_guards")
         def wrong_outcome(m):
             m["obligations"][0]["guards"][0]["equals"] = ["unexpected"]
@@ -290,7 +317,7 @@ class RefusalTests(unittest.TestCase):
                 manifest = deepcopy(shipped()["p1-finite-forecast"])
                 take(manifest)
                 # 実装に現れる名前にして、所有の衝突だけを検査する
-                manifest["implementation"]["modules"] = ["src/med_dsl/forecast.py", "src/med_dsl/events.py", "src/med_dsl/model.py", "src/med_dsl/__init__.py"]
+                manifest["implementation"]["modules"] = ["src/med_dsl/forecast.py", "src/med_dsl/events.py", "src/med_dsl/model.py", "src/med_dsl/host.py"]
                 self.assertIn("owner_conflict", refused_codes(registry, manifest))
 
     def test_shared_names_and_undeclared_reads_are_refused(self):
@@ -312,16 +339,9 @@ class RefusalTests(unittest.TestCase):
 class NonInterferenceTests(unittest.TestCase):
     """X03：ある拡張を無効にしても、その拡張とそれに依存する拡張に属さない全例の結果は変わらない。"""
 
-    PATCHES = {
-        "p1-finite-forecast": [("med_dsl", "run_forecast")],
-        "p1-events": [("med_dsl", "run_events")],
-        "p1-handover-host": [("med_dsl", "run_handover")],
-        "p1-event-chain": [("med_dsl.handover", "run_chain"), ("med_dsl.handover", "_renaming")],
-        "p1-projection": [("med_dsl.handover", "run_projection"), ("med_dsl.handover", "validate_projection")],
-        "p1-reference": [("med_dsl.handover", "run_reference"), ("med_dsl.handover", "validate_reference")],
-        "p1-absence": [("med_dsl.handover", "_validate_absence"), ("med_dsl.handover", "_run_absence")],
-        "p1-replay": [("med_dsl.handover", "_validate_archive"), ("med_dsl.handover", "_run_archive")],
-    }
+    # 無効にする拡張。基底（p0-positive）と p0-definitions は、実装のモジュールが核（validation.py）を含むので対象外
+    DISABLED = ["p1-finite-forecast", "p1-events", "p1-handover-host", "p1-event-chain", "p1-projection", "p1-reference",
+                "p1-absence", "p1-replay"]
 
     @classmethod
     def setUpClass(cls):
@@ -333,6 +353,37 @@ class NonInterferenceTests(unittest.TestCase):
                 request = decode_json((ROOT / "examples" / suite / entry["path"]).read_bytes())["request"]
                 cls.requests.append((f"{suite}/{entry['path']}", request))
         cls.baseline = {name: canonical_bytes(evaluate(deepcopy(request))) for name, request in cls.requests}
+
+    def functions_of(self, ident):
+        """宣言した実装モジュールが定義する関数（その拡張の入口と内部）。"""
+        found = {}
+        for path in self.registry.get(ident)["implementation"]["modules"]:
+            module = importlib.import_module("med_dsl." + Path(path).stem)
+            for obj in vars(module).values():
+                if inspect.isfunction(obj) and obj.__module__ == module.__name__:
+                    found[id(obj)] = obj
+        return found
+
+    @contextmanager
+    def inert(self, ident):
+        """拡張を不活性にする：宣言した実装モジュールの全関数を、他のモジュールが import した束縛も含めて差し替え、
+        ホストの登録表（host.SURFACES・handover.OPERATIONS）の該当の項目も差し替える。"""
+        own = self.functions_of(ident)
+
+        def absent(*args, **kwargs):
+            raise Problem("extension_absent", status="unsupported_profile")
+
+        from med_dsl import handover, host
+        with ExitStack() as stack:
+            for module in [m for n, m in list(sys.modules.items()) if n.startswith("med_dsl") and m is not None]:
+                for name, obj in list(vars(module).items()):
+                    if id(obj) in own and obj is own[id(obj)]:
+                        stack.enter_context(patch.object(module, name, absent))
+            stack.enter_context(patch.dict(host.SURFACES, {k: v._replace(run=absent) for k, v in host.SURFACES.items() if id(v.run) in own}))
+            stack.enter_context(patch.dict(handover.OPERATIONS, {
+                k: v._replace(validate=absent if id(v.validate) in own else v.validate, run=absent if id(v.run) in own else v.run)
+                for k, v in handover.OPERATIONS.items() if id(v.validate) in own or id(v.run) in own}))
+            yield
 
     def dependents(self, ident):
         found, grew = {ident}, True
@@ -354,28 +405,24 @@ class NonInterferenceTests(unittest.TestCase):
         return None
 
     def test_disabling_each_extension_changes_nothing_outside_it_and_its_dependents(self):
-        for ident, targets in self.PATCHES.items():
+        for ident in self.DISABLED:
             excluded = self.dependents(ident)
             inside, outside = [], []
             for name, request in self.requests:
                 (inside if self.owner_of(request) in excluded else outside).append((name, request))
             self.assertTrue(inside and outside, ident)
-
-            def absent(*args, **kwargs):
-                raise Problem("extension_absent", status="unsupported_profile")
-
-            patches = [patch(f"{module}.{attribute}", absent) for module, attribute in targets]
-            for p in patches:
-                p.start()
-            try:
+            with self.inert(ident):
                 changed_inside = [n for n, r in inside if canonical_bytes(evaluate(deepcopy(r))) != self.baseline[n]]
                 changed_outside = [n for n, r in outside if canonical_bytes(evaluate(deepcopy(r))) != self.baseline[n]]
-            finally:
-                for p in patches:
-                    p.stop()
             with self.subTest(extension=ident):
                 self.assertEqual(changed_outside, [], "無効にした拡張の外の結果が変わった（非干渉の破れ）")
                 self.assertTrue(changed_inside, "無効化が効いていない（検査が空振り）")
+
+    def test_the_inert_switch_is_restored_afterwards(self):
+        with self.inert("p1-event-chain"):
+            pass
+        after = {name: canonical_bytes(evaluate(deepcopy(request))) for name, request in self.requests}
+        self.assertEqual(after, self.baseline)
 
     def test_an_undeclared_read_is_exposed_by_disabling_the_extension_that_is_read(self):
         """p1-replay は archive の意味引き継ぎで鎖の認定（run_chain）を呼ぶ。この読み取りを宣言から落とすと、
@@ -394,10 +441,7 @@ class NonInterferenceTests(unittest.TestCase):
             self.registry = original
         self.assertNotIn("p1-replay", excluded)
 
-        def absent(*args, **kwargs):
-            raise Problem("extension_absent", status="unsupported_profile")
-
-        with patch("med_dsl.handover.run_chain", absent), patch("med_dsl.handover._renaming", absent):
+        with self.inert("p1-event-chain"):
             changed = [n for n, r in outside if canonical_bytes(evaluate(deepcopy(r))) != self.baseline[n]]
         self.assertTrue(any("p1-c/" in n for n in changed), "宣言の誤りが非干渉の検査で見つからなかった")
 
@@ -438,7 +482,7 @@ class ReverificationTests(unittest.TestCase):
         self.assertIn("examples/p1-a/finite-forecast.json", result["regenerate"])
         self.assertNotIn("examples/p1-b/native-query.json", result["regenerate"])
 
-    def test_a_change_to_the_events_module_reaches_every_handover_extension_through_the_import(self):
+    def test_a_change_to_the_events_module_reaches_every_handover_extension_through_the_declared_dependencies(self):
         result = affected(self.registry, ["src/med_dsl/events.py"])
         self.assertEqual(result["extensions"], sorted(["p1-events", "p1-handover-host", "p1-event-chain", "p1-projection", "p1-reference", "p1-absence", "p1-replay"]))
         self.assertNotIn("p1-finite-forecast", result["extensions"])
@@ -556,6 +600,34 @@ class AffectedLogicTests(unittest.TestCase):
         self.assertEqual(self.run_affected(items, ["pin_f.txt"])["regenerate"], ["art/one.json", "art/two.json"])
         self.assertEqual(self.run_affected(items, ["src/med_dsl/d.py"])["regenerate"], [])
 
+    def test_a_registration_import_is_not_followed_but_an_ordinary_one_is(self):
+        """host が登録のために member を import し、member の拡張が host の拡張に依存するとき、member の変更は host に及ばない。
+        依存の宣言がなければ、同じ import は通常の辺として辿る（逆向きの読み取りを見逃さない）。"""
+        package = self.root / "src/med_dsl"
+        (package / "hub.py").write_text("from . import member\n")
+        (package / "member.py").write_text("v = 1\n")
+        hub = toy_manifest("H", ["src/med_dsl/hub.py"])
+        member = toy_manifest("M", ["src/med_dsl/member.py"], depends_on=[{"id": "H", "version": "v"}])
+        self.assertEqual(self.run_affected([hub, member], ["src/med_dsl/member.py"])["extensions"], ["M"])
+        self.assertEqual(self.run_affected([hub, member], ["src/med_dsl/hub.py"])["extensions"], ["H", "M"])
+        independent = toy_manifest("M", ["src/med_dsl/member.py"])
+        self.assertEqual(self.run_affected([hub, independent], ["src/med_dsl/member.py"])["extensions"], ["H", "M"])
+        indirect = toy_manifest("N", ["src/med_dsl/d.py"], depends_on=[{"id": "M", "version": "v"}])
+        self.assertEqual(self.run_affected([hub, member, indirect], ["src/med_dsl/member.py"])["extensions"], ["M", "N"])
+
+    def test_a_registration_import_reaches_through_a_chain_of_dependents(self):
+        """host が import するモジュールの拡張が、host に直接ではなく、別の拡張を経由して依存するときも、登録の辺として辿らない。"""
+        package = self.root / "src/med_dsl"
+        (package / "hub.py").write_text("from . import member, deep\n")
+        (package / "member.py").write_text("v = 1\n")
+        (package / "deep.py").write_text("w = 1\n")
+        hub = toy_manifest("H", ["src/med_dsl/hub.py"])
+        member = toy_manifest("M", ["src/med_dsl/member.py"], depends_on=[{"id": "H", "version": "v"}])
+        deep = toy_manifest("N", ["src/med_dsl/deep.py"], depends_on=[{"id": "M", "version": "v"}])
+        self.assertEqual(self.run_affected([hub, member, deep], ["src/med_dsl/deep.py"])["extensions"], ["N"])
+        self.assertEqual(self.run_affected([hub, member, deep], ["src/med_dsl/member.py"])["extensions"], ["M", "N"])
+        self.assertEqual(self.run_affected([hub, member, deep], ["src/med_dsl/hub.py"])["extensions"], ["H", "M", "N"])
+
     def test_the_lock_is_listed_only_when_a_locked_file_changes(self):
         lock = self.root / LOCK
         lock.parent.mkdir(parents=True)
@@ -570,6 +642,21 @@ class RealAffectedTests(unittest.TestCase):
         registry = standard_registry(ROOT, evaluate=evaluate)
         self.assertEqual(affected(registry, ["docs/research/12-p1-a-contract.md"])["extensions"], ["p1-finite-forecast"])
         self.assertEqual(affected(registry, ["src/med_dsl/__init__.py"])["extensions"], sorted(IDS))
+        self.assertEqual(affected(registry, ["src/med_dsl/host.py"])["extensions"], sorted(IDS))
+
+    def test_a_change_to_one_handover_operation_affects_only_that_extension_and_the_ones_that_read_it(self):
+        """拡張ホストの分離（P2-a の後）の効果：引き継ぎの操作が一つのモジュールにあったとき、どの操作の変更も 6 件すべてを列挙していた。"""
+        registry = standard_registry(ROOT, evaluate=evaluate)
+        one = lambda stem: affected(registry, [f"src/med_dsl/{stem}.py"])["extensions"]
+        self.assertEqual(one("absence"), ["p1-absence"])
+        self.assertEqual(one("replay"), ["p1-replay"])
+        self.assertEqual(one("projection"), ["p1-projection"])
+        self.assertEqual(one("reference"), ["p1-reference"])
+        self.assertEqual(one("chain"), ["p1-event-chain", "p1-replay"])      # replay は鎖の認定を読む（宣言済み）
+        family = sorted(["p1-handover-host", "p1-event-chain", "p1-projection", "p1-reference", "p1-absence", "p1-replay"])
+        self.assertEqual(one("handover"), family)
+        self.assertEqual(one("handover_common"), family)
+        self.assertEqual(one("forecast"), ["p1-finite-forecast"])
 
 
 class CommandLineTests(unittest.TestCase):

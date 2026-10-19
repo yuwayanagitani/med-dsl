@@ -1,0 +1,521 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "GD16",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p1-replay",
+  "obligation": "K-RES",
+  "kind": "boundary",
+  "gate": "課金の境界：steps がちょうど 100 で完了する（上限を厳しくしすぎない）",
+  "derived_from": "p1-c/new-guarantee-independent-of-old-binary",
+  "request": {
+    "schema_version": "p1-handover-request-draft-1",
+    "operation": "audit_replay",
+    "consumer": {
+      "profile": "p1-handover-draft-1",
+      "profile_spec_sha256": "f5b1709c8c538ede98dd58b0eea79a6c4b4a145d6b7248daaa586cffe660a54d",
+      "operations": [
+        "audit_replay"
+      ]
+    },
+    "budget": {
+      "max_steps": 100
+    },
+    "archive": {
+      "bytes_base64": "eyJjb250ZXh0cyI6W3siZWZmZWN0aXZlX2F0IjoiMjAyNi0wMS0xMFQwOTowMDowMFoiLCJwdXJwb3NlIjoiZmljdGlvbjpyZXNlYXJjaCIsInJlZiI6ImZpY3Rpb246Y29udGV4dDpvYnNlcnZhdGlvbkAxIiwic3ViamVjdF9yZWYiOiJmaWN0aW9uOnBlcnNvbjoxIn1dLCJkZXBlbmRlbmN5X3BhY2thZ2VzIjpbXSwibGVkZ2VyIjp7ImFzc2VydGlvbnMiOlt7ImF0b20iOnsiYXJncyI6WyJmaWN0aW9uOmUxIiwiZmljdGlvbjpzMSIsImZpY3Rpb246bTEiLCJmaWN0aW9uOnBvc2l0aXZlIl0sInByZWRpY2F0ZSI6ImZpY3Rpb246bWVhc3VyZW1lbnRAMSJ9LCJjZXJ0YWludHkiOiJjb25maXJtZWQiLCJjb250ZXh0X3JlZiI6ImZpY3Rpb246Y29udGV4dDpvYnNlcnZhdGlvbkAxIiwiaWQiOiJoMSIsIm9yaWdpbiI6eyJraW5kIjoib2JzZXJ2ZWQiLCJyZWYiOiJmaWN0aW9uOlAwNzpzb3VyY2U6aDFAMSJ9LCJwb2xhcml0eSI6InBvc2l0aXZlIiwicmVjb3JkZWRfYXQiOiIyMDI2LTAxLTEwVDEwOjAwOjAwWiIsInJlcXVpcmVkX2NhcGFiaWxpdGllcyI6W10sInN1cGVyc2VkZXMiOltdfSx7ImF0b20iOnsiYXJncyI6WyJmaWN0aW9uOmUyIiwiZmljdGlvbjpzMiIsImZpY3Rpb246bTIiLCJmaWN0aW9uOm5lZ2F0aXZlIl0sInByZWRpY2F0ZSI6ImZpY3Rpb246bWVhc3VyZW1lbnRAMSJ9LCJjZXJ0YWludHkiOiJjb25maXJtZWQiLCJjb250ZXh0X3JlZiI6ImZpY3Rpb246Y29udGV4dDpvYnNlcnZhdGlvbkAxIiwiaWQiOiJoMiIsIm9yaWdpbiI6eyJraW5kIjoib2JzZXJ2ZWQiLCJyZWYiOiJmaWN0aW9uOlAwNzpzb3VyY2U6aDJAMSJ9LCJwb2xhcml0eSI6InBvc2l0aXZlIiwicmVjb3JkZWRfYXQiOiIyMDI2LTAxLTEwVDEwOjAxOjAwWiIsInJlcXVpcmVkX2NhcGFiaWxpdGllcyI6W10sInN1cGVyc2VkZXMiOltdfV0sInJlZiI6ImZpY3Rpb246bGVkZ2VyOm1lYXN1cmVtZW50QDEiLCJyZXZpZXdzIjpbeyJhc3NlcnRpb25fcmVmIjoiaDEiLCJpZCI6InIxIiwib3V0Y29tZSI6ImNvbmZpcm1lZCIsInJlY29yZGVkX2F0IjoiMjAyNi0wMS0xMFQxMDowNTowMFoiLCJyZXZpZXdlcl9raW5kIjoiaHVtYW4iLCJyZXZpZXdlcl9yZWYiOiJmaWN0aW9uOnJldmlld2VyOkgxIn0seyJhc3NlcnRpb25fcmVmIjoiaDIiLCJpZCI6InIyIiwib3V0Y29tZSI6ImNvbmZpcm1lZCIsInJlY29yZGVkX2F0IjoiMjAyNi0wMS0xMFQxMDowNjowMFoiLCJyZXZpZXdlcl9raW5kIjoiaHVtYW4iLCJyZXZpZXdlcl9yZWYiOiJmaWN0aW9uOnJldmlld2VyOkgxIn1dfSwicGFja2FnZSI6eyJkZWZpbml0aW9ucyI6W10sImRlcGVuZGVuY2llcyI6W10sImluY2x1c2lvbnMiOltdLCJwcmVkaWNhdGVzIjpbeyJyZWYiOiJmaWN0aW9uOm1lYXN1cmVtZW50QDEiLCJyb2xlcyI6WyJldmVudCIsInNwZWNpbWVuIiwibWV0aG9kIiwicmVzdWx0Il19XSwicHJvZmlsZSI6InAwLXBvc2l0aXZlLTEiLCJyZWYiOiJmaWN0aW9uOmRlZmluaXRpb25zOm1lYXN1cmVtZW50QDEifX0=",
+      "sha256": "ce563741bb021855ae91a4d57b10711ca9cf07fc1ea3b5f0986844c8e3e18dd3",
+      "profile": "p0-positive-1",
+      "profile_spec_sha256": "3ae222d252a46ad6a1cf2221a230a5218170ed13f8ccf645c22249e957c3ac72",
+      "requirements": [
+        {
+          "kind": "runtime",
+          "ref": "fiction:retired-runtime@1",
+          "sha256": "614845b209991e0c6456d821df7833b84cc6ead1e8dca63714fd538a5dcb575d"
+        }
+      ]
+    },
+    "available_resources": [],
+    "semantic_chain": {
+      "source": {
+        "package": {
+          "ref": "fiction:definitions:measurement@1",
+          "profile": "p0-positive-1",
+          "predicates": [
+            {
+              "ref": "fiction:measurement@1",
+              "roles": [
+                "event",
+                "specimen",
+                "method",
+                "result"
+              ]
+            }
+          ],
+          "definitions": [],
+          "inclusions": [],
+          "dependencies": []
+        },
+        "contexts": [
+          {
+            "ref": "fiction:context:observation@1",
+            "subject_ref": "fiction:person:1",
+            "effective_at": "2026-01-10T09:00:00Z",
+            "purpose": "fiction:research"
+          }
+        ],
+        "ledger": {
+          "ref": "fiction:ledger:measurement@1",
+          "assertions": [
+            {
+              "id": "h1",
+              "context_ref": "fiction:context:observation@1",
+              "atom": {
+                "predicate": "fiction:measurement@1",
+                "args": [
+                  "fiction:e1",
+                  "fiction:s1",
+                  "fiction:m1",
+                  "fiction:positive"
+                ]
+              },
+              "polarity": "positive",
+              "certainty": "confirmed",
+              "recorded_at": "2026-01-10T10:00:00Z",
+              "origin": {
+                "kind": "observed",
+                "ref": "fiction:P07:source:h1@1"
+              },
+              "supersedes": [],
+              "required_capabilities": []
+            },
+            {
+              "id": "h2",
+              "context_ref": "fiction:context:observation@1",
+              "atom": {
+                "predicate": "fiction:measurement@1",
+                "args": [
+                  "fiction:e2",
+                  "fiction:s2",
+                  "fiction:m2",
+                  "fiction:negative"
+                ]
+              },
+              "polarity": "positive",
+              "certainty": "confirmed",
+              "recorded_at": "2026-01-10T10:01:00Z",
+              "origin": {
+                "kind": "observed",
+                "ref": "fiction:P07:source:h2@1"
+              },
+              "supersedes": [],
+              "required_capabilities": []
+            }
+          ],
+          "reviews": [
+            {
+              "id": "r1",
+              "assertion_ref": "h1",
+              "reviewer_ref": "fiction:reviewer:H1",
+              "reviewer_kind": "human",
+              "recorded_at": "2026-01-10T10:05:00Z",
+              "outcome": "confirmed"
+            },
+            {
+              "id": "r2",
+              "assertion_ref": "h2",
+              "reviewer_ref": "fiction:reviewer:H1",
+              "reviewer_kind": "human",
+              "recorded_at": "2026-01-10T10:06:00Z",
+              "outcome": "confirmed"
+            }
+          ]
+        },
+        "dependency_packages": []
+      },
+      "relation_ref": "fiction:measurement@1",
+      "intermediate": {
+        "schema_version": "p1-event-snapshot-draft-1",
+        "profile": "p1-events-draft-1",
+        "profile_spec_sha256": "0fd014dd4904b2773839a8577675a59f7386ef2ea81ddb00c0def2ebbdf99cf3",
+        "source_sha256": "ce563741bb021855ae91a4d57b10711ca9cf07fc1ea3b5f0986844c8e3e18dd3",
+        "source_ledger_ref": "fiction:ledger:measurement@1",
+        "relation_ref": "fiction:measurement@1",
+        "package": {
+          "ref": "fiction:definitions:measurement@1",
+          "profile": "p0-positive-1",
+          "predicates": [
+            {
+              "ref": "fiction:measurement@1",
+              "roles": [
+                "event",
+                "specimen",
+                "method",
+                "result"
+              ]
+            }
+          ],
+          "definitions": [],
+          "inclusions": [],
+          "dependencies": []
+        },
+        "dependency_packages": [],
+        "contexts": [
+          {
+            "ref": "fiction:context:observation@1",
+            "subject_ref": "fiction:person:1",
+            "effective_at": "2026-01-10T09:00:00Z",
+            "purpose": "fiction:research"
+          }
+        ],
+        "ledger": {
+          "ref": "fiction:ledger:events@1",
+          "assertions": [
+            {
+              "id": "h1",
+              "context_ref": "fiction:context:observation@1",
+              "polarity": "positive",
+              "certainty": "confirmed",
+              "recorded_at": "2026-01-10T10:00:00Z",
+              "origin": {
+                "kind": "observed",
+                "ref": "fiction:P07:source:h1@1"
+              },
+              "supersedes": [],
+              "required_capabilities": [],
+              "statement": {
+                "kind": "event_tuple",
+                "event_ref": "fiction:internal:h1",
+                "source_assertion": {
+                  "ledger_ref": "fiction:ledger:measurement@1",
+                  "id": "h1"
+                },
+                "roles": {
+                  "key": "fiction:e1",
+                  "specimen": "fiction:s1",
+                  "method": "fiction:m1",
+                  "value": "fiction:positive"
+                }
+              }
+            },
+            {
+              "id": "h2",
+              "context_ref": "fiction:context:observation@1",
+              "polarity": "positive",
+              "certainty": "confirmed",
+              "recorded_at": "2026-01-10T10:01:00Z",
+              "origin": {
+                "kind": "observed",
+                "ref": "fiction:P07:source:h2@1"
+              },
+              "supersedes": [],
+              "required_capabilities": [],
+              "statement": {
+                "kind": "event_tuple",
+                "event_ref": "fiction:internal:h2",
+                "source_assertion": {
+                  "ledger_ref": "fiction:ledger:measurement@1",
+                  "id": "h2"
+                },
+                "roles": {
+                  "key": "fiction:e2",
+                  "specimen": "fiction:s2",
+                  "method": "fiction:m2",
+                  "value": "fiction:negative"
+                }
+              }
+            }
+          ],
+          "reviews": [
+            {
+              "id": "r1",
+              "assertion_ref": "h1",
+              "reviewer_ref": "fiction:reviewer:H1",
+              "reviewer_kind": "human",
+              "recorded_at": "2026-01-10T10:05:00Z",
+              "outcome": "confirmed"
+            },
+            {
+              "id": "r2",
+              "assertion_ref": "h2",
+              "reviewer_ref": "fiction:reviewer:H1",
+              "reviewer_kind": "human",
+              "recorded_at": "2026-01-10T10:06:00Z",
+              "outcome": "confirmed"
+            }
+          ]
+        }
+      },
+      "target": {
+        "schema_version": "p1-event-snapshot-draft-1",
+        "profile": "p1-events-draft-1",
+        "profile_spec_sha256": "0fd014dd4904b2773839a8577675a59f7386ef2ea81ddb00c0def2ebbdf99cf3",
+        "source_sha256": "ce563741bb021855ae91a4d57b10711ca9cf07fc1ea3b5f0986844c8e3e18dd3",
+        "source_ledger_ref": "fiction:ledger:measurement@1",
+        "relation_ref": "fiction:measurement@1",
+        "package": {
+          "ref": "fiction:definitions:measurement@1",
+          "profile": "p0-positive-1",
+          "predicates": [
+            {
+              "ref": "fiction:measurement@1",
+              "roles": [
+                "event",
+                "specimen",
+                "method",
+                "result"
+              ]
+            }
+          ],
+          "definitions": [],
+          "inclusions": [],
+          "dependencies": []
+        },
+        "dependency_packages": [],
+        "contexts": [
+          {
+            "ref": "fiction:context:observation@1",
+            "subject_ref": "fiction:person:1",
+            "effective_at": "2026-01-10T09:00:00Z",
+            "purpose": "fiction:research"
+          }
+        ],
+        "ledger": {
+          "ref": "fiction:ledger:renamed@1",
+          "assertions": [
+            {
+              "id": "h1",
+              "context_ref": "fiction:context:observation@1",
+              "polarity": "positive",
+              "certainty": "confirmed",
+              "recorded_at": "2026-01-10T10:00:00Z",
+              "origin": {
+                "kind": "observed",
+                "ref": "fiction:P07:source:h1@1"
+              },
+              "supersedes": [],
+              "required_capabilities": [],
+              "statement": {
+                "kind": "event_tuple",
+                "event_ref": "fiction:renamed:h1",
+                "source_assertion": {
+                  "ledger_ref": "fiction:ledger:measurement@1",
+                  "id": "h1"
+                },
+                "roles": {
+                  "key": "fiction:e1",
+                  "specimen": "fiction:s1",
+                  "method": "fiction:m1",
+                  "value": "fiction:positive"
+                }
+              }
+            },
+            {
+              "id": "h2",
+              "context_ref": "fiction:context:observation@1",
+              "polarity": "positive",
+              "certainty": "confirmed",
+              "recorded_at": "2026-01-10T10:01:00Z",
+              "origin": {
+                "kind": "observed",
+                "ref": "fiction:P07:source:h2@1"
+              },
+              "supersedes": [],
+              "required_capabilities": [],
+              "statement": {
+                "kind": "event_tuple",
+                "event_ref": "fiction:renamed:h2",
+                "source_assertion": {
+                  "ledger_ref": "fiction:ledger:measurement@1",
+                  "id": "h2"
+                },
+                "roles": {
+                  "key": "fiction:e2",
+                  "specimen": "fiction:s2",
+                  "method": "fiction:m2",
+                  "value": "fiction:negative"
+                }
+              }
+            }
+          ],
+          "reviews": [
+            {
+              "id": "r1",
+              "assertion_ref": "h1",
+              "reviewer_ref": "fiction:reviewer:H1",
+              "reviewer_kind": "human",
+              "recorded_at": "2026-01-10T10:05:00Z",
+              "outcome": "confirmed"
+            },
+            {
+              "id": "r2",
+              "assertion_ref": "h2",
+              "reviewer_ref": "fiction:reviewer:H1",
+              "reviewer_kind": "human",
+              "recorded_at": "2026-01-10T10:06:00Z",
+              "outcome": "confirmed"
+            }
+          ]
+        }
+      },
+      "renames": [
+        {
+          "from_ref": "fiction:internal:h1",
+          "to_ref": "fiction:renamed:h1"
+        },
+        {
+          "from_ref": "fiction:internal:h2",
+          "to_ref": "fiction:renamed:h2"
+        }
+      ],
+      "stages": [
+        {
+          "kind": "event_reification",
+          "source": {
+            "profile": "p0-positive-1",
+            "profile_spec_sha256": "3ae222d252a46ad6a1cf2221a230a5218170ed13f8ccf645c22249e957c3ac72",
+            "snapshot_sha256": "ce563741bb021855ae91a4d57b10711ca9cf07fc1ea3b5f0986844c8e3e18dd3",
+            "policy_ref": "fiction:confirmed-explicit-revision@1",
+            "dependencies": [
+              {
+                "ref": "fiction:definitions:measurement@1",
+                "sha256": "345a29848b7c5390dfb20e8bdbc0280f0e75e153bca018b0a813179da46822a8"
+              }
+            ]
+          },
+          "target": {
+            "profile": "p1-events-draft-1",
+            "profile_spec_sha256": "0fd014dd4904b2773839a8577675a59f7386ef2ea81ddb00c0def2ebbdf99cf3",
+            "snapshot_sha256": "c7e864967ed45840bb49a09a63b68802fb5ae7d2d8c61e6b741d85ba856306a3",
+            "policy_ref": "fiction:confirmed-explicit-revision@1",
+            "dependencies": [
+              {
+                "ref": "fiction:definitions:measurement@1",
+                "sha256": "345a29848b7c5390dfb20e8bdbc0280f0e75e153bca018b0a813179da46822a8"
+              }
+            ]
+          },
+          "source_scope_sha256": "4906e95c03bd43bb92656c93f79880f3e7e8ef8e16358dda7e0b753ee25fcc98",
+          "target_scope_sha256": "04cd6a653de6c67e26ccdb2109acdf986696ee38aa9011cdc2d53af42b2d1482"
+        },
+        {
+          "kind": "event_rename",
+          "source": {
+            "profile": "p1-events-draft-1",
+            "profile_spec_sha256": "0fd014dd4904b2773839a8577675a59f7386ef2ea81ddb00c0def2ebbdf99cf3",
+            "snapshot_sha256": "c7e864967ed45840bb49a09a63b68802fb5ae7d2d8c61e6b741d85ba856306a3",
+            "policy_ref": "fiction:confirmed-explicit-revision@1",
+            "dependencies": [
+              {
+                "ref": "fiction:definitions:measurement@1",
+                "sha256": "345a29848b7c5390dfb20e8bdbc0280f0e75e153bca018b0a813179da46822a8"
+              }
+            ]
+          },
+          "target": {
+            "profile": "p1-events-draft-1",
+            "profile_spec_sha256": "0fd014dd4904b2773839a8577675a59f7386ef2ea81ddb00c0def2ebbdf99cf3",
+            "snapshot_sha256": "6b3d034e9b51e58485b02714b09e14f87cbdfbb57e6b3d9001db5fdaf255ae03",
+            "policy_ref": "fiction:confirmed-explicit-revision@1",
+            "dependencies": [
+              {
+                "ref": "fiction:definitions:measurement@1",
+                "sha256": "345a29848b7c5390dfb20e8bdbc0280f0e75e153bca018b0a813179da46822a8"
+              }
+            ]
+          },
+          "source_scope_sha256": "04cd6a653de6c67e26ccdb2109acdf986696ee38aa9011cdc2d53af42b2d1482",
+          "target_scope_sha256": "04cd6a653de6c67e26ccdb2109acdf986696ee38aa9011cdc2d53af42b2d1482"
+        }
+      ],
+      "views": [
+        {
+          "id": "v1",
+          "as_of": "2026-01-10T12:00:00Z",
+          "policy_ref": "fiction:confirmed-explicit-revision@1"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q1",
+          "context_ref": "fiction:context:observation@1",
+          "atoms": [
+            {
+              "predicate": "fiction:measurement@1",
+              "args": [
+                "fiction:e1",
+                "fiction:s1",
+                "fiction:m1",
+                {
+                  "var": "result"
+                }
+              ]
+            }
+          ],
+          "required": false,
+          "kind": "legacy_positive"
+        },
+        {
+          "id": "q2",
+          "context_ref": "fiction:context:observation@1",
+          "atoms": [
+            {
+              "predicate": "fiction:measurement@1",
+              "args": [
+                {
+                  "var": "event"
+                },
+                "fiction:s2",
+                "fiction:m1",
+                {
+                  "var": "result"
+                }
+              ]
+            }
+          ],
+          "required": false,
+          "kind": "legacy_positive"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "legacy_replay",
+          "status"
+        ],
+        "equals": "unavailable"
+      },
+      {
+        "path": [
+          "semantic_handover",
+          "status"
+        ],
+        "equals": "certified"
+      },
+      {
+        "path": [
+          "semantic_handover",
+          "certificate",
+          "evidence_level"
+        ],
+        "equals": "checked_native_template"
+      },
+      {
+        "path": [
+          "steps_used"
+        ],
+        "equals": 100
+      }
+    ]
+  }
+}

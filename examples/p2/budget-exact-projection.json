@@ -1,0 +1,122 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "GD12",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p1-projection",
+  "obligation": "K-RES",
+  "kind": "boundary",
+  "gate": "課金の境界：steps がちょうど 15 で完了する（上限を厳しくしすぎない）",
+  "derived_from": "p1-c/kept-query-scope",
+  "request": {
+    "schema_version": "p1-handover-request-draft-1",
+    "operation": "check_projection_chain",
+    "consumer": {
+      "profile": "p1-handover-draft-1",
+      "profile_spec_sha256": "f5b1709c8c538ede98dd58b0eea79a6c4b4a145d6b7248daaa586cffe660a54d",
+      "operations": [
+        "check_projection_chain"
+      ]
+    },
+    "budget": {
+      "max_steps": 15
+    },
+    "source_a": [
+      [
+        "fiction:e1",
+        "fiction:s1",
+        "fiction:m1",
+        "fiction:positive"
+      ],
+      [
+        "fiction:e2",
+        "fiction:s2",
+        "fiction:m2",
+        "fiction:negative"
+      ]
+    ],
+    "source_b": [
+      [
+        "fiction:e1",
+        "fiction:s1",
+        "fiction:m2",
+        "fiction:positive"
+      ],
+      [
+        "fiction:e2",
+        "fiction:s2",
+        "fiction:m1",
+        "fiction:negative"
+      ]
+    ],
+    "projection": {
+      "kind": "columns",
+      "positions": [
+        3
+      ]
+    },
+    "queries": [
+      {
+        "id": "q1",
+        "where": [],
+        "select": [
+          {
+            "position": 3,
+            "var": "result"
+          }
+        ]
+      }
+    ],
+    "source_sidecar": null
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "scope",
+          "query_ids"
+        ],
+        "equals": [
+          "q1"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "target_bindings"
+        ],
+        "equals": [
+          {
+            "result": "fiction:negative"
+          },
+          {
+            "result": "fiction:positive"
+          }
+        ]
+      },
+      {
+        "path": [
+          "steps_used"
+        ],
+        "equals": 15
+      }
+    ]
+  }
+}

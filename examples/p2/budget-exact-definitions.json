@@ -1,0 +1,116 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "GD02",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p0-definitions",
+  "obligation": "K-RES",
+  "kind": "boundary",
+  "gate": "課金の境界：steps がちょうど 5 で完了する（上限を厳しくしすぎない）",
+  "derived_from": "p0/definition-extension",
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "check_extension",
+    "base_package": {
+      "ref": "fiction:definitions:base@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:A@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:B@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "extension": {
+      "ref": "fiction:definitions:extension@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:N@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [
+        {
+          "kind": "defined",
+          "symbol": "fiction:N@1",
+          "all_of": [
+            "fiction:A@1",
+            "fiction:B@1"
+          ]
+        }
+      ],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "budget": {
+      "max_steps": 5
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "method"
+        ],
+        "equals": "p0-s1-s2-dag-1"
+      },
+      {
+        "path": [
+          "certificate",
+          "old_signature"
+        ],
+        "equals": [
+          "fiction:A@1",
+          "fiction:B@1"
+        ]
+      },
+      {
+        "path": [
+          "certificate",
+          "introduced"
+        ],
+        "equals": [
+          "fiction:N@1"
+        ]
+      },
+      {
+        "path": [
+          "certificate",
+          "scope",
+          "old_data_only"
+        ],
+        "equals": true
+      }
+    ]
+  }
+}

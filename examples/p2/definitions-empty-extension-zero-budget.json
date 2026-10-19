@@ -1,0 +1,75 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "GD18",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p0-definitions",
+  "obligation": "K-STOP",
+  "kind": "refusal",
+  "gate": "追加が空でも、予算 0 は未評価（認定票を出さない）",
+  "derived_from": "p0/definition-extension",
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "check_extension",
+    "base_package": {
+      "ref": "fiction:definitions:base@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:A@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:B@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "extension": {
+      "ref": "fiction:definitions:extension@1",
+      "profile": "p0-positive-1",
+      "predicates": [],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "budget": {
+      "max_steps": 0
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "step_limit"
+        ]
+      },
+      {
+        "path": [
+          "incomplete"
+        ],
+        "equals": [
+          "request"
+        ]
+      }
+    ]
+  }
+}

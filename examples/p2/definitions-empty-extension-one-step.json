@@ -1,0 +1,66 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "GD19",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p0-definitions",
+  "obligation": "K-STOP",
+  "kind": "boundary",
+  "gate": "追加が空なら 1 step で認定する（予算 0 との境界）",
+  "derived_from": "p0/definition-extension",
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "check_extension",
+    "base_package": {
+      "ref": "fiction:definitions:base@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:A@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:B@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "extension": {
+      "ref": "fiction:definitions:extension@1",
+      "profile": "p0-positive-1",
+      "predicates": [],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "budget": {
+      "max_steps": 1
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "certified"
+      }
+    ]
+  }
+}

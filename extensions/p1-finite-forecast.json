@@ -26,7 +26,8 @@
   ],
   "embedded_in": [
     "src/med_dsl/forecast.py",
-    "examples/p1-a/*.json"
+    "examples/p1-a/*.json",
+    "examples/p2/*.json"
   ],
   "depends_on": [
     {
@@ -98,8 +99,28 @@
       "checks": [
         "tests/test_p1_forecast.py::test_no_clinical_predicate_or_arbitrary_package_is_accepted"
       ],
-      "guards": [],
-      "guard_gap": "報告専用の固定 package しか検証に渡さない構造で、任意 package を拒否する例ファイルはなくテストで検査している"
+      "guards": [
+        {
+          "example": "examples/p2/forecast-arbitrary-package-refused.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_field"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2/forecast-nonreport-predicate-refused.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "undeclared_predicate"
+          ],
+          "kind": "refusal"
+        }
+      ]
     },
     {
       "id": "R2-3",
@@ -350,10 +371,12 @@
   },
   "evaluation": {
     "examples": [
-      "examples/p1-a/*.json"
+      "examples/p1-a/*.json",
+      "examples/p2/*.json"
     ],
     "tests": [
-      "tests/test_p1_forecast.py"
+      "tests/test_p1_forecast.py",
+      "tests/p2/test_guard_examples.py"
     ],
     "budget_sweep": true,
     "oracle": "tests/review/reference_oracle.py"

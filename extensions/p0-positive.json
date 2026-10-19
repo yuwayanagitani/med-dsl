@@ -26,6 +26,10 @@
   },
   "pins": [
     {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
       "path": "src/med_dsl/__init__.py",
       "role": "dispatcher"
     }

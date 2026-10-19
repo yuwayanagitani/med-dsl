@@ -29,7 +29,8 @@
     "src/med_dsl/handover_spec.json",
     "examples/p1-b/*.json",
     "examples/p1-c/*.json",
-    "examples/review/*.json"
+    "examples/review/*.json",
+    "examples/p2/*.json"
   ],
   "depends_on": [
     {
@@ -126,8 +127,20 @@
       "checks": [
         "tests/test_p1_events.py::test_same_key_and_same_tuple_have_distinct_internal_ids"
       ],
-      "guards": [],
-      "guard_gap": "構造の性質で、拒否する入力の例はない（件数・同一性の Q を範囲外にして検査している）",
+      "guards": [
+        {
+          "example": "examples/p1-b/shared-key.json",
+          "path": [
+            "target_result",
+            "retained_assertions"
+          ],
+          "equals": [
+            "h1",
+            "h2"
+          ],
+          "kind": "non_conversion"
+        }
+      ],
       "derivation": "docs/research/16-proof-obligations.md"
     },
     {
@@ -295,8 +308,24 @@
         "tests/test_p1_events.py::test_reify_restore_never_publish_partial_history",
         "tests/review/test_boundaries.py::EventLimitTests.test_intermediate_binding_limit_is_exactly_4096"
       ],
-      "guards": [],
-      "guard_gap": "上限の境界は例ではなくテスト（境界値の構成が大きいため）で検査している"
+      "guards": [
+        {
+          "example": "examples/p2/budget-below-events.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2/budget-exact-events.json",
+          "path": [
+            "status"
+          ],
+          "equals": "ok",
+          "kind": "boundary"
+        }
+      ]
     }
   ],
   "stops": {
@@ -312,11 +341,13 @@
   },
   "evaluation": {
     "examples": [
-      "examples/p1-b/*.json"
+      "examples/p1-b/*.json",
+      "examples/p2/*.json"
     ],
     "tests": [
       "tests/test_p1_events.py",
-      "tests/review/test_event_paths.py"
+      "tests/review/test_event_paths.py",
+      "tests/p2/test_guard_examples.py"
     ],
     "budget_sweep": true,
     "oracle": "tests/review/reference_oracle.py"

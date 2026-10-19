@@ -12,8 +12,7 @@
   "contract_doc": "docs/research/14-p1-c-contract.md",
   "implementation": {
     "modules": [
-      "src/med_dsl/projection.py",
-      "src/med_dsl/handover.py"
+      "src/med_dsl/projection.py"
     ]
   },
   "pins": [],
@@ -193,8 +192,24 @@
       "checks": [
         "tests/test_p1_handover.py::test_each_operation_zero_budget_has_no_partial_report_or_certificate"
       ],
-      "guards": [],
-      "guard_gap": "予算の境界はテストで検査している"
+      "guards": [
+        {
+          "example": "examples/p2/budget-below-projection.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2/budget-exact-projection.json",
+          "path": [
+            "status"
+          ],
+          "equals": "ok",
+          "kind": "boundary"
+        }
+      ]
     }
   ],
   "stops": {
@@ -211,11 +226,13 @@
   "evaluation": {
     "examples": [
       "examples/p1-c/*.json",
-      "examples/review/*.json"
+      "examples/review/*.json",
+      "examples/p2/*.json"
     ],
     "tests": [
       "tests/test_p1_handover.py",
-      "tests/review/test_review_negatives.py"
+      "tests/review/test_review_negatives.py",
+      "tests/p2/test_guard_examples.py"
     ],
     "budget_sweep": true,
     "oracle": "tests/review/reference_oracle.py"
