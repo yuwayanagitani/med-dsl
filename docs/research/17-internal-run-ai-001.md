@@ -42,7 +42,8 @@
 | 版 | 基準 | 共通 manifest の生バイト hash | 168ファイル束 |
 | --- | --- | --- | --- |
 | `p0-draft-1`（レビュー対象の基準） | `e73d4bab30cbb40b9354724c361610d5c22033c1` | `1f01ed6593f555b42e370661c225fac1012bdf89b115bc29fd91513474d35efb` | `561ef3924483c4f36c0ec3edec571979dd2418a880ac84320c70bfe7f36ef864` |
-| `p0-draft-2`（本記録の固定） | 作業ツリー（未コミット） | `de30791900150135fb4b413bc8a535fa5a13a15da2fd4540df1f6a8168e86831` | `faf0269dfc66ef1da77461a22f859e4a3f37fdba7c2a589d09dfbb230465fca1` |
+| `p0-draft-1` のレビュー資料（記録の初版・追補・負例系列。コードは draft-1 のまま、全検査が通る） | `5cbe146b6c81fe4f6d20a3941def2b2227ed2928` | `1f01ed65…`（同上） | `561ef392…`（同上） |
+| `p0-draft-2`（本記録の固定） | `2b501c1c825eafe6a8b48f419dd4a6fb6baae6de` | `de30791900150135fb4b413bc8a535fa5a13a15da2fd4540df1f6a8168e86831` | `faf0269dfc66ef1da77461a22f859e4a3f37fdba7c2a589d09dfbb230465fca1` |
 
 draft-2 のファイル数は 169（`certifier` のために `identity.py` が加わった）。旧版の結果は e73d4ba と `data/research/p1-d/review-baseline/`（Git管理外）に残してあります。
 
@@ -94,6 +95,7 @@ draft-2 のファイル数は 169（`certifier` のために `identity.py` が�
 | 入力の乱数改変・鎖の偽造 | `robust_fuzz.py`（9,360）、`leaf_tamper.py`、`chain_probe*.py` | 未捕捉例外 0、葉の改変で認定が残るもの 0、偽造12通りはすべて拒否 |
 | 参考意味の健全性 | `ref_probe.py`（746件の証明） | 不健全 0。RV-02 の矛盾は解消 |
 | 空白検査 | `git diff --check` | 指摘なし |
+| コミット済みの状態 | `2b501c1` をクリーンな worktree に出して再実行（`5cbe146` も同様に確認済み） | 231／40／8 のテスト、P1-d の CLI 評価、追加監査がすべて通過。`git_dirty` は false、束 `faf0269d…`・manifest `de307919…` は作業ツリーと同じ |
 
 script・ログ・hash は `data/research/review-001/`（Git管理外、`SHA256SUMS`）。draft-1 時点の追加系列は `snapshots/pre-draft2/`。
 
@@ -103,7 +105,7 @@ script・ログ・hash は `data/research/review-001/`（Git管理外、`SHA256S
 
 | 区分 | 内容 | 外部レビューでの扱い |
 | --- | --- | --- |
-| 基準の固定 | 外部へ出す前に、本記録時点の作業ツリーをコミットする。推奨は二つ：(1) レビュー資料（`16-*`、`examples/review`、`tests/review`）と draft-2 を**分けて**コミットし、draft-1 の e73d4ba／559244d をそのまま残す。(2) draft-2 のコミットに印を付ける | 確認者が基準コミットと hash を G0 で記録する |
+| 基準の固定 | コミット済み：`e73d4ba`（draft-1 の基準）→ `559244d`（レビュー計画・追加監査）→ `5cbe146`（レビュー記録と draft-1 の負例系列）→ `2b501c1`（draft-2）。**draft-1 の基準を見る場合は `e73d4ba` か `5cbe146`、draft-2 は `2b501c1`**（後続の記録だけの変更は含めない） | 確認者が基準コミットと hash を G0 で記録する |
 | 12の証明義務 | PO01〜PO12 の判定（§7）は AI-001 の内部判定 | **すべて独立にやり直す**（G1／G2）。作成者の期待は見ずに、反例を先に記す |
 | 裁定した意味 | RV-05（先行する確認は入力不正、等しい時刻は許す、profile は維持）。兼任による裁定 | **独立の裁定者が確認**。覆る場合は、validation.py の2行と06契約の1行、RN13／RN14、4テストを戻す |
 | 等価変異の分類 | §4 で「等価」と判断した変異 | 確認者が等価性を独立に判断する |
