@@ -1,6 +1,6 @@
 # P1 の設計例
 
-以下は実装前の設計を保持した資料です。後続の [P1-a 実行例](../p1-a/README.md) と [実装記録](../../docs/research/12-p1-a-results.md) で有限予測の7条件を実行しました。この8ファイル自体は設計用形式のままで、実行用 schema へ変更していません。
+以下は実装前の設計を保持した資料です。後続の [P1-a 実行例](../p1-a/README.md) で有限予測の7条件、[P1-b 実行例](../p1-b/README.md) と [実装記録](../../docs/research/13-p1-b-results.md) で事象への引き継ぎの6条件を実行しました。この8ファイル自体は設計用形式のままで、実行用 schema へ変更していません。
 
 契約草案：[p1-design-draft-1](../../docs/research/11-p1-contract.md)。**未実装・未実行の設計資料**です。[20件の受入条件](../../docs/research/11-p1-cases.md) のうち8件を JSON に具体化しました。P0 の実行用 fixture と schema を分け、各ファイルには `execution_state=not_implemented` を明記しています。
 

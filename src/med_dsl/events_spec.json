@@ -1,0 +1,51 @@
+{
+  "profile": "p1-events-draft-1",
+  "request_schema": "p1-events-request-draft-1",
+  "result_schema": "p1-events-result-draft-1",
+  "snapshot_schema": "p1-event-snapshot-draft-1",
+  "operations": ["reify_events", "restore_events", "query_events", "compare_event_handover"],
+  "source_profile": "p0-positive-1",
+  "role_positions": ["key", "specimen", "method", "value"],
+  "semantics": {
+    "selected_relation": "one declared four-ary predicate; other P0 predicates and unary rules unchanged",
+    "event_identity": "fresh per source ledger/assertion; no key uniqueness or tuple deduplication in stored history",
+    "statement": "event_tuple with exactly four scalar roles, or unchanged_atom for other predicates",
+    "adoption": "P0 envelopes, human reviews, revisions, context and view preserved; active only after positive adoption",
+    "negative": "denies the whole tuple; never individual roles",
+    "query": "one fresh hidden event variable per source atom; active and four roles share that variable",
+    "projection": "return only old query variables; deduplicate answers and merge all source evidence",
+    "unsupported_queries": "event_count, event_identity and unknown kinds remain out of scope",
+    "split_roles": "known incorrect diagnostic translation; distinct active witnesses per role, never certified",
+    "roundtrip": "reconstruct complete source snapshot from statement roles and assertion envelopes",
+    "certificate": "finite execution checks only; not_certified even when finite answers match"
+  },
+  "limits": {
+    "request_bytes": 1048576,
+    "snapshot_bytes": 1048576,
+    "json_depth": 64,
+    "contexts": 1000,
+    "assertions": 1000,
+    "reviews": 1000,
+    "views": 64,
+    "queries": 64,
+    "source_atoms": 64,
+    "public_variables": 4,
+    "translated_atoms": 320,
+    "hidden_and_public_variables": 68,
+    "diagnostic_atoms": 512,
+    "diagnostic_variables": 260,
+    "intermediate_bindings": 4096,
+    "returned_bindings": 1000,
+    "max_steps": 100000
+  },
+  "steps": [
+    "one at request start",
+    "reify/restore: one per assertion and review, one before committing the complete roundtrip artifact",
+    "query target: prepay one per assertion and review for each view; one at each query start and completion",
+    "query target: P0 unary closure charges, one per join candidate, one per final internal binding projected",
+    "compare: one for history comparison, P0 legacy replay charges, target query charges, one per completed comparable row",
+    "split_roles diagnostic: additional shared-event and split-role target evaluations use the same request budget"
+  ],
+  "resource_stop": "no partial artifact, query bindings, difference or certificate; completed other queries retained",
+  "hashes": "native spec raw SHA-256 pinned in handler; snapshots canonical SHA-256; raw source history reconstructed without normalization"
+}

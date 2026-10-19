@@ -1,0 +1,150 @@
+{
+  "schema_version": "p1-b-manifest-draft-1",
+  "status": "author_draft_snapshot",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "fixture_ids": [
+    "H07",
+    "H08",
+    "H09",
+    "H10",
+    "H11",
+    "H12"
+  ],
+  "profile": "p1-events-draft-1",
+  "profile_spec_sha256": "0fd014dd4904b2773839a8577675a59f7386ef2ea81ddb00c0def2ebbdf99cf3",
+  "files": [
+    {
+      "fixture_id": "H07",
+      "path": "reify-events.json",
+      "bytes": 5481,
+      "sha256": "4a99ae37f670150cd8f1644d3db2311b8817475f93c37b7ac636527ca657d4ab"
+    },
+    {
+      "fixture_id": "H07",
+      "path": "restore-events.json",
+      "bytes": 7746,
+      "sha256": "9a98080fd0379b6e69a77d6c589326ba96a7e4ba50273613c59f6b47cd98d2cb"
+    },
+    {
+      "fixture_id": "H07",
+      "path": "linked-observations.json",
+      "bytes": 10137,
+      "sha256": "b7b0d22757421016e1d7ba4e650cee68b5361e1c611451fe12167d4b4fc0f64b"
+    },
+    {
+      "fixture_id": "H07",
+      "path": "native-query.json",
+      "bytes": 5991,
+      "sha256": "a34302bba7b40aff18fa9874c275978cd0846ef3cbf68261d93e7e5646d58d47"
+    },
+    {
+      "fixture_id": "H08",
+      "path": "shared-key.json",
+      "bytes": 9231,
+      "sha256": "318798986349298b8ca0408b03e3eabf718a9f465201243b27ee07ec77834c89"
+    },
+    {
+      "fixture_id": "H08",
+      "path": "duplicate-support.json",
+      "bytes": 9430,
+      "sha256": "65ea01146d2ec850aee0b91224a4155adce779264bf18d38ff55c6cc851d1e53"
+    },
+    {
+      "fixture_id": "H09",
+      "path": "out-of-scope.json",
+      "bytes": 9579,
+      "sha256": "cc0874a9d50bdbc4feb5739973ae06d402e4c0a3bb0ce716a5394e6854d3f626"
+    },
+    {
+      "fixture_id": "H10",
+      "path": "split-witness.json",
+      "bytes": 9498,
+      "sha256": "b2f98929545c423e621f6e0195f9fd6b2e13b9895492cfe20bac6c1de4957eeb"
+    },
+    {
+      "fixture_id": "H11",
+      "path": "missing-method.json",
+      "bytes": 8483,
+      "sha256": "926ab76217681ee148dc5127532359e83ea3f833947bc69ea32347f71c769c75"
+    },
+    {
+      "fixture_id": "H11",
+      "path": "multiple-methods.json",
+      "bytes": 8604,
+      "sha256": "c4a08ce35f71e0e4bfbac355fe9694e8af7d6adfac6069ea1bba997b1b07ae48"
+    },
+    {
+      "fixture_id": "H11",
+      "path": "duplicate-event-id.json",
+      "bytes": 8535,
+      "sha256": "5072774a018dcbd1669db1bc40513ac5bacf2e4f2871b5eb040b1ff518af681b"
+    },
+    {
+      "fixture_id": "H11",
+      "path": "existing-name-collision.json",
+      "bytes": 8526,
+      "sha256": "93127ca3a6d2ffb0f25b0ca9ada441664da698d00858bcbb11fc21e3729c1260"
+    },
+    {
+      "fixture_id": "H11",
+      "path": "wrong-source-assertion.json",
+      "bytes": 8535,
+      "sha256": "0bce79aaedbb537e21debe2fd020d3b585131e7dd9f0c567d1c6f2f59fbba167"
+    },
+    {
+      "fixture_id": "H11",
+      "path": "wrong-source-hash.json",
+      "bytes": 8530,
+      "sha256": "d48e3c981dc95ff463a97ccc61e1eb0fbc64d7dcc8bfe1fa7110310c1224f42f"
+    },
+    {
+      "fixture_id": "H12",
+      "path": "negative-tuple.json",
+      "bytes": 8758,
+      "sha256": "c2554222729259e273507cfadc0ae9149149ec84bdbb72dba4dc2719c151cc1a"
+    },
+    {
+      "fixture_id": "H12",
+      "path": "ai-unreviewed.json",
+      "bytes": 8727,
+      "sha256": "68a90b3bf5f68872a3b3c5f3fb41a63a0f919ae53c4d57c47379187af7a61eae"
+    },
+    {
+      "fixture_id": "H12",
+      "path": "ai-suspected.json",
+      "bytes": 9245,
+      "sha256": "1a2eff980e49e28f0157bc23984e7d32cfa72659980a86a380aa9d596778dfb0"
+    },
+    {
+      "fixture_id": "H12",
+      "path": "confirmation-times.json",
+      "bytes": 9583,
+      "sha256": "9d46447fc1f59f2767295549436ef6f95f6da8c9b63288e1d76748af5020b319"
+    },
+    {
+      "fixture_id": "H12",
+      "path": "conflict.json",
+      "bytes": 11278,
+      "sha256": "bad26336061523ca5cfbef4a1018e7030e2e785a1b5d90528331ce4a127df70c"
+    },
+    {
+      "fixture_id": "H12",
+      "path": "separate-contexts.json",
+      "bytes": 16102,
+      "sha256": "e1c11d1748b3867b69f71bad925a6d88c0753e3d95067aa46c0f26f817830361"
+    },
+    {
+      "fixture_id": "H12",
+      "path": "explicit-revisions.json",
+      "bytes": 14115,
+      "sha256": "9ffe2d3243625ce1e74ba1408465eb7b9b9bdba245853b485f1aa61413969d94"
+    },
+    {
+      "fixture_id": "H12",
+      "path": "unknown-capability.json",
+      "bytes": 9186,
+      "sha256": "e77bfa5480070aadb3e9c81aa5a3ecab233dec34b88c1cb4c8565894f9e1cc5c"
+    }
+  ]
+}

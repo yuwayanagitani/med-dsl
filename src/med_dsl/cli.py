@@ -11,7 +11,7 @@ from .validation import decode_json
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="研究用 P0 / P1-a の JSON 問い合わせ")
+    parser = argparse.ArgumentParser(description="研究用 P0 / P1 の JSON 問い合わせ")
     parser.add_argument("file", nargs="?", default="-", help="request JSON または - (標準入力)")
     parser.add_argument("--fixture", action="store_true", help="草案例から request のみを読む")
     args = parser.parse_args(argv)

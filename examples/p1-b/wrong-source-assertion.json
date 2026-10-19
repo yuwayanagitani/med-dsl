@@ -1,0 +1,312 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "H11",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p1-events-request-draft-1",
+    "operation": "compare_event_handover",
+    "consumer": {
+      "profile": "p1-events-draft-1",
+      "profile_spec_sha256": "0fd014dd4904b2773839a8577675a59f7386ef2ea81ddb00c0def2ebbdf99cf3",
+      "operations": [
+        "reify_events",
+        "restore_events",
+        "query_events",
+        "compare_event_handover"
+      ]
+    },
+    "budget": {
+      "max_steps": 100000
+    },
+    "source": {
+      "package": {
+        "ref": "fiction:definitions:measurement@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:measurement@1",
+            "roles": [
+              "event",
+              "specimen",
+              "method",
+              "result"
+            ]
+          }
+        ],
+        "definitions": [],
+        "inclusions": [],
+        "dependencies": []
+      },
+      "contexts": [
+        {
+          "ref": "fiction:context:observation@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2026-01-10T09:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:measurement@1",
+        "assertions": [
+          {
+            "id": "h1",
+            "context_ref": "fiction:context:observation@1",
+            "atom": {
+              "predicate": "fiction:measurement@1",
+              "args": [
+                "fiction:e1",
+                "fiction:s1",
+                "fiction:m1",
+                "fiction:positive"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P07:source:h1@1"
+            },
+            "supersedes": [],
+            "required_capabilities": []
+          },
+          {
+            "id": "h2",
+            "context_ref": "fiction:context:observation@1",
+            "atom": {
+              "predicate": "fiction:measurement@1",
+              "args": [
+                "fiction:e2",
+                "fiction:s2",
+                "fiction:m2",
+                "fiction:negative"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:01:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P07:source:h2@1"
+            },
+            "supersedes": [],
+            "required_capabilities": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "r1",
+            "assertion_ref": "h1",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T10:05:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "r2",
+            "assertion_ref": "h2",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T10:06:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      },
+      "dependency_packages": []
+    },
+    "relation_ref": "fiction:measurement@1",
+    "target": {
+      "schema_version": "p1-event-snapshot-draft-1",
+      "profile": "p1-events-draft-1",
+      "profile_spec_sha256": "0fd014dd4904b2773839a8577675a59f7386ef2ea81ddb00c0def2ebbdf99cf3",
+      "source_sha256": "ce563741bb021855ae91a4d57b10711ca9cf07fc1ea3b5f0986844c8e3e18dd3",
+      "source_ledger_ref": "fiction:ledger:measurement@1",
+      "relation_ref": "fiction:measurement@1",
+      "package": {
+        "ref": "fiction:definitions:measurement@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:measurement@1",
+            "roles": [
+              "event",
+              "specimen",
+              "method",
+              "result"
+            ]
+          }
+        ],
+        "definitions": [],
+        "inclusions": [],
+        "dependencies": []
+      },
+      "dependency_packages": [],
+      "contexts": [
+        {
+          "ref": "fiction:context:observation@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2026-01-10T09:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:events@1",
+        "assertions": [
+          {
+            "id": "h1",
+            "context_ref": "fiction:context:observation@1",
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P07:source:h1@1"
+            },
+            "supersedes": [],
+            "required_capabilities": [],
+            "statement": {
+              "kind": "event_tuple",
+              "event_ref": "fiction:internal:h1",
+              "source_assertion": {
+                "ledger_ref": "fiction:ledger:measurement@1",
+                "id": "h2"
+              },
+              "roles": {
+                "key": "fiction:e1",
+                "specimen": "fiction:s1",
+                "method": "fiction:m1",
+                "value": "fiction:positive"
+              }
+            }
+          },
+          {
+            "id": "h2",
+            "context_ref": "fiction:context:observation@1",
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-01-10T10:01:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:P07:source:h2@1"
+            },
+            "supersedes": [],
+            "required_capabilities": [],
+            "statement": {
+              "kind": "event_tuple",
+              "event_ref": "fiction:internal:h2",
+              "source_assertion": {
+                "ledger_ref": "fiction:ledger:measurement@1",
+                "id": "h2"
+              },
+              "roles": {
+                "key": "fiction:e2",
+                "specimen": "fiction:s2",
+                "method": "fiction:m2",
+                "value": "fiction:negative"
+              }
+            }
+          }
+        ],
+        "reviews": [
+          {
+            "id": "r1",
+            "assertion_ref": "h1",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T10:05:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "r2",
+            "assertion_ref": "h2",
+            "reviewer_ref": "fiction:reviewer:H1",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-01-10T10:06:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      }
+    },
+    "views": [
+      {
+        "id": "v1",
+        "as_of": "2026-01-10T12:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "context_ref": "fiction:context:observation@1",
+        "atoms": [
+          {
+            "predicate": "fiction:measurement@1",
+            "args": [
+              "fiction:e1",
+              "fiction:s1",
+              "fiction:m1",
+              {
+                "var": "result"
+              }
+            ]
+          }
+        ],
+        "required": false,
+        "kind": "legacy_positive"
+      },
+      {
+        "id": "q2",
+        "context_ref": "fiction:context:observation@1",
+        "atoms": [
+          {
+            "predicate": "fiction:measurement@1",
+            "args": [
+              {
+                "var": "event"
+              },
+              "fiction:s2",
+              "fiction:m1",
+              {
+                "var": "result"
+              }
+            ]
+          }
+        ],
+        "required": false,
+        "kind": "legacy_positive"
+      }
+    ],
+    "translation": {
+      "kind": "shared_event"
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "source_assertion_mismatch"
+        ]
+      },
+      {
+        "path": [
+          "incomplete"
+        ],
+        "equals": [
+          "request"
+        ]
+      }
+    ]
+  }
+}
