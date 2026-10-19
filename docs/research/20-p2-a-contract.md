@@ -11,7 +11,7 @@
 | `schema_version` | `p2-extension-manifest-draft-1` | 一致 |
 | `id`・`version`・`title` | 拡張の識別 | 空でない文字列 |
 | `status` | `{review_state, independent_review}`。独立確認の主張（true）は、記録の仕組みができるまで拒否 | 型・値 |
-| `class` | `BASE`／`HOST`／`R1`〜`R5`／`COMP`（§2） | 既知のクラス |
+| `class` | `BASE`／`HOST`／`R1`〜`R6`／`COMP`（§2。R6 は P2-b で追加） | 既知のクラス |
 | `spec` | 仕様の実体 `{path, sha256}`（なければ null）。生バイトの hash | 実体の hash と一致 |
 | `contract_doc` | 契約文書のパス | 実在 |
 | `implementation.modules` | 実装のモジュール（`src/med_dsl/*.py`） | 実在、パッケージ内 |
@@ -40,6 +40,7 @@
 | R4 | `R4-1`〜`R4-3`（因子化できる問いだけ・喪失の反例・後段や別添えで全体を復元しない） |
 | R5 | `R5-1`〜`R5-3`（変わる点の記録・認定を出さない・臨床の主張を追加しない） |
 | COMP | `COMP-1`〜`COMP-3`（実体からの再計算・範囲の交差・損失は回復しない） |
+| R6 | `R2-1`〜`R2-5` と `R6-1`〜`R6-6`（公理の閉じた宣言・旧データでの無矛盾・結論の健全性と完全性・結論は公理に相対・範囲の明示・情報要求）。P2-b で追加（[23 の §4](23-p2-b-design.md)） |
 
 別のクラスの義務を宣言すれば拒否します。
 

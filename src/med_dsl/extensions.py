@@ -14,7 +14,7 @@ from pathlib import Path
 from .validation import canonical_bytes, decode_json
 
 MANIFEST_SCHEMA = "p2-extension-manifest-draft-1"
-CLASSES = ("BASE", "HOST", "R1", "R2", "R3", "R4", "R5", "COMP")
+CLASSES = ("BASE", "HOST", "R1", "R2", "R3", "R4", "R5", "R6", "COMP")
 # 弱い順。拡張全体の強さは、最も弱い義務の強さ
 EVIDENCE = ("self_declared", "individual_io", "finite_check", "hand_derivation", "checked_native_template")
 COMMON = ("K-ID", "K-STOP", "K-INV", "K-RES")
@@ -26,6 +26,8 @@ REQUIRED = {
     "R3": COMMON + tuple(f"R3-{i}" for i in range(1, 8)),
     "R4": COMMON + tuple(f"R4-{i}" for i in range(1, 4)),
     "R5": COMMON + tuple(f"R5-{i}" for i in range(1, 4)),
+    # R6 公理つき読み取りモジュール：R2 の義務に、公理の宣言・旧データでの無矛盾・結論の健全性と公理への相対・範囲・情報要求を加える
+    "R6": COMMON + tuple(f"R2-{i}" for i in range(1, 6)) + tuple(f"R6-{i}" for i in range(1, 7)),
     "COMP": COMMON + tuple(f"COMP-{i}" for i in range(1, 4)),
 }
 OWN_KINDS = ("operations", "schema_versions", "profiles", "answer_kinds", "predicates", "capabilities")
@@ -174,7 +176,7 @@ def _check_obligations(manifest):
         if need not in seen:
             found.append(Finding("missing_obligation", "obligations", need))
     for extra in sorted(seen - set(required)):
-        if extra[:2] in ("K-", "R1", "R2", "R3", "R4", "R5") or extra.startswith("COMP-"):
+        if extra[:2] in ("K-", "R1", "R2", "R3", "R4", "R5", "R6") or extra.startswith("COMP-"):
             found.append(Finding("obligation_of_another_class", "obligations", extra))
     return found
 

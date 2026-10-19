@@ -63,6 +63,12 @@
       "class": "R5",
       "path": "p1-replay.json",
       "sha256": "a084d94f2879145e52def46fa32ff3c1b1fa155b63512924345c4af41d7d6742"
+    },
+    {
+      "id": "p2-concept-split",
+      "class": "R6",
+      "path": "p2-concept-split.json",
+      "sha256": "9817ccbc732b5ec76fed4de2b6ef9aa63856255d38832f357316b3bc1abd5ce9"
     }
   ]
 }

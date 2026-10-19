@@ -206,6 +206,10 @@
       "sha256": "2854941af520b5e7399cd19ced2efe6061e6bb788a0c844de8fbba7764d5e336",
       "bytes": 6443
     },
+    "docs/research/23-p2-b-design.md": {
+      "sha256": "1a2181ae63a57317765c2dcd5eb95af1afd1f4c44a3fc0db8e02c3ea0c54ad5c",
+      "bytes": 18142
+    },
     "examples/p0/ai-human-confirmation.json": {
       "sha256": "7a1e255d244db18319243e4e5111d713fcaa922ae8d05a5018b339f8c0f9d9c2",
       "bytes": 3467
@@ -726,6 +730,146 @@
       "sha256": "4e87e392d6679ce300192e925af58cc95e6ba8fb0e7defdde4f80f802c6a5837",
       "bytes": 1989
     },
+    "examples/p2-split/ai-candidate-pending.json": {
+      "sha256": "19e58a27b14518b6e99523dd7e7afa1ccadd298ecc3ebfcc97932d7b6949d8b1",
+      "bytes": 6487
+    },
+    "examples/p2-split/all-parts-opposed.json": {
+      "sha256": "b4973f799cc55c93f1dadf432242c1679ad4702c6b9a7100502681381b3ade29",
+      "bytes": 6309
+    },
+    "examples/p2-split/aware-consumer-reads-the-same-ledger.json": {
+      "sha256": "fe63d31068efe5637c6863c37b47a89237fab72a1264a544f25d09d07be4422a",
+      "bytes": 7904
+    },
+    "examples/p2-split/base-unaware-consumer-stops.json": {
+      "sha256": "91db6b3b74203368795c84832aae0b6a8bdfa85db4997b1798f44e983fe466ea",
+      "bytes": 6155
+    },
+    "examples/p2-split/budget-below.json": {
+      "sha256": "59c0e81c91bb5a60ebe4ea4157c2a72edeb7efed5cd518731c811da86fe2326b",
+      "bytes": 3933
+    },
+    "examples/p2-split/budget-exact.json": {
+      "sha256": "b4f1bcaa2c2230e704959f4bf50047241a260bbda230985c72302e8470649b7c",
+      "bytes": 3755
+    },
+    "examples/p2-split/budget-zero.json": {
+      "sha256": "de475d21b53e725848322eedf0443542ae5e4ff7c713967cd5c5ae4dfab45472",
+      "bytes": 4145
+    },
+    "examples/p2-split/conflict-blocks.json": {
+      "sha256": "fa6e318b03cdb22ceb7b9ee03f5dea6bf386cfb6043bc15ec2581ee642a5432d",
+      "bytes": 4799
+    },
+    "examples/p2-split/consumer-operations.json": {
+      "sha256": "0d294d48ca553599880e83bad0851385e402474420314a6e076f954a693a941e",
+      "bytes": 3820
+    },
+    "examples/p2-split/consumer-profile.json": {
+      "sha256": "7dabd89259b367b8fdc64bf4cefb8f43f6f0228d166bb7710eee64d3a95f2b1b",
+      "bytes": 3790
+    },
+    "examples/p2-split/consumer-spec-hash.json": {
+      "sha256": "dcf9a9c3b4b3dcb89ae0697e325acfa3123d73f59f96fee2707d62f4bd5c9e14",
+      "bytes": 3788
+    },
+    "examples/p2-split/contexts-do-not-leak.json": {
+      "sha256": "f3395f9ed183f1b74c9defc44a3a7ae67c7cd41f0d230f6ea8238c5842e55cf7",
+      "bytes": 5315
+    },
+    "examples/p2-split/corrected-assertion.json": {
+      "sha256": "13c9ca084b73d54171cc2f2ee8aa4279eeb69f6e8ebd5d50cb300da554fe736d",
+      "bytes": 7414
+    },
+    "examples/p2-split/duplicate-parts.json": {
+      "sha256": "66477b389131b63dd71b6065d81da5de8825fe514814619a76569199e5d1b9f1",
+      "bytes": 3751
+    },
+    "examples/p2-split/extra-axiom-refused.json": {
+      "sha256": "9315eaf860dfa332e2535092cc18200c6beba48649485ddac58d762b57a9af2f",
+      "bytes": 3847
+    },
+    "examples/p2-split/inconsistent-all-parts-opposed.json": {
+      "sha256": "75c162fa363521b081d74a4df2a7ed4069dd1dcdaa15416c2830bac5a9614307",
+      "bytes": 6411
+    },
+    "examples/p2-split/inconsistent-two-parts-asserted.json": {
+      "sha256": "ca40e02cd2380ab1f84ef4cb022aacc4885f0e04d9b8d1dfc0bcfab6c83fd25a",
+      "bytes": 4804
+    },
+    "examples/p2-split/manifest.json": {
+      "sha256": "72f9ca8f0ee7f033bfbd005317aa5fb66728b119dcde75eba8dc9a525b10d1db",
+      "bytes": 13578
+    },
+    "examples/p2-split/narrowed-three-parts.json": {
+      "sha256": "ef0792dab77940bfac0355a9861d46a564bc2b06614f1574dd6f256d34ad71d5",
+      "bytes": 6517
+    },
+    "examples/p2-split/no-parent.json": {
+      "sha256": "61b4588d42ef94d4d84db75102cbc08a969f4e7242e4cc60becf6b32306d5a01",
+      "bytes": 5201
+    },
+    "examples/p2-split/non-unary-part.json": {
+      "sha256": "3aec19755a5b5e36bde167cf3b49f53216099f8d2d603216259a5fece8db827f",
+      "bytes": 3715
+    },
+    "examples/p2-split/old-queries-unchanged.json": {
+      "sha256": "bade12426649e3e3e1eab2ce73ffd5b8ef404109ba1556c03fb91142e367c6e9",
+      "bytes": 4255
+    },
+    "examples/p2-split/old-record-only.json": {
+      "sha256": "6b7456d31bae8015f0c06440a066a2c3d5a065b6d0250b39f3f2d9e808db4f47",
+      "bytes": 5962
+    },
+    "examples/p2-split/one-part.json": {
+      "sha256": "2b63bd9ab6fbe64c87632fd94accec36d75a697734886b5ea06ca9b85a52b66f",
+      "bytes": 3623
+    },
+    "examples/p2-split/parent-among-parts.json": {
+      "sha256": "d2f5f7495ac7323a32bdb0f04b09b1dbf35e6332f8cc4f1f1d7b0b286bdd51a2",
+      "bytes": 3642
+    },
+    "examples/p2-split/parent-opposed.json": {
+      "sha256": "1558c16a0fb583fad4ab4543e2bee4f16a563a4fedc9e73fa7617ed8e383a3fe",
+      "bytes": 5527
+    },
+    "examples/p2-split/part-asserted.json": {
+      "sha256": "8f4eb1da3105727de178bc19e752f3fed07341dd20c3f211c57e0383f1f2bd5f",
+      "bytes": 6196
+    },
+    "examples/p2-split/part-only-parent-derived.json": {
+      "sha256": "ab87c3c5206f7a331bddcbb87ea0340253377f3be030b91159782dec2ff9ed33",
+      "bytes": 5397
+    },
+    "examples/p2-split/self-claim-refused.json": {
+      "sha256": "8fb930e0bd4fb455566665b42029478fb72ee67ac7e55797bf868fec656bc634",
+      "bytes": 3822
+    },
+    "examples/p2-split/single-by-exclusion.json": {
+      "sha256": "36609ca8534eb5082a859f6802a6a8e74d79f075d403c5767b75e4e8ca30324e",
+      "bytes": 6594
+    },
+    "examples/p2-split/single-is-not-base-support.json": {
+      "sha256": "c39de297a56ef306b78adcf2c331420ec877334fd93acf672f7cec8ece592716",
+      "bytes": 4487
+    },
+    "examples/p2-split/symbol-has-rules.json": {
+      "sha256": "431971270879834e523d84f243ba636d374d180790ed352cb274e7383217349c",
+      "bytes": 3908
+    },
+    "examples/p2-split/undeclared-part.json": {
+      "sha256": "c7edafd2ea5cfb1e96458d18c5af9598cb046c41868d26bf2ab634e60cf7b3fa",
+      "bytes": 3668
+    },
+    "examples/p2-split/unknown-capability-blocks.json": {
+      "sha256": "010072201b91ddfd56fc5f30d93197d7487310b7f4bb201a93bbea121ff6865c",
+      "bytes": 5134
+    },
+    "examples/p2-split/views-over-time.json": {
+      "sha256": "1a790fe8d0bf9c2b617c002e747d4c4e420d4f29b7bbbe7b7a2f04bf7dc76afd",
+      "bytes": 5111
+    },
     "examples/p2/budget-below-absence.json": {
       "sha256": "81dddf10fd14d63a0797fd7100812ed081bfae0b6a51182c57186c5eaea0cf85",
       "bytes": 4460
@@ -931,8 +1075,8 @@
       "bytes": 3052
     },
     "extensions/index.json": {
-      "sha256": "01a8bf634a4efa31f5a7b0be428b13e45176dc66ec1ca3229bb8a6cce3f7783d",
-      "bytes": 2141
+      "sha256": "6041ec22f6429b8e164c78b36f6986272b3211319b343319e63558c2fc4bba94",
+      "bytes": 2329
     },
     "extensions/p0-definitions.json": {
       "sha256": "a27a7fb2c9010c0cbd8fa9d58febee8189f4deeb2d4da14e91cdf8ea2e701f08",
@@ -974,6 +1118,10 @@
       "sha256": "a084d94f2879145e52def46fa32ff3c1b1fa155b63512924345c4af41d7d6742",
       "bytes": 7662
     },
+    "extensions/p2-concept-split.json": {
+      "sha256": "9817ccbc732b5ec76fed4de2b6ef9aa63856255d38832f357316b3bc1abd5ce9",
+      "bytes": 21576
+    },
     "scripts/research/check-extensions.py": {
       "sha256": "a8a11a59e494b63d8419cdb943adc260254fe9b3e8048fea773f669bf4bf2087",
       "bytes": 2441
@@ -995,8 +1143,8 @@
       "bytes": 6410
     },
     "scripts/research/evaluate-p1-d.py": {
-      "sha256": "1719a2a2ceb76e0a289d1d94604152a0df17113a414b9b411dc6188f90b766c7",
-      "bytes": 13485
+      "sha256": "98116a9486c7e9a8061ace0e47815aed2c2ab9cc44d43f9c038f08be3f3204fd",
+      "bytes": 13531
     },
     "src/med_dsl/__init__.py": {
       "sha256": "e5a8a755f216caa94958788e818551f429cb1b3b63136a0dc1ae67e73f417888",
@@ -1035,8 +1183,8 @@
       "bytes": 2886
     },
     "src/med_dsl/extensions.py": {
-      "sha256": "14a8d4b887805115309ca4493ada1c359a3dd36430c053e7c1e6e2dc0e723c37",
-      "bytes": 22908
+      "sha256": "812e60395856b9f3d4741f9a9118a2c53b50f22d2e3a1e765e44eff47dd5f889",
+      "bytes": 23211
     },
     "src/med_dsl/forecast.py": {
       "sha256": "c8c79b741baa8b57c43da7a68342ad87123a8968d59ddbdac5f8e7e2e43b0b41",
@@ -1059,8 +1207,8 @@
       "bytes": 3295
     },
     "src/med_dsl/host.py": {
-      "sha256": "c955cd7a77b88fb7705c9139f97348d0d3151ca8f9a530fc790157deaa5f38f8",
-      "bytes": 2380
+      "sha256": "97d99acbb636a2d24022334e8afb9ccac92b4fc3058b1ecff5e6d9217ee9621b",
+      "bytes": 2518
     },
     "src/med_dsl/identity.py": {
       "sha256": "6027b89f183fd1be13693c9e221401c4df027fb245dba6d489c59a260e68a6b2",
@@ -1090,6 +1238,14 @@
       "sha256": "966f10f4c3edd448f955af152a3a871526741a65ca5202fe1be1b064dd5257cd",
       "bytes": 5531
     },
+    "src/med_dsl/split.py": {
+      "sha256": "8c1708183bff6eb0d2d2df6c5956a0aa0eb8b64ba9d2d9443e33c46d41a65921",
+      "bytes": 13425
+    },
+    "src/med_dsl/split_spec.json": {
+      "sha256": "30326bd7b99cb4ccff8287b31a249fdda1bcd4d4e83620b6c7bb72eb45bd46e8",
+      "bytes": 3345
+    },
     "src/med_dsl/validation.py": {
       "sha256": "433356329b8603678ad6605fa445097d2d0dc30295da2a111b7a852640ecbbbd",
       "bytes": 19572
@@ -1098,9 +1254,17 @@
       "sha256": "a92d0e7d524742d0e9ec482154f8d430c564fe4aec94497b9c141a04b19a4160",
       "bytes": 5871
     },
+    "tests/p2/split_oracle.py": {
+      "sha256": "da46bbc2ba6b367c469ef40f3e5672f207863bdb334db559fd6d6aa528246934",
+      "bytes": 8748
+    },
+    "tests/p2/test_concept_split.py": {
+      "sha256": "4e8def612338d01eda8dbb25cf380259bf2dbbb7c96f1488cf536a9599a6a07b",
+      "bytes": 25903
+    },
     "tests/p2/test_extension_contract.py": {
-      "sha256": "583c327d826d92dbfec15b43d6a93334b2dc3cb938c481de87c14240ef6475ff",
-      "bytes": 41655
+      "sha256": "bb46a1c2fdd15cafe92c54ebf02b8af99d29cd82d7cf7dc84594d0141e31a976",
+      "bytes": 42407
     },
     "tests/p2/test_guard_examples.py": {
       "sha256": "a27d6c87249bb402a1bc99a7dfc6ed40454898e81f37a802e228f94273fc6059",
@@ -1171,5 +1335,5 @@
       "bytes": 25815
     }
   },
-  "bundle_sha256": "51a44343bb13b506962a0ec6632c9bb1f1ff2091943e80bbe61fdfe8e3d9283c"
+  "bundle_sha256": "9b60ee76fd6fa159ea086dfdeaeff68cdea35d993168c961f99a5525f5e3ac79"
 }

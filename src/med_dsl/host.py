@@ -11,6 +11,7 @@ from .handover import HANDOVER_PROFILE, run_handover
 from .identity import attach_certifier
 from .model import PROFILE, Problem
 from .query import run_query
+from .split import SPLIT_PROFILE, run_split
 from .validation import check_json, validate_compare, validate_extension, validate_header, validate_query
 
 
@@ -36,6 +37,7 @@ SURFACES = {s.request_schema: s for s in (
     Surface("p1-handover-request-draft-1", "p1-handover-result-draft-1", HANDOVER_PROFILE, run_handover),
     Surface("p1-events-request-draft-1", "p1-events-result-draft-1", EVENT_PROFILE, run_events),
     Surface("p1-request-draft-1", "p1-result-draft-1", FORECAST_PROFILE, run_forecast),
+    Surface("p2-split-request-draft-1", "p2-split-result-draft-1", SPLIT_PROFILE, run_split),
 )}
 
 

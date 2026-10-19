@@ -1,0 +1,285 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "SP07",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p2-concept-split",
+  "obligations": [
+    "R6-3"
+  ],
+  "kind": "non_conversion",
+  "gate": "すべての部分が否定されたら、被覆から親は成り立たない（基底の親は未決のまま）",
+  "request": {
+    "schema_version": "p2-split-request-draft-1",
+    "operation": "query_split",
+    "consumer": {
+      "profile": "p2-concept-split-draft-1",
+      "profile_spec_sha256": "30326bd7b99cb4ccff8287b31a249fdda1bcd4d4e83620b6c7bb72eb45bd46e8",
+      "operations": [
+        "query_split"
+      ]
+    },
+    "budget": {
+      "max_steps": 1000
+    },
+    "source": {
+      "package": {
+        "ref": "fiction:package:split@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:P@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:P1@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:P2@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:P3@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:X@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [],
+        "inclusions": [],
+        "dependencies": []
+      },
+      "contexts": [
+        {
+          "ref": "fiction:context:old@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2020-01-01T00:00:00Z",
+          "purpose": "fiction:research"
+        },
+        {
+          "ref": "fiction:context:new@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2026-01-01T00:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:split@1",
+        "assertions": [
+          {
+            "id": "h1",
+            "context_ref": "fiction:context:old@1",
+            "atom": {
+              "predicate": "fiction:P1@1",
+              "args": [
+                "fiction:person:1"
+              ]
+            },
+            "polarity": "negative",
+            "certainty": "confirmed",
+            "recorded_at": "2020-01-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:source:h1"
+            },
+            "supersedes": [],
+            "required_capabilities": [
+              "p2-concept-split-draft-1"
+            ]
+          },
+          {
+            "id": "h2",
+            "context_ref": "fiction:context:old@1",
+            "atom": {
+              "predicate": "fiction:P2@1",
+              "args": [
+                "fiction:person:1"
+              ]
+            },
+            "polarity": "negative",
+            "certainty": "confirmed",
+            "recorded_at": "2020-01-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:source:h2"
+            },
+            "supersedes": [],
+            "required_capabilities": [
+              "p2-concept-split-draft-1"
+            ]
+          }
+        ],
+        "reviews": [
+          {
+            "id": "r1",
+            "assertion_ref": "h1",
+            "reviewer_ref": "fiction:reviewer:1",
+            "reviewer_kind": "human",
+            "recorded_at": "2020-01-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "r2",
+            "assertion_ref": "h2",
+            "reviewer_ref": "fiction:reviewer:1",
+            "reviewer_kind": "human",
+            "recorded_at": "2020-01-03T00:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      }
+    },
+    "views": [
+      {
+        "id": "v1",
+        "as_of": "2026-01-01T00:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      }
+    ],
+    "split": {
+      "parent": "fiction:P@1",
+      "parts": [
+        "fiction:P1@1",
+        "fiction:P2@1"
+      ]
+    },
+    "queries": [
+      {
+        "id": "q1",
+        "context_ref": "fiction:context:old@1",
+        "subject": "fiction:person:1",
+        "required": true
+      }
+    ]
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "computed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "split",
+          "status"
+        ],
+        "equals": "parent_opposed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "split",
+          "candidates"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "base",
+          "parent"
+        ],
+        "equals": "undetermined"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "split",
+          "derivation"
+        ],
+        "equals": [
+          "A2_coverage"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "split",
+          "parent_derived"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "base",
+          "parts",
+          "fiction:P1@1"
+        ],
+        "equals": "opposed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "base",
+          "parts",
+          "fiction:P2@1"
+        ],
+        "equals": "opposed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "split",
+          "excluded"
+        ],
+        "equals": [
+          {
+            "part": "fiction:P1@1",
+            "reasons": [
+              "adopted_negative"
+            ]
+          },
+          {
+            "part": "fiction:P2@1",
+            "reasons": [
+              "adopted_negative"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

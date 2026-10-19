@@ -1,0 +1,726 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p2-concept-split",
+  "version": "draft-2",
+  "title": "概念の分割：候補集合と情報要求（公理つき読み取りモジュール）",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R6",
+  "spec": {
+    "path": "src/med_dsl/split_spec.json",
+    "sha256": "30326bd7b99cb4ccff8287b31a249fdda1bcd4d4e83620b6c7bb72eb45bd46e8"
+  },
+  "contract_doc": "docs/research/23-p2-b-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/split.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/split_spec.json",
+      "role": "native_spec"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/split.py",
+    "examples/p2-split/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "query_split"
+    ],
+    "schema_versions": [
+      "p2-split-request-draft-1",
+      "p2-split-result-draft-1"
+    ],
+    "profiles": [
+      "p2-concept-split-draft-1"
+    ],
+    "answer_kinds": [
+      "candidate_set"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-concept-split-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "基底の要求は一切変えない（読み取り専用）。新しい要求 query_split だけを所有する",
+    "data": "一つの文脈・一つの個体の、採用された原子。規則のない単項述語の分割。文脈をまたぐ推論・時間の持続・定義のある述語は範囲外",
+    "guarantee": "候補集合は、仕様に固定した公理（包含・被覆・排他）の下で、採用された主張に矛盾しない部分の集合"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "仕様の生バイトを hash で照合し、consumer の profile・仕様 hash・操作を検査する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::NativeSpecTests.test_the_actual_spec_file_is_checked_not_only_the_client_claim",
+        "tests/p2/test_concept_split.py::NativeSpecTests.test_the_pinned_hash_is_the_raw_hash_of_the_spec_file"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/consumer-spec-hash.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "profile_spec_mismatch"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/consumer-profile.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_profile"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "未知の能力・未解決の衝突・未登録の操作・資源上限で、候補集合を返さず止まる",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::BudgetTests.test_every_budget_gives_complete_rows_or_an_honest_stop",
+        "tests/p2/test_concept_split.py::DifferentialTests.test_every_row_equals_the_enumeration_oracle"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/unknown-capability-blocks.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/conflict-blocks.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unresolved_conflict"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/consumer-operations.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_operation"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/budget-zero.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "step_limit"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "I1 結論を支持にしない／I2 候補を作れないとき偽にしない／I3 AI 候補を採用しない／I4 未知の能力を解釈しない／I5 打切りで値を出さない／I6 入力を変更しない／I7 決定的",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::DifferentialTests.test_the_input_is_preserved_and_the_result_is_deterministic",
+        "tests/p2/test_concept_split.py::DifferentialTests.test_every_row_equals_the_enumeration_oracle"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/single-by-exclusion.json",
+          "path": [
+            "results",
+            0,
+            "base",
+            "parts",
+            "fiction:P2@1"
+          ],
+          "equals": "undetermined",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/no-parent.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "status"
+          ],
+          "equals": "no_parent",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/ai-candidate-pending.json",
+          "path": [
+            "results",
+            0,
+            "evidence",
+            "pending",
+            0,
+            "assertion_ref"
+          ],
+          "equals": "h2",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/budget-zero.json",
+          "path": [
+            "results",
+            0,
+            "split"
+          ],
+          "equals": null,
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "steps を課金点で数え、上限に達したら完了した行を残して未完了の行は値を持たない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::BudgetTests.test_every_budget_gives_complete_rows_or_an_honest_stop",
+        "tests/p2/test_concept_split.py::FixtureTests.test_the_measured_budget_is_the_smallest_that_completes"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/budget-below.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-split/budget-exact.json",
+          "path": [
+            "status"
+          ],
+          "equals": "ok",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R2-1",
+      "statement": "基底の状態への書き込み操作を持たず、入力を変更しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::DifferentialTests.test_the_input_is_preserved_and_the_result_is_deterministic"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/old-record-only.json",
+          "path": [
+            "snapshot_sha256"
+          ],
+          "equals": "cfedb622847d99103d29dfd0316434b49aaf8a718bfc6545610d4ac132bcf65e",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R2-2",
+      "statement": "基底の語彙の述語についての結論を、基底の原子・状態として返さず、基底の閉包に入れない（読み替え：23 の §4）",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::DifferentialTests.test_base_block_equals_the_p0_query_on_a_ledger_without_the_split_capability"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/single-by-exclusion.json",
+          "path": [
+            "results",
+            0,
+            "base",
+            "parts",
+            "fiction:P2@1"
+          ],
+          "equals": "undetermined",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/part-only-parent-derived.json",
+          "path": [
+            "results",
+            0,
+            "base",
+            "parent"
+          ],
+          "equals": "undetermined",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R2-3",
+      "statement": "基底の状態は核の採用選択を通してだけ読む（疑い・確認のない AI 候補・訂正済みの主張は候補を決めない）",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::DifferentialTests.test_every_row_equals_the_enumeration_oracle"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/ai-candidate-pending.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "status"
+          ],
+          "equals": "open",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/corrected-assertion.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "status"
+          ],
+          "equals": "single",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/views-over-time.json",
+          "path": [
+            "results",
+            1,
+            "split",
+            "status"
+          ],
+          "equals": "asserted",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R2-4",
+      "statement": "回答型は基底と別で、分割の状態から基底の状態への変換規則を持たない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::DifferentialTests.test_no_split_status_is_ever_a_base_status_and_nothing_is_converted",
+        "tests/p2/test_concept_split.py::ContractConditionTests.test_x05_the_single_candidate_is_not_a_base_support"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/single-by-exclusion.json",
+          "path": [
+            "results",
+            0,
+            "converted_to_base"
+          ],
+          "equals": false,
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/single-is-not-base-support.json",
+          "path": [
+            "results",
+            1,
+            "status"
+          ],
+          "equals": "undetermined",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/old-queries-unchanged.json",
+          "path": [
+            "results",
+            1,
+            "status"
+          ],
+          "equals": "undetermined",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R2-5",
+      "statement": "自己申告（read_only など）を根拠にせず、理解する能力を固定した集合にする。分割を理解しない消費側は停止する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::ContractConditionTests.test_x04_an_unaware_consumer_stops_and_an_aware_consumer_reads",
+        "tests/p2/test_concept_split.py::ContractConditionTests.test_x04_a_third_unknown_capability_still_blocks_the_aware_consumer"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/self-claim-refused.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_field"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/base-unaware-consumer-stops.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R6-1",
+      "statement": "公理は仕様に固定され、要求は変更できない。分割できるのは、宣言された規則のない単項述語だけ",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::FixtureTests.test_every_example_returns_its_hand_specified_expectation"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/extra-axiom-refused.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_field"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/symbol-has-rules.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "split_symbol_has_rules"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/duplicate-parts.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "duplicate_reference"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/parent-among-parts.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "parent_among_parts"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/one-part.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "too_few_parts"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/undeclared-part.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "undeclared_predicate"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R6-2",
+      "statement": "旧データ（部分の原子を含まない状態）は、公理を加えても矛盾しない。旧い任意のモデルは公理を満たす拡張を持つ",
+      "evidence": "hand_derivation",
+      "checks": [
+        "tests/p2/test_concept_split.py::ExhaustiveRuleTests.test_old_data_never_makes_the_split_inconsistent",
+        "tests/p2/test_concept_split.py::ExhaustiveRuleTests.test_every_small_old_model_expands_to_a_model_of_the_axioms",
+        "tests/p2/test_concept_split.py::DifferentialTests.test_old_data_only_ledgers_never_produce_a_violation"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/old-record-only.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "status"
+          ],
+          "equals": "open",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/parent-opposed.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "status"
+          ],
+          "equals": "parent_opposed",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/no-parent.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "status"
+          ],
+          "equals": "no_parent",
+          "kind": "non_conversion"
+        }
+      ],
+      "derivation": "docs/research/23-p2-b-design.md"
+    },
+    {
+      "id": "R6-3",
+      "statement": "候補集合は、公理を満たすモデルのうち採用された主張に合うものの部分の集合に等しい（健全かつ完全）",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_concept_split.py::ExhaustiveRuleTests.test_rules_agree_with_the_enumeration_for_every_assignment",
+        "tests/p2/test_concept_split.py::DifferentialTests.test_every_row_equals_the_enumeration_oracle",
+        "tests/p2/test_concept_split.py::DenseDifferentialTests.test_dense_ledgers_agree_with_the_oracle_and_reach_every_status_often"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/narrowed-three-parts.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "status"
+          ],
+          "equals": "narrowed",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/all-parts-opposed.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "status"
+          ],
+          "equals": "parent_opposed",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/part-asserted.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "status"
+          ],
+          "equals": "asserted",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/inconsistent-two-parts-asserted.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "status"
+          ],
+          "equals": "inconsistent",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/inconsistent-all-parts-opposed.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "status"
+          ],
+          "equals": "inconsistent",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R6-4",
+      "statement": "公理から導いた結論（除外・残りの一つ・親の導出）は、頼る公理を挙げ、採用された主張として示さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::DifferentialTests.test_conclusions_name_the_axioms_they_rely_on"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/single-by-exclusion.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "derivation"
+          ],
+          "equals": [
+            "A2_coverage"
+          ],
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/part-only-parent-derived.json",
+          "path": [
+            "results",
+            0,
+            "split",
+            "parent_derived"
+          ],
+          "equals": true,
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R6-5",
+      "statement": "範囲（一つの文脈・採用された原子・規則のない単項述語）を明示し、範囲外を黙って広げない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_concept_split.py::ContractConditionTests.test_x14_old_answers_are_reproduced_and_the_new_question_returns_candidates"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/contexts-do-not-leak.json",
+          "path": [
+            "results",
+            1,
+            "split",
+            "status"
+          ],
+          "equals": "open",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/symbol-has-rules.json",
+          "path": [
+            "error_path"
+          ],
+          "equals": "split",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/non-unary-part.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "split_predicate_not_unary"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R6-6",
+      "statement": "情報要求は候補だけを求め、実現でき、臨床上の否定を含意しない。AI 候補・疑いは保留として残す",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_concept_split.py::DifferentialTests.test_every_candidate_offered_in_a_request_can_actually_be_asserted"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-split/old-record-only.json",
+          "path": [
+            "results",
+            0,
+            "information_requests",
+            0,
+            "kind"
+          ],
+          "equals": "confirm_part",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-split/inconsistent-all-parts-opposed.json",
+          "path": [
+            "results",
+            0,
+            "information_requests",
+            0,
+            "kind"
+          ],
+          "equals": "resolve_split_violation",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-split/ai-candidate-pending.json",
+          "path": [
+            "results",
+            0,
+            "information_requests",
+            0,
+            "pending_assertion_refs"
+          ],
+          "equals": [
+            "h2"
+          ],
+          "kind": "non_conversion"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "その文脈の行を解釈せず blocked。保留・訂正済みの主張が未知の能力を要求しても落とさない",
+    "unsupported": "unsupported_profile",
+    "resource": "resource_limit。未完了の行は候補集合を持たない",
+    "invalid_input": "構造・参照・hash・分割の宣言の不正は予算に依らず invalid_input"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p2-split/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_concept_split.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/split_oracle.py"
+  }
+}

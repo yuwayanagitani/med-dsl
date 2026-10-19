@@ -1,0 +1,66 @@
+{
+ "profile": "p2-concept-split-draft-1",
+ "request_schema": "p2-split-request-draft-1",
+ "result_schema": "p2-split-result-draft-1",
+ "operations": [
+  "query_split"
+ ],
+ "answer_kind": "candidate_set",
+ "capability": "p2-concept-split-draft-1",
+ "policy": "fiction:confirmed-explicit-revision@1",
+ "split": {
+  "declaration": "parent predicate and 2..8 distinct part predicates, all unary, declared in the request package and mentioned by no definition or inclusion in its closure",
+  "axioms": {
+   "A1_subsumption": "forall x. part_j(x) -> parent(x)",
+   "A2_coverage": "forall x. parent(x) -> part_1(x) or ... or part_k(x)",
+   "A3_exclusivity": "forall x. not (part_i(x) and part_j(x)), i < j"
+  },
+  "axioms_are_fixed": "the request cannot add, remove or change an axiom",
+  "frame": "per individual exactly k+1 assignments satisfy the axioms: all false, or parent and exactly one part true"
+ },
+ "semantics": {
+  "input": "literals over the split vocabulary for one subject that the P0 adoption selection adopted in one context at one view",
+  "not_input": "pending, suspected, unreviewed AI candidates and corrected assertions never narrow or settle a candidate set",
+  "candidates": "parts j whose model is consistent with the adopted literals and the axioms",
+  "statuses": [
+   "inconsistent",
+   "parent_opposed",
+   "no_parent",
+   "open",
+   "narrowed",
+   "single",
+   "asserted"
+  ],
+  "single": "one candidate remains by exclusion; derived from the axioms, never an adopted assertion and never a base support",
+  "base": "the P0 status of each split atom from the adopted literals; equals the P0 query result because no rule mentions the vocabulary",
+  "no_conversion": "no rule maps a split status to a base status; converted_to_base is always false",
+  "unknown_capability": "any visible assertion in the context requiring a capability other than the P0 profile and this profile blocks the row, including pending and corrected assertions",
+  "conflict": "any adopted positive and negative pair of the same atom in the context blocks the row",
+  "information_request": "confirm_part for open, narrowed and single; resolve_split_violation for inconsistent; neither implies a clinical negation"
+ },
+ "scope": {
+  "included": "one context, one subject, adopted unary atoms of rule-free predicates",
+  "excluded": "cross-context inference, persistence over time, other subjects, predicates with rules, nested or overlapping splits, probabilities, automatic settlement"
+ },
+ "limits": {
+  "request_bytes": 1048576,
+  "json_depth": 64,
+  "parts": 8,
+  "queries": 64,
+  "views": 64,
+  "contexts": 1000,
+  "assertions": 1000,
+  "reviews": 1000,
+  "max_steps": 100000
+ },
+ "steps": [
+  "one at request start",
+  "one per assertion and one per review before selecting each view in id order",
+  "one at each query start in id order within each view",
+  "one for each of the k+1 split atoms examined for the query",
+  "one before committing each computed row"
+ ],
+ "validation_order": "JSON, request, consumer, budget, package, split, query validation before any step",
+ "budget_stop": "retain completed rows; unfinished rows are blocked with step_limit and carry no candidate set",
+ "hashes": "native spec raw SHA-256 pinned in handler; snapshot SHA-256 over canonical JSON, UTF-8, sorted keys, compact separators, ensure_ascii=false"
+}

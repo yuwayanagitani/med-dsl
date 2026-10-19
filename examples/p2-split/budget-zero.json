@@ -1,0 +1,189 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "SP32",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p2-concept-split",
+  "obligations": [
+    "K-STOP",
+    "K-INV",
+    "K-RES"
+  ],
+  "kind": "refusal",
+  "gate": "予算 0 では、候補集合も部分の値も返さない",
+  "request": {
+    "schema_version": "p2-split-request-draft-1",
+    "operation": "query_split",
+    "consumer": {
+      "profile": "p2-concept-split-draft-1",
+      "profile_spec_sha256": "30326bd7b99cb4ccff8287b31a249fdda1bcd4d4e83620b6c7bb72eb45bd46e8",
+      "operations": [
+        "query_split"
+      ]
+    },
+    "budget": {
+      "max_steps": 0
+    },
+    "source": {
+      "package": {
+        "ref": "fiction:package:split@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:P@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:P1@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:P2@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:P3@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:X@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [],
+        "inclusions": [],
+        "dependencies": []
+      },
+      "contexts": [
+        {
+          "ref": "fiction:context:old@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2020-01-01T00:00:00Z",
+          "purpose": "fiction:research"
+        },
+        {
+          "ref": "fiction:context:new@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2026-01-01T00:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:split@1",
+        "assertions": [
+          {
+            "id": "h1",
+            "context_ref": "fiction:context:old@1",
+            "atom": {
+              "predicate": "fiction:P@1",
+              "args": [
+                "fiction:person:1"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2020-01-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:source:h1"
+            },
+            "supersedes": [],
+            "required_capabilities": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "r1",
+            "assertion_ref": "h1",
+            "reviewer_ref": "fiction:reviewer:1",
+            "reviewer_kind": "human",
+            "recorded_at": "2020-01-03T00:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      }
+    },
+    "views": [
+      {
+        "id": "v1",
+        "as_of": "2026-01-01T00:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      }
+    ],
+    "split": {
+      "parent": "fiction:P@1",
+      "parts": [
+        "fiction:P1@1",
+        "fiction:P2@1"
+      ]
+    },
+    "queries": [
+      {
+        "id": "q1",
+        "context_ref": "fiction:context:old@1",
+        "subject": "fiction:person:1",
+        "required": true
+      }
+    ]
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "step_limit"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "blocked"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "split"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "base"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "steps_used"
+        ],
+        "equals": 0
+      }
+    ]
+  }
+}

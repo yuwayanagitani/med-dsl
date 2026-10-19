@@ -1,0 +1,411 @@
+{
+  "schema_version": "p2-split-manifest-draft-1",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "contract_version": "p0-draft-2",
+  "profile": "p2-concept-split-draft-1",
+  "profile_spec_sha256": "30326bd7b99cb4ccff8287b31a249fdda1bcd4d4e83620b6c7bb72eb45bd46e8",
+  "note": "P2-b（概念の分割）の例。P1の20条件・80 JSON・417必須パス、231開発テスト、レビュー系列、防護例（p2）とは別の分母。期待結果は文書 23 の意味から手で指定した。予算の境界の n（完了に要る最小の steps）だけは測った。",
+  "measured_budget": 8,
+  "files": [
+    {
+      "fixture_id": "SP01",
+      "path": "old-record-only.json",
+      "bytes": 5962,
+      "sha256": "6b7456d31bae8015f0c06440a066a2c3d5a065b6d0250b39f3f2d9e808db4f47",
+      "obligations": [
+        "R6-2",
+        "R6-6",
+        "R2-1",
+        "K-INV"
+      ],
+      "kind": "non_conversion",
+      "gate": "K06：旧い記録だけでは、どの部分かを確定しない（候補集合と情報要求）"
+    },
+    {
+      "fixture_id": "SP02",
+      "path": "part-asserted.json",
+      "bytes": 6196,
+      "sha256": "8f4eb1da3105727de178bc19e752f3fed07341dd20c3f211c57e0383f1f2bd5f",
+      "obligations": [
+        "R6-3",
+        "R2-3",
+        "K-INV"
+      ],
+      "kind": "non_conversion",
+      "gate": "部分が直接採用されていれば、他の部分は排他で除かれる（基底では他の部分は未決のまま）"
+    },
+    {
+      "fixture_id": "SP03",
+      "path": "part-only-parent-derived.json",
+      "bytes": 5397,
+      "sha256": "ab87c3c5206f7a331bddcbb87ea0340253377f3be030b91159782dec2ff9ed33",
+      "obligations": [
+        "R6-4",
+        "R6-3"
+      ],
+      "kind": "non_conversion",
+      "gate": "部分だけが採用されたとき、親は包含から導かれる（基底の親は未決のまま。基底へ変換しない）"
+    },
+    {
+      "fixture_id": "SP04",
+      "path": "single-by-exclusion.json",
+      "bytes": 6594,
+      "sha256": "36609ca8534eb5082a859f6802a6a8e74d79f075d403c5767b75e4e8ca30324e",
+      "obligations": [
+        "K-INV",
+        "R2-2",
+        "R2-4",
+        "R6-4"
+      ],
+      "kind": "non_conversion",
+      "gate": "他の候補がすべて除かれて一つに定まっても、採用された主張にはならず、基底の状態へ変換しない"
+    },
+    {
+      "fixture_id": "SP05",
+      "path": "narrowed-three-parts.json",
+      "bytes": 6517,
+      "sha256": "ef0792dab77940bfac0355a9861d46a564bc2b06614f1574dd6f256d34ad71d5",
+      "obligations": [
+        "R6-3"
+      ],
+      "kind": "non_conversion",
+      "gate": "三つの部分で一つが否定されたら、残り二つを候補にする"
+    },
+    {
+      "fixture_id": "SP06",
+      "path": "parent-opposed.json",
+      "bytes": 5527,
+      "sha256": "1558c16a0fb583fad4ab4543e2bee4f16a563a4fedc9e73fa7617ed8e383a3fe",
+      "obligations": [
+        "R6-2",
+        "R6-3"
+      ],
+      "kind": "non_conversion",
+      "gate": "親が否定されたら、どの部分も成り立たない（候補なし。基底の部分は未決のまま）"
+    },
+    {
+      "fixture_id": "SP07",
+      "path": "all-parts-opposed.json",
+      "bytes": 6309,
+      "sha256": "b4973f799cc55c93f1dadf432242c1679ad4702c6b9a7100502681381b3ade29",
+      "obligations": [
+        "R6-3"
+      ],
+      "kind": "non_conversion",
+      "gate": "すべての部分が否定されたら、被覆から親は成り立たない（基底の親は未決のまま）"
+    },
+    {
+      "fixture_id": "SP08",
+      "path": "inconsistent-all-parts-opposed.json",
+      "bytes": 6411,
+      "sha256": "75c162fa363521b081d74a4df2a7ed4069dd1dcdaa15416c2830bac5a9614307",
+      "obligations": [
+        "R6-3",
+        "R6-6"
+      ],
+      "kind": "refusal",
+      "gate": "親が採用され、すべての部分が否定されたら、公理に反する（解消を求める）"
+    },
+    {
+      "fixture_id": "SP09",
+      "path": "inconsistent-two-parts-asserted.json",
+      "bytes": 4804,
+      "sha256": "ca40e02cd2380ab1f84ef4cb022aacc4885f0e04d9b8d1dfc0bcfab6c83fd25a",
+      "obligations": [
+        "R6-3"
+      ],
+      "kind": "refusal",
+      "gate": "二つの部分がともに採用されたら、排他に反する"
+    },
+    {
+      "fixture_id": "SP10",
+      "path": "no-parent.json",
+      "bytes": 5201,
+      "sha256": "61b4588d42ef94d4d84db75102cbc08a969f4e7242e4cc60becf6b32306d5a01",
+      "obligations": [
+        "K-INV",
+        "R6-2"
+      ],
+      "kind": "non_conversion",
+      "gate": "親も部分も採用されていなければ、候補を作らず、未決を偽にしない"
+    },
+    {
+      "fixture_id": "SP11",
+      "path": "ai-candidate-pending.json",
+      "bytes": 6487,
+      "sha256": "19e58a27b14518b6e99523dd7e7afa1ccadd298ecc3ebfcc97932d7b6949d8b1",
+      "obligations": [
+        "K-INV",
+        "R2-3",
+        "R6-6"
+      ],
+      "kind": "non_conversion",
+      "gate": "確認のない AI 候補は、候補集合を狭めず、保留として残す"
+    },
+    {
+      "fixture_id": "SP12",
+      "path": "corrected-assertion.json",
+      "bytes": 7414,
+      "sha256": "13c9ca084b73d54171cc2f2ee8aa4279eeb69f6e8ebd5d50cb300da554fe736d",
+      "obligations": [
+        "R2-3"
+      ],
+      "kind": "non_conversion",
+      "gate": "訂正された部分の主張は採用に残らず、訂正後の主張だけが候補を決める"
+    },
+    {
+      "fixture_id": "SP13",
+      "path": "views-over-time.json",
+      "bytes": 5111,
+      "sha256": "1a790fe8d0bf9c2b617c002e747d4c4e420d4f29b7bbbe7b7a2f04bf7dc76afd",
+      "obligations": [
+        "R2-3",
+        "R6-5"
+      ],
+      "kind": "non_conversion",
+      "gate": "参照時点ごとに別の結果を返す（時点の履歴を消さない）"
+    },
+    {
+      "fixture_id": "SP14",
+      "path": "contexts-do-not-leak.json",
+      "bytes": 5315,
+      "sha256": "f3395f9ed183f1b74c9defc44a3a7ae67c7cd41f0d230f6ea8238c5842e55cf7",
+      "obligations": [
+        "R6-5"
+      ],
+      "kind": "non_conversion",
+      "gate": "別の文脈の部分の主張は、旧い文脈の候補集合に入らない（文脈をまたぐ推論をしない）"
+    },
+    {
+      "fixture_id": "SP15",
+      "path": "unknown-capability-blocks.json",
+      "bytes": 5134,
+      "sha256": "010072201b91ddfd56fc5f30d93197d7487310b7f4bb201a93bbea121ff6865c",
+      "obligations": [
+        "K-STOP",
+        "K-INV"
+      ],
+      "kind": "refusal",
+      "gate": "未知の能力を要求する保留中の主張があれば、その文脈の行を解釈しない"
+    },
+    {
+      "fixture_id": "SP16",
+      "path": "conflict-blocks.json",
+      "bytes": 4799,
+      "sha256": "fa6e318b03cdb22ceb7b9ee03f5dea6bf386cfb6043bc15ec2581ee642a5432d",
+      "obligations": [
+        "K-STOP"
+      ],
+      "kind": "refusal",
+      "gate": "同じ原子の肯定と否定がともに採用されていれば、解決せずに止める"
+    },
+    {
+      "fixture_id": "SP17",
+      "path": "base-unaware-consumer-stops.json",
+      "bytes": 6155,
+      "sha256": "91db6b3b74203368795c84832aae0b6a8bdfa85db4997b1798f44e983fe466ea",
+      "obligations": [
+        "R2-5",
+        "K-INV"
+      ],
+      "kind": "refusal",
+      "gate": "分割を理解しない消費側は、分割の能力を要求する文脈を解釈せず、保留・訂正済みの主張も落とさない"
+    },
+    {
+      "fixture_id": "SP18",
+      "path": "aware-consumer-reads-the-same-ledger.json",
+      "bytes": 7904,
+      "sha256": "fe63d31068efe5637c6863c37b47a89237fab72a1264a544f25d09d07be4422a",
+      "obligations": [
+        "R2-5"
+      ],
+      "kind": "non_conversion",
+      "gate": "同じ台帳を分割を理解する消費側が読めば、保留・訂正済みを除いて解釈する"
+    },
+    {
+      "fixture_id": "SP19",
+      "path": "old-queries-unchanged.json",
+      "bytes": 4255,
+      "sha256": "bade12426649e3e3e1eab2ce73ffd5b8ef404109ba1556c03fb91142e367c6e9",
+      "obligations": [
+        "R2-4",
+        "R6-2"
+      ],
+      "kind": "non_conversion",
+      "gate": "K06：旧い問い（基底）は分割の有無によらず、旧回答を再現する（部分の問いは未決のまま）"
+    },
+    {
+      "fixture_id": "SP20",
+      "path": "single-is-not-base-support.json",
+      "bytes": 4487,
+      "sha256": "c39de297a56ef306b78adcf2c331420ec877334fd93acf672f7cec8ece592716",
+      "obligations": [
+        "R2-4",
+        "R6-4"
+      ],
+      "kind": "non_conversion",
+      "gate": "分割の結論（残りの一つ）は、基底の問い合わせでは支持されない（変換の経路がない）"
+    },
+    {
+      "fixture_id": "SP21",
+      "path": "symbol-has-rules.json",
+      "bytes": 3908,
+      "sha256": "431971270879834e523d84f243ba636d374d180790ed352cb274e7383217349c",
+      "obligations": [
+        "R6-1",
+        "R6-5"
+      ],
+      "kind": "refusal",
+      "gate": "部分が包含の規則に現れる述語の分割は範囲外として拒否する"
+    },
+    {
+      "fixture_id": "SP22",
+      "path": "duplicate-parts.json",
+      "bytes": 3751,
+      "sha256": "66477b389131b63dd71b6065d81da5de8825fe514814619a76569199e5d1b9f1",
+      "obligations": [
+        "R6-1"
+      ],
+      "kind": "refusal",
+      "gate": "同じ部分を二度宣言できない"
+    },
+    {
+      "fixture_id": "SP23",
+      "path": "parent-among-parts.json",
+      "bytes": 3642,
+      "sha256": "d2f5f7495ac7323a32bdb0f04b09b1dbf35e6332f8cc4f1f1d7b0b286bdd51a2",
+      "obligations": [
+        "R6-1"
+      ],
+      "kind": "refusal",
+      "gate": "親を部分に含められない"
+    },
+    {
+      "fixture_id": "SP24",
+      "path": "one-part.json",
+      "bytes": 3623,
+      "sha256": "2b63bd9ab6fbe64c87632fd94accec36d75a697734886b5ea06ca9b85a52b66f",
+      "obligations": [
+        "R6-1"
+      ],
+      "kind": "refusal",
+      "gate": "部分が一つでは分割にならない"
+    },
+    {
+      "fixture_id": "SP25",
+      "path": "undeclared-part.json",
+      "bytes": 3668,
+      "sha256": "c7edafd2ea5cfb1e96458d18c5af9598cb046c41868d26bf2ab634e60cf7b3fa",
+      "obligations": [
+        "R6-1"
+      ],
+      "kind": "refusal",
+      "gate": "package に宣言のない述語を部分にできない"
+    },
+    {
+      "fixture_id": "SP26",
+      "path": "non-unary-part.json",
+      "bytes": 3715,
+      "sha256": "3aec19755a5b5e36bde167cf3b49f53216099f8d2d603216259a5fece8db827f",
+      "obligations": [
+        "R6-1",
+        "R6-5"
+      ],
+      "kind": "refusal",
+      "gate": "単項でない述語の分割は範囲外として拒否する"
+    },
+    {
+      "fixture_id": "SP27",
+      "path": "extra-axiom-refused.json",
+      "bytes": 3847,
+      "sha256": "9315eaf860dfa332e2535092cc18200c6beba48649485ddac58d762b57a9af2f",
+      "obligations": [
+        "R6-1"
+      ],
+      "kind": "refusal",
+      "gate": "要求は公理を追加・変更できない（公理は仕様に固定されている）"
+    },
+    {
+      "fixture_id": "SP28",
+      "path": "self-claim-refused.json",
+      "bytes": 3822,
+      "sha256": "8fb930e0bd4fb455566665b42029478fb72ee67ac7e55797bf868fec656bc634",
+      "obligations": [
+        "R2-5"
+      ],
+      "kind": "refusal",
+      "gate": "要求の自己申告（read_only など）を根拠にしない：未知の項目として拒否する"
+    },
+    {
+      "fixture_id": "SP29",
+      "path": "consumer-profile.json",
+      "bytes": 3790,
+      "sha256": "7dabd89259b367b8fdc64bf4cefb8f43f6f0228d166bb7710eee64d3a95f2b1b",
+      "obligations": [
+        "K-ID",
+        "K-STOP"
+      ],
+      "kind": "refusal",
+      "gate": "consumer の profile が違えば unsupported_profile"
+    },
+    {
+      "fixture_id": "SP30",
+      "path": "consumer-spec-hash.json",
+      "bytes": 3788,
+      "sha256": "dcf9a9c3b4b3dcb89ae0697e325acfa3123d73f59f96fee2707d62f4bd5c9e14",
+      "obligations": [
+        "K-ID"
+      ],
+      "kind": "refusal",
+      "gate": "consumer が違う仕様の hash を持てば拒否する"
+    },
+    {
+      "fixture_id": "SP31",
+      "path": "consumer-operations.json",
+      "bytes": 3820,
+      "sha256": "0d294d48ca553599880e83bad0851385e402474420314a6e076f954a693a941e",
+      "obligations": [
+        "K-STOP"
+      ],
+      "kind": "refusal",
+      "gate": "consumer が未登録の操作を宣言していれば止まる"
+    },
+    {
+      "fixture_id": "SP32",
+      "path": "budget-zero.json",
+      "bytes": 4145,
+      "sha256": "de475d21b53e725848322eedf0443542ae5e4ff7c713967cd5c5ae4dfab45472",
+      "obligations": [
+        "K-STOP",
+        "K-INV",
+        "K-RES"
+      ],
+      "kind": "refusal",
+      "gate": "予算 0 では、候補集合も部分の値も返さない"
+    },
+    {
+      "fixture_id": "SP33",
+      "path": "budget-below.json",
+      "bytes": 3933,
+      "sha256": "59c0e81c91bb5a60ebe4ea4157c2a72edeb7efed5cd518731c811da86fe2326b",
+      "obligations": [
+        "K-RES"
+      ],
+      "kind": "boundary",
+      "gate": "課金の境界：steps が 7（完了に要る 8 より 1 少ない）で止まる"
+    },
+    {
+      "fixture_id": "SP34",
+      "path": "budget-exact.json",
+      "bytes": 3755,
+      "sha256": "b4f1bcaa2c2230e704959f4bf50047241a260bbda230985c72302e8470649b7c",
+      "obligations": [
+        "K-RES"
+      ],
+      "kind": "boundary",
+      "gate": "課金の境界：steps がちょうど 8 で完了する"
+    }
+  ]
+}

@@ -27,7 +27,7 @@ from med_dsl.model import Problem
 from med_dsl.validation import canonical_bytes, decode_json, digest
 
 IDS = ["p0-positive", "p0-definitions", "p1-finite-forecast", "p1-events", "p1-handover-host", "p1-event-chain",
-       "p1-projection", "p1-reference", "p1-absence", "p1-replay"]
+       "p1-projection", "p1-reference", "p1-absence", "p1-replay", "p2-concept-split"]
 # 防護例のない義務（理由は宣言の guard_gap）。増やすときはここも更新して、検査の見逃しが黙って増えないようにする。
 # 残る 3 件は、拒否する入力を構成できない（構文の十分条件による保証・手作業の導出・損失のある段がない）
 KNOWN_GAPS = {
@@ -61,7 +61,7 @@ class ShippedDeclarationTests(unittest.TestCase):
     def setUpClass(cls):
         cls.registry = standard_registry(ROOT, evaluate=evaluate)
 
-    def test_all_ten_declarations_register_in_dependency_order_and_guards_hold(self):
+    def test_all_eleven_declarations_register_in_dependency_order_and_guards_hold(self):
         self.assertEqual(sorted(m["id"] for m in self.registry), sorted(IDS))
         self.assertEqual(next(iter(self.registry))["class"], "BASE")
 
@@ -203,6 +203,14 @@ class RefusalTests(unittest.TestCase):
         self.assertIn(code, codes)
         self.assertEqual([m["id"] for m in registry], before, "拒否したのに登録が変わった")
 
+    def test_an_obligation_of_the_r6_class_declared_by_another_class_is_refused(self):
+        """R6（公理つき読み取りモジュール）の義務を、R2 の拡張が宣言することは認めない。"""
+        self.check_refusal(lambda m: m["obligations"].append({**deepcopy(m["obligations"][0]), "id": "R6-1"}), "obligation_of_another_class")
+
+    def test_class_r6_requires_the_r2_obligations_and_its_own(self):
+        self.assertTrue({f"R2-{i}" for i in range(1, 6)} | {f"R6-{i}" for i in range(1, 7)} | set(COMMON) <= set(REQUIRED["R6"]))
+        self.assertEqual(len(REQUIRED["R6"]), len(set(REQUIRED["R6"])))
+
     def test_every_missing_top_level_field_is_refused(self):
         for key in TOP_LEVEL:
             with self.subTest(field=key):
@@ -226,7 +234,8 @@ class RefusalTests(unittest.TestCase):
                              "p1-projection": ("p0-positive", "p1-events", "p1-handover-host"),
                              "p1-reference": ("p0-positive", "p1-events", "p1-handover-host"),
                              "p1-absence": ("p0-positive", "p1-events", "p1-handover-host"),
-                             "p1-replay": ("p0-positive", "p1-events", "p1-handover-host", "p1-event-chain")}[ident]
+                             "p1-replay": ("p0-positive", "p1-events", "p1-handover-host", "p1-event-chain"),
+                             "p2-concept-split": ("p0-positive",)}[ident]
                     self.check_refusal(lambda m, n=need: m["obligations"].__delitem__([o["id"] for o in m["obligations"]].index(n)),
                                        "missing_obligation", chain, ident)
 
@@ -341,13 +350,13 @@ class NonInterferenceTests(unittest.TestCase):
 
     # 無効にする拡張。基底（p0-positive）と p0-definitions は、実装のモジュールが核（validation.py）を含むので対象外
     DISABLED = ["p1-finite-forecast", "p1-events", "p1-handover-host", "p1-event-chain", "p1-projection", "p1-reference",
-                "p1-absence", "p1-replay"]
+                "p1-absence", "p1-replay", "p2-concept-split"]
 
     @classmethod
     def setUpClass(cls):
         cls.registry = standard_registry(ROOT, evaluate=evaluate)
         cls.requests = []
-        for suite in ("p0", "p1-a", "p1-b", "p1-c", "review"):
+        for suite in ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split"):
             manifest = decode_json((ROOT / "examples" / suite / "manifest.json").read_bytes())
             for entry in manifest["files"] + manifest.get("accepted_boundaries", []):
                 request = decode_json((ROOT / "examples" / suite / entry["path"]).read_bytes())["request"]
@@ -667,7 +676,7 @@ class CommandLineTests(unittest.TestCase):
         plain = self.run_script("--json")
         self.assertEqual(plain.returncode, 0, plain.stderr)
         report = json.loads(plain.stdout)
-        self.assertEqual((len(report["registered"]), report["refused"]), (10, []))
+        self.assertEqual((len(report["registered"]), report["refused"]), (11, []))
         self.assertEqual(report["guard_gaps"], sum(len(v) for v in KNOWN_GAPS.values()))
         self.assertEqual(self.run_script("--strict").returncode, 1)
 
