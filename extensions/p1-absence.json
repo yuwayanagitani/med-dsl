@@ -1,0 +1,203 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p1-absence",
+  "version": "draft-2",
+  "title": "欠落を否定に変える方針変更の診断（閉世界の仮定）",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R5",
+  "spec": null,
+  "contract_doc": "docs/research/14-p1-c-contract.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/handover.py"
+    ]
+  },
+  "pins": [],
+  "embedded_in": [],
+  "depends_on": [
+    {
+      "id": "p1-handover-host",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "check_absence_policy"
+    ],
+    "schema_versions": [],
+    "profiles": [],
+    "answer_kinds": [
+      "support_policy_probe"
+    ],
+    "predicates": [],
+    "capabilities": []
+  },
+  "scope": {
+    "base_requests": "保存を主張しない。変わる点と追加される仮定を記録する診断"
+  },
+  "obligations": [
+    {
+      "id": "R5-1",
+      "statement": "変わる点（未決→否定）と追加される仮定（closed_world_assumption）を記録する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_absence_probe_reports_semantic_change_without_clinical_assertions"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/absence-is-negative.json",
+          "path": [
+            "results",
+            0,
+            "assumptions"
+          ],
+          "equals": [
+            "closed_world_assumption"
+          ],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R5-2",
+      "statement": "認定を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_absence_probe_reports_semantic_change_without_clinical_assertions"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/absence-is-negative.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-c/same-current-answer.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R5-3",
+      "statement": "臨床の主張を追加しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_absence_probe_reports_semantic_change_without_clinical_assertions"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/absence-is-negative.json",
+          "path": [
+            "clinical_assertions_added"
+          ],
+          "equals": [],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-ID",
+      "statement": "診断の結果は meaning_mode と証拠の強さ（known_policy_change）を持つ",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_absence_probe_reports_semantic_change_without_clinical_assertions"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/absence-is-negative.json",
+          "path": [
+            "certificate",
+            "evidence_level"
+          ],
+          "equals": "known_policy_change",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "未知・衝突の元は閉世界の否定にしない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_unknown_or_conflicting_source_is_not_closed_world_negative"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/unknown-does-not-become-negative.json",
+          "path": [
+            "results",
+            0,
+            "after_status"
+          ],
+          "equals": "unassessed",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "I2 未知を否定にしない／I4 未知の能力を解釈しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_unknown_or_conflicting_source_is_not_closed_world_negative"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/unknown-does-not-become-negative.json",
+          "path": [
+            "results",
+            0,
+            "before_status"
+          ],
+          "equals": "unassessed",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "既存の P0 の課金と、診断の各行を課金する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_each_operation_zero_budget_has_no_partial_report_or_certificate"
+      ],
+      "guards": [],
+      "guard_gap": "予算の境界はテストで検査している"
+    }
+  ],
+  "stops": {
+    "unknown_capability": "P0 の停止に従う（unassessed のまま）",
+    "unsupported": "複数 atom の問いは unsupported_profile",
+    "resource": "resource_limit。診断を出さない",
+    "invalid_input": "P0 の入力検査に従う"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p1-c/*.json",
+      "examples/review/*.json"
+    ],
+    "tests": [
+      "tests/test_p1_handover.py",
+      "tests/review/test_review_negatives.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/review/reference_oracle.py"
+  }
+}

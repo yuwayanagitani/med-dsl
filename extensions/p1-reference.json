@@ -1,0 +1,258 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p1-reference",
+  "version": "draft-2",
+  "title": "参考意味：同じ語彙での文集合の恒等テンプレートと有限モデルの反例",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R3",
+  "spec": null,
+  "contract_doc": "docs/research/14-p1-c-contract.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/reference.py",
+      "src/med_dsl/handover.py"
+    ]
+  },
+  "pins": [],
+  "embedded_in": [],
+  "depends_on": [
+    {
+      "id": "p1-handover-host",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "check_reference_change"
+    ],
+    "schema_versions": [],
+    "profiles": [],
+    "answer_kinds": [
+      "first_order_reference"
+    ],
+    "predicates": [],
+    "capabilities": []
+  },
+  "scope": {
+    "base_requests": "同じ語彙・同じ文集合の恒等（E=恒等、ρ=恒等）",
+    "excludes": "一般の一階理論の保存判定。有限モデルは証人であって網羅ではない"
+  },
+  "obligations": [
+    {
+      "id": "R3-1",
+      "statement": "E と ρ は恒等。認定は文集合の一致（同じ語彙）に限る",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_same_sentence_sets_have_an_identity_template_proof",
+        "tests/test_p1_handover.py::test_equal_report_hashes_do_not_prove_sentence_identity"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/coverage-countermodel.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R3-2",
+      "statement": "充足の対応：恒等では自明。ただし、これだけでは保存と認定しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_identity_satisfaction_does_not_imply_model_coverage"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/finite-check-is-not-coverage.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R3-3",
+      "statement": "旧モデルの被覆と新モデルの還元：反例モデルがあれば偽、文集合の包含があれば真、それ以外は未決",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/test_p1_handover.py::test_one_and_two_element_agreement_is_not_all_model_coverage",
+        "tests/audits/test_preservation_audit.py::PreservationAuditTests.test_false_entailment_and_invalid_countermodel_are_detected"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/finite-check-is-not-coverage.json",
+          "path": [
+            "model_coverage"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p1-c/existential-without-named-witness.json",
+          "path": [
+            "model_reduct"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R3-4",
+      "statement": "新理論と旧理論の差を、追加される文として検査する（文集合の比較）",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_reference_rules_are_not_hardcoded_to_example_symbols"
+      ],
+      "guards": [],
+      "guard_gap": "文集合の比較は R3-1 の防護例が担う"
+    },
+    {
+      "id": "R3-5",
+      "statement": "履歴・採用は持たない（参考意味は台帳を読まない）",
+      "evidence": "hand_derivation",
+      "checks": [
+        "tests/test_p1_handover.py::test_invalid_models_and_open_or_shadowed_formulas_are_rejected"
+      ],
+      "guards": [],
+      "guard_gap": "該当なし：参考意味は履歴を持たない",
+      "derivation": "docs/research/14-p1-c-contract.md"
+    },
+    {
+      "id": "R3-6",
+      "statement": "新しい名前を導入しない（同じ語彙）",
+      "evidence": "hand_derivation",
+      "checks": [
+        "tests/test_p1_handover.py::test_invalid_models_and_open_or_shadowed_formulas_are_rejected"
+      ],
+      "guards": [],
+      "guard_gap": "該当なし：恒等の翻訳で新しい名前を導入しない",
+      "derivation": "docs/research/14-p1-c-contract.md"
+    },
+    {
+      "id": "R3-7",
+      "statement": "存在の含意と名前付きの事実を分け、証明も反例もない問いは未評価にする",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_existential_consequence_does_not_create_named_fact",
+        "tests/test_p1_handover.py::test_missing_countermodel_is_unassessed_not_nonentailment",
+        "tests/review/test_boundaries.py::HandoverBoundaryTests.test_reference_scope_is_the_narrow_two_conjunct_existential_rule_only"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/no-countermodel-no-proof.json",
+          "path": [
+            "results",
+            0,
+            "source",
+            "status"
+          ],
+          "equals": "unassessed",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p1-c/existential-without-named-witness.json",
+          "path": [
+            "named_witness_assertions_added"
+          ],
+          "equals": [],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-ID",
+      "statement": "認定票に方法・範囲を持ち、文集合は正規化 JSON で比較する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_same_sentence_sets_have_an_identity_template_proof"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/identity-template.json",
+          "path": [
+            "certificate",
+            "evidence_level"
+          ],
+          "equals": "checked_identity_template",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "形式の不正は invalid_input、上限は resource_limit。量化・式の上限を非含意に見せない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_quantifier_and_formula_limits_never_look_like_nonentailment"
+      ],
+      "guards": [],
+      "guard_gap": "上限の挙動はテストで検査している"
+    },
+    {
+      "id": "K-INV",
+      "statement": "I2 証明も反例もない問いを偽（非含意）にしない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_missing_countermodel_is_unassessed_not_nonentailment"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/finite-check-without-countermodel.json",
+          "path": [
+            "results",
+            0,
+            "source",
+            "status"
+          ],
+          "equals": "unassessed",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "式の各節点・量化の各割り当て・証明の各候補を課金する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_quantifier_and_formula_limits_never_look_like_nonentailment"
+      ],
+      "guards": [],
+      "guard_gap": "上限の境界はテストで検査している"
+    }
+  ],
+  "stops": {
+    "unknown_capability": "参考意味は台帳を読まないため該当しない",
+    "unsupported": "未対応の式は unsupported_profile",
+    "resource": "resource_limit。非含意に見せない",
+    "invalid_input": "未束縛の変数・未宣言の述語・arity の不一致は invalid_input"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p1-c/*.json",
+      "examples/review/*.json"
+    ],
+    "tests": [
+      "tests/test_p1_handover.py",
+      "tests/review/test_review_negatives.py",
+      "tests/audits/test_preservation_audit.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/review/reference_oracle.py"
+  }
+}

@@ -1,0 +1,361 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p1-finite-forecast",
+  "version": "draft-2",
+  "title": "有限予測（読み取り専用の意味モジュール）",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R2",
+  "spec": {
+    "path": "src/med_dsl/forecast_spec.json",
+    "sha256": "a918397c96ba9f6035b81c1d20839a544058f12adfbcb41f27df4328b9ad2704"
+  },
+  "contract_doc": "docs/research/12-p1-a-contract.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/forecast.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/forecast_spec.json",
+      "role": "native_spec"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/forecast.py",
+    "examples/p1-a/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "query_forecast"
+    ],
+    "schema_versions": [
+      "p1-request-draft-1",
+      "p1-result-draft-1"
+    ],
+    "profiles": [
+      "p1-finite-forecast-draft-1"
+    ],
+    "answer_kinds": [
+      "forecast_probability"
+    ],
+    "predicates": [
+      "fiction:forecast_reported@1"
+    ],
+    "capabilities": [
+      "p1-finite-forecast-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "基底の全要求（非干渉）",
+    "data": "任意。臨床の snapshot を入力に取らない",
+    "note": "確率を臨床の肯定に変換する規則を持たない"
+  },
+  "obligations": [
+    {
+      "id": "R2-1",
+      "statement": "基底の状態への書き込み操作を持たない。許す操作は query_forecast だけ",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_forecast.py::test_forecast_one_does_not_change_clinical_input_or_answer"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-a/extra-operation.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_operation"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-a/unsupported-operation.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_operation"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R2-2",
+      "statement": "基底の語彙の述語へ導出せず、任意の package・規則を受け付けない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_forecast.py::test_no_clinical_predicate_or_arbitrary_package_is_accepted"
+      ],
+      "guards": [],
+      "guard_gap": "報告専用の固定 package しか検証に渡さない構造で、任意 package を拒否する例ファイルはなくテストで検査している"
+    },
+    {
+      "id": "R2-3",
+      "statement": "基底の状態は、核の採用選択（人の確認・訂正・時点）を通してだけ読む",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_forecast.py::test_confirmation_time_certainty_and_polarity_table",
+        "tests/test_p1_forecast.py::test_revision_views_preserve_sources_and_confirmation_evidence"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-a/ai-unreviewed.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "undetermined",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p1-a/ai-suspected.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "undetermined",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R2-4",
+      "statement": "回答型は基底の状態と別で、確率1でも supported に変換しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_forecast.py::test_forecast_one_does_not_change_clinical_input_or_answer",
+        "tests/test_p1_forecast.py::test_empty_and_complete_events_return_canonical_zero_and_one"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-a/probability-one.json",
+          "path": [
+            "results",
+            0,
+            "answer",
+            "kind"
+          ],
+          "equals": "forecast_probability",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p1-a/probability-one.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "computed",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R2-5",
+      "statement": "自己申告の read_only や未知の能力名を根拠に、未知の意味修飾を無視しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_forecast.py::test_client_cannot_whitelist_unknown_capability",
+        "tests/test_p1_forecast.py::test_legacy_p0_still_stops_on_forecast_capability"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-a/read-only-self-claim.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_field"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-a/unknown-capability.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-a/unknown-capability-pending.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "unassessed",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-ID",
+      "statement": "consumer と artifact の profile・仕様 hash・artifact の内容 hash を実体と照合する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_forecast.py::test_native_spec_actual_file_is_checked_not_only_client_claim"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-a/artifact-hash.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "artifact_hash_mismatch"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-a/consumer-spec.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "profile_spec_mismatch"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-a/artifact-profile.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "未対応の操作・profile は unsupported_profile、未知の能力は unassessed、資源は resource_limit",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_forecast.py::test_unknown_capability_on_superseded_report_still_blocks"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-a/missing-operation.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_operation"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-a/zero-budget.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "I3 AI 候補の報告を人の確認なしに採用しない／I4 未知の能力は保留・訂正済みも含めて停止／I5 打切りで部分の確率を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_forecast.py::test_every_budget_cut_before_completion_returns_no_partial_number"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-a/partial-probability.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "unassessed",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-a/unknown-capability-pending.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "世界×事象の所属検査・有理数の加算を共通予算に課金し、整数・中間値の上限で止まる",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_forecast.py::test_count_and_integer_limits_stop_without_rounding",
+        "tests/test_p1_forecast.py::test_completed_query_survives_shared_budget_exhaustion"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-a/integer-limit.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "rational_integer_limit"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-a/shared-budget.json",
+          "path": [
+            "results",
+            1,
+            "status"
+          ],
+          "equals": "unassessed",
+          "kind": "refusal"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "可視の主張の要求する能力が未知なら、その文脈の問いは unassessed（incomplete に列挙）",
+    "unsupported": "unsupported_profile／unsupported_operation",
+    "resource": "resource_limit。完了済みの回答は保持し、未完了は値を持たない",
+    "invalid_input": "重みの総和・参照・hash の不正は invalid_input（補完しない）"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p1-a/*.json"
+    ],
+    "tests": [
+      "tests/test_p1_forecast.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/review/reference_oracle.py"
+  }
+}

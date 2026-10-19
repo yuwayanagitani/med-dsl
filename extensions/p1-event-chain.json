@@ -1,0 +1,259 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p1-event-chain",
+  "version": "draft-2",
+  "title": "事象化＋改名の鎖の認定（既知テンプレート）",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "COMP",
+  "spec": null,
+  "contract_doc": "docs/research/14-p1-c-contract.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/handover.py"
+    ]
+  },
+  "pins": [],
+  "embedded_in": [],
+  "depends_on": [
+    {
+      "id": "p1-handover-host",
+      "version": "draft-2"
+    },
+    {
+      "id": "p1-events",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "check_event_chain",
+      "rename_events"
+    ],
+    "schema_versions": [],
+    "profiles": [],
+    "answer_kinds": [
+      "four-role-history-and-bijective-renaming-1"
+    ],
+    "predicates": [],
+    "capabilities": []
+  },
+  "scope": {
+    "base_requests": "原履歴と、両計算が完了した旧支持断片",
+    "guarantee": "source_history_and_completed_p0_positive_support",
+    "excludes": "事象の件数・同一性、一般の一階推論、方針変更、新所属データ、実行完了"
+  },
+  "obligations": [
+    {
+      "id": "COMP-1",
+      "statement": "各段の端点・依存・方針・翻訳後Q・履歴を、票の値ではなく実体から再計算して照合する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_endpoint_scope_policy_dependencies_are_checked_against_actuals",
+        "tests/test_p1_handover.py::test_honestly_rehashed_changed_history_is_not_a_renaming",
+        "tests/review/test_event_paths.py::ChainCertificationTests.test_a_voucher_that_claims_the_split_translation_is_refused_even_when_consistent"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/wrong-intermediate.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "chain_obligation_failed"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-c/wrong-policy.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "chain_obligation_failed"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-c/wrong-dependencies.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "chain_obligation_failed"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p1-c/wrong-translated-scope.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "chain_obligation_failed"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/chain-forged-start-endpoint.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "chain_obligation_failed"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/chain-forged-end-endpoint.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "chain_obligation_failed"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/chain-consistently-forged-policy.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "chain_obligation_failed"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/chain-consistently-forged-dependencies.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "chain_obligation_failed"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/chain-consistently-forged-scope.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "chain_obligation_failed"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "COMP-2",
+      "statement": "保証の範囲は各段の交差。範囲外の問い・未知・衝突を認定に含めない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_unknown_capability_and_outside_query_do_not_disappear",
+        "tests/test_p1_handover.py::test_new_event_queries_are_not_included_in_the_old_query_certificate"
+      ],
+      "guards": [],
+      "guard_gap": "範囲外の問いで認定が出ないことはテストで検査している（例なし）"
+    },
+    {
+      "id": "COMP-3",
+      "statement": "途中の損失は後段で回復できない",
+      "evidence": "hand_derivation",
+      "checks": [
+        "tests/test_p1_handover.py::test_lossless_second_step_does_not_repair_a_lossy_first_step"
+      ],
+      "guards": [],
+      "guard_gap": "この鎖（事象化と改名）に損失のある段はない。損失のある鎖は p1-projection が扱う",
+      "derivation": "docs/research/11-p1-contract.md"
+    },
+    {
+      "id": "K-ID",
+      "statement": "改名は全域・単射・非捕獲で、新しい台帳参照を使う",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_rename_is_total_injective_fresh_and_uses_new_ledger_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/noninjective-renaming.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "renaming_not_total_injective"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "未評価・比較不能の問いがあれば認定しない。打切りで認定票を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_unknown_capability_and_outside_query_do_not_disappear"
+      ],
+      "guards": [],
+      "guard_gap": "例ではなく、乱数照合（tests/review/test_event_paths.py）が衝突・未知を含む鎖の認定可否を検査している"
+    },
+    {
+      "id": "K-INV",
+      "statement": "I1〜I6：認定は旧の支持と履歴が両計算で完了し一致する場合に限る",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/review/test_event_paths.py::ChainCertificationTests.test_certified_exactly_when_every_answer_is_complete"
+      ],
+      "guards": [],
+      "guard_gap": "認定を拒否する例は COMP-1 の防護例が担う"
+    },
+    {
+      "id": "K-RES",
+      "statement": "鎖の検査と実行照合は一つの予算を共有し、最後の認定票の確定も課金する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_shared_chain_budget_includes_final_certificate_commit"
+      ],
+      "guards": [],
+      "guard_gap": "共有予算はテストで検査している"
+    }
+  ],
+  "stops": {
+    "unknown_capability": "未評価の問いは認定を妨げる（not_certified、incomparable_execution）",
+    "unsupported": "host に従う",
+    "resource": "resource_limit。認定票を出さない",
+    "invalid_input": "改名の非単射・捕獲・衝突は invalid_input"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [
+      "p1-events"
+    ],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p1-c/*.json",
+      "examples/review/*.json"
+    ],
+    "tests": [
+      "tests/test_p1_handover.py",
+      "tests/review/test_review_negatives.py",
+      "tests/review/test_event_paths.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/review/reference_oracle.py"
+  }
+}

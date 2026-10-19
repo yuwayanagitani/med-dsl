@@ -774,6 +774,10 @@
       "sha256": "0fd014dd4904b2773839a8577675a59f7386ef2ea81ddb00c0def2ebbdf99cf3",
       "bytes": 2886
     },
+    "src/med_dsl/extensions.py": {
+      "sha256": "521e73cfb6d9eec802a7919a69ba2d92152b5f8c604bfe863468bf57db6a3113",
+      "bytes": 21567
+    },
     "src/med_dsl/forecast.py": {
       "sha256": "c8c79b741baa8b57c43da7a68342ad87123a8968d59ddbdac5f8e7e2e43b0b41",
       "bytes": 13531
@@ -855,5 +859,5 @@
       "bytes": 25815
     }
   },
-  "bundle_sha256": "faf0269dfc66ef1da77461a22f859e4a3f37fdba7c2a589d09dfbb230465fca1"
+  "bundle_sha256": "bf11248ef4fa936855b0544fce2eac24cd0956b6434c4ade8a3e4ebf16ede42e"
 }

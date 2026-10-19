@@ -1,0 +1,162 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p1-handover-host",
+  "version": "draft-2",
+  "title": "引き継ぎ操作の共有の前段（識別・仕様と P0 実体の固定）",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "HOST",
+  "spec": {
+    "path": "src/med_dsl/handover_spec.json",
+    "sha256": "f5b1709c8c538ede98dd58b0eea79a6c4b4a145d6b7248daaa586cffe660a54d"
+  },
+  "contract_doc": "docs/research/14-p1-c-contract.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/handover.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/handover_spec.json",
+      "role": "native_spec"
+    },
+    {
+      "path": "docs/research/06-p0-contract.md",
+      "role": "p0_contract"
+    },
+    {
+      "path": "src/med_dsl/events_spec.json",
+      "role": "events_spec"
+    },
+    {
+      "path": "src/med_dsl/model.py",
+      "role": "p0_runtime"
+    },
+    {
+      "path": "src/med_dsl/validation.py",
+      "role": "p0_runtime"
+    },
+    {
+      "path": "src/med_dsl/definitions.py",
+      "role": "p0_runtime"
+    },
+    {
+      "path": "src/med_dsl/ledger.py",
+      "role": "p0_runtime"
+    },
+    {
+      "path": "src/med_dsl/query.py",
+      "role": "p0_runtime"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/handover.py",
+    "src/med_dsl/handover_spec.json",
+    "examples/p1-c/*.json",
+    "examples/audits/*.json",
+    "examples/review/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    },
+    {
+      "id": "p1-events",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [],
+    "schema_versions": [
+      "p1-handover-request-draft-1",
+      "p1-handover-result-draft-1"
+    ],
+    "profiles": [
+      "p1-handover-draft-1"
+    ],
+    "answer_kinds": [],
+    "predicates": [],
+    "capabilities": []
+  },
+  "scope": {
+    "description": "引き継ぎの各操作（p1-event-chain／projection／reference／absence／replay）が共有する前段。操作は持たない"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "native 仕様・events 仕様・P0 契約・P0 の5ファイルを実行時に実体と照合し、consumer の profile・仕様 hash・操作を照合する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_native_spec_and_runtime_pins_are_checked"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/corrupt-archive.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "archive_hash_mismatch"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "未対応の操作は unsupported_profile。部分の報告・認定票を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_each_operation_zero_budget_has_no_partial_report_or_certificate"
+      ],
+      "guards": [],
+      "guard_gap": "host 独自の拒否例ファイルはなく、各操作の拒否例とテストが担う"
+    },
+    {
+      "id": "K-INV",
+      "statement": "I5 打切りで認定票を出さない／I6 入力を変更しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_author_draft_all_paths_replay_and_input_preservation"
+      ],
+      "guards": [],
+      "guard_gap": "host 独自の拒否例はなく、全例の入力保持をテストで検査している"
+    },
+    {
+      "id": "K-RES",
+      "statement": "全操作が共通予算を使い、合成・archive は予算を共有する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_replay_and_independent_chain_share_one_budget",
+        "tests/test_p1_handover.py::test_shared_chain_budget_includes_final_certificate_commit"
+      ],
+      "guards": [],
+      "guard_gap": "共有予算は例ではなくテストで検査している"
+    }
+  ],
+  "stops": {
+    "unknown_capability": "host は能力を解釈しない（操作ごとに宣言）",
+    "unsupported": "unsupported_operation／unsupported_profile",
+    "resource": "resource_limit",
+    "invalid_input": "consumer・予算・仕様 hash の不整合は invalid_input"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p1-c/*.json"
+    ],
+    "tests": [
+      "tests/test_p1_handover.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/review/reference_oracle.py"
+  }
+}

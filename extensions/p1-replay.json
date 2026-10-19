@@ -1,0 +1,248 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p1-replay",
+  "version": "draft-2",
+  "title": "原保存・旧処理系の可用性と、新側の保証の分離（点検）",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R5",
+  "spec": null,
+  "contract_doc": "docs/research/14-p1-c-contract.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/handover.py"
+    ]
+  },
+  "pins": [],
+  "embedded_in": [],
+  "depends_on": [
+    {
+      "id": "p1-handover-host",
+      "version": "draft-2"
+    },
+    {
+      "id": "p1-event-chain",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "audit_replay"
+    ],
+    "schema_versions": [],
+    "profiles": [],
+    "answer_kinds": [
+      "verified_supplied_inventory_and_native_registry"
+    ],
+    "predicates": [],
+    "capabilities": []
+  },
+  "scope": {
+    "base_requests": "保存を主張しない点検。保存バイト・解釈可能性・可用性・新側の保証を別々に返す",
+    "excludes": "旧処理系の実行（executed は常に false）"
+  },
+  "obligations": [
+    {
+      "id": "R5-1",
+      "statement": "可用性の範囲（提供された inventory と native registry）と、実行していないことを明示する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_stored_runtime_bytes_are_not_an_interpreter"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/known-native-ready.json",
+          "path": [
+            "legacy_replay",
+            "availability_scope"
+          ],
+          "equals": "verified_supplied_inventory_and_native_registry",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p1-c/known-native-ready.json",
+          "path": [
+            "legacy_replay",
+            "executed"
+          ],
+          "equals": false,
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R5-2",
+      "statement": "旧処理系の可用性と新側の意味保証を独立に返す（片方が他方を認定しない）",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_old_runtime_availability_and_new_semantic_guarantee_are_independent"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/new-guarantee-independent-of-old-binary.json",
+          "path": [
+            "legacy_replay",
+            "status"
+          ],
+          "equals": "unavailable",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p1-c/stored-runtime-is-not-handler.json",
+          "path": [
+            "legacy_replay",
+            "status"
+          ],
+          "equals": "unavailable",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R5-3",
+      "statement": "runtime の hash・依存の hash・runtime 要求数を実体と照合し、保存バイトだけで実行可能にしない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_dependency_integrity_and_archive_to_chain_binding_are_checked",
+        "tests/test_p1_handover.py::test_known_runtime_with_uninterpretable_archive_is_not_ready"
+      ],
+      "guards": [
+        {
+          "example": "examples/review/archive-runtime-wrong-hash.json",
+          "path": [
+            "legacy_replay",
+            "status"
+          ],
+          "equals": "unavailable",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/archive-dependency-hash-mismatch.json",
+          "path": [
+            "legacy_replay",
+            "status"
+          ],
+          "equals": "unavailable",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/archive-no-runtime-requirement.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "expected_one_runtime_requirement"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/archive-two-runtime-requirements.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "expected_one_runtime_requirement"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-ID",
+      "statement": "archive の内容 hash・仕様 hash・資源の hash を照合する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_dependency_integrity_and_archive_to_chain_binding_are_checked"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/corrupt-archive.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "archive_hash_mismatch"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "解釈できない保存バイトは準備完了にしない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_known_runtime_with_uninterpretable_archive_is_not_ready"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/missing-runtime.json",
+          "path": [
+            "legacy_replay",
+            "status"
+          ],
+          "equals": "unavailable",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "I6 原バイトを保持し解釈しない範囲を明示／I5 打切りで報告を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_decoded_archive_unicode_is_validated_before_interpretation"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/missing-dependency.json",
+          "path": [
+            "legacy_replay",
+            "requirements",
+            1,
+            "available"
+          ],
+          "equals": false,
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "archive の検証・各要求・独立した鎖の検査を共通予算に課金する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_replay_and_independent_chain_share_one_budget"
+      ],
+      "guards": [],
+      "guard_gap": "共有予算はテストで検査している"
+    }
+  ],
+  "stops": {
+    "unknown_capability": "未知の runtime は unknown_runtime_handler として利用不可",
+    "unsupported": "profile が P0 でなければ unsupported_profile",
+    "resource": "resource_limit。報告を出さない",
+    "invalid_input": "base64・hash・資源の重複・runtime 要求数の不正は invalid_input"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [
+      "p1-event-chain"
+    ],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p1-c/*.json",
+      "examples/review/*.json"
+    ],
+    "tests": [
+      "tests/test_p1_handover.py",
+      "tests/review/test_review_negatives.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/review/reference_oracle.py"
+  }
+}

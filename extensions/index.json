@@ -1,0 +1,68 @@
+{
+  "schema_version": "p2-extension-index-draft-1",
+  "status": "author_draft",
+  "independent_review": false,
+  "note": "P2-a の宣言一覧。P1の20条件・80 JSON・417必須パス、231開発テスト、レビュー系列とは別の分母。宣言は意味の正しさの証拠ではない",
+  "extensions": [
+    {
+      "id": "p0-positive",
+      "class": "BASE",
+      "path": "p0-positive.json",
+      "sha256": "5e88a3904ac91083456c115fafbb2cf2c4ff53aac9dc7f68d5affab687360771"
+    },
+    {
+      "id": "p0-definitions",
+      "class": "R1",
+      "path": "p0-definitions.json",
+      "sha256": "7a5e60f20b62955f438fe6a66e6cf6842236c2b9e7d95869910394bb5cc06616"
+    },
+    {
+      "id": "p1-finite-forecast",
+      "class": "R2",
+      "path": "p1-finite-forecast.json",
+      "sha256": "367d0a4f9a95cd7682e48629c7ff31a00dde3bfa93f1390e32b0f63854e6f29e"
+    },
+    {
+      "id": "p1-events",
+      "class": "R3",
+      "path": "p1-events.json",
+      "sha256": "cb84645f29e94e50d130a08697f8165e491c8524927233b953be3f4868296cf1"
+    },
+    {
+      "id": "p1-handover-host",
+      "class": "HOST",
+      "path": "p1-handover-host.json",
+      "sha256": "f131e1310b8b0c67c61d000868cdd3610a5e5602cbec88cf20b5841fc955e616"
+    },
+    {
+      "id": "p1-event-chain",
+      "class": "COMP",
+      "path": "p1-event-chain.json",
+      "sha256": "5224e2eec5d26d7abd28632a584bd1fbfc3ec4025b55848ab82a76956747ec06"
+    },
+    {
+      "id": "p1-projection",
+      "class": "R4",
+      "path": "p1-projection.json",
+      "sha256": "f48934174466f4abf461d25e084bf2663fe7b124c0f1f44f20a68a9892fbc20b"
+    },
+    {
+      "id": "p1-reference",
+      "class": "R3",
+      "path": "p1-reference.json",
+      "sha256": "ea31c8d500a6dbfe34b028a1b6ab5f0e9f23b9bb30138dff90f230569dfb5ac7"
+    },
+    {
+      "id": "p1-absence",
+      "class": "R5",
+      "path": "p1-absence.json",
+      "sha256": "469ab31b7f95bab29ef321ec0609ed4d91fef6f42a75058883e24c0d1d604b3e"
+    },
+    {
+      "id": "p1-replay",
+      "class": "R5",
+      "path": "p1-replay.json",
+      "sha256": "03117c2590276d584b69cf84ba94956a43ee65537f33ede49f2635b1371af8ac"
+    }
+  ]
+}

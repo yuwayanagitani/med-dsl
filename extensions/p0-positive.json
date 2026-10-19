@@ -1,0 +1,263 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p0-positive",
+  "version": "draft-2",
+  "title": "P0 の基底（採用・問い合わせ・比較）と核の不変条件",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "BASE",
+  "spec": {
+    "path": "docs/research/06-p0-contract.md",
+    "sha256": "3ae222d252a46ad6a1cf2221a230a5218170ed13f8ccf645c22249e957c3ac72"
+  },
+  "contract_doc": "docs/research/06-p0-contract.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/model.py",
+      "src/med_dsl/validation.py",
+      "src/med_dsl/ledger.py",
+      "src/med_dsl/query.py",
+      "src/med_dsl/compare.py",
+      "src/med_dsl/definitions.py",
+      "src/med_dsl/identity.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/__init__.py",
+      "role": "dispatcher"
+    }
+  ],
+  "embedded_in": [],
+  "depends_on": [],
+  "owns": {
+    "operations": [
+      "query",
+      "compare"
+    ],
+    "schema_versions": [
+      "p0-request-draft-1",
+      "p0-result-draft-1"
+    ],
+    "profiles": [
+      "p0-positive-1"
+    ],
+    "answer_kinds": [
+      "supported",
+      "opposed",
+      "undetermined",
+      "conflict",
+      "unassessed"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p0-positive-1"
+    ]
+  },
+  "scope": {
+    "description": "基底そのもの。保存の主張は持たず、核の不変条件 I1〜I7（19-p2-design §2）を実現する",
+    "data": "架空データのみ"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "版・契約・依存の hash を実体から再計算して照合し、再定義を拒否する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_query.py::test_dependency_hash_and_ownership",
+        "tests/test_p0_compare.py::test_shared_package_registry_checks_hashes_across_snapshots"
+      ],
+      "guards": [
+        {
+          "example": "examples/p0/dependency-hash-mismatch.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "dependency_hash_mismatch"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p0/redefined-package.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "reference_redefined"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "未対応の profile・未知の能力・資源上限・入力不正で、偽・空・部分回答を返さず止まる",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_ledger.py::test_unknown_blockers_include_every_visible_source_in_sorted_order",
+        "tests/test_p0_query.py::test_zero_and_exhausted_budget_return_no_incomplete_bindings"
+      ],
+      "guards": [
+        {
+          "example": "examples/p0/unsupported-existence-profile.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p0/unknown-capability.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "unassessed",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p0/zero-step-budget.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p0/duplicate-assertion.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "duplicate_identifier"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "I1 支持は採用された主張からの導出だけ／I2 未決を偽にしない／I3 AI 候補を採用しない／I4 未知の能力を解釈しない／I5 打切りで部分回答を出さない／I6 入力を変更しない／I7 決定的",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_query.py::test_unreviewed_ai_candidate_is_retained_but_not_supported",
+        "tests/test_p0_query.py::test_denial_is_not_derived_from_missing_binding",
+        "tests/test_p0_query.py::test_serialization_and_input_are_preserved",
+        "tests/test_p0_ledger.py::test_p22_replay_and_permutation_preserve_results_and_inputs"
+      ],
+      "guards": [
+        {
+          "example": "examples/p0/ai-unreviewed.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "undetermined",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p0/negative-defined-symbol.json",
+          "path": [
+            "results",
+            1,
+            "status"
+          ],
+          "equals": "undetermined",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p0/unknown-capability.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p0/zero-step-budget.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "unassessed",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/review-precedes-assertion.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "review_precedes_assertion"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "steps を課金点で数え、上限・結合数・深さを超えたら resource_limit。入力不正を予算不足にしない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_query.py::test_binding_overflow_is_not_truncated_success",
+        "tests/review/test_budget_sweep.py::BudgetSweepTests.test_every_budget_gives_the_full_answer_or_an_honest_stop"
+      ],
+      "guards": [
+        {
+          "example": "examples/p0/binding-limit.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "binding_limit"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p0/zero-step-budget.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "step_limit"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "文脈を解釈せず unassessed。保留・訂正済みの主張の修飾も落とさない",
+    "unsupported": "unsupported_profile",
+    "resource": "resource_limit。未完了の問いは値を持たない",
+    "invalid_input": "構造・参照・hash の不正は予算に依らず invalid_input"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p0/*.json"
+    ],
+    "tests": [
+      "tests/test_p0_query.py",
+      "tests/test_p0_ledger.py",
+      "tests/test_p0_compare.py",
+      "tests/test_p0_definitions.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/review/reference_oracle.py"
+  }
+}

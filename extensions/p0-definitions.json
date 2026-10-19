@@ -1,0 +1,228 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p0-definitions",
+  "version": "draft-2",
+  "title": "定義の追加（S1/S2）の保存的拡張の認定",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R1",
+  "spec": null,
+  "contract_doc": "docs/research/06-p0-contract.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/definitions.py",
+      "src/med_dsl/validation.py"
+    ]
+  },
+  "pins": [],
+  "embedded_in": [],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "check_extension"
+    ],
+    "schema_versions": [],
+    "profiles": [],
+    "answer_kinds": [
+      "p0-s1-s2-dag-1"
+    ],
+    "predicates": [],
+    "capabilities": []
+  },
+  "scope": {
+    "base_requests": "旧語彙の問い・旧データ",
+    "data": "旧データのみ。新所属データ・方針変更・対応の変更は範囲外",
+    "guarantee": "model_conservative_extension_over_old_signature"
+  },
+  "obligations": [
+    {
+      "id": "R1-1",
+      "statement": "新記号は追加するパッケージが所有し、基底・依存の記号を再宣言しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_definitions.py::test_individual_shared_symbol_certificates_cannot_be_composed",
+        "tests/test_p0_definitions.py::test_old_dependency_symbols_cannot_be_reintroduced"
+      ],
+      "guards": [
+        {
+          "example": "examples/p0/shared-symbol-extensions.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "predicate_owner_conflict"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R1-2",
+      "statement": "右辺は旧語彙と前の新記号だけで、定義の依存は非循環。役割の型が一致する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_definitions.py::test_roles_and_unresolved_definition_are_invalid",
+        "tests/test_p0_definitions.py::test_mixed_s1_s2_chain_can_be_declared_out_of_order"
+      ],
+      "guards": [
+        {
+          "example": "examples/p0/cyclic-definitions.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "cyclic_definitions"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p0/duplicate-definition.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "duplicate_definition"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R1-3",
+      "statement": "旧モデルは新記号の解釈（N:=ψ か N:=∅）で必ず拡張できる",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_definitions.py::test_certified_extensions_preserve_all_old_models_on_two_individuals",
+        "tests/audits/test_preservation_audit.py::PreservationAuditTests.test_generated_definitions_are_200_distinct_programs"
+      ],
+      "guards": [],
+      "guard_gap": "モデル拡張は構文の十分条件（R1-1・R1-2・R1-4）で保証され、認定を拒否する例は R1-2・R1-4 が担う。この義務独自の拒否例はない",
+      "derivation": "docs/research/05-principles.md"
+    },
+    {
+      "id": "R1-4",
+      "statement": "旧記号への追加の包含・新所属データ・存在の制約を持たない（隠れた依存の包含も検査する）",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_definitions.py::test_hidden_dependency_inclusion_is_checked",
+        "tests/test_p0_definitions.py::test_dependency_new_symbols_are_not_skipped"
+      ],
+      "guards": [
+        {
+          "example": "examples/p0/unsafe-inclusions.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "additional_inclusions",
+            "missing_definition"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R1-5",
+      "statement": "認定は十分条件で、不認定は非保存の断定ではない（保証の欄を空にする）",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_definitions.py::test_hidden_dependency_inclusion_is_checked"
+      ],
+      "guards": [
+        {
+          "example": "examples/p0/unsafe-inclusions.json",
+          "path": [
+            "certificate",
+            "scope",
+            "guarantee"
+          ],
+          "equals": null,
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-ID",
+      "statement": "認定票に base／extension／依存の hash を固定し、依存の hash の変更を拒否する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_definitions.py::test_dependency_hash_cannot_be_changed",
+        "tests/test_p0_definitions.py::test_scope_pins_theories_and_excludes_new_memberships"
+      ],
+      "guards": [
+        {
+          "example": "examples/p0/dependency-hash-mismatch.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "dependency_hash_mismatch"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "予算0・途中の打切りで認定票を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_definitions.py::test_certification_budget_zero_and_mid_graph_never_issue_certificate",
+        "tests/review/test_boundaries.py::P0LimitTests.test_extension_certification_costs_one_step_even_when_nothing_is_added"
+      ],
+      "guards": [],
+      "guard_gap": "拡張認定の予算0は例ではなくテストで検査している"
+    },
+    {
+      "id": "K-INV",
+      "statement": "I6 入力を変更しない、I7 決定的。AI 候補・確認の方針に触れない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_query.py::test_serialization_and_input_are_preserved"
+      ],
+      "guards": [],
+      "guard_gap": "認定は定義パッケージだけを読み、台帳・採用に触れないため、不変条件 I1〜I5 の新しい出力はない。拒否例はなし"
+    },
+    {
+      "id": "K-RES",
+      "statement": "認定の各検査を step に課金する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p0_definitions.py::test_certification_budget_zero_and_mid_graph_never_issue_certificate"
+      ],
+      "guards": [],
+      "guard_gap": "認定の課金は P0 契約 §6 に定め、テストで境界を検査している（例なし）"
+    }
+  ],
+  "stops": {
+    "unknown_capability": "認定は台帳を読まないため該当しない",
+    "unsupported": "profile が p0-positive-1 でなければ unsupported_profile",
+    "resource": "resource_limit。認定票を出さない",
+    "invalid_input": "重複・未宣言・役割の不一致・依存の不整合は invalid_input"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p0/*.json"
+    ],
+    "tests": [
+      "tests/test_p0_definitions.py",
+      "tests/audits/test_preservation_audit.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "scripts/research/audit-preservation.py"
+  }
+}

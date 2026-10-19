@@ -1,0 +1,223 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p1-projection",
+  "version": "draft-2",
+  "title": "既知の射影と、その実際の出力だけを保存する符号化",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R4",
+  "spec": null,
+  "contract_doc": "docs/research/14-p1-c-contract.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/projection.py",
+      "src/med_dsl/handover.py"
+    ]
+  },
+  "pins": [],
+  "embedded_in": [],
+  "depends_on": [
+    {
+      "id": "p1-handover-host",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "check_projection_chain"
+    ],
+    "schema_versions": [],
+    "profiles": [],
+    "answer_kinds": [
+      "finite_relation_projection"
+    ],
+    "predicates": [],
+    "capabilities": []
+  },
+  "scope": {
+    "base_requests": "保持した列だけに依る問い（因子化できる Q）",
+    "excludes": "捨てた列に依る問い、原記録の履歴。別添えは追加入力"
+  },
+  "obligations": [
+    {
+      "id": "R4-1",
+      "statement": "保持列に収まる問いだけを範囲にし、全ての問いが収まるときだけ認定する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_all_eight_tuple_subsets_preserve_queries_using_only_kept_columns",
+        "tests/test_p1_handover.py::test_discarded_fields_stay_out_of_scope"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/discarded-query-scope.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "out_of_scope",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/projection-mixed-scope.json",
+          "path": [
+            "certificate",
+            "reason_codes"
+          ],
+          "equals": [
+            "query_out_of_scope"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R4-2",
+      "statement": "同じ射影値で旧回答が異なる二記録を、反例として記録する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_lossless_second_step_does_not_repair_a_lossy_first_step"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/lossy-composition.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/projection-collision-evidence.json",
+          "path": [
+            "certificate",
+            "evidence_level"
+          ],
+          "equals": "verified_collision",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "R4-3",
+      "statement": "後段の無損失符号化・別添えで全体の復元を主張しない。別添えは追加入力として分ける",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_sidecar_is_explicit_extra_information_not_projection_recovery",
+        "tests/test_p1_handover.py::test_available_sidecar_is_not_reported_as_used_for_a_kept_query"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/sidecar-is-additional-input.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/review/projection-sidecar-mismatch.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "sidecar_mismatch"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-ID",
+      "statement": "射影後の符号化は実際の出力の hash を保つ（二段目の認定は範囲を限る）",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_lossless_second_step_does_not_repair_a_lossy_first_step"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/lossy-composition.json",
+          "path": [
+            "second_step_certificate",
+            "scope"
+          ],
+          "equals": "canonical_json_value_identity",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "入力不正（重複・型・別添えの不一致）は invalid_input",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_bool_positions_domain_sizes_and_budgets_are_not_integers"
+      ],
+      "guards": [
+        {
+          "example": "examples/review/projection-sidecar-mismatch.json",
+          "path": [
+            "status"
+          ],
+          "equals": "invalid_input",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "I2 捨てた区別を偽・空の差分にしない／I6 入力を変更しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_discarded_fields_stay_out_of_scope"
+      ],
+      "guards": [
+        {
+          "example": "examples/p1-c/discarded-query-scope.json",
+          "path": [
+            "full_difference_status"
+          ],
+          "equals": "incomparable",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "各行の射影・照合・符号化の検証を共通予算に課金する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/test_p1_handover.py::test_each_operation_zero_budget_has_no_partial_report_or_certificate"
+      ],
+      "guards": [],
+      "guard_gap": "予算の境界はテストで検査している"
+    }
+  ],
+  "stops": {
+    "unknown_capability": "射影は台帳を読まないため該当しない",
+    "unsupported": "未対応の射影は unsupported_profile",
+    "resource": "resource_limit。認定票を出さない",
+    "invalid_input": "arity・重複・位置・別添えの不一致は invalid_input"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p1-c/*.json",
+      "examples/review/*.json"
+    ],
+    "tests": [
+      "tests/test_p1_handover.py",
+      "tests/review/test_review_negatives.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/review/reference_oracle.py"
+  }
+}

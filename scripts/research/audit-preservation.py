@@ -13,8 +13,8 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
-# p0-draft-1 の基準は 1f01ed6593f555b42e370661c225fac1012bdf89b115bc29fd91513474d35efb（e73d4ba）。draft-2 の固定に合わせて更新
-BASELINE_MANIFEST_SHA256 = "de30791900150135fb4b413bc8a535fa5a13a15da2fd4540df1f6a8168e86831"
+# p0-draft-1 の基準は 1f01ed65…（e73d4ba）、p0-draft-2 の固定は de307919…（2b501c1）。P2-a で extensions.py を加えた固定に合わせて更新
+BASELINE_MANIFEST_SHA256 = "c12734e141abc741911e619e1fb0fead69b5a17bceefea125bb41f6c43db8dbe"
 sys.path.insert(0, str(ROOT / "src"))
 from med_dsl import evaluate
 from med_dsl.validation import canonical_bytes, digest
