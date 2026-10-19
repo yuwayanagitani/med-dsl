@@ -1,0 +1,187 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "SC11",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p2-split-combination",
+  "obligations": [
+    "JOINT-5"
+  ],
+  "kind": "refusal",
+  "gate": "語彙は 10 記号まで",
+  "request": {
+    "schema_version": "p2-splits-request-draft-1",
+    "operation": "check_split_combination",
+    "consumer": {
+      "profile": "p2-split-combination-draft-1",
+      "profile_spec_sha256": "73e4f4823ef3bb843023de617e0c6c0b594785ad8cb4921898a858f9d86382fc",
+      "operations": [
+        "check_split_combination"
+      ]
+    },
+    "budget": {
+      "max_steps": 1000
+    },
+    "source": {
+      "package": {
+        "ref": "fiction:package:splits@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:V0@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V1@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V2@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V3@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V4@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V5@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V6@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V7@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V8@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V9@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V10@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V11@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V12@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V13@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V14@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:V15@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [],
+        "inclusions": [],
+        "dependencies": []
+      }
+    },
+    "splits": [
+      {
+        "parent": "fiction:V0@1",
+        "parts": [
+          "fiction:V1@1",
+          "fiction:V2@1",
+          "fiction:V3@1"
+        ]
+      },
+      {
+        "parent": "fiction:V4@1",
+        "parts": [
+          "fiction:V5@1",
+          "fiction:V6@1",
+          "fiction:V7@1"
+        ]
+      },
+      {
+        "parent": "fiction:V8@1",
+        "parts": [
+          "fiction:V9@1",
+          "fiction:V10@1",
+          "fiction:V11@1"
+        ]
+      },
+      {
+        "parent": "fiction:V12@1",
+        "parts": [
+          "fiction:V13@1",
+          "fiction:V14@1",
+          "fiction:V15@1"
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "vocabulary_limit"
+        ]
+      }
+    ]
+  }
+}

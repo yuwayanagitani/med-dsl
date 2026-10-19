@@ -1,0 +1,134 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "SC05",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p2-split-combination",
+  "obligations": [
+    "JOINT-1",
+    "JOINT-3"
+  ],
+  "kind": "non_conversion",
+  "gate": "同じ親の二つの細分は森（部分は重ならない）で、保存的",
+  "request": {
+    "schema_version": "p2-splits-request-draft-1",
+    "operation": "check_split_combination",
+    "consumer": {
+      "profile": "p2-split-combination-draft-1",
+      "profile_spec_sha256": "73e4f4823ef3bb843023de617e0c6c0b594785ad8cb4921898a858f9d86382fc",
+      "operations": [
+        "check_split_combination"
+      ]
+    },
+    "budget": {
+      "max_steps": 1000
+    },
+    "source": {
+      "package": {
+        "ref": "fiction:package:splits@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:P@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:R@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:A@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:B@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:C@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:D@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:X@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [],
+        "inclusions": [],
+        "dependencies": []
+      }
+    },
+    "splits": [
+      {
+        "parent": "fiction:P@1",
+        "parts": [
+          "fiction:A@1",
+          "fiction:B@1"
+        ]
+      },
+      {
+        "parent": "fiction:P@1",
+        "parts": [
+          "fiction:C@1",
+          "fiction:D@1"
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "certified"
+      },
+      {
+        "path": [
+          "structure",
+          "kind"
+        ],
+        "equals": "forest"
+      },
+      {
+        "path": [
+          "structure",
+          "components"
+        ],
+        "equals": [
+          [
+            0,
+            1
+          ]
+        ]
+      }
+    ]
+  }
+}

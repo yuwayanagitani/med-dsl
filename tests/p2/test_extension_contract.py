@@ -19,15 +19,17 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(Path(__file__).parent))
 
+import support
 from med_dsl import evaluate
 from med_dsl.extensions import (CLASSES, COMMON, EVIDENCE, LOCK, OWN_KINDS, REQUIRED, TOP_LEVEL, Refused, Registry, affected,
-                                guard_gaps, load_manifests, module_graph, overlaps, standard_registry, validate, weakest_evidence)
+                                guard_gaps, independent_pairs, load_manifests, module_graph, overlaps, standard_registry, validate, weakest_evidence)
 from med_dsl.model import Problem
 from med_dsl.validation import canonical_bytes, decode_json, digest
 
 IDS = ["p0-positive", "p0-definitions", "p1-finite-forecast", "p1-events", "p1-handover-host", "p1-event-chain",
-       "p1-projection", "p1-reference", "p1-absence", "p1-replay", "p2-concept-split"]
+       "p1-projection", "p1-reference", "p1-absence", "p1-replay", "p2-concept-split", "p2-split-combination"]
 # 防護例のない義務（理由は宣言の guard_gap）。増やすときはここも更新して、検査の見逃しが黙って増えないようにする。
 # 残る 3 件は、拒否する入力を構成できない（構文の十分条件による保証・手作業の導出・損失のある段がない）
 KNOWN_GAPS = {
@@ -61,7 +63,7 @@ class ShippedDeclarationTests(unittest.TestCase):
     def setUpClass(cls):
         cls.registry = standard_registry(ROOT, evaluate=evaluate)
 
-    def test_all_eleven_declarations_register_in_dependency_order_and_guards_hold(self):
+    def test_all_twelve_declarations_register_in_dependency_order_and_guards_hold(self):
         self.assertEqual(sorted(m["id"] for m in self.registry), sorted(IDS))
         self.assertEqual(next(iter(self.registry))["class"], "BASE")
 
@@ -207,6 +209,13 @@ class RefusalTests(unittest.TestCase):
         """R6（公理つき読み取りモジュール）の義務を、R2 の拡張が宣言することは認めない。"""
         self.check_refusal(lambda m: m["obligations"].append({**deepcopy(m["obligations"][0]), "id": "R6-1"}), "obligation_of_another_class")
 
+    def test_an_obligation_of_the_joint_class_declared_by_another_class_is_refused(self):
+        self.check_refusal(lambda m: m["obligations"].append({**deepcopy(m["obligations"][0]), "id": "JOINT-1"}), "obligation_of_another_class")
+
+    def test_class_joint_requires_the_r2_and_r6_obligations_and_its_own(self):
+        self.assertTrue({f"R2-{i}" for i in range(1, 6)} | {f"R6-{i}" for i in range(1, 7)} | {f"JOINT-{i}" for i in range(1, 7)} | set(COMMON) <= set(REQUIRED["JOINT"]))
+        self.assertEqual(len(REQUIRED["JOINT"]), len(set(REQUIRED["JOINT"])))
+
     def test_class_r6_requires_the_r2_obligations_and_its_own(self):
         self.assertTrue({f"R2-{i}" for i in range(1, 6)} | {f"R6-{i}" for i in range(1, 7)} | set(COMMON) <= set(REQUIRED["R6"]))
         self.assertEqual(len(REQUIRED["R6"]), len(set(REQUIRED["R6"])))
@@ -235,7 +244,8 @@ class RefusalTests(unittest.TestCase):
                              "p1-reference": ("p0-positive", "p1-events", "p1-handover-host"),
                              "p1-absence": ("p0-positive", "p1-events", "p1-handover-host"),
                              "p1-replay": ("p0-positive", "p1-events", "p1-handover-host", "p1-event-chain"),
-                             "p2-concept-split": ("p0-positive",)}[ident]
+                             "p2-concept-split": ("p0-positive",),
+                             "p2-split-combination": ("p0-positive", "p2-concept-split")}[ident]
                     self.check_refusal(lambda m, n=need: m["obligations"].__delitem__([o["id"] for o in m["obligations"]].index(n)),
                                        "missing_obligation", chain, ident)
 
@@ -348,70 +358,25 @@ class RefusalTests(unittest.TestCase):
 class NonInterferenceTests(unittest.TestCase):
     """X03：ある拡張を無効にしても、その拡張とそれに依存する拡張に属さない全例の結果は変わらない。"""
 
-    # 無効にする拡張。基底（p0-positive）と p0-definitions は、実装のモジュールが核（validation.py）を含むので対象外
-    DISABLED = ["p1-finite-forecast", "p1-events", "p1-handover-host", "p1-event-chain", "p1-projection", "p1-reference",
-                "p1-absence", "p1-replay", "p2-concept-split"]
+    DISABLED = support.DISABLABLE
 
     @classmethod
     def setUpClass(cls):
         cls.registry = standard_registry(ROOT, evaluate=evaluate)
-        cls.requests = []
-        for suite in ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split"):
-            manifest = decode_json((ROOT / "examples" / suite / "manifest.json").read_bytes())
-            for entry in manifest["files"] + manifest.get("accepted_boundaries", []):
-                request = decode_json((ROOT / "examples" / suite / entry["path"]).read_bytes())["request"]
-                cls.requests.append((f"{suite}/{entry['path']}", request))
+        cls.requests = support.load_requests()
         cls.baseline = {name: canonical_bytes(evaluate(deepcopy(request))) for name, request in cls.requests}
 
     def functions_of(self, ident):
-        """宣言した実装モジュールが定義する関数（その拡張の入口と内部）。"""
-        found = {}
-        for path in self.registry.get(ident)["implementation"]["modules"]:
-            module = importlib.import_module("med_dsl." + Path(path).stem)
-            for obj in vars(module).values():
-                if inspect.isfunction(obj) and obj.__module__ == module.__name__:
-                    found[id(obj)] = obj
-        return found
+        return support.functions_of(self.registry, ident)
 
-    @contextmanager
     def inert(self, ident):
-        """拡張を不活性にする：宣言した実装モジュールの全関数を、他のモジュールが import した束縛も含めて差し替え、
-        ホストの登録表（host.SURFACES・handover.OPERATIONS）の該当の項目も差し替える。"""
-        own = self.functions_of(ident)
-
-        def absent(*args, **kwargs):
-            raise Problem("extension_absent", status="unsupported_profile")
-
-        from med_dsl import handover, host
-        with ExitStack() as stack:
-            for module in [m for n, m in list(sys.modules.items()) if n.startswith("med_dsl") and m is not None]:
-                for name, obj in list(vars(module).items()):
-                    if id(obj) in own and obj is own[id(obj)]:
-                        stack.enter_context(patch.object(module, name, absent))
-            stack.enter_context(patch.dict(host.SURFACES, {k: v._replace(run=absent) for k, v in host.SURFACES.items() if id(v.run) in own}))
-            stack.enter_context(patch.dict(handover.OPERATIONS, {
-                k: v._replace(validate=absent if id(v.validate) in own else v.validate, run=absent if id(v.run) in own else v.run)
-                for k, v in handover.OPERATIONS.items() if id(v.validate) in own or id(v.run) in own}))
-            yield
+        return support.inert(self.registry, ident)
 
     def dependents(self, ident):
-        found, grew = {ident}, True
-        while grew:
-            grew = False
-            for manifest in self.registry:
-                if manifest["id"] not in found and any(d["id"] in found for d in manifest["depends_on"]):
-                    found.add(manifest["id"])
-                    grew = True
-        return found
+        return support.dependents(self.registry, ident)
 
     def owner_of(self, request):
-        """要求を扱う拡張：操作の所有者、なければ schema_version の所有者。"""
-        owners = self.registry.owners()
-        operation = request.get("operation") if isinstance(request, dict) else None
-        for kind, value in (("operations", operation), ("schema_versions", request.get("schema_version") if isinstance(request, dict) else None)):
-            if (kind, value) in owners:
-                return owners[(kind, value)]
-        return None
+        return support.owner_of(self.registry, request)
 
     def test_disabling_each_extension_changes_nothing_outside_it_and_its_dependents(self):
         for ident in self.DISABLED:
@@ -646,6 +611,57 @@ class AffectedLogicTests(unittest.TestCase):
         self.assertIsNone(self.run_affected(items, ["notes.txt"])["lock"])
 
 
+class IndependenceLogicTests(unittest.TestCase):
+    """L3：独立の判定の各条件を、小さな人工の木で一つずつ確かめる。"""
+
+    def setUp(self):
+        self.folder = tempfile.TemporaryDirectory()
+        self.root = Path(self.folder.name)
+        package = self.root / "src/med_dsl"
+        package.mkdir(parents=True)
+        (package / "kernel.py").write_text("k = 0\n")
+        (package / "a.py").write_text("from . import kernel\n")
+        (package / "b.py").write_text("from . import kernel\n")
+        (package / "c.py").write_text("from . import a\n")
+
+    def tearDown(self):
+        self.folder.cleanup()
+
+    def pairs(self, *items):
+        base = toy_manifest("BASE", ["src/med_dsl/kernel.py"], **{"class": "BASE", "composition": {"shares_names_with": [], "reads_extensions": [], "order_dependent": False}})
+        return independent_pairs(FakeRegistry(self.root, [base, *items]), self.root)
+
+    @staticmethod
+    def ext(ident, module, **kwargs):
+        composition = {"shares_names_with": [], "reads_extensions": kwargs.pop("reads", []), "order_dependent": kwargs.pop("order", False)}
+        return toy_manifest(ident, [f"src/med_dsl/{module}.py", *kwargs.pop("extra", [])], **{"class": "R2", "composition": composition}, **kwargs)
+
+    def test_two_extensions_with_nothing_in_common_but_the_kernel_are_independent(self):
+        self.assertEqual(self.pairs(self.ext("A", "a"), self.ext("B", "b")), [("A", "B")])
+
+    def test_a_dependency_a_read_and_an_order_dependence_each_make_a_pair_dependent(self):
+        self.assertEqual(self.pairs(self.ext("A", "a"), self.ext("B", "b", depends_on=[{"id": "A", "version": "v"}])), [])
+        self.assertEqual(self.pairs(self.ext("A", "a", reads=["B"]), self.ext("B", "b")), [])
+        self.assertEqual(self.pairs(self.ext("A", "a"), self.ext("B", "b", reads=["A"])), [])
+        self.assertEqual(self.pairs(self.ext("A", "a", order=True), self.ext("B", "b")), [])
+        self.assertEqual(self.pairs(self.ext("A", "a"), self.ext("B", "b", order=True)), [])
+
+    def test_a_transitive_dependency_makes_a_pair_dependent(self):
+        chain = self.pairs(self.ext("A", "a"), self.ext("B", "b", depends_on=[{"id": "A", "version": "v"}]),
+                           self.ext("C", "c", depends_on=[{"id": "B", "version": "v"}]))
+        self.assertNotIn(("A", "C"), chain)
+
+    def test_importing_the_other_extensions_own_module_makes_a_pair_dependent_in_either_direction(self):
+        self.assertEqual(self.pairs(self.ext("A", "a"), self.ext("C", "c")), [])
+        self.assertEqual(self.pairs(self.ext("C", "c"), self.ext("A", "a")), [])
+
+    def test_a_module_the_base_declared_is_the_kernel_and_does_not_make_a_pair_dependent(self):
+        self.assertEqual(self.pairs(self.ext("A", "a", extra=["src/med_dsl/kernel.py"]), self.ext("B", "b")), [("A", "B")])
+
+    def test_the_base_is_never_in_a_pair(self):
+        self.assertTrue(all("BASE" not in pair for pair in self.pairs(self.ext("A", "a"), self.ext("B", "b"))))
+
+
 class RealAffectedTests(unittest.TestCase):
     def test_contract_document_and_dispatcher_changes_are_enumerated(self):
         registry = standard_registry(ROOT, evaluate=evaluate)
@@ -676,7 +692,7 @@ class CommandLineTests(unittest.TestCase):
         plain = self.run_script("--json")
         self.assertEqual(plain.returncode, 0, plain.stderr)
         report = json.loads(plain.stdout)
-        self.assertEqual((len(report["registered"]), report["refused"]), (11, []))
+        self.assertEqual((len(report["registered"]), report["refused"]), (12, []))
         self.assertEqual(report["guard_gaps"], sum(len(v) for v in KNOWN_GAPS.values()))
         self.assertEqual(self.run_script("--strict").returncode, 1)
 

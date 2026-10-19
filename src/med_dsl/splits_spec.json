@@ -1,0 +1,72 @@
+{
+ "profile": "p2-split-combination-draft-1",
+ "request_schema": "p2-splits-request-draft-1",
+ "result_schema": "p2-splits-result-draft-1",
+ "operations": [
+  "check_split_combination",
+  "query_split_combination"
+ ],
+ "answer_kinds": {
+  "check_split_combination": "split_combination_certificate",
+  "query_split_combination": "joint_candidate_set"
+ },
+ "capability": "p2-split-combination-draft-1",
+ "policy": "fiction:confirmed-explicit-revision@1",
+ "combination": {
+  "declaration": "1..4 splits, each as in p2-concept-split; no duplicate split; at most 10 symbols in the union",
+  "axioms": "the axioms of every split (subsumption, coverage, exclusivity) fixed by p2-concept-split-draft-1; the request cannot add or change an axiom",
+  "old_symbols": "symbols that are not a part of any split",
+  "new_symbols": "symbols that are a part of some split",
+  "components": "splits connected by a shared symbol; axioms and adopted literals factor over components",
+  "structure": "single, disjoint, forest, shared_parts or cyclic, recomputed from the declared splits; chain when a parent is a part of another split",
+  "structure_source": "never taken from a request field, an individual certificate or a self-claim"
+ },
+ "semantics": {
+  "conservativity": "a component is conservative over its old symbols iff every valuation of the old symbols extends to an assignment that satisfies the component axioms; decided by exhaustive enumeration, valid because the axioms are monadic and the old symbols carry no axiom",
+  "counterexample": "the first unextendable old valuation in symbol-name order",
+  "certificate": "certified only for a conservative combination; not_certified carries the counterexample; an individual certificate is never the basis",
+  "joint_status": "projection of the models of the component that agree with the adopted literals onto each split, read with the p2-concept-split status table",
+  "individual_status": "the p2-concept-split result for the same split from its own axioms and the adopted literals over its own symbols",
+  "differs": "joint and individual status or candidates differ",
+  "factoring": "a split alone in its component has the same joint and individual result",
+  "interaction_violation": "a component has no model although no split in it is inconsistent alone",
+  "no_conversion": "no rule maps a joint status to a base status; converted_to_base is always false",
+  "unknown_capability": "any visible assertion in the context requiring a capability other than the P0 profile, the split profile and this profile blocks the row, including pending and corrected assertions",
+  "conflict": "any adopted positive and negative pair of the same atom in the context blocks the row"
+ },
+ "scope": {
+  "included": "up to 4 splits over unary rule-free predicates, at most 10 symbols, one context and one subject per row",
+  "excluded": "information-losing stages (projection), splits with rules, polyadic predicates, cross-context inference, persistence over time, bridging to base statuses"
+ },
+ "limits": {
+  "request_bytes": 1048576,
+  "json_depth": 64,
+  "splits": 4,
+  "parts_per_split": 8,
+  "symbols": 10,
+  "queries": 64,
+  "views": 64,
+  "contexts": 1000,
+  "assertions": 1000,
+  "reviews": 1000,
+  "max_steps": 100000
+ },
+ "steps": {
+  "check_split_combination": [
+   "one at request start",
+   "one for each old valuation examined in lexicographic order of the sorted old symbols, per component, until the first counterexample, for the combination and for each split alone",
+   "one before committing the certificate"
+  ],
+  "query_split_combination": [
+   "one at request start",
+   "one per assertion and one per review before selecting each view in id order",
+   "one at each query start in id order within each view",
+   "one for each axiom-satisfying assignment of each component examined for the query",
+   "one before committing each computed row"
+  ]
+ },
+ "enumeration": "the axiom-satisfying assignments of a component are built when the request is validated and are not charged; they are finite because of the symbol limit",
+ "validation_order": "JSON, request, consumer, budget, package, splits, query validation before any step",
+ "budget_stop": "retain completed rows; unfinished rows are blocked with step_limit and carry no candidate set; an unfinished certificate is not issued",
+ "hashes": "native spec raw SHA-256 pinned in handler; snapshot SHA-256 over canonical JSON, UTF-8, sorted keys, compact separators, ensure_ascii=false"
+}

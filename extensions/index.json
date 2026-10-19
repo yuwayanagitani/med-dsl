@@ -69,6 +69,12 @@
       "class": "R6",
       "path": "p2-concept-split.json",
       "sha256": "9817ccbc732b5ec76fed4de2b6ef9aa63856255d38832f357316b3bc1abd5ce9"
+    },
+    {
+      "id": "p2-split-combination",
+      "class": "JOINT",
+      "path": "p2-split-combination.json",
+      "sha256": "8a6a802cae601c67505f33044814b383d1d441a21c19e0d6af8b7462544b99f3"
     }
   ]
 }

@@ -1,0 +1,203 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "SC22",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p2-split-combination",
+  "obligations": [
+    "R2-4",
+    "JOINT-6"
+  ],
+  "kind": "non_conversion",
+  "gate": "併用が矛盾する状態でも、基底の問い（P の支持・R の否定）は変わらない：併用の結論は基底の状態に変換されない",
+  "request": {
+    "schema_version": "p0-request-draft-1",
+    "operation": "query",
+    "package": {
+      "ref": "fiction:package:splits@1",
+      "profile": "p0-positive-1",
+      "predicates": [
+        {
+          "ref": "fiction:P@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:R@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:A@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:B@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:C@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:D@1",
+          "roles": [
+            "subject"
+          ]
+        },
+        {
+          "ref": "fiction:X@1",
+          "roles": [
+            "subject"
+          ]
+        }
+      ],
+      "definitions": [],
+      "inclusions": [],
+      "dependencies": []
+    },
+    "contexts": [
+      {
+        "ref": "fiction:context:old@1",
+        "subject_ref": "fiction:person:1",
+        "effective_at": "2020-01-01T00:00:00Z",
+        "purpose": "fiction:research"
+      }
+    ],
+    "ledger": {
+      "ref": "fiction:ledger:splits@1",
+      "assertions": [
+        {
+          "id": "h1",
+          "context_ref": "fiction:context:old@1",
+          "atom": {
+            "predicate": "fiction:P@1",
+            "args": [
+              "fiction:person:1"
+            ]
+          },
+          "polarity": "positive",
+          "certainty": "confirmed",
+          "recorded_at": "2020-01-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:source:h1"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        },
+        {
+          "id": "h2",
+          "context_ref": "fiction:context:old@1",
+          "atom": {
+            "predicate": "fiction:R@1",
+            "args": [
+              "fiction:person:1"
+            ]
+          },
+          "polarity": "negative",
+          "certainty": "confirmed",
+          "recorded_at": "2020-01-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:source:h2"
+          },
+          "supersedes": [],
+          "required_capabilities": []
+        }
+      ],
+      "reviews": [
+        {
+          "id": "r1",
+          "assertion_ref": "h1",
+          "reviewer_ref": "fiction:reviewer:1",
+          "reviewer_kind": "human",
+          "recorded_at": "2020-01-03T00:00:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "r2",
+          "assertion_ref": "h2",
+          "reviewer_ref": "fiction:reviewer:1",
+          "reviewer_kind": "human",
+          "recorded_at": "2020-01-03T00:00:00Z",
+          "outcome": "confirmed"
+        }
+      ]
+    },
+    "views": [
+      {
+        "id": "v1",
+        "as_of": "2026-01-01T00:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      }
+    ],
+    "budget": {
+      "max_steps": 1000
+    },
+    "queries": [
+      {
+        "id": "q_p",
+        "context_ref": "fiction:context:old@1",
+        "atoms": [
+          {
+            "predicate": "fiction:P@1",
+            "args": [
+              "fiction:person:1"
+            ]
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "q_r",
+        "context_ref": "fiction:context:old@1",
+        "atoms": [
+          {
+            "predicate": "fiction:R@1",
+            "args": [
+              "fiction:person:1"
+            ]
+          }
+        ],
+        "required": false
+      }
+    ]
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "supported"
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "status"
+        ],
+        "equals": "opposed"
+      }
+    ]
+  }
+}

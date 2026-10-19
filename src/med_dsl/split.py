@@ -30,6 +30,33 @@ def _spec(value, path):
         raise Problem("profile_spec_mismatch", path)
 
 
+def check_split(ordered, split, path="split"):
+    """分割の宣言の検査。単項・宣言済み・規則のない述語で、部分は 2 個以上で互いに異なり、親を含まない。(親, 整列した部分) を返す。"""
+    fields(split, ("parent", "parts"), path=path)
+    parent = split["parent"]
+    string(parent, path + ".parent")
+    parts = values(split["parts"], 8, path + ".parts")
+    for part in parts:
+        string(part, path + ".parts")
+    if len(parts) < 2:
+        raise Problem("too_few_parts", path + ".parts")
+    if len(set(parts)) != len(parts):
+        raise Problem("duplicate_reference", path + ".parts")
+    if parent in parts:
+        raise Problem("parent_among_parts", path)
+    roles = {p["ref"]: p["roles"] for package in ordered for p in package["predicates"]}
+    for name in (parent, *parts):
+        if name not in roles:
+            raise Problem("undeclared_predicate", path)
+        if len(roles[name]) != 1:
+            raise Problem("split_predicate_not_unary", path)
+    mentioned = {parent, *parts}
+    rules, _ = compile_rules(ordered)
+    if any(rule.head in mentioned or mentioned & set(rule.body) for rule in rules):
+        raise Problem("split_symbol_has_rules", path)
+    return parent, sorted(parts)
+
+
 def _validate(request):
     fields(request, ("schema_version", "operation", "consumer", "source", "views", "split", "queries", "budget"))
     if request["operation"] != "query_split":
@@ -63,29 +90,7 @@ def _validate(request):
         p0["dependency_packages"] = source["dependency_packages"]
     ordered = validate_query(p0)
 
-    split = request["split"]
-    fields(split, ("parent", "parts"), path="split")
-    parent = split["parent"]
-    string(parent, "split.parent")
-    parts = values(split["parts"], 8, "split.parts")
-    for part in parts:
-        string(part, "split.parts")
-    if len(parts) < 2:
-        raise Problem("too_few_parts", "split.parts")
-    if len(set(parts)) != len(parts):
-        raise Problem("duplicate_reference", "split.parts")
-    if parent in parts:
-        raise Problem("parent_among_parts", "split")
-    roles = {p["ref"]: p["roles"] for package in ordered for p in package["predicates"]}
-    for name in (parent, *parts):
-        if name not in roles:
-            raise Problem("undeclared_predicate", "split")
-        if len(roles[name]) != 1:
-            raise Problem("split_predicate_not_unary", "split")
-    mentioned = {parent, *parts}
-    rules, _ = compile_rules(ordered)
-    if any(rule.head in mentioned or mentioned & set(rule.body) for rule in rules):
-        raise Problem("split_symbol_has_rules", "split")
+    parent, parts = check_split(ordered, request["split"])
 
     contexts = {c["ref"] for c in source["contexts"]}
     queries = indexed(request["queries"], "id", 64, "queries")
@@ -101,7 +106,7 @@ def _validate(request):
     views = indexed(request["views"], "id", 64, "views")
     if not views:
         raise Problem("empty_collection", "views")
-    return parent, sorted(parts), views, queries
+    return parent, parts, views, queries
 
 
 def classify(parent, parts, positive_parent, negative_parent, positive_parts, negative_parts):

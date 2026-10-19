@@ -1,0 +1,205 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "SC01",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p2-split-combination",
+  "obligations": [
+    "JOINT-3",
+    "JOINT-1",
+    "JOINT-6"
+  ],
+  "kind": "refusal",
+  "gate": "K04 型：部分を共有する二つの分割は、単独ではどちらも保存的だが、併用は旧語彙に P = R を強制するので不認定（反例つき）",
+  "request": {
+    "schema_version": "p2-splits-request-draft-1",
+    "operation": "check_split_combination",
+    "consumer": {
+      "profile": "p2-split-combination-draft-1",
+      "profile_spec_sha256": "73e4f4823ef3bb843023de617e0c6c0b594785ad8cb4921898a858f9d86382fc",
+      "operations": [
+        "check_split_combination"
+      ]
+    },
+    "budget": {
+      "max_steps": 1000
+    },
+    "source": {
+      "package": {
+        "ref": "fiction:package:splits@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:P@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:R@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:A@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:B@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:C@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:D@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:X@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [],
+        "inclusions": [],
+        "dependencies": []
+      }
+    },
+    "splits": [
+      {
+        "parent": "fiction:P@1",
+        "parts": [
+          "fiction:A@1",
+          "fiction:B@1"
+        ]
+      },
+      {
+        "parent": "fiction:R@1",
+        "parts": [
+          "fiction:A@1",
+          "fiction:B@1"
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "reason_codes"
+        ],
+        "equals": [
+          "not_conservative_over_old_symbols"
+        ]
+      },
+      {
+        "path": [
+          "certificate",
+          "counterexample",
+          "old_valuation"
+        ],
+        "equals": {
+          "fiction:P@1": 0,
+          "fiction:R@1": 1
+        }
+      },
+      {
+        "path": [
+          "certificate",
+          "basis"
+        ],
+        "equals": "recomputed_from_the_combination"
+      },
+      {
+        "path": [
+          "individual",
+          0,
+          "certificate"
+        ],
+        "equals": "certified"
+      },
+      {
+        "path": [
+          "individual",
+          1,
+          "certificate"
+        ],
+        "equals": "certified"
+      },
+      {
+        "path": [
+          "structure",
+          "kind"
+        ],
+        "equals": "shared_parts"
+      },
+      {
+        "path": [
+          "structure",
+          "forest_condition"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "structure",
+          "components"
+        ],
+        "equals": [
+          [
+            0,
+            1
+          ]
+        ]
+      },
+      {
+        "path": [
+          "structure",
+          "old_symbols"
+        ],
+        "equals": [
+          "fiction:P@1",
+          "fiction:R@1"
+        ]
+      },
+      {
+        "path": [
+          "structure",
+          "new_symbols"
+        ],
+        "equals": [
+          "fiction:A@1",
+          "fiction:B@1"
+        ]
+      }
+    ]
+  }
+}

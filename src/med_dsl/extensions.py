@@ -14,7 +14,7 @@ from pathlib import Path
 from .validation import canonical_bytes, decode_json
 
 MANIFEST_SCHEMA = "p2-extension-manifest-draft-1"
-CLASSES = ("BASE", "HOST", "R1", "R2", "R3", "R4", "R5", "R6", "COMP")
+CLASSES = ("BASE", "HOST", "R1", "R2", "R3", "R4", "R5", "R6", "COMP", "JOINT")
 # 弱い順。拡張全体の強さは、最も弱い義務の強さ
 EVIDENCE = ("self_declared", "individual_io", "finite_check", "hand_derivation", "checked_native_template")
 COMMON = ("K-ID", "K-STOP", "K-INV", "K-RES")
@@ -28,6 +28,8 @@ REQUIRED = {
     "R5": COMMON + tuple(f"R5-{i}" for i in range(1, 4)),
     # R6 公理つき読み取りモジュール：R2 の義務に、公理の宣言・旧データでの無矛盾・結論の健全性と公理への相対・範囲・情報要求を加える
     "R6": COMMON + tuple(f"R2-{i}" for i in range(1, 6)) + tuple(f"R6-{i}" for i in range(1, 7)),
+    # JOINT 併用（記号を共有し得る拡張の合成）：R6 の義務に、構造の再計算・独立な併用の分解・共有記号の併用の全体での再判定・鎖・範囲・差の開示を加える
+    "JOINT": COMMON + tuple(f"R2-{i}" for i in range(1, 6)) + tuple(f"R6-{i}" for i in range(1, 7)) + tuple(f"JOINT-{i}" for i in range(1, 7)),
     "COMP": COMMON + tuple(f"COMP-{i}" for i in range(1, 4)),
 }
 OWN_KINDS = ("operations", "schema_versions", "profiles", "answer_kinds", "predicates", "capabilities")
@@ -176,7 +178,7 @@ def _check_obligations(manifest):
         if need not in seen:
             found.append(Finding("missing_obligation", "obligations", need))
     for extra in sorted(seen - set(required)):
-        if extra[:2] in ("K-", "R1", "R2", "R3", "R4", "R5", "R6") or extra.startswith("COMP-"):
+        if extra[:2] in ("K-", "R1", "R2", "R3", "R4", "R5", "R6") or extra.startswith(("COMP-", "JOINT-")):
             found.append(Finding("obligation_of_another_class", "obligations", extra))
     return found
 
@@ -417,6 +419,32 @@ def _dependents(registry):
                 if dep in found and not new <= found[dep]:
                     found[dep] |= new
                     grew = True
+    return found
+
+
+def independent_pairs(registry, root=None):
+    """L3：基底を除く拡張の組のうち、独立と機械的に判定できるもの（id を整列した組の整列した列）。
+
+    独立：どちらも他方に（推移的に）依存せず、他方を読む宣言がなく、順序に依存せず、実装の import の閉包が他方の
+    固有のモジュール（基底が宣言した核のモジュールを除く）を含まない。所有する名前の素性は登録時に検査済み。"""
+    root = Path(root if root is not None else registry.root)
+    graph = module_graph(root)
+    items = {ext["id"]: ext for ext in registry}
+    kernel = {Path(m).stem for ext in items.values() if ext["class"] == "BASE" for m in ext["implementation"]["modules"]}
+    own = {i: {Path(m).stem for m in ext["implementation"]["modules"]} - kernel for i, ext in items.items() if ext["class"] != "BASE"}
+    reach = {i: _closure(graph, own[i]) for i in own}
+    later = _dependents(registry)
+    found = []
+    for a in sorted(own):
+        for b in sorted(own):
+            if a >= b:
+                continue
+            related = b in later[a] or a in later[b]
+            reads = b in items[a]["composition"]["reads_extensions"] or a in items[b]["composition"]["reads_extensions"]
+            ordered = items[a]["composition"]["order_dependent"] or items[b]["composition"]["order_dependent"]
+            reaches = bool(own[b] & reach[a]) or bool(own[a] & reach[b])
+            if not (related or reads or ordered or reaches):
+                found.append((a, b))
     return found
 
 

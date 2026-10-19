@@ -1,0 +1,458 @@
+{
+  "schema_version": "p2-splits-manifest-draft-1",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "contract_version": "p0-draft-2",
+  "profile": "p2-split-combination-draft-1",
+  "profile_spec_sha256": "73e4f4823ef3bb843023de617e0c6c0b594785ad8cb4921898a858f9d86382fc",
+  "note": "P2-c（概念の分割の併用）の例。P1の20条件・80 JSON・417必須パス、231開発テスト、レビュー系列、防護例（p2）、概念の分割（p2-split）とは別の分母。期待結果は文書 25 の意味から手で導いた。予算の境界の n（完了に要る最小の steps）だけは測った。",
+  "measured_budgets": {
+    "check": 8,
+    "query": 10
+  },
+  "files": [
+    {
+      "fixture_id": "SC01",
+      "path": "check-k04-shared-parts.json",
+      "bytes": 4064,
+      "sha256": "7d13f2fc581bbc46e1ef76f80e54b9515124cec230fc1cf4e3e5249ba6a82199",
+      "obligations": [
+        "JOINT-3",
+        "JOINT-1",
+        "JOINT-6"
+      ],
+      "kind": "refusal",
+      "gate": "K04 型：部分を共有する二つの分割は、単独ではどちらも保存的だが、併用は旧語彙に P = R を強制するので不認定（反例つき）"
+    },
+    {
+      "fixture_id": "SC02",
+      "path": "check-shared-one-part-conservative.json",
+      "bytes": 3050,
+      "sha256": "01d2ac8321de5e4ba2bd2d1ca756e07a9a0075d504f5b0978a2177a2f045ee16",
+      "obligations": [
+        "JOINT-3"
+      ],
+      "kind": "non_conversion",
+      "gate": "部分を一つ共有しても、各親に固有の部分があれば保存的（森の十分条件の外でも、全数の判定は認定する）"
+    },
+    {
+      "fixture_id": "SC03",
+      "path": "check-chain.json",
+      "bytes": 2956,
+      "sha256": "b1ca28e690546d0946c454cf869f8e7db17a9cf53d2fc7c2d9ffddf587f895f5",
+      "obligations": [
+        "JOINT-4",
+        "JOINT-1"
+      ],
+      "kind": "non_conversion",
+      "gate": "入れ子の鎖（親が別の分割の部分）は森で、保存的"
+    },
+    {
+      "fixture_id": "SC04",
+      "path": "check-disjoint.json",
+      "bytes": 2816,
+      "sha256": "a4c76f35c6ba433196c5db53f5accea3a917cd484dac4efae23d2186bde96006",
+      "obligations": [
+        "JOINT-2",
+        "JOINT-1"
+      ],
+      "kind": "non_conversion",
+      "gate": "語彙が互いに素な併用は、成分が分かれ、保存的"
+    },
+    {
+      "fixture_id": "SC05",
+      "path": "check-same-parent-twice.json",
+      "bytes": 2691,
+      "sha256": "26e8b745ffe92e41f28da8db29672f56feaac3b66508d53072c8892de81891c0",
+      "obligations": [
+        "JOINT-1",
+        "JOINT-3"
+      ],
+      "kind": "non_conversion",
+      "gate": "同じ親の二つの細分は森（部分は重ならない）で、保存的"
+    },
+    {
+      "fixture_id": "SC06",
+      "path": "check-cyclic.json",
+      "bytes": 2653,
+      "sha256": "8caf956069547452a88c94683ab1d7d223be8e10c5fe9c0636717f60240baf99",
+      "obligations": [
+        "JOINT-1"
+      ],
+      "kind": "non_conversion",
+      "gate": "「部分→親」に閉路がある併用は cyclic と分類する（旧記号がなければ保存性は自明）"
+    },
+    {
+      "fixture_id": "SC07",
+      "path": "check-individual-certificates-refused.json",
+      "bytes": 2603,
+      "sha256": "65dd7e1f67199da889720ee15bd14d6314cc355d52562d22fd84ca6234cf5484",
+      "obligations": [
+        "JOINT-1",
+        "JOINT-3"
+      ],
+      "kind": "refusal",
+      "gate": "個別の認定票を併用の根拠として受け付けない（未知の項目として拒否）"
+    },
+    {
+      "fixture_id": "SC08",
+      "path": "check-claimed-structure-refused.json",
+      "bytes": 2461,
+      "sha256": "bdf28f06b7b82f5bf1f3cd7798a44dbaaa88ceb3e8f6e29c88f05bfe6ad634a3",
+      "obligations": [
+        "JOINT-1"
+      ],
+      "kind": "refusal",
+      "gate": "要求の構造の自己申告（disjoint など）を受け付けない：構造は分割から再計算する"
+    },
+    {
+      "fixture_id": "SC09",
+      "path": "check-duplicate-split.json",
+      "bytes": 2362,
+      "sha256": "1995f3768c0b1ba69a2d1f611c6c7e5648cd28346485b3485071988171133b55",
+      "obligations": [
+        "JOINT-5"
+      ],
+      "kind": "refusal",
+      "gate": "同じ分割を二度宣言できない"
+    },
+    {
+      "fixture_id": "SC10",
+      "path": "check-too-many-splits.json",
+      "bytes": 2724,
+      "sha256": "3e77c06a7329c4dbe54ae0a7ac1bdf0bb7e95ce437721a61e5fe9f6a0ce313c6",
+      "obligations": [
+        "JOINT-5"
+      ],
+      "kind": "refusal",
+      "gate": "分割は 4 個まで"
+    },
+    {
+      "fixture_id": "SC11",
+      "path": "check-vocabulary-limit.json",
+      "bytes": 3830,
+      "sha256": "3b7cbc28c0f4bd147140626452e5315961667bc4f97eb62d9dc26e87b10ea977",
+      "obligations": [
+        "JOINT-5"
+      ],
+      "kind": "refusal",
+      "gate": "語彙は 10 記号まで"
+    },
+    {
+      "fixture_id": "SC12",
+      "path": "check-symbol-has-rules.json",
+      "bytes": 2588,
+      "sha256": "ea8f9f3b65ecf4b6451a6acefcbe92234c79399d4f29e1c13d24edd2fd5d1ec3",
+      "obligations": [
+        "JOINT-5",
+        "R6-1"
+      ],
+      "kind": "refusal",
+      "gate": "規則に現れる述語の分割は範囲外"
+    },
+    {
+      "fixture_id": "SC13",
+      "path": "check-extra-axiom-refused.json",
+      "bytes": 2394,
+      "sha256": "1f4248607e5b8c3d1b38e60a5f54ac0ddb6c9001d768e427990a32dfca14d2d8",
+      "obligations": [
+        "R6-1"
+      ],
+      "kind": "refusal",
+      "gate": "併用でも公理を追加・変更できない"
+    },
+    {
+      "fixture_id": "SC14",
+      "path": "check-consumer-profile.json",
+      "bytes": 2503,
+      "sha256": "2d11c00b9c137a22b5f8717bb5a58b04cbec51e3e5359f9ab8d783728fea8b2c",
+      "obligations": [
+        "K-ID",
+        "K-STOP"
+      ],
+      "kind": "refusal",
+      "gate": "consumer の profile が違えば unsupported_profile"
+    },
+    {
+      "fixture_id": "SC15",
+      "path": "check-consumer-spec-hash.json",
+      "bytes": 2377,
+      "sha256": "9272b8994ad887881481cf97c78957abec767e9bfb2f176e45d742fabea40a75",
+      "obligations": [
+        "K-ID"
+      ],
+      "kind": "refusal",
+      "gate": "consumer が違う仕様の hash を持てば拒否"
+    },
+    {
+      "fixture_id": "SC16",
+      "path": "check-consumer-operations.json",
+      "bytes": 2424,
+      "sha256": "99978d54f79ee363b28f99dc14b2e38f6d0f5271bdabec718ebeaf23313b1a7c",
+      "obligations": [
+        "K-STOP"
+      ],
+      "kind": "refusal",
+      "gate": "consumer が未登録の操作を宣言していれば止まる"
+    },
+    {
+      "fixture_id": "SC17",
+      "path": "check-unsupported-operation.json",
+      "bytes": 2462,
+      "sha256": "eff685816c02d368a97dbb4c87a10ddfefd55ea3970703c56f3115c0669ca9fb",
+      "obligations": [
+        "K-STOP"
+      ],
+      "kind": "refusal",
+      "gate": "未登録の操作は unsupported_profile"
+    },
+    {
+      "fixture_id": "SC18",
+      "path": "check-budget-zero.json",
+      "bytes": 2499,
+      "sha256": "147ce358956001e41873ac9ac40c77abe10e981df2fcdfc3965945096aec5838",
+      "obligations": [
+        "K-STOP",
+        "K-INV",
+        "K-RES"
+      ],
+      "kind": "refusal",
+      "gate": "予算 0 では認定票を出さない"
+    },
+    {
+      "fixture_id": "SC19",
+      "path": "check-budget-below.json",
+      "bytes": 2517,
+      "sha256": "6adadfc2f7be82c0485606c549944916816ed3797ccae44d6bf9ca22b14dfbd3",
+      "obligations": [
+        "K-RES"
+      ],
+      "kind": "boundary",
+      "gate": "課金の境界：steps が 7（完了に要る 8 より 1 少ない）で止まる"
+    },
+    {
+      "fixture_id": "SC20",
+      "path": "check-budget-exact.json",
+      "bytes": 2449,
+      "sha256": "74ea410d33b3afde4823177e640232c43f4ca74ef4c9fdbd2c297a2aed6a7aac",
+      "obligations": [
+        "K-RES"
+      ],
+      "kind": "boundary",
+      "gate": "課金の境界：steps がちょうど 8 で完了する"
+    },
+    {
+      "fixture_id": "SC21",
+      "path": "query-k04-old-data.json",
+      "bytes": 7742,
+      "sha256": "c8c48de89f19d127ffa15aa79c40d5503f523a230b8cb680a4f35bcc96ba505d",
+      "obligations": [
+        "JOINT-3",
+        "JOINT-6",
+        "R6-2"
+      ],
+      "kind": "refusal",
+      "gate": "K04 型：旧記号だけの採用された状態（P 肯定・R 否定）で、併用は矛盾する（単独では open と parent_opposed）。旧データで矛盾する＝併用は保存的でない"
+    },
+    {
+      "fixture_id": "SC22",
+      "path": "query-base-unchanged-by-the-combination.json",
+      "bytes": 4552,
+      "sha256": "805741aab8edf24c5bad5fa9ccd2a4e23dd542958dc7aa79139924e393fb2095",
+      "obligations": [
+        "R2-4",
+        "JOINT-6"
+      ],
+      "kind": "non_conversion",
+      "gate": "併用が矛盾する状態でも、基底の問い（P の支持・R の否定）は変わらない：併用の結論は基底の状態に変換されない"
+    },
+    {
+      "fixture_id": "SC23",
+      "path": "query-shared-part-narrows.json",
+      "bytes": 6608,
+      "sha256": "a2e375feb14caee0d39d567f786958a1e03102f8ed0e3ce35b3d073d4b1f1547",
+      "obligations": [
+        "JOINT-3",
+        "JOINT-6"
+      ],
+      "kind": "non_conversion",
+      "gate": "部分を共有する併用：R の否定が共有する部分 A を除き、P の候補が単独の open から single [B] に狭まる（単独の結果では分からない）"
+    },
+    {
+      "fixture_id": "SC24",
+      "path": "query-shared-part-narrowed-differently.json",
+      "bytes": 7530,
+      "sha256": "2d0bdfbab9e898466b29b60f564a125c5f53fbaba48cd5c82e61548597aba47f",
+      "obligations": [
+        "JOINT-6",
+        "JOINT-3"
+      ],
+      "kind": "non_conversion",
+      "gate": "状態（narrowed）は同じでも候補が違う：R の否定が共有する部分 B を除き、P の候補が単独の [B, C, D] から [C, D] に狭まる（differs は候補の違いも見る）"
+    },
+    {
+      "fixture_id": "SC25",
+      "path": "query-chain-exclusion-flows.json",
+      "bytes": 7008,
+      "sha256": "35e63a7d30923a3462c079d605d31afadc0ea0f4936c6e31a7b958e15a7c1884",
+      "obligations": [
+        "JOINT-4",
+        "JOINT-6"
+      ],
+      "kind": "non_conversion",
+      "gate": "鎖：前段の除外（P かつ B でない → A）が後段に流れ、後段は単独では no_parent だが、併用では open [C, D]"
+    },
+    {
+      "fixture_id": "SC26",
+      "path": "query-chain-loss-not-recovered.json",
+      "bytes": 5551,
+      "sha256": "2adffb3b06c708686dd2a8814f1b08be8591e4bc0160d2d6a74a778ef5c2dd7e",
+      "obligations": [
+        "JOINT-4"
+      ],
+      "kind": "non_conversion",
+      "gate": "鎖：前段が A と B を区別していない個体（P だけが採用）は、後段の分割だけでは葉まで確定しない（後段は no_parent、葉の候補は B・C・D）"
+    },
+    {
+      "fixture_id": "SC27",
+      "path": "query-chain-later-info-flows-back.json",
+      "bytes": 5639,
+      "sha256": "549b0f04db6ab0921c5a5ef19daac95786406814d7fc952a1a8a201722ac44e1",
+      "obligations": [
+        "JOINT-4",
+        "JOINT-6"
+      ],
+      "kind": "non_conversion",
+      "gate": "鎖：後段の情報（C の肯定）が前段へ流れ、A が定まる（前段を単独で見ると no_parent）"
+    },
+    {
+      "fixture_id": "SC28",
+      "path": "query-disjoint-factors.json",
+      "bytes": 6427,
+      "sha256": "5bfcfc3ef87833e2b022432c8fa63100b8c14a7e1275253847d22625d392e16a",
+      "obligations": [
+        "JOINT-2",
+        "JOINT-6"
+      ],
+      "kind": "non_conversion",
+      "gate": "互いに素な併用：各分割の併用での結果は単独の結果と同じ（differs が偽）"
+    },
+    {
+      "fixture_id": "SC29",
+      "path": "query-disjoint-violation-does-not-leak.json",
+      "bytes": 8630,
+      "sha256": "651af3f7a20e31b491d2578a49c1f454b489924e2b815645ccdaf312de59278a",
+      "obligations": [
+        "JOINT-2",
+        "JOINT-6"
+      ],
+      "kind": "non_conversion",
+      "gate": "互いに素な併用：一方の分割が矛盾しても、他方の結果は矛盾の影響を受けない（成分ごとの分解）"
+    },
+    {
+      "fixture_id": "SC30",
+      "path": "query-ai-candidate-pending.json",
+      "bytes": 5997,
+      "sha256": "fa623db8b704ff6366457fa7e1be05dabffd607477383825b381edb8a51a9631",
+      "obligations": [
+        "K-INV",
+        "R2-3"
+      ],
+      "kind": "non_conversion",
+      "gate": "確認のない AI 候補は併用でも候補を狭めず、保留として残す"
+    },
+    {
+      "fixture_id": "SC31",
+      "path": "query-unknown-capability-blocks.json",
+      "bytes": 5262,
+      "sha256": "c902152cad3588ccd8527eced489b64d393fd0b84b322162a12e658b8e6234ed",
+      "obligations": [
+        "K-STOP",
+        "K-INV"
+      ],
+      "kind": "refusal",
+      "gate": "未知の能力を要求する保留中の主張があれば、その文脈の行を解釈しない"
+    },
+    {
+      "fixture_id": "SC32",
+      "path": "query-conflict-blocks.json",
+      "bytes": 4905,
+      "sha256": "c72fedfd76c5c3144ed39e073705d307d78f75859474fceb5e3fd92af6317c7a",
+      "obligations": [
+        "K-STOP"
+      ],
+      "kind": "refusal",
+      "gate": "同じ原子の肯定と否定がともに採用されていれば、解決せずに止める"
+    },
+    {
+      "fixture_id": "SC33",
+      "path": "query-combination-capability-understood.json",
+      "bytes": 5508,
+      "sha256": "37d4e209a4e323cd702abba21677e8068daf136c5b8650b34cf0306ce2eedc8f",
+      "obligations": [
+        "R2-5"
+      ],
+      "kind": "non_conversion",
+      "gate": "併用と分割の能力を要求する主張は、併用を理解する消費側が解釈する"
+    },
+    {
+      "fixture_id": "SC34",
+      "path": "base-unaware-consumer-stops-on-combination-capability.json",
+      "bytes": 4821,
+      "sha256": "1a1c398bf1f671005e81a8092ff925bb376c28fa5475e9d380a71f54d8f13820",
+      "obligations": [
+        "R2-5",
+        "K-INV"
+      ],
+      "kind": "refusal",
+      "gate": "併用の能力を要求する主張は、併用を理解しない消費側（基底）には文脈ごと解釈されない"
+    },
+    {
+      "fixture_id": "SC35",
+      "path": "query-budget-zero.json",
+      "bytes": 4284,
+      "sha256": "4499816abfd7023b62ce7eac5f76ce716ad025ece1005a92770252f5089d9398",
+      "obligations": [
+        "K-STOP",
+        "K-INV",
+        "K-RES"
+      ],
+      "kind": "refusal",
+      "gate": "予算 0 では、候補集合も部分の値も返さない"
+    },
+    {
+      "fixture_id": "SC36",
+      "path": "query-budget-below.json",
+      "bytes": 4035,
+      "sha256": "7c2e063a391d99e4f02d643039122bea8954f928a01c15b87c29671ec318caf2",
+      "obligations": [
+        "K-RES"
+      ],
+      "kind": "boundary",
+      "gate": "課金の境界：steps が 9（完了に要る 10 より 1 少ない）で止まる"
+    },
+    {
+      "fixture_id": "SC37",
+      "path": "query-budget-exact.json",
+      "bytes": 3970,
+      "sha256": "5217cdcca0f03eb4ab4a6102977db1ab57f051e5a2985517aa1811a6ac65efbb",
+      "obligations": [
+        "K-RES"
+      ],
+      "kind": "boundary",
+      "gate": "課金の境界：steps がちょうど 10 で完了する"
+    },
+    {
+      "fixture_id": "SC38",
+      "path": "query-self-claim-refused.json",
+      "bytes": 4010,
+      "sha256": "46344e39c4c44eebc1e88fdf231bbe01996b38d377adfb91debf759eb8c08cbe",
+      "obligations": [
+        "R2-5"
+      ],
+      "kind": "refusal",
+      "gate": "要求の自己申告（read_only など）を根拠にしない"
+    }
+  ]
+}

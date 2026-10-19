@@ -1,0 +1,241 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_id": "SC33",
+  "fixture_version": 1,
+  "fictional": true,
+  "review_state": "author_draft",
+  "extension": "p2-split-combination",
+  "obligations": [
+    "R2-5"
+  ],
+  "kind": "non_conversion",
+  "gate": "併用と分割の能力を要求する主張は、併用を理解する消費側が解釈する",
+  "request": {
+    "schema_version": "p2-splits-request-draft-1",
+    "operation": "query_split_combination",
+    "consumer": {
+      "profile": "p2-split-combination-draft-1",
+      "profile_spec_sha256": "73e4f4823ef3bb843023de617e0c6c0b594785ad8cb4921898a858f9d86382fc",
+      "operations": [
+        "query_split_combination"
+      ]
+    },
+    "budget": {
+      "max_steps": 1000
+    },
+    "source": {
+      "package": {
+        "ref": "fiction:package:splits@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:P@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:R@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:A@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:B@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:C@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:D@1",
+            "roles": [
+              "subject"
+            ]
+          },
+          {
+            "ref": "fiction:X@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [],
+        "inclusions": [],
+        "dependencies": []
+      },
+      "contexts": [
+        {
+          "ref": "fiction:context:old@1",
+          "subject_ref": "fiction:person:1",
+          "effective_at": "2020-01-01T00:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "ref": "fiction:ledger:splits@1",
+        "assertions": [
+          {
+            "id": "h1",
+            "context_ref": "fiction:context:old@1",
+            "atom": {
+              "predicate": "fiction:P@1",
+              "args": [
+                "fiction:person:1"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2020-01-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:source:h1"
+            },
+            "supersedes": [],
+            "required_capabilities": [
+              "p2-split-combination-draft-1"
+            ]
+          },
+          {
+            "id": "h2",
+            "context_ref": "fiction:context:old@1",
+            "atom": {
+              "predicate": "fiction:A@1",
+              "args": [
+                "fiction:person:1"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2020-01-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:source:h2"
+            },
+            "supersedes": [],
+            "required_capabilities": [
+              "p2-concept-split-draft-1",
+              "p2-split-combination-draft-1"
+            ]
+          }
+        ],
+        "reviews": [
+          {
+            "id": "r1",
+            "assertion_ref": "h1",
+            "reviewer_ref": "fiction:reviewer:1",
+            "reviewer_kind": "human",
+            "recorded_at": "2020-01-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "r2",
+            "assertion_ref": "h2",
+            "reviewer_ref": "fiction:reviewer:1",
+            "reviewer_kind": "human",
+            "recorded_at": "2020-01-03T00:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      }
+    },
+    "views": [
+      {
+        "id": "v1",
+        "as_of": "2026-01-01T00:00:00Z",
+        "policy_ref": "fiction:confirmed-explicit-revision@1"
+      }
+    ],
+    "splits": [
+      {
+        "parent": "fiction:P@1",
+        "parts": [
+          "fiction:A@1",
+          "fiction:B@1"
+        ]
+      },
+      {
+        "parent": "fiction:R@1",
+        "parts": [
+          "fiction:A@1",
+          "fiction:C@1"
+        ]
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "context_ref": "fiction:context:old@1",
+        "subject": "fiction:person:1",
+        "required": true
+      }
+    ]
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "splits",
+          0,
+          "joint",
+          "status"
+        ],
+        "equals": "asserted"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "splits",
+          0,
+          "joint",
+          "candidates"
+        ],
+        "equals": [
+          "fiction:A@1"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "splits",
+          0,
+          "individual",
+          "status"
+        ],
+        "equals": "asserted"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "splits",
+          0,
+          "differs"
+        ],
+        "equals": false
+      }
+    ]
+  }
+}
