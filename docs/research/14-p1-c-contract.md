@@ -53,3 +53,10 @@ source_sidecar は null または relation/sha256 を持つ実データで、sou
 課金は native仕様の steps に固定します。生成・改名は各主張/確認と完成時、新側・旧側の問い合わせは既存の課金、合成は端点・範囲・履歴・改名の各義務と最終票、射影は各組の射影・検索と符号化検証、inventory は各要件と最終報告に課金します。予算0・中間上限超過は resource_limit。未完成の認定・回答・差分は返しません。
 
 反例、既知 template の十分条件、実行済みの照合、inventory の可用性、自己申告を区別します。全て架空データで、医学的な妥当性・独立レビュー・永続性全体の証明は含みません。
+
+## p0-draft-2 での追補（レビュー AI-001）
+
+- すべての `certificate`（`second_step_certificate` を含む）は `certifier`（`kind=native_python_modules`、`files`、`bundle_sha256`）を持つ。束は `src/med_dsl/` の `*.py` と `*.json` の生バイトから作り、共通 manifest の該当行から再計算できる。`profile_spec_sha256` は**仕様JSONの**hashで、実装の同一性は `certifier` が担う。
+- 参考意味の不認定の理由は、未証明の側を指す。反例があれば `old_model_not_liftable`／`new_model_reduct_invalid`、反例がなく被覆だけ未証明なら `model_coverage_not_established`、還元だけ未証明なら `model_reduct_not_established`（両方なら両方）。
+- 鎖の不認定の理由に、実行照合で回答が食い違う場合の `answers_mismatch` を加える（`incomparable_execution` は未評価・比較不能に限る）。
+- P0 の入力検査が変わったため、`P0_SPEC_SHA256`・`P0_RUNTIME_SHA256`・`HANDOVER_SPEC_SHA256` を再固定した（draft-1 の値は e73d4ba の記録を参照）。

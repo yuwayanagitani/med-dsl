@@ -1,6 +1,6 @@
 # R6：P0 の意味・入出力・受入条件
 
-作成日：2026-10-18。契約版：`p0-draft-1`。状態：P0 全体の研究仕様。P0-a〜d の実装と作成者草案による全22ケースの照合は [最新の実行記録](10-p0-d-results.md) にあります。独立確認後の評価は未完了です。期待結果は作成者草案です。[短い試作仕様と D07](06-prototype-brief.md) を入口にします。
+作成日：2026-10-18。契約版：`p0-draft-2`（`p0-draft-1` からの変更は末尾の「変更履歴」）。状態：P0 全体の研究仕様。P0-a〜d の実装と作成者草案による全22ケースの照合は [最新の実行記録](10-p0-d-results.md) にあります。独立確認後の評価は未完了です。期待結果は作成者草案です。[短い試作仕様と D07](06-prototype-brief.md) を入口にします。
 
 ## 1. 三つの操作
 
@@ -37,7 +37,7 @@ CLI は `PYTHONPATH=src python3 -m med_dsl <request.json>`、草案例は `--fix
 
 S1/S2 の混合は、この順序で旧モデルへ新記号を拡張できる場合に限ります。同じ新 N を S1 と S2 の両方で導入する更新は認定しません。`N↔A` と `N⊑B` を二枚の個別認定だけで併用して `A⊑B` を暗黙追加する抜け道を防ぎます。
 
-認定結果は `certified / not_certified`。参照・構文の不正は操作全体の `invalid_input` です。`not_certified` は非保存の証明ではありません。原理上の根拠は [R5 の S1/S2](05-principles.md) です。認定票には `method`, `old_signature`, `introduced`, `base_sha256`, `extension_sha256`, `scope`, `reason_codes` を必須にします。method は `p0-s1-s2-dag-1`、scope は旧データ固定・論理プロファイル・保証対象を明示します。保証は定義理論の保存で、ledger の採用方針・追加記録まで含めた全回答の不変性ではありません。
+認定結果は `certified / not_certified`。参照・構文の不正は操作全体の `invalid_input` です。`not_certified` は非保存の証明ではありません。原理上の根拠は [R5 の S1/S2](05-principles.md) です。認定票には `method`, `old_signature`, `introduced`, `base_sha256`, `extension_sha256`, `scope`, `reason_codes` を必須にします。method は `p0-s1-s2-dag-1`、scope は旧データ固定・論理プロファイル・保証対象を明示します。保証は定義理論の保存で、ledger の採用方針・追加記録まで含めた全回答の不変性ではありません。 すべての `certificate` は `certifier`（`kind`, `files`, `bundle_sha256`）を持ち、認定を出した実装（`src/med_dsl/` の `*.py` と `*.json` の生バイトの束）を特定する。
 
 ## 3. 主張と文脈
 
@@ -54,7 +54,7 @@ assertion/review のローカル ID は ledger の版付き参照と組み合わ
 | polarity | `positive / negative`。欠落から negative を作らない |
 | certainty | `confirmed / suspected`。新しい状態を勝手に confirmed へ変えない |
 | origin | `kind, ref`。kind は `observed / judgment / imported / ai_candidate`。いずれも原情報の参照を持つ |
-| review | `id, assertion_ref, reviewer_ref, reviewer_kind, recorded_at, outcome`。P0 の outcome は `confirmed`、reviewer_kind は `human` |
+| review | `id, assertion_ref, reviewer_ref, reviewer_kind, recorded_at, outcome`。P0 の outcome は `confirmed`、reviewer_kind は `human`。`recorded_at` は確認する assertion の `recorded_at` 以後（等しくてよい）。厳密に前なら入力不正 `review_precedes_assertion`（`error_path` は `review.recorded_at`） |
 | supersedes | 置換する旧 assertion ID の配列。空でなければ `change_reason` も必須 |
 
 確認記録は assertion と別の記録です。AI が生成したことだけを根拠に確認済みへ自動昇格させません。P0 は入力された架空の確認記録を前提として参照整合を検査し、確認者の本人性・権限を実認証する機能は持ちません。実運用では、確認記録の発行主体を保証する接続層が別に必要です。
@@ -142,7 +142,7 @@ UTF-8 の単一 JSON object を受け取り、重複 object key、NaN/Infinity�
 | 一問の返却 binding 数 | 1,000 |
 | `budget.max_steps` | 100,000（0 も指定可） |
 
-steps は規則の ground 適用候補の検査一回、または問い合わせで一つの候補 atom と現在の binding の照合一回ごとに 1 とし、実行順序は参照・atom・規則の辞書順で固定します。上限を超える次の操作の前に止め、完了していない一問の途中 binding を完全回答として返しません。0 は計算開始前の打切りです。時間や CPU に依存する決定不能性の判定ではありません。
+steps は規則の ground 適用候補の検査一回、または問い合わせで一つの候補 atom と現在の binding の照合一回ごとに 1 とし、実行順序は参照・atom・規則の辞書順で固定します。上限を超える次の操作の前に止め、完了していない一問の途中 binding を完全回答として返しません。0 は計算開始前の打切りです（未知能力の文脈でも同じ）。問い合わせの回答の確定は、閉包の後に 1 step 以上の残りがあることを前提とし、残りがなければ、照合すべき候補が 0 件でも未評価（`step_limit`）にします。時間や CPU に依存する決定不能性の判定ではありません。
 
 compare の max_steps は左右で共有し、before の query ID 順を計算してから after を計算します。片側ごとに予算をリセットしません。一般の集合差の計算は ground 規則・atom 照合とは別であり、このカウンターへ追加しません。入力サイズは request 全体、パッケージ数・述語・定義・包含は両側の到達閉包の和を対象とします。パッケージは参照で、述語は同じ不変な参照で重複を除き、定義・包含は別パッケージの項目数を合計します。文脈と台帳の各件数上限は snapshot ごとです。
 
@@ -190,3 +190,8 @@ Python の [json](https://docs.python.org/3.11/library/json.html) の重複キ�
 配置は `src/med_dsl/`、テストは `python3 -m unittest discover -s tests` です。model/validation/definitions/ledger/query/compare/cli と公開 evaluate を実装済みです。全 22 ケースの記録は `python3 scripts/research/evaluate-p0.py --cli` で再現できます。標準ライブラリの unittest を使い、新しいテスト framework、サーバー、アカウント、JavaScript 依存は追加していません。
 
 各段階の開発テストは、事前草案とテスト内の明示的な派生入力で進めます。P01〜P22 の全受入評価の前には全件を JSON 化し、実装コミット、草案入力・期待値の hash、profile、上限を実験票へ固定します。これは作成者草案による工学的検証です。R4 の独立確認・裁定後の正解凍結は別途行い、現在の草案スナップショットを独立確認済みと呼びません。
+
+## 変更履歴
+
+- `p0-draft-1`（e73d4ba で固定・レビュー済みの基準）。
+- `p0-draft-2`：(1) review の `recorded_at` が対象 assertion の `recorded_at` より厳密に前の入力を入力不正とする（レビュー AI-001 の RV-05 の裁定。確認は対象が台帳に記録された後にしか存在できない。訂正の時刻順の検査と整合させる）。(2) すべての `certificate` に `certifier` を付ける（RV-04）。request / result の schema と profile `p0-positive-1` は変えない。draft-1 で作成された入力のうち、先行する確認を含むものは draft-2 では入力不正になる（この研究段階に保存済みの実データはない）。

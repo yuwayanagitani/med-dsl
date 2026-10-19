@@ -143,6 +143,9 @@ class CapabilityAndConflictTests(unittest.TestCase):
     def test_future_unknown_record_does_not_block_historical_view(self):
         data = request("unknown-capability")
         data["ledger"]["assertions"][0]["recorded_at"] = "2026-01-11T10:00:00Z"
+        for review in data["ledger"]["reviews"]:
+            if review["assertion_ref"] == data["ledger"]["assertions"][0]["id"]:
+                review["recorded_at"] = "2026-01-11T10:30:00Z"
         later = deepcopy(data["views"][0]); later.update(id="v2", as_of="2026-01-11T12:00:00Z")
         data["views"].append(later)
         result = evaluate(data)

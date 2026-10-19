@@ -1,4 +1,4 @@
-"""レビュー AI-001 の RV-01：認定・可用性・射影の主要ゲートの負例。
+"""レビュー AI-001 の RV-01（認定・可用性・射影の主要ゲートの負例）と RV-05（p0-draft-2 の境界）。
 
 固定済みの168ファイル・231テスト・P1の20条件とは別の分母。期待結果は各ゲートの意味から
 手で指定した。実行は `python3 -m unittest discover -s tests/review -v`（tests/ 直下には置かない）。
@@ -20,8 +20,8 @@ from med_dsl.validation import canonical_bytes, decode_json
 import hashlib
 
 SERIES = ROOT / "examples/review"
-IDS = [f"RN{i:02}" for i in range(1, 13)]
-KNOWN_IDS = ["KD01"]
+IDS = [f"RN{i:02}" for i in range(1, 14)]
+BOUNDARY_IDS = ["RN14"]
 STATUS_CODES = {"ok": 0, "invalid_input": 2, "unsupported_profile": 3, "resource_limit": 4}
 
 
@@ -52,8 +52,9 @@ class ReviewNegativeSeriesTests(unittest.TestCase):
         self.assertFalse(data["independent_review"])
         self.assertFalse(data["evaluation_frozen"])
         self.assertEqual([e["fixture_id"] for e in data["files"]], IDS)
-        self.assertEqual([e["fixture_id"] for e in data["known_deviations"]], KNOWN_IDS)
-        listed = data["files"] + data["known_deviations"]
+        self.assertEqual([e["fixture_id"] for e in data["accepted_boundaries"]], BOUNDARY_IDS)
+        self.assertEqual(data["contract_version"], "p0-draft-2")
+        listed = data["files"] + data["accepted_boundaries"]
         self.assertEqual({e["path"] for e in listed}, {p.name for p in SERIES.glob("*.json")} - {"manifest.json"})
         for entry in listed:
             raw = (SERIES / entry["path"]).read_bytes()
@@ -79,7 +80,7 @@ class ReviewNegativeSeriesTests(unittest.TestCase):
                 self.assertTrue(len(expected) >= 3)
 
     def test_required_paths_hold_and_input_is_preserved(self):
-        for entry, data in [*fixtures(), *fixtures("known_deviations")]:
+        for entry, data in [*fixtures(), *fixtures("accepted_boundaries")]:
             with self.subTest(fixture=entry["fixture_id"], path=entry["path"]):
                 original = deepcopy(data["request"])
                 request = deepcopy(original)
@@ -92,7 +93,7 @@ class ReviewNegativeSeriesTests(unittest.TestCase):
                     self.assertEqual(canonical_bytes(actual), canonical_bytes(check["equals"]), check["path"])
 
     def test_cli_returns_the_same_result_and_exit_code(self):
-        for entry, data in [*fixtures(), *fixtures("known_deviations")]:
+        for entry, data in [*fixtures(), *fixtures("accepted_boundaries")]:
             with self.subTest(fixture=entry["fixture_id"]):
                 result = evaluate(deepcopy(data["request"]))
                 run = subprocess.run([sys.executable, "-B", "-m", "med_dsl", "--fixture", str(SERIES / entry["path"])],
@@ -111,23 +112,20 @@ class ReviewNegativeSeriesTests(unittest.TestCase):
                 self.assertEqual(result["certificate"]["status"], "not_certified")
                 self.assertNotIn("finite_checks", result)
 
-    def test_known_deviation_records_current_behavior_and_the_ruled_behavior_separately(self):
-        # RV-05：現行版は確認が主張より前でも採用する。裁定は次の契約版で入力不正とする。
-        # この例は現行版の挙動を固定する。契約版を上げたら、期待を after_adoption へ反転させる。
-        (entry, data), = list(fixtures("known_deviations"))
-        self.assertEqual(data["expected"]["kind"], "current_behavior_of_known_deviation")
-        self.assertEqual(data["known_deviation"]["ruling"], "RV-05")
-        after = data["known_deviation"]["after_adoption"]
-        self.assertEqual((after["status"], after["reason_codes"]), ("invalid_input", ["review_precedes_assertion"]))
-        request = data["request"]
-        review = request["ledger"]["reviews"][0]
-        assertion = next(a for a in request["ledger"]["assertions"] if a["id"] == review["assertion_ref"])
-        self.assertLess(review["recorded_at"], assertion["recorded_at"])
-        result = evaluate(deepcopy(request))
-        self.assertEqual((result["status"], result["results"][0]["status"]), ("ok", "supported"))
-        # 等しい時刻の確認は裁定後も許される。厳密に前の場合だけが対象。
-        request["ledger"]["reviews"][0]["recorded_at"] = assertion["recorded_at"]
-        self.assertEqual(evaluate(request)["results"][0]["status"], "supported")
+    def test_review_time_boundary_is_strictly_earlier_only(self):
+        # RV-05（p0-draft-2）：厳密に前は入力不正。等しい時刻は許す。
+        early = next(d for e, d in fixtures() if d["fixture_id"] == "RN13")
+        (entry, same), = list(fixtures("accepted_boundaries"))
+        for data, wanted in ((early, "review_precedes_assertion"), (same, None)):
+            review = data["request"]["ledger"]["reviews"][0]
+            assertion = next(a for a in data["request"]["ledger"]["assertions"] if a["id"] == review["assertion_ref"])
+            result = evaluate(deepcopy(data["request"]))
+            if wanted:
+                self.assertLess(review["recorded_at"], assertion["recorded_at"])
+                self.assertEqual(result["reason_codes"], [wanted])
+            else:
+                self.assertEqual(review["recorded_at"], assertion["recorded_at"])
+                self.assertEqual(result["results"][0]["status"], "supported")
 
     def test_honest_chain_is_still_certified_so_the_negatives_are_not_vacuous(self):
         base = json.loads((ROOT / "examples/p1-c/event-renaming-chain.json").read_text())["request"]

@@ -8,6 +8,7 @@ from .validation import check_json, validate_compare, validate_extension, valida
 from .forecast import FORECAST_PROFILE, run_forecast
 from .events import EVENT_PROFILE, run_events
 from .handover import HANDOVER_PROFILE, run_handover
+from .identity import attach_certifier
 
 __all__ = ["evaluate"]
 
@@ -34,6 +35,7 @@ def evaluate(request):
                 response = run_query(request, packages)
             else:
                 response = run_compare(request, *validate_compare(request))
+        attach_certifier(response)
     except Problem as problem:
         response = {"status": problem.status, "reason_codes": [problem.code],
                     "error_path": problem.path, "incomplete": ["request"]}

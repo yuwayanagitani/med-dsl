@@ -9,7 +9,7 @@
     "operation": "rename_events",
     "consumer": {
       "profile": "p1-handover-draft-1",
-      "profile_spec_sha256": "1289d2ee015723885a2dba39c42d7066d738146eda87339d29d55c5faf075e78",
+      "profile_spec_sha256": "f5b1709c8c538ede98dd58b0eea79a6c4b4a145d6b7248daaa586cffe660a54d",
       "operations": [
         "rename_events"
       ]

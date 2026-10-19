@@ -1,26 +1,15 @@
 {
   "schema_version": "p1-fixture-draft-1",
-  "fixture_id": "KD01",
+  "fixture_id": "RN13",
   "fixture_version": 1,
   "fictional": true,
   "review_state": "ai_reviewer_draft",
-  "finding": "RV-05",
+  "finding": "RV-01",
   "po": [
     "PO04"
   ],
-  "gate": "validation.py:313-319 先行する確認の受理",
+  "gate": "validation.py:313-317 先行する確認は入力不正",
   "derived_from": "p0/ai-human-confirmation",
-  "known_deviation": {
-    "ruling": "RV-05",
-    "applies_to": "p0-positive-1 / p0-draft-1（現行版）",
-    "after_adoption": {
-      "status": "invalid_input",
-      "reason_codes": [
-        "review_precedes_assertion"
-      ],
-      "error_path": "review.recorded_at"
-    }
-  },
   "request": {
     "schema_version": "p0-request-draft-1",
     "operation": "query",
@@ -76,7 +65,7 @@
           "assertion_ref": "h1",
           "reviewer_ref": "fiction:reviewer:H1",
           "reviewer_kind": "human",
-          "recorded_at": "2026-01-09T11:00:00Z",
+          "recorded_at": "2026-01-10T09:00:00Z",
           "outcome": "confirmed"
         }
       ]
@@ -114,42 +103,33 @@
   },
   "expected": {
     "comparison": "required_paths",
-    "kind": "current_behavior_of_known_deviation",
     "checks": [
       {
         "path": [
           "status"
         ],
-        "equals": "ok"
+        "equals": "invalid_input"
       },
       {
         "path": [
-          "results",
-          0,
-          "status"
-        ],
-        "equals": "supported"
-      },
-      {
-        "path": [
-          "views",
-          0,
-          "adopted_assertions"
+          "reason_codes"
         ],
         "equals": [
-          "h1"
+          "review_precedes_assertion"
         ]
       },
       {
         "path": [
-          "results",
-          0,
-          "evidence",
-          0,
-          "review_refs"
+          "error_path"
+        ],
+        "equals": "review.recorded_at"
+      },
+      {
+        "path": [
+          "incomplete"
         ],
         "equals": [
-          "r1"
+          "request"
         ]
       }
     ]

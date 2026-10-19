@@ -3,8 +3,8 @@
   "request_schema": "p1-handover-request-draft-1",
   "result_schema": "p1-handover-result-draft-1",
   "operations": ["check_reference_change", "check_absence_policy", "rename_events", "check_event_chain", "check_projection_chain", "audit_replay"],
-  "p0_contract_sha256": "79c04736f38c46e0a2f9672cd23ffd2eddddfcca8efb1cd292b3330bdb3ead92",
-  "p0_runtime_sha256": "9e1c271cc4eaed2aa391247435e907722823edccc8e54857a22e7716d76681f9",
+  "p0_contract_sha256": "3ae222d252a46ad6a1cf2221a230a5218170ed13f8ccf645c22249e957c3ac72",
+  "p0_runtime_sha256": "2d30169e3d12cb005cc74e152012afffae4e8ae0eec78bd4452f9fc168966e27",
   "event_spec_sha256": "0fd014dd4904b2773839a8577675a59f7386ef2ea81ddb00c0def2ebbdf99cf3",
   "semantics": {
     "reference": "closed relational first-order AST; explicit finite models are witnesses, never general completeness",
@@ -14,7 +14,8 @@
     "event_guarantee": "original history and completed P0 positive support contract; excludes new event identity/count and general first-order inference",
     "projection": "known column projection or set of all values; canonical JSON encoding preserves only its actual input",
     "absence": "diagnostic closed-world policy probe; does not create clinical assertions",
-    "replay": "verified supplied inventory and native handler registry; stored bytes alone are not execution or interpretation"
+    "replay": "verified supplied inventory and native handler registry; stored bytes alone are not execution or interpretation",
+    "certifier": "every certificate carries the native implementation bundle hash (src/med_dsl *.py and *.json raw bytes); reason codes name the unproven side"
   },
   "limits": {
     "request_bytes": 1048576, "json_depth": 64, "max_steps": 100000,

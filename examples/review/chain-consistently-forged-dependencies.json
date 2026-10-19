@@ -15,7 +15,7 @@
     "operation": "check_event_chain",
     "consumer": {
       "profile": "p1-handover-draft-1",
-      "profile_spec_sha256": "1289d2ee015723885a2dba39c42d7066d738146eda87339d29d55c5faf075e78",
+      "profile_spec_sha256": "f5b1709c8c538ede98dd58b0eea79a6c4b4a145d6b7248daaa586cffe660a54d",
       "operations": [
         "check_event_chain"
       ]
@@ -359,7 +359,7 @@
         "kind": "event_reification",
         "source": {
           "profile": "p0-positive-1",
-          "profile_spec_sha256": "79c04736f38c46e0a2f9672cd23ffd2eddddfcca8efb1cd292b3330bdb3ead92",
+          "profile_spec_sha256": "3ae222d252a46ad6a1cf2221a230a5218170ed13f8ccf645c22249e957c3ac72",
           "snapshot_sha256": "ce563741bb021855ae91a4d57b10711ca9cf07fc1ea3b5f0986844c8e3e18dd3",
           "policy_ref": "fiction:confirmed-explicit-revision@1",
           "dependencies": [

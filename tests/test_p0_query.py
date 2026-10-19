@@ -176,6 +176,9 @@ class QueryTests(unittest.TestCase):
         a = self.request["ledger"]["assertions"][1]
         a["required_capabilities"] = ["fiction:future@1"]
         a["recorded_at"] = "2026-01-11T10:00:00Z"
+        for review in self.request["ledger"]["reviews"]:
+            if review["assertion_ref"] == a["id"]:
+                review["recorded_at"] = "2026-01-11T10:30:00Z"
         self.assertEqual(self.result()["status"], "supported")
 
     def test_unrelated_unary_inclusion_keeps_role_query_supported(self):

@@ -258,6 +258,7 @@ def run_forecast(request):
         for row in rows:
             if row["reason_codes"] == ["step_limit"]:
                 row["reason_codes"] = [problem.code]
-                response["incomplete"].append({"view_id": row["view_id"], "query_id": row["query_id"]})
+    # 未評価の行（未知能力・打切り）は、P0 の query／P1-b と同じく incomplete に列挙する。
+    response["incomplete"] = [{"view_id": r["view_id"], "query_id": r["query_id"]} for r in rows if r["status"] == "unassessed"]
     response["steps_used"] = budget.used
     return response

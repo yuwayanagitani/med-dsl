@@ -16,9 +16,9 @@ from .validation import (canonical_bytes, check_json, decode_json, digest, field
                          string, strings, validate_query, values)
 
 HANDOVER_PROFILE = "p1-handover-draft-1"
-HANDOVER_SPEC_SHA256 = "1289d2ee015723885a2dba39c42d7066d738146eda87339d29d55c5faf075e78"
-P0_SPEC_SHA256 = "79c04736f38c46e0a2f9672cd23ffd2eddddfcca8efb1cd292b3330bdb3ead92"
-P0_RUNTIME_SHA256 = "9e1c271cc4eaed2aa391247435e907722823edccc8e54857a22e7716d76681f9"
+HANDOVER_SPEC_SHA256 = "f5b1709c8c538ede98dd58b0eea79a6c4b4a145d6b7248daaa586cffe660a54d"
+P0_SPEC_SHA256 = "3ae222d252a46ad6a1cf2221a230a5218170ed13f8ccf645c22249e957c3ac72"
+P0_RUNTIME_SHA256 = "2d30169e3d12cb005cc74e152012afffae4e8ae0eec78bd4452f9fc168966e27"
 P0_RUNTIME_REF = "med-dsl:p0-native@1"
 P0_FILES = ("model.py", "validation.py", "definitions.py", "ledger.py", "query.py")
 CHAIN_FIELDS = ("source", "relation_ref", "intermediate", "target", "renames", "stages", "views", "queries")
@@ -205,7 +205,8 @@ def run_chain(request, validated, budget):
                 "scope": {"query_ids": sorted(covered), "guarantee": "source_history_and_completed_p0_positive_support",
                           "source_sha256": digest(request["source"]), "target_sha256": digest(request["target"]),
                           "excludes": ["event_identity", "event_count", "general_first_order_inference", "policy_changes", "new_membership_data", "execution_completion"]},
-                "reason_codes": [] if certified else ["query_out_of_scope"] if outside else ["incomparable_execution"]},
+                "reason_codes": [] if certified else ["query_out_of_scope"] if outside
+                else ["answers_mismatch"] if any(c["comparison"]["status"] == "mismatch" for c in checks) else ["incomparable_execution"]},
             "obligations": obligations, "finite_checks": checks, "out_of_scope_query_ids": sorted(outside),
             "source_scope_sha256": source_scope, "translated_scope_sha256": event_scope,
             "reason_codes": [], "incomplete": incomplete}

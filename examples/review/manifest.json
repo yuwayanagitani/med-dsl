@@ -3,15 +3,19 @@
   "status": "ai_reviewer_draft",
   "independent_review": false,
   "evaluation_frozen": false,
-  "base_commit": "e73d4bab30cbb40b9354724c361610d5c22033c1",
-  "baseline_manifest_sha256": "1f01ed6593f555b42e370661c225fac1012bdf89b115bc29fd91513474d35efb",
-  "note": "P1の20条件・80 JSON・417必須パスとは別の分母。固定済みの168ファイルは変更せず、期待結果は意味から手で指定した。",
+  "contract_version": "p0-draft-2",
+  "previous_baseline": {
+    "commit": "e73d4bab30cbb40b9354724c361610d5c22033c1",
+    "manifest_sha256": "1f01ed6593f555b42e370661c225fac1012bdf89b115bc29fd91513474d35efb",
+    "contract_version": "p0-draft-1"
+  },
+  "note": "P1の20条件・80 JSON・417必須パスとは別の分母。p0-draft-2 の固定に対する別系列。期待結果は意味から手で指定した。",
   "files": [
     {
       "fixture_id": "RN01",
       "path": "chain-forged-start-endpoint.json",
       "bytes": 15568,
-      "sha256": "d01c24dc1b686ed7c0907404728533a3538606c35d3dcbb3cbf85d5d7afeca74",
+      "sha256": "4f01b3e3851445b42bf9842d859496e0dd9ba2931e91a0922711dc23682d96c1",
       "finding": "RV-01",
       "po": [
         "PO07"
@@ -22,7 +26,7 @@
       "fixture_id": "RN02",
       "path": "chain-forged-end-endpoint.json",
       "bytes": 15568,
-      "sha256": "de5bd15c0e5f94f39fabc51019e1f1550d8d1b3b2815d0fce2050ad81ae44b86",
+      "sha256": "44f533fb773363f9a03a53180d8a4b3657cefab0bfae037d22dc4ba60c2d3963",
       "finding": "RV-01",
       "po": [
         "PO07"
@@ -33,7 +37,7 @@
       "fixture_id": "RN03",
       "path": "chain-consistently-forged-policy.json",
       "bytes": 15974,
-      "sha256": "aa151dc2c90a880be055ffb4f9340a3a5a4af950bd5a0620204863e8a536b285",
+      "sha256": "c15156e95ccf38b8115fc5414aa12406f04597363e54ad25466f4bb7a48bca71",
       "finding": "RV-01",
       "po": [
         "PO07"
@@ -44,7 +48,7 @@
       "fixture_id": "RN04",
       "path": "chain-consistently-forged-dependencies.json",
       "bytes": 15204,
-      "sha256": "a16171ec615ede49965dbf7ead972ea6d1be6b31c7c741f9b3f4642b27f59cff",
+      "sha256": "685a7bf7501aa4641b143ba56c9541866c42173fdb8027057a305629c46b8265",
       "finding": "RV-01",
       "po": [
         "PO07"
@@ -55,7 +59,7 @@
       "fixture_id": "RN05",
       "path": "chain-consistently-forged-scope.json",
       "bytes": 16042,
-      "sha256": "60c32e4aa4117b97f41cb42969d36a6e996bb22c267742e6b6f385aef8f15c5b",
+      "sha256": "765ff67377e02075cb2dd33913609a20faf8b4a1981f8141438da8be478d3847",
       "finding": "RV-01",
       "po": [
         "PO07"
@@ -66,7 +70,7 @@
       "fixture_id": "RN06",
       "path": "archive-runtime-wrong-hash.json",
       "bytes": 4475,
-      "sha256": "72798d65ee1577eb27a712380b65dd839ba7eb2ecc0751bd92fd949af8dc5405",
+      "sha256": "f0a7f19dc64e8f702fcb49ed7cf000ee0a98d0c5a14e74de0e37f2f128f35963",
       "finding": "RV-01",
       "po": [
         "PO11"
@@ -77,7 +81,7 @@
       "fixture_id": "RN07",
       "path": "archive-dependency-hash-mismatch.json",
       "bytes": 4576,
-      "sha256": "b832978b468916394d40a465afc572cab8b9cf42f69d92171a14405213fe987d",
+      "sha256": "d96a05f8091f0c4131f9107df2ff56b337597968fd248fdb22bd060955bcadbc",
       "finding": "RV-01",
       "po": [
         "PO11"
@@ -88,7 +92,7 @@
       "fixture_id": "RN08",
       "path": "archive-no-runtime-requirement.json",
       "bytes": 3877,
-      "sha256": "de15d36e9156de936196edf2e44174c52b045db91dd4c58ec70fa4fe166c48f7",
+      "sha256": "4a71606322b4737093bdd6e1ffd7fb806c88ea8ed94a9fd613f065584c96d4c6",
       "finding": "RV-01",
       "po": [
         "PO11"
@@ -99,7 +103,7 @@
       "fixture_id": "RN09",
       "path": "archive-two-runtime-requirements.json",
       "bytes": 4235,
-      "sha256": "6fd05ed69401d85dadbd783f5ef62d9853c4e5da9f8315d465fa4d2d313e76a7",
+      "sha256": "50bc56d7b544b2c43aff959a4b7386e314ab362d9d400cc1e8fd5e2114fd3c95",
       "finding": "RV-01",
       "po": [
         "PO11"
@@ -110,7 +114,7 @@
       "fixture_id": "RN10",
       "path": "projection-mixed-scope.json",
       "bytes": 2846,
-      "sha256": "fe39fdae46492780497cdcee91ff10ad07a1758831968806192105305fdf49c6",
+      "sha256": "a379e9a83755eead5c0c23df57f0ec5c0799f29d01efc5d7fe7ef65ea14754cb",
       "finding": "RV-01",
       "po": [
         "PO08"
@@ -121,7 +125,7 @@
       "fixture_id": "RN11",
       "path": "projection-collision-evidence.json",
       "bytes": 3169,
-      "sha256": "37615db583f5d368dc484f6992f9c4f47586d093bb287e61c949942696564a3c",
+      "sha256": "17c5189d6e67ffa4e7fcf1825865f9d3bfa806cf3cff25238bfaa00ac16a0b04",
       "finding": "RV-01",
       "po": [
         "PO08"
@@ -132,25 +136,36 @@
       "fixture_id": "RN12",
       "path": "projection-sidecar-mismatch.json",
       "bytes": 2318,
-      "sha256": "444af6604a3692c3b0933b5258affc6ce3454fde462f2e71c72b7eb813f43bfc",
+      "sha256": "a5fa00fbb79dabee939157c9446b8d25f0d70ba318dc5db4da32c7a8e1de25ff",
       "finding": "RV-01",
       "po": [
         "PO08"
       ],
       "gate": "projection.py:69-70 別添えが元記録と一致しない"
+    },
+    {
+      "fixture_id": "RN13",
+      "path": "review-precedes-assertion.json",
+      "bytes": 3052,
+      "sha256": "5878738ed6693cea646bed139bd0ee94c4acc30efc3dd8ee226fdf0a25f85c78",
+      "finding": "RV-01",
+      "po": [
+        "PO04"
+      ],
+      "gate": "validation.py:313-317 先行する確認は入力不正"
     }
   ],
-  "known_deviations": [
+  "accepted_boundaries": [
     {
-      "fixture_id": "KD01",
-      "path": "known-deviation-review-precedes-assertion.json",
-      "bytes": 3474,
-      "sha256": "d6c5d56ac5da7ccd0bd89e9d0292a13d63992de690924f7b679ca3867a6e1c91",
+      "fixture_id": "RN14",
+      "path": "review-at-the-same-time-is-accepted.json",
+      "bytes": 3179,
+      "sha256": "332589b9a8bb531f0b1a4ee3af9beb465a293efff0ebb8abb967727b3ba9be2a",
       "finding": "RV-05",
       "po": [
         "PO04"
       ],
-      "gate": "validation.py:313-319 先行する確認の受理"
+      "gate": "validation.py 等しい時刻の確認は許す（境界）"
     }
   ]
 }

@@ -120,9 +120,10 @@ class ForecastAdoptionTests(unittest.TestCase):
                     self.assertIsNone(result["results"][0]["answer"])
                 self.assertEqual(h["origin"]["kind"], "ai_candidate")
 
-    def test_future_assertion_is_not_visible_even_with_earlier_review(self):
+    def test_future_assertion_and_its_later_review_are_not_visible(self):
         data = request()
         ledger(data)["assertions"][0]["recorded_at"] = "2026-10-18T12:00:01Z"
+        ledger(data)["reviews"][0]["recorded_at"] = "2026-10-18T12:00:02Z"
         result = evaluate(data)
         self.assertEqual(result["results"][0]["status"], "undetermined")
         self.assertEqual(result["views"][0]["visible_assertions"], [])

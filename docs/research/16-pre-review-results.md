@@ -1,6 +1,6 @@
 # 保存条件の形式化とレビュー前の追加監査
 
-実施日：2026-10-19。状態：**作成者による精査済み・独立レビュー未実施**。[12の証明義務](16-proof-obligations.md)、[独立レビュー計画書](16-review-plan.md)、[記録様式](16-review-record-template.md) を作成しました。レビュアーと必要時の裁定者は未割当です。
+実施日：2026-10-19。状態：**作成者による精査済み・独立レビュー未実施**（`p0-draft-1` の記録。`p0-draft-2` での再実行は [17-internal-run-ai-001.md](17-internal-run-ai-001.md)）。[12の証明義務](16-proof-obligations.md)、[独立レビュー計画書](16-review-plan.md)、[記録様式](16-review-record-template.md) を作成しました。レビュアーと必要時の裁定者は未割当です。
 
 ## 1. 今回進めたこと
 

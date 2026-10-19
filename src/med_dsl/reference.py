@@ -232,13 +232,23 @@ def run_reference(request, budget):
                        "agreement": satisfied["source"] == satisfied["target"]})
     identity = sentences["source"] == sentences["target"]
     budget.tick()
+    if identity:
+        reasons = []
+    elif coverage_witness:
+        reasons = ["old_model_not_liftable"]
+    elif reduct_witness:
+        reasons = ["new_model_reduct_invalid"]
+    else:
+        # 未証明の側だけを理由にする。coverage と reduct の両方が True なら文集合が等しく identity になる。
+        reasons = [code for proven, code in ((coverage is True, "model_coverage_not_established"),
+                                             (reduct is True, "model_reduct_not_established")) if not proven]
     return {"status": "ok", "meaning_mode": "first_order_reference", "results": results, "models": checked,
             "model_coverage": coverage, "model_reduct": reduct, "satisfaction_identity": True,
             "coverage_countermodel_id": coverage_witness, "reduct_countermodel_id": reduct_witness,
             "finite_probes": probes, "named_witness_assertions_added": [],
             "certificate": {"status": "certified" if identity else "not_certified",
                             "evidence_level": "checked_identity_template" if identity else "verified_countermodel" if coverage_witness or reduct_witness else "insufficient_conditions",
-                            "reason_codes": [] if identity else ["old_model_not_liftable"] if coverage_witness else ["new_model_reduct_invalid"] if reduct_witness else ["model_coverage_not_established"],
+                            "reason_codes": reasons,
                             "scope": "same_signature_identity_first_order_sentences" if identity else None},
             "reason_codes": [], "incomplete": [{"query_id": r["query_id"], "side": side}
                 for r in results for side in ("source", "target") if r[side]["status"] == "unassessed"]}

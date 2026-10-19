@@ -213,7 +213,9 @@ class HandoverBoundaryTests(unittest.TestCase):
     def test_finite_match_is_not_a_universal_certificate(self):
         result = evaluate(request())
         self.assertEqual(result["comparison"]["status"], "matched")
-        self.assertEqual(result["certificate"], {"status": "not_certified", "evidence_level": "finite_execution_check", "reason_codes": ["template_obligations_pending"]})
+        certificate = dict(result["certificate"])
+        self.assertEqual(certificate.pop("certifier")["kind"], "native_python_modules")
+        self.assertEqual(certificate, {"status": "not_certified", "evidence_level": "finite_execution_check", "reason_codes": ["template_obligations_pending"]})
 
     def test_split_witness_is_an_explicit_finite_countermodel(self):
         result = evaluate(request("split-witness"))

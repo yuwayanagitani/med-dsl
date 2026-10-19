@@ -316,6 +316,8 @@ class DefinitionQueryTests(unittest.TestCase):
                 request["ledger"]["reviews"] = []
             else:
                 request["ledger"]["assertions"][0]["recorded_at"] = "2027-01-01T00:00:00Z"
+                for review in request["ledger"]["reviews"]:
+                    review["recorded_at"] = "2027-01-01T01:00:00Z"
             self.assertEqual([r["status"] for r in evaluate(request)["results"]], ["undetermined"] * 2)
 
     def test_budget_aborts_incomplete_closure_for_every_query_in_context(self):

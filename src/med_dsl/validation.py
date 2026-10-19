@@ -317,6 +317,9 @@ def validate_query(request):
         if review["reviewer_kind"] != "human" or review["outcome"] != "confirmed":
             raise Problem("invalid_review")
         timestamp(review["recorded_at"], "review.recorded_at")
+        # 確認は対象が台帳に記録された後にしか存在できない（等しい時刻は許す）。
+        if review["recorded_at"] < assertions[review["assertion_ref"]]["recorded_at"]:
+            raise Problem("review_precedes_assertion", "review.recorded_at")
     views = indexed(request["views"], "id", 64, "views")
     for view in views.values():
         fields(view, ("id", "as_of", "policy_ref"))

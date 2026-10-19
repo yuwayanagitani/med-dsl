@@ -51,3 +51,8 @@ computed の answer は `kind=forecast_probability`、約分した probability�
 ## 検証範囲
 
 H01〜H06・H20 の実行例・必須パスは処理系の出力から生成せず、期待する有理数・採用状態・停止理由を指定します。作成者草案との一致で、独立レビュー・全20件・臨床評価の完了とはしません。P0 の37例も別の分母で回帰照合します。実行記録は後続の結果文書に残します。
+
+## p0-draft-2 での追補（レビュー AI-001）
+
+- `incomplete` は、打切りで未完了になった行だけでなく、未知能力で `unassessed` になった行も列挙する（P0 の query・P1-b と同じ。形式は `{view_id, query_id}`）。conflict・undetermined・opposed の行は列挙しない。
+- 「中間整数は4096 bitまで」は、入力上限（各整数63 bit、世界64）の下では約4033 bitを超えないため**到達しない防御**である。到達しないことは `tests/review/test_boundaries.py` が最大の入力で確認する（超過の負例は作れない）。
