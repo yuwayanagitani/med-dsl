@@ -1,0 +1,637 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "C12-outside",
+  "condition": "C12",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-temporal-measurement-request-draft-1",
+    "operation": "evaluate_temporal_measurements",
+    "consumer": {
+      "profile": "p2-temporal-measurement-draft-1",
+      "profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+      "operations": [
+        "evaluate_temporal_measurements"
+      ],
+      "quantity_profile": "p2-quantity-literal-draft-1",
+      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+    },
+    "source": {
+      "schema_version": "p2-temporal-measurement-ledger-draft-1",
+      "ref": "fiction:period:source@1",
+      "slots": [
+        {
+          "id": "S",
+          "subject_ref": "u"
+        }
+      ],
+      "quantities": [
+        {
+          "ref": "Q",
+          "profile": "p2-quantity-literal-draft-1",
+          "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "literal": {
+            "id": "Q",
+            "quantity_kind_ref": "k_a",
+            "unit_ref": "u_ten",
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "uncertainty": {
+              "kind": "not_evaluated"
+            },
+            "origin": {
+              "kind": "literal",
+              "ref": "fiction:quantity:Q"
+            },
+            "required_capabilities": [
+              "p2-quantity-literal-draft-1"
+            ]
+          }
+        },
+        {
+          "ref": "QB",
+          "profile": "p2-quantity-literal-draft-1",
+          "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "literal": {
+            "id": "QB",
+            "quantity_kind_ref": "k_a",
+            "unit_ref": "u_ten",
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 3,
+                "denominator": 1
+              }
+            },
+            "uncertainty": {
+              "kind": "not_evaluated"
+            },
+            "origin": {
+              "kind": "literal",
+              "ref": "fiction:quantity:QB"
+            },
+            "required_capabilities": [
+              "p2-quantity-literal-draft-1"
+            ]
+          }
+        },
+        {
+          "ref": "QC",
+          "profile": "p2-quantity-literal-draft-1",
+          "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "literal": {
+            "id": "QC",
+            "quantity_kind_ref": "k_a",
+            "unit_ref": "u_ten",
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 4,
+                "denominator": 1
+              }
+            },
+            "uncertainty": {
+              "kind": "not_evaluated"
+            },
+            "origin": {
+              "kind": "literal",
+              "ref": "fiction:quantity:QC"
+            },
+            "required_capabilities": [
+              "p2-quantity-literal-draft-1"
+            ]
+          }
+        }
+      ],
+      "records": [
+        {
+          "id": "A",
+          "kind": "period_quantity",
+          "slot_ref": "S",
+          "subject_ref": "u",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "quantity_ref": {
+            "ref": "Q",
+            "sha256": "54ef1265c268caee90b006424e57314a3f45f6b6cc2cf7a9715ea9d81f98287c"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:measurement:origin:A"
+          },
+          "required_capabilities": [
+            "p2-temporal-measurement-draft-1"
+          ],
+          "revises": []
+        },
+        {
+          "id": "B",
+          "kind": "period_quantity",
+          "slot_ref": "S",
+          "subject_ref": "u",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-04T00:00:00Z",
+            "end": "2026-10-06T00:00:00Z"
+          },
+          "quantity_ref": {
+            "ref": "QB",
+            "sha256": "c8813fe044abcf01bc0dcaeba0a73aa6d1ba189a2d8d40e52c7100d890ac0108"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-06T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:measurement:origin:B"
+          },
+          "required_capabilities": [
+            "p2-temporal-measurement-draft-1"
+          ],
+          "revises": []
+        },
+        {
+          "id": "C",
+          "kind": "period_quantity",
+          "slot_ref": "S",
+          "subject_ref": "u",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-05T00:00:00Z",
+            "end": "2026-10-06T00:00:00Z"
+          },
+          "quantity_ref": {
+            "ref": "QC",
+            "sha256": "99363ec2065f8f9f8efa1a6fcea7f575c052d24976c6b82bc362d840769b399c"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-08T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:measurement:origin:C"
+          },
+          "required_capabilities": [
+            "p2-temporal-measurement-draft-1"
+          ],
+          "revises": [
+            "A",
+            "B"
+          ],
+          "change_reason": "架空の測定記録の明示訂正"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "RA",
+          "record_ref": "A",
+          "record_sha256": "8d561c677d5cfad599a33bc4e8d390c7c83e9ce7c25f396bbdeb014c29bf638b",
+          "reviewer_ref": "fiction:human:reviewer",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-10-03T00:00:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "RB",
+          "record_ref": "B",
+          "record_sha256": "3b7a0631f03a16e8fc427a718bd9ca75695d0d5b3a28229311fbce21554e367a",
+          "reviewer_ref": "fiction:human:reviewer",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-10-07T00:00:00Z",
+          "outcome": "confirmed"
+        },
+        {
+          "id": "RC",
+          "record_ref": "C",
+          "record_sha256": "0387e33bdaf36cbca66de4833413e37ab9b0a15ff581ce0b503769c9a5cf5ed6",
+          "reviewer_ref": "fiction:human:reviewer",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-10-09T00:00:00Z",
+          "outcome": "confirmed"
+        }
+      ]
+    },
+    "views": [
+      {
+        "id": "v",
+        "as_of": "2026-10-09T00:00:00Z",
+        "policy_ref": "fiction:reviewed-scoped-measurement@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q",
+        "kind": "convert",
+        "slot_ref": "S",
+        "target_unit_ref": "u_base",
+        "target_at": "2026-10-04T00:00:00Z"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "unassessed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "assessment_complete"
+        ],
+        "equals": true
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reason_codes"
+        ],
+        "equals": [
+          "unresolved_measurement_conflict"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "converted_domain"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "relation_set"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "certain_relation"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "binding_evidence"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "calculation_evidence"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "temporal_measurement_projection"
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "review_verification"
+        ],
+        "equals": "structural_only"
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "retained_source"
+        ],
+        "equals": {
+          "schema_version": "p2-temporal-measurement-ledger-draft-1",
+          "ref": "fiction:period:source@1",
+          "slots": [
+            {
+              "id": "S",
+              "subject_ref": "u"
+            }
+          ],
+          "quantities": [
+            {
+              "ref": "Q",
+              "profile": "p2-quantity-literal-draft-1",
+              "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+              "literal": {
+                "id": "Q",
+                "quantity_kind_ref": "k_a",
+                "unit_ref": "u_ten",
+                "magnitude": {
+                  "kind": "point",
+                  "value": {
+                    "numerator": 2,
+                    "denominator": 1
+                  }
+                },
+                "uncertainty": {
+                  "kind": "not_evaluated"
+                },
+                "origin": {
+                  "kind": "literal",
+                  "ref": "fiction:quantity:Q"
+                },
+                "required_capabilities": [
+                  "p2-quantity-literal-draft-1"
+                ]
+              }
+            },
+            {
+              "ref": "QB",
+              "profile": "p2-quantity-literal-draft-1",
+              "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+              "literal": {
+                "id": "QB",
+                "quantity_kind_ref": "k_a",
+                "unit_ref": "u_ten",
+                "magnitude": {
+                  "kind": "point",
+                  "value": {
+                    "numerator": 3,
+                    "denominator": 1
+                  }
+                },
+                "uncertainty": {
+                  "kind": "not_evaluated"
+                },
+                "origin": {
+                  "kind": "literal",
+                  "ref": "fiction:quantity:QB"
+                },
+                "required_capabilities": [
+                  "p2-quantity-literal-draft-1"
+                ]
+              }
+            },
+            {
+              "ref": "QC",
+              "profile": "p2-quantity-literal-draft-1",
+              "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+              "literal": {
+                "id": "QC",
+                "quantity_kind_ref": "k_a",
+                "unit_ref": "u_ten",
+                "magnitude": {
+                  "kind": "point",
+                  "value": {
+                    "numerator": 4,
+                    "denominator": 1
+                  }
+                },
+                "uncertainty": {
+                  "kind": "not_evaluated"
+                },
+                "origin": {
+                  "kind": "literal",
+                  "ref": "fiction:quantity:QC"
+                },
+                "required_capabilities": [
+                  "p2-quantity-literal-draft-1"
+                ]
+              }
+            }
+          ],
+          "records": [
+            {
+              "id": "A",
+              "kind": "period_quantity",
+              "slot_ref": "S",
+              "subject_ref": "u",
+              "property_ref": "fiction:measurement:property:A@1",
+              "specimen": {
+                "kind": "known",
+                "ref": "fiction:specimen:s",
+                "version": "1"
+              },
+              "method": {
+                "kind": "known",
+                "ref": "fiction:method:m",
+                "version": "1"
+              },
+              "validity": {
+                "kind": "bounded",
+                "start": "2026-10-01T00:00:00Z",
+                "end": "2026-10-10T00:00:00Z"
+              },
+              "quantity_ref": {
+                "ref": "Q",
+                "sha256": "54ef1265c268caee90b006424e57314a3f45f6b6cc2cf7a9715ea9d81f98287c"
+              },
+              "certainty": "confirmed",
+              "recorded_at": "2026-10-02T00:00:00Z",
+              "origin": {
+                "kind": "observed",
+                "ref": "fiction:measurement:origin:A"
+              },
+              "required_capabilities": [
+                "p2-temporal-measurement-draft-1"
+              ],
+              "revises": []
+            },
+            {
+              "id": "B",
+              "kind": "period_quantity",
+              "slot_ref": "S",
+              "subject_ref": "u",
+              "property_ref": "fiction:measurement:property:A@1",
+              "specimen": {
+                "kind": "known",
+                "ref": "fiction:specimen:s",
+                "version": "1"
+              },
+              "method": {
+                "kind": "known",
+                "ref": "fiction:method:m",
+                "version": "1"
+              },
+              "validity": {
+                "kind": "bounded",
+                "start": "2026-10-04T00:00:00Z",
+                "end": "2026-10-06T00:00:00Z"
+              },
+              "quantity_ref": {
+                "ref": "QB",
+                "sha256": "c8813fe044abcf01bc0dcaeba0a73aa6d1ba189a2d8d40e52c7100d890ac0108"
+              },
+              "certainty": "confirmed",
+              "recorded_at": "2026-10-06T00:00:00Z",
+              "origin": {
+                "kind": "observed",
+                "ref": "fiction:measurement:origin:B"
+              },
+              "required_capabilities": [
+                "p2-temporal-measurement-draft-1"
+              ],
+              "revises": []
+            },
+            {
+              "id": "C",
+              "kind": "period_quantity",
+              "slot_ref": "S",
+              "subject_ref": "u",
+              "property_ref": "fiction:measurement:property:A@1",
+              "specimen": {
+                "kind": "known",
+                "ref": "fiction:specimen:s",
+                "version": "1"
+              },
+              "method": {
+                "kind": "known",
+                "ref": "fiction:method:m",
+                "version": "1"
+              },
+              "validity": {
+                "kind": "bounded",
+                "start": "2026-10-05T00:00:00Z",
+                "end": "2026-10-06T00:00:00Z"
+              },
+              "quantity_ref": {
+                "ref": "QC",
+                "sha256": "99363ec2065f8f9f8efa1a6fcea7f575c052d24976c6b82bc362d840769b399c"
+              },
+              "certainty": "confirmed",
+              "recorded_at": "2026-10-08T00:00:00Z",
+              "origin": {
+                "kind": "observed",
+                "ref": "fiction:measurement:origin:C"
+              },
+              "required_capabilities": [
+                "p2-temporal-measurement-draft-1"
+              ],
+              "revises": [
+                "A",
+                "B"
+              ],
+              "change_reason": "架空の測定記録の明示訂正"
+            }
+          ],
+          "reviews": [
+            {
+              "id": "RA",
+              "record_ref": "A",
+              "record_sha256": "8d561c677d5cfad599a33bc4e8d390c7c83e9ce7c25f396bbdeb014c29bf638b",
+              "reviewer_ref": "fiction:human:reviewer",
+              "reviewer_kind": "human",
+              "recorded_at": "2026-10-03T00:00:00Z",
+              "outcome": "confirmed"
+            },
+            {
+              "id": "RB",
+              "record_ref": "B",
+              "record_sha256": "3b7a0631f03a16e8fc427a718bd9ca75695d0d5b3a28229311fbce21554e367a",
+              "reviewer_ref": "fiction:human:reviewer",
+              "reviewer_kind": "human",
+              "recorded_at": "2026-10-07T00:00:00Z",
+              "outcome": "confirmed"
+            },
+            {
+              "id": "RC",
+              "record_ref": "C",
+              "record_sha256": "0387e33bdaf36cbca66de4833413e37ab9b0a15ff581ce0b503769c9a5cf5ed6",
+              "reviewer_ref": "fiction:human:reviewer",
+              "reviewer_kind": "human",
+              "recorded_at": "2026-10-09T00:00:00Z",
+              "outcome": "confirmed"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

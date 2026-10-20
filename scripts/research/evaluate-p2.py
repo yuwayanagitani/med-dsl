@@ -83,6 +83,18 @@ EXPECTED["suites"]["p2-display"] = {"examples": 145, "checks": 2128}
 EXPECTED["budget"] = {"requests": 623, "budget_evaluations": 9544, "violations": 0, "allowed_budget_dependent_refusals": 1}
 
 
+
+# P2-hの分母を保持し、期間つき数量主張の併用後を明示的に固定する。
+P2_H_EXPECTED = copy.deepcopy(EXPECTED)
+EXPECTED["extensions"] = {
+    "registered": 17, "refused": 0, "obligations": 201, "guards": 367, "guard_gaps": 3,
+    "evidence": {"checked_native_template": 142, "finite_check": 51, "hand_derivation": 8, "self_declared": 0, "individual_io": 0},
+    "independent_pairs": 103, "pairs": 120,
+}
+EXPECTED["suites"]["p2-temporal-measurement"] = {"examples": 151, "checks": 1676}
+EXPECTED["budget"] = {"requests": 773, "budget_evaluations": 11895, "violations": 0, "allowed_budget_dependent_refusals": 1}
+
+
 def _p1d():
     spec = importlib.util.spec_from_file_location("evaluate_p1_d", ROOT / "scripts/research/evaluate-p1-d.py")
     module = importlib.util.module_from_spec(spec)

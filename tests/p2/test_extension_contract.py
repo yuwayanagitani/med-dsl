@@ -29,7 +29,7 @@ from med_dsl.model import Problem
 from med_dsl.validation import canonical_bytes, decode_json, digest
 
 IDS = ["p0-positive", "p0-definitions", "p1-finite-forecast", "p1-events", "p1-handover-host", "p1-event-chain",
-       "p1-projection", "p1-reference", "p1-absence", "p1-replay", "p2-concept-split", "p2-split-combination", "p2-temporal-assertion", "p2-quantity-literal", "p2-measurement-binding", "p2-quantity-display"]
+       "p1-projection", "p1-reference", "p1-absence", "p1-replay", "p2-concept-split", "p2-split-combination", "p2-temporal-assertion", "p2-quantity-literal", "p2-measurement-binding", "p2-quantity-display", "p2-temporal-measurement"]
 # 防護例のない義務（理由は宣言の guard_gap）。増やすときはここも更新して、検査の見逃しが黙って増えないようにする。
 # 残る 3 件は、拒否する入力を構成できない（構文の十分条件による保証・手作業の導出・損失のある段がない）
 KNOWN_GAPS = {
@@ -255,6 +255,7 @@ class RefusalTests(unittest.TestCase):
                              "p2-quantity-literal": ("p0-positive",),
                              "p2-measurement-binding": ("p0-positive", "p2-quantity-literal"),
                              "p2-quantity-display": ("p0-positive", "p2-quantity-literal", "p2-measurement-binding"),
+                             "p2-temporal-measurement": ("p0-positive", "p2-quantity-literal"),
                              "p2-split-combination": ("p0-positive", "p2-concept-split")}[ident]
                     self.check_refusal(lambda m, n=need: m["obligations"].__delitem__([o["id"] for o in m["obligations"]].index(n)),
                                        "missing_obligation", chain, ident)
@@ -702,7 +703,7 @@ class CommandLineTests(unittest.TestCase):
         plain = self.run_script("--json")
         self.assertEqual(plain.returncode, 0, plain.stderr)
         report = json.loads(plain.stdout)
-        self.assertEqual((len(report["registered"]), report["refused"]), (16, []))
+        self.assertEqual((len(report["registered"]), report["refused"]), (17, []))
         self.assertEqual(report["guard_gaps"], sum(len(v) for v in KNOWN_GAPS.values()))
         self.assertEqual(self.run_script("--strict").returncode, 1)
 

@@ -99,6 +99,12 @@
       "class": "R4",
       "path": "p2-quantity-display.json",
       "sha256": "ed7f5100888e35d9c312288b46c425349f74044526ffd3c95264433810587665"
+    },
+    {
+      "id": "p2-temporal-measurement",
+      "class": "R5",
+      "path": "p2-temporal-measurement.json",
+      "sha256": "e80bfc3a20e7a2a3e35045574bb7c136820bf52062075f8f06ef966ed277c14d"
     }
   ]
 }

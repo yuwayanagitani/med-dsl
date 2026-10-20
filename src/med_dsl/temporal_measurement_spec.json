@@ -1,0 +1,60 @@
+{
+  "profile": "p2-temporal-measurement-draft-1",
+  "request_schema": "p2-temporal-measurement-request-draft-1",
+  "result_schema": "p2-temporal-measurement-result-draft-1",
+  "source_schema": "p2-temporal-measurement-ledger-draft-1",
+  "operation": "evaluate_temporal_measurements",
+  "answer_kind": "temporal_measurement_projection",
+  "policy_ref": "fiction:reviewed-scoped-measurement@1",
+  "class": "R5",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "quantity_profile": "p2-quantity-literal-draft-1",
+  "quantity_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+  "properties": {
+    "fiction:measurement:property:A@1": "k_a",
+    "fiction:measurement:property:A-other@1": "k_a",
+    "fiction:measurement:property:B@1": "k_b"
+  },
+  "hashes": {
+    "quantity": "SHA256(canonical_bytes(full quantity wrapper))",
+    "record": "SHA256(canonical_bytes({binding_profile:new period profile,binding_spec_sha256:new period spec hash,source_ref,record})); binds validity, revises and quantity content hash; old reviews never translated",
+    "source": "SHA256(canonical_bytes(source with slots/records/reviews sorted by id and quantities by ref)); nested arrays remain unchanged; preserve original source separately"
+  },
+  "selection": "V=visible slot records; E=confirmed with visible content-matching human review; C=E covering target_at in bounded [start,end); D=all direct revises targets of C even when reviser is masked; A=C-D; no whole-record supersession, latest-wins, equal-value merging or transitive removal through pending records",
+  "gates": [
+    "unknown capabilities on every visible record and referenced quantity in queried slot, including pending/masked/out-of-period",
+    "unknown or unspecified validity of any eligible record",
+    "candidate count != 1",
+    "unknown property/specimen/method/kind/unit on the unique selected record",
+    "exact quantity conversion"
+  ],
+  "context": "explicit period quantity domain applies at every instant of stated interval; no instant-to-period, aggregate-to-period, persistence or clinical inference; interval-valued domains impose no temporal correlation; compare unsupported",
+  "variables": "one local operand per selected record version for each conversion; preserve original IDs and mapping; no cross-time variable identity claim",
+  "confirmation": "new profile and native hash bind complete record including validity and revises and quantity content; human flag structural only; no synthesized reviews, clinical claims or certification",
+  "steps": "1 + N_slots + N_quantities + sum_view(N_records + N_reviews + sum_query(2 + N_visible_in_slot + N_eligible_revises_edges_in_slot + 8)); prepay full row; child once at budget 8 only on numerically eligible row; no refunds; target_at does not change charge",
+  "answers": "computed only publishes values, binding_evidence and calculation_evidence; all other rows null these; completed semantic diagnostics allowed; unfinished diagnostics null and assessment_complete=false; incomplete lists only unfinished rows",
+  "limits": {
+    "slots": 64,
+    "quantities": 64,
+    "records": 64,
+    "reviews": 128,
+    "views": 64,
+    "queries": 64,
+    "max_steps": 100000,
+    "json_bytes": 1048576,
+    "json_depth": 64
+  },
+  "scope": "convert only; explicitly asserted finite periods; no G/E import, synthetic instant/review, compare, display, time correlation, unknown validity refinement, retraction, persistent store, FHIR or billing export",
+  "validity": {
+    "bounded": "strict UTC seconds, start<end, start<=target_at<end",
+    "unknown": "eligible blocks with validity_unknown",
+    "unspecified": "eligible blocks with validity_unspecified",
+    "revision": "same slot, strictly later record, bounded reviser contained in each target; unknown validity refinement unsupported"
+  },
+  "assumptions": [
+    "explicit_period_quantity_domain",
+    "scoped_revision"
+  ]
+}

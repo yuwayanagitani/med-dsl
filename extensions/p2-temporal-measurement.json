@@ -1,0 +1,485 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p2-temporal-measurement",
+  "version": "draft-1",
+  "title": "明示された期間つき数量主張の内容指定確認・部分訂正と換算",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R5",
+  "spec": {
+    "path": "src/med_dsl/temporal_measurement_spec.json",
+    "sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705"
+  },
+  "contract_doc": "docs/research/43-p2-i-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/temporal_measurement.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
+      "path": "docs/research/44-p2-i-cases.md",
+      "role": "hand_specified_expectations"
+    },
+    {
+      "path": "src/med_dsl/quantity_spec.json",
+      "role": "quantity_native_spec"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/temporal_measurement_spec.json",
+    "src/med_dsl/quantity.py",
+    "examples/p2-temporal-measurement/*.json",
+    "examples/p2-quantity/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    },
+    {
+      "id": "p2-quantity-literal",
+      "version": "draft-1"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "evaluate_temporal_measurements"
+    ],
+    "schema_versions": [
+      "p2-temporal-measurement-request-draft-1",
+      "p2-temporal-measurement-result-draft-1",
+      "p2-temporal-measurement-ledger-draft-1"
+    ],
+    "profiles": [
+      "p2-temporal-measurement-draft-1"
+    ],
+    "answer_kinds": [
+      "temporal_measurement_projection"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-temporal-measurement-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "旧要求の処理と観測を保持し、新しい期間主張を旧基底へ変換しない",
+    "fragment": "明示された有限期間の数量領域、一対象時点の選択、内容一致の人の確認、包含した部分訂正、convertのみ。瞬間・集計・比較・表示の自動接続なし"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "自己・量の固定版とnative実体を照合",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_static_limits_native_pins_and_schema_fuzz_before_budget"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/n09-profile_spec_sha256.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "能力・期間不足・競合・不正・未対応を分離",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_unknown_period_and_capability_priority_is_not_context_inference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c15-record-outside.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "原情報と両AI出自を保持し臨床認定をしない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_old_routes_instant_display_boundary_and_ai_origin"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c21-reviewed.json",
+          "path": [
+            "clinical_confirmation"
+          ],
+          "equals": "not_evaluated",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "行全体の先払いと子予算8",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_budget_atomic_rows_and_funded_child_once"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/b01-15.json",
+          "path": [
+            "results",
+            0,
+            "binding_evidence"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-1",
+      "statement": "新期間主張と内容指定確認を旧方針から分離",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_content_hashes_bind_period_context_quantity_and_dependency"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c29-old-hash.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "review_record_hash_mismatch"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-2",
+      "statement": "数値や期間の保存認定を返さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_old_routes_instant_display_boundary_and_ai_origin"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c32.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-3",
+      "statement": "新しい臨床主張へ書き戻さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_old_routes_instant_display_boundary_and_ai_origin"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c01.json",
+          "path": [
+            "clinical_assertions_added"
+          ],
+          "equals": [],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-1",
+      "statement": "瞬間・集計を期間へ補完しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_old_routes_instant_display_boundary_and_ai_origin"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c28-instant.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-2",
+      "statement": "両時点と確認の可視性、未来非干渉",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_all_confirmation_delays_and_suspected_states"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c03-before.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "no_adopted_measurement"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-3",
+      "statement": "半開境界・包含・訂正範囲外の保持",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_finite_contained_dags_against_interval_subtraction"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c06-6.json",
+          "path": [
+            "results",
+            0,
+            "binding_evidence",
+            "selected",
+            0,
+            "record_ref"
+          ],
+          "equals": "A",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-4",
+      "statement": "全適格辺を使い非復活・非推移・競合を保つ",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_revision_evidence_contains_masked_revisers_and_visible_reviews"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c08-5.json",
+          "path": [
+            "results",
+            0,
+            "diagnostics",
+            "masked_records"
+          ],
+          "equals": [
+            "A",
+            "B"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-5",
+      "statement": "未知期間と能力・slot範囲の停止順",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_seeded_histories_unknowns_and_slot_scope"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c14-reviewed.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "validity_unknown"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-6",
+      "statement": "期間・文脈・量の内容hashを確認へ拘束",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_content_hashes_bind_period_context_quantity_and_dependency"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/n03-record-validity.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "review_record_hash_mismatch"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-7",
+      "statement": "領域と期間を分離し正確な換算を行う",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_seeded_exact_quantities_and_interval_domains"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c22-third.json",
+          "path": [
+            "results",
+            0,
+            "converted_domain",
+            "lower"
+          ],
+          "equals": {
+            "numerator": 1,
+            "denominator": 3
+          },
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-8",
+      "statement": "原順序・出自・両時点・訂正根拠を保持",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_permutations_raw_retention_and_snapshot_replay"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/c27-past.json",
+          "path": [
+            "results",
+            0,
+            "binding_evidence",
+            "selected",
+            0,
+            "record_ref"
+          ],
+          "equals": "A",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-9",
+      "statement": "子を支払済み予算で一度だけ呼ぶ",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_budget_atomic_rows_and_funded_child_once"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/b03-true-34.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 34,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-10",
+      "statement": "未完成の値・完成根拠・診断はnull",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_child_resource_stop_discards_partial_values_and_receipts"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/b02-26.json",
+          "path": [
+            "results",
+            1,
+            "diagnostics"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-11",
+      "statement": "表示の保存・時間解釈・医学的認定を分離",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_old_routes_instant_display_boundary_and_ai_origin"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/n08-display.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-12",
+      "statement": "全体の構造検証と旧経路の非干渉・決定性",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_selected_semantic_mutants_are_detected"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/n08-supersedes.json",
+          "path": [
+            "status"
+          ],
+          "equals": "invalid_input",
+          "kind": "boundary"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "可視のslot内の保留・訂正済み・期間外と参照数量も検査してunassessed",
+    "unsupported": "unsupported_profile。未知期間の訂正・瞬間/集計・旧方針・別操作を補完しない",
+    "resource": "resource_limit。未完了行の値・両完成根拠・diagnosticsをnull、子の部分結果は破棄",
+    "invalid_input": "全体の型・参照・hash・訂正包含・確認順序を予算前に検査"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [
+      "p2-quantity-literal"
+    ],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p2-temporal-measurement/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_temporal_measurement.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/temporal_measurement_oracle.py"
+  }
+}

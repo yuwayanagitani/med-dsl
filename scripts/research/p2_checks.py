@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from med_dsl.validation import canonical_bytes, decode_json
 
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
-SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity", "p2-measurement", "p2-display")
+SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity", "p2-measurement", "p2-display", "p2-temporal-measurement")
 
 
 # ---- 例の読み込みと期待の照合 ----
@@ -83,6 +83,11 @@ def display_values_on_stopped(row):
                ("artifact", "artifact_sha256", "rounding_cell", "question_results", "projection_evidence", "source_evidence"))
 
 
+def unfinished_conversion_values(row):
+    return row.get("kind") == "convert" and any(row.get(key) is not None for key in
+        ("converted_domain", "binding_evidence", "calculation_evidence", "diagnostics"))
+
+
 def without_input_hash(result):
     return {k: v for k, v in result.items() if k != "input_sha256"}
 
@@ -117,7 +122,7 @@ def budget_violations(name, request, evaluate, limit=300):
             if result["status"] != "resource_limit" or contains_value(result, "certified"):
                 problems.append((name, maximum, "resource_stop_not_honest"))
             for row in result.get("results", []):
-                if row.get("assessment_complete") is False and (any(bool(row.get(key)) for key in VALUE_FIELDS) or display_values_on_stopped(row)):
+                if row.get("assessment_complete") is False and (any(bool(row.get(key)) for key in VALUE_FIELDS) or display_values_on_stopped(row) or unfinished_conversion_values(row)):
                     problems.append((name, maximum, "value_on_stopped_row"))
         return problems, 3
     if full["status"] != "ok":
@@ -165,6 +170,8 @@ def budget_violations(name, request, evaluate, limit=300):
                     if any(row.get(field) for field in VALUE_FIELDS):
                         problems.append((name, budget, "value_on_stopped_row"))
                     elif display_values_on_stopped(row):
+                        problems.append((name, budget, "value_on_stopped_row"))
+                    elif unfinished_conversion_values(row):
                         problems.append((name, budget, "value_on_stopped_row"))
                 elif row != full_row:
                     problems.append((name, budget, "completed_row_changed"))
