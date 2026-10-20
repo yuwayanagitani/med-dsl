@@ -1,0 +1,436 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p2-temporal-assertion",
+  "version": "draft-1",
+  "title": "有効期間と参照時点を分けた部分訂正の方針診断",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R5",
+  "spec": {
+    "path": "src/med_dsl/temporal_spec.json",
+    "sha256": "f6c5b4d93a887592f1d1e15b4f72ab5e8b51e8f2db0783e91ff7eb333baa7ba0"
+  },
+  "contract_doc": "docs/research/31-p2-e-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/temporal.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
+      "path": "docs/research/32-p2-e-cases.md",
+      "role": "hand_specified_expectations"
+    }
+  ],
+  "embedded_in": [
+    "examples/p2-temporal/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "probe_temporal_literal"
+    ],
+    "schema_versions": [
+      "p2-temporal-request-draft-1",
+      "p2-temporal-result-draft-1",
+      "p2-temporal-ledger-draft-1"
+    ],
+    "profiles": [
+      "p2-temporal-assertion-draft-1"
+    ],
+    "answer_kinds": [
+      "temporal_literal_probe"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-temporal-assertion-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "新しい期間つき要求と旧要求の保存は主張しない。旧要求は専用の旧経路に保持する",
+    "fragment": "単一文脈・個体・単項原子。有限半開区間。未知期間・未指定を保留。規則・自動取込・基底への変換なし"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "native仕様と消費側の版・hash・操作を照合する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_native_identity_and_spec_mismatch_fail_closed"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/n07-hash.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "可視の未知能力、期間情報の不足、未対応、不正を区別して止める",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_hand_expectations_and_manifest_integrity"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/t18.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "確認前の候補を採用せず、入力を変更せず、新結果を基底へ変換しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_input_immutability_and_permutation_including_evidence"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/t15.json",
+          "path": [
+            "results",
+            0,
+            "positive_assertion_refs"
+          ],
+          "equals": [
+            "B"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "共通予算に従い、未完了の行に値を返さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_budget_sweep_has_no_partial_values_or_changed_finished_rows"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/b01.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 0,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-1",
+      "statement": "全体訂正との意味差と、区間全体の明示主張・部分訂正の前提を示す",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_hand_expectations_and_manifest_integrity"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/t07.json",
+          "path": [
+            "results",
+            0,
+            "assumptions"
+          ],
+          "equals": [
+            "explicit_interval_uniformity",
+            "scoped_revision"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-2",
+      "statement": "保存・医学的正しさの認定を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_no_base_conversion_and_old_route_does_not_call_temporal"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/t03.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-3",
+      "statement": "臨床の主張を追加しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_no_base_conversion_and_old_route_does_not_call_temporal"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/t03.json",
+          "path": [
+            "clinical_assertions_added"
+          ],
+          "equals": [],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TE-1",
+      "statement": "記録・確認の可視性と対象時点を分ける",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_two_record_finite_histories_agree_with_interval_subtraction"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/t02.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": "neither",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-temporal/t03.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": "positive_only",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TE-2",
+      "statement": "半開境界・期間不明・未指定を補完しない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_hand_expectations_and_manifest_integrity"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/t05.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": "neither",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-temporal/t13.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TE-3",
+      "statement": "包含される区間内だけを訂正する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_two_record_finite_histories_agree_with_interval_subtraction"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/t07.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": "positive_only",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-temporal/t08.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": "negative_only",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TE-4",
+      "statement": "採用から除かれた訂正元の辺も効き、元記録を復活させない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_three_record_chains_and_branches_agree_with_interval_subtraction"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/t09.json",
+          "path": [
+            "results",
+            0,
+            "masked_assertion_refs"
+          ],
+          "equals": [
+            "A",
+            "B"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TE-5",
+      "statement": "明示否定・競合・根拠なしを区別する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_hand_expectations_and_manifest_integrity"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/t11.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": "both",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-temporal/t06.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": "neither",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TE-6",
+      "statement": "未知能力を落とさず、旧経路・原記録・型の境界を保つ",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_no_base_conversion_and_old_route_does_not_call_temporal"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/t20.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-temporal/n10.json",
+          "path": [
+            "converted_to_base"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TE-7",
+      "statement": "決定性と行の原子的な確定、完成行の予算に対する不変を守る",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_budget_sweep_has_no_partial_values_or_changed_finished_rows"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/b04-6.json",
+          "path": [
+            "results",
+            1,
+            "literal_state"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TE-8",
+      "statement": "仕様・方針・依存・実装を識別し、変異と再検証の対象を追跡する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal.py::TemporalTests.test_each_of_the_five_semantic_mutants_is_detected_by_its_guard"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal/n07-hash.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "boundary"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "可視の全主張を検査しunassessed。保留・訂正済み・期間外も落とさない",
+    "unsupported": "unsupported_profile。open_end・期間不明の訂正・未対応のprofile/方針/操作",
+    "resource": "resource_limit。未完了行の値・採用集合・根拠はnull。認定なし",
+    "invalid_input": "構造・参照・区間包含・確認順序は予算に依らず検査"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p2-temporal/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_temporal.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/temporal_oracle.py"
+  }
+}

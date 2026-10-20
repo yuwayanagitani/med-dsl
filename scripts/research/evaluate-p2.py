@@ -38,6 +38,16 @@ EXPECTED = {
     "budget": {"requests": 203, "budget_evaluations": 2936, "violations": 0, "allowed_budget_dependent_refusals": 1},
 }
 
+# P2-d時点の分母を履歴資料との照合用に保持する。P2-e追加後の現在値とは区別する。
+P2_D_EXPECTED = copy.deepcopy(EXPECTED)
+EXPECTED["extensions"] = {
+    "registered": 13, "refused": 0, "obligations": 127, "guards": 258, "guard_gaps": 3,
+    "evidence": {"checked_native_template": 102, "finite_check": 17, "hand_derivation": 8, "self_declared": 0, "individual_io": 0},
+    "independent_pairs": 53, "pairs": 66,
+}
+EXPECTED["suites"]["p2-temporal"] = {"examples": 61, "checks": 462}
+EXPECTED["budget"] = {"requests": 264, "budget_evaluations": 3425, "violations": 0, "allowed_budget_dependent_refusals": 1}
+
 
 def _p1d():
     spec = importlib.util.spec_from_file_location("evaluate_p1_d", ROOT / "scripts/research/evaluate-p1-d.py")

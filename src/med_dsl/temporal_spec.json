@@ -1,0 +1,30 @@
+{
+  "profile": "p2-temporal-assertion-draft-1",
+  "request_schema": "p2-temporal-request-draft-1",
+  "result_schema": "p2-temporal-result-draft-1",
+  "ledger_schema": "p2-temporal-ledger-draft-1",
+  "operation": "probe_temporal_literal",
+  "answer_kind": "temporal_literal_probe",
+  "policy_ref": "fiction:confirmed-scoped-revision@1",
+  "class": "R5",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "scope": "one context, one subject, one unary extensional atom; no rules, imports, automatic P0 migration, clinical writes or base conversion",
+  "time": "strict UTC second timestamps; as_of controls record and human confirmation visibility; target_at selects explicitly asserted half-open bounded validity; no inferred persistence or prediction",
+  "validity": {
+    "bounded": "required start < end; start <= target_at < end",
+    "unknown": "eligible record blocks with validity_unknown",
+    "unspecified": "eligible record blocks with validity_unspecified",
+    "open_end": "recognized but unsupported_profile; never filled as forever"
+  },
+  "revision": "revises targets same atom/context, strictly earlier records and containing bounded intervals; all applicable eligible revision edges mask their targets even when the reviser is masked; target confirmation is not required",
+  "eligibility": "confirmed certainty AND at least one visible human confirmed review; review recorded_at >= assertion recorded_at",
+  "stops": "unknown capability on ANY visible record takes precedence over unknown/unspecified eligible validity; pending, masked and out-of-period records cannot hide unknown capabilities; structural validation is independent of budget",
+  "literal_states": ["positive_only", "negative_only", "both", "neither"],
+  "assumptions": ["explicit_interval_uniformity", "scoped_revision"],
+  "answers": "unassessed rows have null literal state, adoption sets and evidence; finished rows retain visible human review and revision-edge evidence; never certify or add clinical assertions",
+  "steps": "1 request start + sum_view(N_assertions + N_reviews + sum_query(2 + N_visible + N_eligible_revision_edges)); prepay scans, then commit each row; shared budget; sorted IDs; no cache discounts",
+  "limits": {"contexts": 1, "predicates": 1, "assertions": 1000, "reviews": 1000, "views": 64, "queries": 64, "max_steps": 100000},
+  "limitations": "unknown/unspecified validity cannot be refined through a revision in this fragment; no persistent identity store or interval clinical validity guarantee"
+}

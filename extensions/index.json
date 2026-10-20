@@ -75,6 +75,12 @@
       "class": "JOINT",
       "path": "p2-split-combination.json",
       "sha256": "8a6a802cae601c67505f33044814b383d1d441a21c19e0d6af8b7462544b99f3"
+    },
+    {
+      "id": "p2-temporal-assertion",
+      "class": "R5",
+      "path": "p2-temporal-assertion.json",
+      "sha256": "9d929e73c1fddf709049d9265fc73b27bb226c35b9443aa592a655fe9411e7f6"
     }
   ]
 }

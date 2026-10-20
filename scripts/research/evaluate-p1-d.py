@@ -28,7 +28,8 @@ SUITES = {
     "p1-c": ([f"H{i:02}" for i in range(13, 20)], 27, 126),
 }
 CONTRACTS = ["06-p0-contract", "11-p1-contract", "11-p1-cases", "12-p1-a-contract",
-             "13-p1-b-contract", "14-p1-c-contract", "15-p1-d-contract", "23-p2-b-design", "25-p2-c-design"]
+             "13-p1-b-contract", "14-p1-c-contract", "15-p1-d-contract", "23-p2-b-design", "25-p2-c-design",
+             "31-p2-e-design", "32-p2-e-cases"]
 MODES = {**{f"H{i:02}": "typed_forecast" for i in range(1, 7)},
          **{f"H{i:02}": "finite_event_support" for i in range(7, 13)},
          "H13": "first_order_reference", "H14": "first_order_reference",
@@ -39,7 +40,7 @@ MODES = {**{f"H{i:02}": "typed_forecast" for i in range(1, 7)},
 
 # P2-a：拡張の宣言と、宣言が根拠として引く実体（防護例・検査・オラクル・登録の入口）。
 # scripts/research/audit-preservation.py は lock の hash を定数に持つので、載せると循環する（載せない）。
-EXTENSION_PATTERNS = ("extensions/*.json", "examples/p2/*.json", "examples/p2-split/*.json", "examples/p2-splits/*.json", "examples/review/*.json", "tests/review/*.py",
+EXTENSION_PATTERNS = ("extensions/*.json", "examples/p2/*.json", "examples/p2-split/*.json", "examples/p2-splits/*.json", "examples/p2-temporal/*.json", "examples/review/*.json", "tests/review/*.py",
                       "tests/p2/*.py", "tests/audits/*.py", "scripts/research/check-extensions.py",
                       # P2-d：統合評価が使う共通部品、版の比較、版の記録、独立確認の資料（変異表・生成器・前後比較）
                       "scripts/research/p2_checks.py", "scripts/research/compare-versions.py", "scripts/research/p2/*.py",

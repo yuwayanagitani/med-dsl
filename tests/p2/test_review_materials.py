@@ -112,7 +112,8 @@ class MaterialsTests(unittest.TestCase):
         self.assertEqual(table - used, {"J12"} if "J12" not in used else set())     # 等価変異の分類は、特定の PO に属さない
 
     def test_the_pinned_denominators_in_the_design_match_the_evaluator(self):
-        expected = evaluator().EXPECTED
+        # 文書27/28はP2-d当時の資料。P2-e追加後の現在値へ書き換えない。
+        expected = evaluator().P2_D_EXPECTED
         text = read(DESIGN)
         numbers = [expected["extensions"]["obligations"], expected["extensions"]["guards"], expected["extensions"]["guard_gaps"],
                    expected["extensions"]["independent_pairs"], expected["extensions"]["pairs"], expected["budget"]["requests"]]

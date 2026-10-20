@@ -1,6 +1,6 @@
 """extensions/*.json の宣言を書き出す作者用の補助（宣言そのものが正本。検査は extensions.py と tests/p2）。
 使い方: python3 -B scripts/research/p2/gen_extension_manifests.py（環境変数 P2_REPO＝作業ツリー。既定はこのリポジトリ）"""
-import hashlib, json, os
+import hashlib, json, os, sys
 from pathlib import Path
 ROOT = Path(os.environ.get("P2_REPO") or Path(__file__).resolve().parents[3]).resolve()
 OUT = ROOT / "extensions"
@@ -663,6 +663,10 @@ manifests.append(manifest(
      "unsupported": "unsupported_profile", "resource": "resource_limit。未完了の行は候補集合を持たず、未完了の判定は認定票を出さない",
      "invalid_input": "構造・参照・hash・分割の宣言・併用の範囲の不正は予算に依らず invalid_input"},
     comp(["p2-concept-split"]), ev(["examples/p2-splits/*.json"], ["tests/p2/test_split_combination.py", "tests/p2/test_combinations.py"], True, "tests/p2/splits_oracle.py")))
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from gen_temporal_manifest import temporal_manifest
+manifests.append(temporal_manifest(ROOT))
 
 OUT.mkdir(exist_ok=True)
 for m in manifests:

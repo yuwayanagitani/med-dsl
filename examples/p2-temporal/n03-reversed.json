@@ -1,0 +1,121 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N03-reversed",
+  "condition": "N03",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-temporal-request-draft-1",
+    "operation": "probe_temporal_literal",
+    "consumer": {
+      "profile": "p2-temporal-assertion-draft-1",
+      "profile_spec_sha256": "f6c5b4d93a887592f1d1e15b4f72ab5e8b51e8f2db0783e91ff7eb333baa7ba0",
+      "operations": [
+        "probe_temporal_literal"
+      ]
+    },
+    "source": {
+      "package": {
+        "ref": "fiction:temporal:package@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:temporal:P@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [],
+        "inclusions": [],
+        "dependencies": []
+      },
+      "contexts": [
+        {
+          "ref": "fiction:temporal:context@1",
+          "subject_ref": "fiction:temporal:u",
+          "effective_at": "2026-10-01T00:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "schema_version": "p2-temporal-ledger-draft-1",
+        "ref": "fiction:temporal:ledger@1",
+        "assertions": [
+          {
+            "id": "A",
+            "context_ref": "fiction:temporal:context@1",
+            "atom": {
+              "predicate": "fiction:temporal:P@1",
+              "args": [
+                "fiction:temporal:u"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-08T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:temporal:source:A"
+            },
+            "required_capabilities": [
+              "p0-positive-1",
+              "p2-temporal-assertion-draft-1"
+            ],
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-06T00:00:00Z",
+              "end": "2026-10-05T00:00:00Z"
+            },
+            "revises": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "review-A",
+            "assertion_ref": "A",
+            "reviewer_ref": "fiction:temporal:human",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-09T00:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      }
+    },
+    "views": [
+      {
+        "id": "v",
+        "as_of": "2026-10-09T00:00:00Z",
+        "policy_ref": "fiction:confirmed-scoped-revision@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q",
+        "context_ref": "fiction:temporal:context@1",
+        "atom": {
+          "predicate": "fiction:temporal:P@1",
+          "args": [
+            "fiction:temporal:u"
+          ]
+        },
+        "target_at": "2026-10-03T00:00:00Z"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      }
+    ]
+  }
+}

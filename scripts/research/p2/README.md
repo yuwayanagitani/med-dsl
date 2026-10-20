@@ -12,8 +12,11 @@ P2-a〜P2-c の作業で、宣言・例・検査の強さを確かめるため�
 | `gen_extension_manifests.py` | `extensions/*.json` と `index.json` の生成 |
 | `gen_guard_fixtures.py`・`gen_split_fixtures.py`・`gen_splits_fixtures.py` | `examples/p2`・`examples/p2-split`・`examples/p2-splits` の生成。期待結果は設計の意味から手で指定し、処理系の出力から作らない（予算の境界の n だけ測る） |
 | `refactor_digest.py` | 固定済みの全例・改変入力（各 150）・予算の全値掃引の出力（22,052 件）の digest。挙動を変えない変更の前後比較に使う |
+| `gen_temporal_fixtures.py`・`gen_temporal_manifest.py` | P2-eの61例・R5宣言。期待は文書32から手指定。宣言は既存の生成器から呼び出す |
 
 正本は、宣言・例については `extensions/`・`examples/p2*/` の JSON です。生成器はそれを再現できることを `tests/p2/test_p2_tools.py` が確かめます（コピーした木で生成し、バイト単位で比較）。
+
+P2-eの意味変異5件は `tests/p2/test_temporal.py` 内で対象関数を一時的に差し替えて実行します。元のソースファイルは書き換えません。区間差分の参照計算・有限列挙・CLI照合も同じテスト系列にあり、[結果33](../../../docs/research/33-p2-e-results.md) に分母を記録します。
 
 ## 使い方
 

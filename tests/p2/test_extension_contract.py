@@ -29,7 +29,7 @@ from med_dsl.model import Problem
 from med_dsl.validation import canonical_bytes, decode_json, digest
 
 IDS = ["p0-positive", "p0-definitions", "p1-finite-forecast", "p1-events", "p1-handover-host", "p1-event-chain",
-       "p1-projection", "p1-reference", "p1-absence", "p1-replay", "p2-concept-split", "p2-split-combination"]
+       "p1-projection", "p1-reference", "p1-absence", "p1-replay", "p2-concept-split", "p2-split-combination", "p2-temporal-assertion"]
 # 防護例のない義務（理由は宣言の guard_gap）。増やすときはここも更新して、検査の見逃しが黙って増えないようにする。
 # 残る 3 件は、拒否する入力を構成できない（構文の十分条件による保証・手作業の導出・損失のある段がない）
 KNOWN_GAPS = {
@@ -63,7 +63,7 @@ class ShippedDeclarationTests(unittest.TestCase):
     def setUpClass(cls):
         cls.registry = standard_registry(ROOT, evaluate=evaluate)
 
-    def test_all_twelve_declarations_register_in_dependency_order_and_guards_hold(self):
+    def test_all_shipped_declarations_register_in_dependency_order_and_guards_hold(self):
         self.assertEqual(sorted(m["id"] for m in self.registry), sorted(IDS))
         self.assertEqual(next(iter(self.registry))["class"], "BASE")
 
@@ -150,7 +150,7 @@ class ShippedDeclarationTests(unittest.TestCase):
 
     def test_embedded_in_covers_every_artifact_that_embeds_a_pinned_hash(self):
         """pin の hash を実際に埋め込んでいる実体（src／examples）が、その pin を宣言した拡張の embedded_in の和に含まれる。
-        role が dispatcher の pin は hash を埋め込まれない（変更すると再検証が要るだけ）。"""
+        dispatcher と hand_specified_expectations は hash を埋め込まれない再検証依存。後者はlockで固定する。"""
         declared, values = {}, {}
         runtime = {}
         for manifest in self.registry:
@@ -159,6 +159,12 @@ class ShippedDeclarationTests(unittest.TestCase):
                 files.update(str(p.relative_to(ROOT)) for p in ROOT.glob(pattern) if p.is_file())
             for pin in manifest["pins"]:
                 if pin["role"] == "dispatcher":
+                    continue
+                if pin["role"] == "hand_specified_expectations":
+                    lock = decode_json((ROOT / LOCK).read_bytes())
+                    self.assertIn(pin["path"], lock["files"])
+                    self.assertEqual(hashlib.sha256((ROOT / pin["path"]).read_bytes()).hexdigest(),
+                                     lock["files"][pin["path"]]["sha256"])
                     continue
                 digest_ = hashlib.sha256((ROOT / pin["path"]).read_bytes()).hexdigest()
                 if pin["role"] == "p0_runtime":
@@ -245,6 +251,7 @@ class RefusalTests(unittest.TestCase):
                              "p1-absence": ("p0-positive", "p1-events", "p1-handover-host"),
                              "p1-replay": ("p0-positive", "p1-events", "p1-handover-host", "p1-event-chain"),
                              "p2-concept-split": ("p0-positive",),
+                             "p2-temporal-assertion": ("p0-positive",),
                              "p2-split-combination": ("p0-positive", "p2-concept-split")}[ident]
                     self.check_refusal(lambda m, n=need: m["obligations"].__delitem__([o["id"] for o in m["obligations"]].index(n)),
                                        "missing_obligation", chain, ident)
@@ -692,7 +699,7 @@ class CommandLineTests(unittest.TestCase):
         plain = self.run_script("--json")
         self.assertEqual(plain.returncode, 0, plain.stderr)
         report = json.loads(plain.stdout)
-        self.assertEqual((len(report["registered"]), report["refused"]), (12, []))
+        self.assertEqual((len(report["registered"]), report["refused"]), (13, []))
         self.assertEqual(report["guard_gaps"], sum(len(v) for v in KNOWN_GAPS.values()))
         self.assertEqual(self.run_script("--strict").returncode, 1)
 

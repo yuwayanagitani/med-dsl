@@ -32,7 +32,7 @@ M = [
     ("B12", CHECKS, '    for budget in range(0, min(used + 3, limit)):', '    for budget in range(0, min(used, limit)):', [BUDGET], ""),
     ("B13", CHECKS, '            if run(used)["status"] == "ok":', '            if False:', [BUDGET], ""),
     ("B14", CHECKS, '    if full["status"] != "ok":', '    if False:', [BUDGET], ""),
-    ("B15", CHECKS, ', "leaf_candidates", "information_requests")', ', "leaf_candidates")', [BUDGET], ""),
+    ("B15", CHECKS, ', "leaf_candidates", "information_requests",\n', ', "leaf_candidates",\n', [BUDGET], ""),
     ("B16", CHECKS, 'BUDGET_DEPENDENT_REFUSALS = {"p1-a/unnormalized.json": "forecast_spec.json: 重みの加算と正規化の比較は課金される"}', 'BUDGET_DEPENDENT_REFUSALS = {}', [BUDGET], ""),
     # ---- 版の比較：分類と正規化 ----
     ("C01", CHECKS, '    if a == b:\n        return "identical"', '    if True:\n        return "identical"', [VERSIONS], ""),
