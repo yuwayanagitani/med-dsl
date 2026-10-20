@@ -1,0 +1,69 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N08-unbounded",
+  "condition": "N08",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-quantity-request-draft-1",
+    "operation": "evaluate_quantities",
+    "consumer": {
+      "profile": "p2-quantity-literal-draft-1",
+      "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+      "operations": [
+        "evaluate_quantities"
+      ]
+    },
+    "quantities": [
+      {
+        "id": "a",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "unbounded"
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:a"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      }
+    ],
+    "queries": [
+      {
+        "id": "q",
+        "kind": "convert",
+        "quantity_ref": "a",
+        "target_unit_ref": "u_base"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "unsupported_profile"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "unsupported_magnitude"
+        ]
+      }
+    ]
+  }
+}

@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from med_dsl.validation import canonical_bytes, decode_json
 
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
-SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal")
+SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity")
 
 
 # ---- 例の読み込みと期待の照合 ----
@@ -73,7 +73,8 @@ def suite_report(directory, evaluate):
 # 予算が足りなければ入力不正と判定する前に打切りになる。
 BUDGET_DEPENDENT_REFUSALS = {"p1-a/unnormalized.json": "forecast_spec.json: 重みの加算と正規化の比較は課金される"}
 VALUE_FIELDS = ("bindings", "evidence", "answer", "split", "splits", "base", "leaf_candidates", "information_requests",
-                "literal_state", "positive_assertion_refs", "negative_assertion_refs", "masked_assertion_refs", "assertion_evidence", "revision_evidence")
+                "literal_state", "positive_assertion_refs", "negative_assertion_refs", "masked_assertion_refs", "assertion_evidence", "revision_evidence",
+                "converted_domain", "relation_set", "certain_relation", "calculation_evidence")
 
 
 def without_input_hash(result):
@@ -93,7 +94,10 @@ def budget_violations(name, request, evaluate, limit=300):
 
     (1) 完了した結果は、予算を増やしても同じ（単調）。(2) 止まった結果は認定票を持たない。
     (3) 止まった結果の完了した行は、無制限の結果と同じ。(4) 打切りの行は値を持たない。
-    (5) 入力不正・未対応は、予算に依らず同じ結果。"""
+    (5) 入力不正・未対応は、予算に依らず同じ結果。
+
+    掃引は予算欄を有効な値へ置換する。不正な予算欄そのものの拒否は元fixtureの照合で検査し、
+    その拒否を修復後の要求へ引き継ぐことは要求しない。"""
     def run(budget):
         copied = copy.deepcopy(request)
         copied["budget"] = {"max_steps": budget}

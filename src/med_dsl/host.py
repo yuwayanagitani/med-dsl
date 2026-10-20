@@ -10,6 +10,7 @@ from .forecast import FORECAST_PROFILE, run_forecast
 from .handover import HANDOVER_PROFILE, run_handover
 from .identity import attach_certifier
 from .model import PROFILE, Problem
+from .quantity import QUANTITY_PROFILE, run_quantities
 from .query import run_query
 from .split import SPLIT_PROFILE, run_split
 from .splits import SPLITS_PROFILE, run_splits
@@ -41,6 +42,7 @@ SURFACES = {s.request_schema: s for s in (
     Surface("p1-request-draft-1", "p1-result-draft-1", FORECAST_PROFILE, run_forecast),
     Surface("p2-split-request-draft-1", "p2-split-result-draft-1", SPLIT_PROFILE, run_split),
     Surface("p2-splits-request-draft-1", "p2-splits-result-draft-1", SPLITS_PROFILE, run_splits),
+    Surface("p2-quantity-request-draft-1", "p2-quantity-result-draft-1", QUANTITY_PROFILE, run_quantities),
     Surface("p2-temporal-request-draft-1", "p2-temporal-result-draft-1", TEMPORAL_PROFILE, run_temporal),
 )}
 

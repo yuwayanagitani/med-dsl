@@ -1,0 +1,1481 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N11-item-limit",
+  "condition": "N11",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-quantity-request-draft-1",
+    "operation": "evaluate_quantities",
+    "consumer": {
+      "profile": "p2-quantity-literal-draft-1",
+      "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+      "operations": [
+        "evaluate_quantities"
+      ]
+    },
+    "quantities": [
+      {
+        "id": "0",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:0"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "1",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:1"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "2",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:2"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "3",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:3"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "4",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:4"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "5",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:5"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "6",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:6"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "7",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:7"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "8",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:8"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "9",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:9"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "10",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:10"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "11",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:11"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "12",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:12"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "13",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:13"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "14",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:14"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "15",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:15"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "16",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:16"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "17",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:17"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "18",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:18"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "19",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:19"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "20",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:20"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "21",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:21"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "22",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:22"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "23",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:23"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "24",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:24"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "25",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:25"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "26",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:26"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "27",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:27"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "28",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:28"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "29",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:29"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "30",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:30"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "31",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:31"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "32",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:32"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "33",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:33"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "34",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:34"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "35",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:35"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "36",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:36"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "37",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:37"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "38",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:38"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "39",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:39"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "40",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:40"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "41",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:41"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "42",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:42"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "43",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:43"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "44",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:44"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "45",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:45"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "46",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:46"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "47",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:47"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "48",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:48"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "49",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:49"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "50",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:50"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "51",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:51"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "52",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:52"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "53",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:53"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "54",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:54"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "55",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:55"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "56",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:56"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "57",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:57"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "58",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:58"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "59",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:59"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "60",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:60"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "61",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:61"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "62",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:62"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "63",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:63"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "64",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 1,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:64"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      }
+    ],
+    "queries": [
+      {
+        "id": "q",
+        "kind": "convert",
+        "quantity_ref": "a",
+        "target_unit_ref": "u_base"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "item_limit"
+        ]
+      }
+    ]
+  }
+}

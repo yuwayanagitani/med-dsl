@@ -57,7 +57,15 @@ class BudgetContractTests(unittest.TestCase):
                 continue
             zero = deepcopy(other)
             zero["budget"] = {"max_steps": 0}
-            self.assertEqual(checks.without_input_hash(evaluate(zero)), checks.without_input_hash(evaluate(deepcopy(other))), name)
+            original = evaluate(deepcopy(other))
+            if original.get("reason_codes") == ["invalid_step_budget"]:
+                # 不正な予算を0に置換する操作は入力の修復。同じ拒否を要求する対象ではない。
+                self.assertEqual(original["error_path"], "budget.max_steps", name)
+                maximum = other["budget"]["max_steps"]
+                self.assertTrue(type(maximum) is not int or maximum < 0, name)
+                self.assertEqual(evaluate(zero)["reason_codes"], ["step_limit"], name)
+                continue
+            self.assertEqual(checks.without_input_hash(evaluate(zero)), checks.without_input_hash(original), name)
 
     def test_every_extension_that_declares_a_budget_sweep_has_requests_that_actually_stop(self):
         """宣言した予算の掃引が空振りでない：その拡張の要求に、無制限では完了し、予算 0 では止まるものがある。"""

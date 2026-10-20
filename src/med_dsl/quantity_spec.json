@@ -1,0 +1,143 @@
+{
+  "profile": "p2-quantity-literal-draft-1",
+  "request_schema": "p2-quantity-request-draft-1",
+  "result_schema": "p2-quantity-result-draft-1",
+  "operation": "evaluate_quantities",
+  "answer_kind": "quantity_literal_result",
+  "class": "R2",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "quantity_kinds": {
+    "k_a": [
+      1,
+      0
+    ],
+    "k_b": [
+      1,
+      0
+    ],
+    "k_c": [
+      0,
+      1
+    ],
+    "k_ratio_a": [
+      0,
+      0
+    ],
+    "k_ratio_b": [
+      0,
+      0
+    ]
+  },
+  "units": {
+    "u_base": {
+      "dimension": [
+        1,
+        0
+      ],
+      "scale": {
+        "numerator": 1,
+        "denominator": 1
+      }
+    },
+    "u_ten": {
+      "dimension": [
+        1,
+        0
+      ],
+      "scale": {
+        "numerator": 10,
+        "denominator": 1
+      }
+    },
+    "u_third": {
+      "dimension": [
+        1,
+        0
+      ],
+      "scale": {
+        "numerator": 1,
+        "denominator": 3
+      }
+    },
+    "u_half": {
+      "dimension": [
+        1,
+        0
+      ],
+      "scale": {
+        "numerator": 1,
+        "denominator": 2
+      }
+    },
+    "v_base": {
+      "dimension": [
+        0,
+        1
+      ],
+      "scale": {
+        "numerator": 1,
+        "denominator": 1
+      }
+    },
+    "w_base": {
+      "dimension": [
+        0,
+        0
+      ],
+      "scale": {
+        "numerator": 1,
+        "denominator": 1
+      }
+    },
+    "w_hundredth": {
+      "dimension": [
+        0,
+        0
+      ],
+      "scale": {
+        "numerator": 1,
+        "denominator": 100
+      }
+    }
+  },
+  "identity": "IDs are local to (profile, native spec SHA256, local ID); closed fictional registry; no external codes, aliases or input overrides",
+  "rational": "exact int numerator and positive exact int denominator; abs(n).bit_length() and d.bit_length() <= 63; bool/float/string rejected; retain unreduced input, return reduced fractions",
+  "domain": "point or finite nonempty real interval; rational bounds, explicit bool endpoint inclusion; equal endpoints require both closed; converted_domain is {lower,upper,lower_closed,upper_closed} even for points",
+  "unsupported_magnitudes": [
+    "censored",
+    "unbounded",
+    "statistical_interval"
+  ],
+  "uncertainty": "mandatory {kind:not_evaluated}; any other named kind is unsupported_uncertainty, never zero uncertainty or a statistical interval",
+  "query_kinds": [
+    "convert",
+    "compare"
+  ],
+  "gates": "validate whole request first; operand unknown capability > unknown kind/unit > query dimension mismatch > compare kind mismatch > compute; same-reference equality never bypasses gates; unused unknown literals retained without blocking unrelated queries",
+  "relations": "distinct references quantify the Cartesian product of domains; ordered less,equal,greater; same reference denotes one shared value and returns equal; singleton certain_relation only; no probability independence claim",
+  "conversion": "positive exact source scale / target scale; endpoints and inclusion preserved; no affine/logarithmic or inter-kind conversion, rounding, parsing, clinical inference or base-state reads/writes",
+  "output": "retain original quantities and origins; computed rows publish values and calculation_evidence atomically; other rows have null converted_domain, relation_set, certain_relation, calculation_evidence; clinical_confirmation=not_evaluated, uncertainty_propagated=false, converted_to_base=false, clinical_assertions_added=[]; certificate never certified",
+  "steps": "1 request start + N_quantities + 6 per convert + 9 per compare; sorted query IDs; prepay entire row before calculation and publication including stopped semantic rows; shared budget, no alias/point discount",
+  "limits": {
+    "quantities": 64,
+    "queries": 64,
+    "max_steps": 100000,
+    "rational_input_bits": 63,
+    "intermediate_bits": 256,
+    "json_bytes": 1048576,
+    "json_depth": 64
+  },
+  "bounds": "unit scale numerator/denominator <=7 bits; canonical endpoints <=70 bits, converted <=77 bits, comparison cross products <=140 bits, below 256; budget meters fixed bounded work, not machine instructions",
+  "errors": {
+    "rational_integer_limit": "resource_limit, before budget",
+    "invalid_rational": "invalid_input: malformed rational, bool/non-int components or denominator <=0",
+    "invalid_interval": "invalid_input: inverted or empty interval, non-bool inclusion",
+    "input_dimension_mismatch": "invalid_input: known input kind and unit dimensions differ",
+    "unsupported_magnitude": "unsupported_profile: named magnitude variant outside point/interval",
+    "unsupported_uncertainty": "unsupported_profile: named uncertainty other than not_evaluated",
+    "unsupported_query_kind": "unsupported_profile: named query kind outside convert/compare"
+  },
+  "scope": "literal mathematics only; no ledger or clinical adoption, no claims of measurement equality, universal unit support, persistent identity, or clinical equivalence; R2-3 base-state monotonicity is vacuous because no base state is read"
+}

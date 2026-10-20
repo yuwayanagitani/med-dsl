@@ -1,0 +1,241 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "Q12",
+  "condition": "Q12",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-quantity-request-draft-1",
+    "operation": "evaluate_quantities",
+    "consumer": {
+      "profile": "p2-quantity-literal-draft-1",
+      "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+      "operations": [
+        "evaluate_quantities"
+      ]
+    },
+    "quantities": [
+      {
+        "id": "a",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "interval",
+          "lower": {
+            "numerator": 1,
+            "denominator": 1
+          },
+          "upper": {
+            "numerator": 2,
+            "denominator": 1
+          },
+          "lower_closed": true,
+          "upper_closed": false
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:a"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      },
+      {
+        "id": "b",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_base",
+        "magnitude": {
+          "kind": "interval",
+          "lower": {
+            "numerator": 2,
+            "denominator": 1
+          },
+          "upper": {
+            "numerator": 3,
+            "denominator": 1
+          },
+          "lower_closed": true,
+          "upper_closed": true
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:b"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      }
+    ],
+    "queries": [
+      {
+        "id": "q",
+        "kind": "compare",
+        "left_ref": "a",
+        "right_ref": "b"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "computed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "converted_domain"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "relation_set"
+        ],
+        "equals": [
+          "less"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "certain_relation"
+        ],
+        "equals": "less"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reason_codes"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "quantity_literal_result"
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "retained_quantities"
+        ],
+        "equals": [
+          {
+            "id": "a",
+            "quantity_kind_ref": "k_a",
+            "unit_ref": "u_base",
+            "magnitude": {
+              "kind": "interval",
+              "lower": {
+                "numerator": 1,
+                "denominator": 1
+              },
+              "upper": {
+                "numerator": 2,
+                "denominator": 1
+              },
+              "lower_closed": true,
+              "upper_closed": false
+            },
+            "uncertainty": {
+              "kind": "not_evaluated"
+            },
+            "origin": {
+              "kind": "literal",
+              "ref": "fiction:quantity:a"
+            },
+            "required_capabilities": [
+              "p2-quantity-literal-draft-1"
+            ]
+          },
+          {
+            "id": "b",
+            "quantity_kind_ref": "k_a",
+            "unit_ref": "u_base",
+            "magnitude": {
+              "kind": "interval",
+              "lower": {
+                "numerator": 2,
+                "denominator": 1
+              },
+              "upper": {
+                "numerator": 3,
+                "denominator": 1
+              },
+              "lower_closed": true,
+              "upper_closed": true
+            },
+            "uncertainty": {
+              "kind": "not_evaluated"
+            },
+            "origin": {
+              "kind": "literal",
+              "ref": "fiction:quantity:b"
+            },
+            "required_capabilities": [
+              "p2-quantity-literal-draft-1"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

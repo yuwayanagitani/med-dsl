@@ -81,6 +81,12 @@
       "class": "R5",
       "path": "p2-temporal-assertion.json",
       "sha256": "9d929e73c1fddf709049d9265fc73b27bb226c35b9443aa592a655fe9411e7f6"
+    },
+    {
+      "id": "p2-quantity-literal",
+      "class": "R2",
+      "path": "p2-quantity-literal.json",
+      "sha256": "8bc1953ef327ddc2bc331161bb3ba3086eb881ca3d682b2a93ba33e621909c25"
     }
   ]
 }

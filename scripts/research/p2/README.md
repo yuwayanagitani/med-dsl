@@ -13,6 +13,7 @@ P2-a〜P2-c の作業で、宣言・例・検査の強さを確かめるため�
 | `gen_guard_fixtures.py`・`gen_split_fixtures.py`・`gen_splits_fixtures.py` | `examples/p2`・`examples/p2-split`・`examples/p2-splits` の生成。期待結果は設計の意味から手で指定し、処理系の出力から作らない（予算の境界の n だけ測る） |
 | `refactor_digest.py` | 固定済みの全例・改変入力（各 150）・予算の全値掃引の出力（22,052 件）の digest。挙動を変えない変更の前後比較に使う |
 | `gen_temporal_fixtures.py`・`gen_temporal_manifest.py` | P2-eの61例・R5宣言。期待は文書32から手指定。宣言は既存の生成器から呼び出す |
+| `gen_quantity_fixtures.py`・`gen_quantity_manifest.py` | P2-fの79例・R2宣言。期待は文書35から手指定。量固有の変異9件は `tests/p2/test_quantity.py` 内で実行 |
 
 正本は、宣言・例については `extensions/`・`examples/p2*/` の JSON です。生成器はそれを再現できることを `tests/p2/test_p2_tools.py` が確かめます（コピーした木で生成し、バイト単位で比較）。
 

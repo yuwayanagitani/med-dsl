@@ -99,10 +99,10 @@ class GeneratorTests(unittest.TestCase):
                 shutil.copytree(ROOT / part, work / part, ignore=shutil.ignore_patterns("__pycache__"))
             shutil.copytree(ROOT / "docs/research", work / "docs/research")
             env = {"P2_REPO": str(work), "PATH": "/usr/bin:/bin", "PYTHONDONTWRITEBYTECODE": "1"}
-            for generator in ("gen_extension_manifests", "gen_guard_fixtures", "gen_split_fixtures", "gen_splits_fixtures", "gen_temporal_fixtures"):
+            for generator in ("gen_extension_manifests", "gen_guard_fixtures", "gen_split_fixtures", "gen_splits_fixtures", "gen_temporal_fixtures", "gen_quantity_fixtures"):
                 done = subprocess.run([sys.executable, "-I", "-B", str(TOOLS / f"{generator}.py")], capture_output=True, text=True, env=env)
                 self.assertEqual(done.returncode, 0, (generator, done.stderr[-300:]))
-            for part in ("examples/p2", "examples/p2-split", "examples/p2-splits", "examples/p2-temporal", "extensions"):
+            for part in ("examples/p2", "examples/p2-split", "examples/p2-splits", "examples/p2-temporal", "examples/p2-quantity", "extensions"):
                 committed = {p.name: p.read_bytes() for p in (ROOT / part).iterdir() if p.is_file()}
                 generated = {p.name: p.read_bytes() for p in (work / part).iterdir() if p.is_file()}
                 self.assertEqual(sorted(generated), sorted(committed), part)
