@@ -1,0 +1,67 @@
+"""契約の検査（src/med_dsl/extensions.py）の変異表 X01〜X54：(id, ファイル, 旧, 新, 証明義務)。
+各変異は、旧の文字列が対象のファイルにちょうど 1 回現れる置換。mutrun_p2.py が、変異後の木で tests/p2 を実行して検出を調べる。"""
+
+M = []
+
+
+def m(i, f, old, new, po):
+    M.append((i, f, old, new, po))
+
+
+def _x(i, old, new): m(i, "extensions.py", old, new, "PO13")
+_x("X01", '    if manifest.get("schema_version") != MANIFEST_SCHEMA:', '    if False:')
+_x("X02", '        if key not in manifest:\n            found.append(Finding("missing_field", key))', '        if False:\n            found.append(Finding("missing_field", key))')
+_x("X03", '        if key not in TOP_LEVEL:\n            found.append(Finding("unknown_field", key))', '        if False:\n            found.append(Finding("unknown_field", key))')
+_x("X04", '    if manifest["class"] not in CLASSES:', '    if False:')
+_x("X05", '    elif status["independent_review"]:', '    elif False:')
+_x("X07", '        if need not in seen:', '        if False:')
+_x("X08", '        if extra[:2] in ("K-", "R1", "R2", "R3", "R4", "R5", "R6") or extra.startswith(("COMP-", "JOINT-")):', '        if False:')
+_x("X09", '        elif not guards and not _is_text(item.get("guard_gap")):', '        elif False:')
+_x("X10", '        elif guards and "guard_gap" in item:', '        elif False:')
+_x("X11", '        if item["evidence"] not in EVIDENCE:', '        if False:')
+_x("X12", 'return min((o["evidence"] for o in manifest["obligations"]), key=EVIDENCE.index)', 'return max((o["evidence"] for o in manifest["obligations"]), key=EVIDENCE.index)')
+_x("X13", '        if hashlib.sha256(raw).hexdigest() != spec["sha256"]:', '        if False:')
+_x("X14", '            if token not in text:', '            if False:')
+_x("X15", '''                if f"def {name.rsplit('.', 1)[-1]}(" not in body and f"class {name}" not in body:''', '                if False:')
+_x("X16", '            exists(guard["example"], "missing_guard_example", f"obligations[{i}].guards")', '            pass')
+_x("X17", '        if not module.startswith("src/med_dsl/") or not module.endswith(".py"):', '        if False:')
+_x("X18", '            if not ok or canonical_bytes(actual) != canonical_bytes(guard["equals"]):', '            if False:')
+_x("X19", '        if manifest["id"] in self._items:', '        if False:')
+_x("X20", '            if registered is None or registered["version"] != dep["version"]:', '            if registered is None:')
+_x("X21", '            if self._items:\n                found.append(Finding("base_must_be_first", "class"))', '            if False:\n                found.append(Finding("base_must_be_first", "class"))')
+_x("X22", '            found += [Finding("must_depend_on_base", "depends_on")] if not self._reaches_base(manifest) else []', '            found += []')
+_x("X23", '                        if overlaps(token, held):', '                        if token == held:')
+_x("X24", '    return a == b or (a.endswith(":") and b.startswith(a)) or (b.endswith(":") and a.startswith(b))', '    return a == b or (b.endswith(":") and a.startswith(b))')
+_x("X25", '        if composition["shares_names_with"]:', '        if False:')
+_x("X26", '            if name not in declared:', '            if False:')
+_x("X27", '            raise Refused(found)\n        self._items[manifest["id"]]', '            self._items[manifest.get("id", "?")] = deepcopy(manifest)\n            raise Refused(found)\n        self._items[manifest["id"]]')
+_x("X28", '            if isinstance(node, ast.ImportFrom) and node.level == 1:', '            if isinstance(node, ast.ImportFrom) and node.level == 2:')
+_x("X29", '        stack.extend(e for e in graph[name] if e not in skip)', '        pass')
+_x("X30", '            if ext["id"] not in reasons and any(d["id"] in reasons for d in ext["depends_on"]):', '            if False:')
+_x("X31", '    for ident in pinned:\n        for pattern in registry.get(ident)["embedded_in"]:', '    for ident in reasons:\n        for pattern in registry.get(ident)["embedded_in"]:')
+_x("X32", '        if listed & changed:', '        if True:')
+_x("X33", 'return sorted(o["id"] for o in manifest["obligations"] if o.get("guard_gap"))', 'return sorted(o["id"] for o in manifest["obligations"] if True)')
+_x("X34", '        hit = sorted((paths | pin_paths) & changed)', '        hit = sorted(paths & changed)')
+_x("X35", '        paths = {f"src/med_dsl/{s}.py" for s in _closure(graph, stems, registration)}', '        paths = {f"src/med_dsl/{s}.py" for s in stems}')
+_x("X36", '            paths.add(ext["spec"]["path"])', '            pass')
+_x("X37", '        paths.add(ext["contract_doc"])', '        pass')
+_x("X38", '        if pin_paths & changed:\n            pinned[ext["id"]] = sorted(pin_paths & changed)', '        if False:\n            pinned[ext["id"]] = sorted(pin_paths & changed)')
+# ---- extensions.py：登録の辺（自分に依存する拡張のモジュールへの import は辿らない）と推移的な依存 ----
+_x("X39", '        registration = set().union(*(modules[d] for d in later[ext["id"]]))', '        registration = set()')
+_x("X40", '        stack.extend(e for e in graph[name] if e not in skip)', '        stack.extend(graph[name])')
+_x("X41", '                new = {ident} | found[ident]', '                new = {ident}')
+_x("X42", '                if dep in found and not new <= found[dep]:', '                if dep in found and False:')
+_x("X43", '*(modules[d] for d in later[ext["id"]])', '*(modules[d] for d in modules if d != ext["id"])')
+# ---- extensions.py：クラス R6（公理つき読み取りモジュール）----
+_x("X44", '"R4", "R5", "R6") or extra.startswith(("COMP-", "JOINT-"))', '"R4", "R5") or extra.startswith(("COMP-", "JOINT-"))')
+_x("X45", '"R6": COMMON + tuple(f"R2-{i}" for i in range(1, 6)) + tuple(f"R6-{i}" for i in range(1, 7)),', '"R6": COMMON + tuple(f"R6-{i}" for i in range(1, 7)),')
+_x("X46", '+ tuple(f"R6-{i}" for i in range(1, 7)),', '+ tuple(f"R6-{i}" for i in range(1, 6)),')
+# ---- extensions.py：クラス JOINT と拡張の独立の判定（independent_pairs）----
+_x("X47", '            related = b in later[a] or a in later[b]', '            related = False')
+_x("X48", '            reads = b in items[a]["composition"]["reads_extensions"] or a in items[b]["composition"]["reads_extensions"]', '            reads = False')
+_x("X49", '            ordered = items[a]["composition"]["order_dependent"] or items[b]["composition"]["order_dependent"]', '            ordered = False')
+_x("X50", '            reaches = bool(own[b] & reach[a]) or bool(own[a] & reach[b])', '            reaches = False')
+_x("X51", '    own = {i: {Path(m).stem for m in ext["implementation"]["modules"]} - kernel for i, ext in items.items() if ext["class"] != "BASE"}', '    own = {i: {Path(m).stem for m in ext["implementation"]["modules"]} for i, ext in items.items() if ext["class"] != "BASE"}')
+_x("X52", 'extra.startswith(("COMP-", "JOINT-"))', 'extra.startswith(("COMP-",))')
+_x("X53", '+ tuple(f"JOINT-{i}" for i in range(1, 7)),', '+ tuple(f"JOINT-{i}" for i in range(1, 6)),')
+_x("X54", '    reach = {i: _closure(graph, own[i]) for i in own}', '    reach = {i: set(own[i]) for i in own}')

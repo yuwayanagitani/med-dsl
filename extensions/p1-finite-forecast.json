@@ -362,7 +362,7 @@
     "unknown_capability": "可視の主張の要求する能力が未知なら、その文脈の問いは unassessed（incomplete に列挙）",
     "unsupported": "unsupported_profile／unsupported_operation",
     "resource": "resource_limit。完了済みの回答は保持し、未完了は値を持たない",
-    "invalid_input": "重みの総和・参照・hash の不正は invalid_input（補完しない）"
+    "invalid_input": "参照・hash・有理数の形の不正は予算に依らず invalid_input。重みの総和が 1 でないことは、重みの加算を課金しながら確かめるので、予算が足りなければ判定の前に resource_limit（補完しない）"
   },
   "composition": {
     "shares_names_with": [],

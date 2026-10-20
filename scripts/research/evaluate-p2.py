@@ -1,0 +1,193 @@
+#!/usr/bin/env python3
+"""P2 の統合評価：拡張の登録、P2 の例、共通予算の不変条件（X12）、版の比較（X11）を、固定した分母と照合する。
+
+P0・P1 の固定対象（evaluate-p1-d.py の lock）の整合を先に確認し、その上で P2 の分母を数える。
+期待結果の自動更新はしない。分母（EXPECTED）は、宣言と例の台帳から数えた値を、この版で手で固定したもの。
+結果は data/research/p2-d/ 以下にだけ書く（Git 管理外）。
+"""
+
+import argparse
+import copy
+from datetime import datetime, timezone
+import importlib.util
+import json
+from pathlib import Path
+import platform
+import subprocess
+import sys
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(Path(__file__).parent))
+
+import p2_checks
+from med_dsl import evaluate
+from med_dsl.extensions import EVIDENCE, Refused, Registry, guard_gaps, independent_pairs, load_manifests, weakest_evidence
+from med_dsl.model import Problem
+
+VERSION_RECORDS = ("examples/p2-versions/p0-draft-1-to-draft-2.json",)
+
+# 固定した分母。実装の出力から生成した値ではなく、宣言（extensions/*.json）と例の台帳を数えて固定した値。
+# budget_evaluations だけは、掃引の評価回数（要求ごとの steps_used に依る）を測って固定したもの。
+EXPECTED = {
+    "base": {"p1_cases": 20, "p1_files": 80, "p1_checks": 417, "p0_files": 37, "p0_checks": 221},
+    "extensions": {"registered": 12, "refused": 0, "obligations": 112, "guards": 238, "guard_gaps": 3,
+                   "evidence": {"checked_native_template": 95, "finite_check": 9, "hand_derivation": 8, "self_declared": 0, "individual_io": 0},
+                   "independent_pairs": 42, "pairs": 55},
+    "suites": {"p2": {"examples": 35, "checks": 128}, "p2-split": {"examples": 34, "checks": 224}, "p2-splits": {"examples": 38, "checks": 221}},
+    "budget": {"requests": 203, "budget_evaluations": 2936, "violations": 0, "allowed_budget_dependent_refusals": 1},
+}
+
+
+def _p1d():
+    spec = importlib.util.spec_from_file_location("evaluate_p1_d", ROOT / "scripts/research/evaluate-p1-d.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def base_report():
+    """P0・P1 の固定対象の照合（lock の整合と全例の期待）。CLI の起動は省く（evaluate-p1-d --cli が行う）。"""
+    p1d = _p1d()
+    lock, lock_sha, fixtures = p1d.preflight()
+    records = [p1d.evaluate_fixture(name, entry, data, path, False) for name, rows in fixtures.items() for entry, data, path in rows]
+    summary = p1d.summarize(records, lock)
+    p0 = summary["suites"]["p0"]
+    return {"manifest_sha256": lock_sha, "bundle_sha256": lock["bundle_sha256"], "passed": summary["passed"],
+            "p1_cases": summary["p1_cases_passed"], "p1_files": summary["p1_files"], "p1_checks": summary["p1_checks"],
+            "p0_files": p0["passed_files"], "p0_checks": p0["passed_checks"]}
+
+
+def extension_report():
+    registry = Registry(ROOT, evaluate)
+    rows, refused = [], []
+    for manifest in load_manifests(ROOT / "extensions"):
+        try:
+            registry.register(manifest)
+        except Refused as error:
+            refused.append({"id": manifest.get("id") if isinstance(manifest, dict) else None, "codes": sorted(error.codes)})
+            continue
+        rows.append({"id": manifest["id"], "class": manifest["class"], "obligations": len(manifest["obligations"]),
+                     "guards": sum(len(o.get("guards", [])) for o in manifest["obligations"]),
+                     "weakest_evidence": weakest_evidence(manifest), "guard_gaps": guard_gaps(manifest),
+                     "budget_sweep": manifest["evaluation"]["budget_sweep"]})
+    evidence = {name: 0 for name in EVIDENCE}
+    for manifest in registry:
+        for obligation in manifest["obligations"]:
+            evidence[obligation["evidence"]] += 1
+    pairs = independent_pairs(registry)
+    count = len([m for m in registry if m["class"] != "BASE"])
+    return {"registered": len(rows), "refused": refused, "obligations": sum(r["obligations"] for r in rows),
+            "guards": sum(r["guards"] for r in rows), "guard_gaps": sum(len(r["guard_gaps"]) for r in rows),
+            "evidence": evidence, "independent_pairs": len(pairs), "pairs": count * (count - 1) // 2, "rows": rows}
+
+
+def suites_report():
+    return {name: p2_checks.suite_report(name, evaluate) for name in EXPECTED["suites"]}
+
+
+def budget_report(limit):
+    report = p2_checks.budget_report(p2_checks.load_requests(), evaluate, limit)
+    report["allowed_budget_dependent_refusals"] = len(p2_checks.BUDGET_DEPENDENT_REFUSALS)
+    return report
+
+
+def versions_report():
+    """版の記録ごとに比較を行う。git の履歴に旧版のコミットがなければ、行わなかったことを明示する（合格にも不合格にもしない）。"""
+    reports = []
+    for relative in VERSION_RECORDS:
+        record = json.loads((ROOT / relative).read_text(encoding="utf-8"))
+        missing = [side for side in ("from", "to") if not p2_checks.has_commit(record[side]["commit"])]
+        if missing:
+            reports.append({"record": relative, "status": "not_run", "reason": "missing_commits:" + ",".join(missing)})
+            continue
+        report = p2_checks.version_report(record)
+        problems = p2_checks.record_mismatches(record, report)
+        reports.append({"record": relative, "status": "passed" if not problems else "failed", "problems": problems,
+                        "inputs": report["inputs"], "reproduction": report["reproduction"], "pins_changed": report["pins_changed"],
+                        **{side: {"old_inputs_without_repin": {k: len(v) for k, v in report[side]["old_inputs_without_repin"].items()},
+                                  "repinned_identical": len(report[side]["repinned"]["identical"]),
+                                  "failing_old_expectations": len(report[side]["repinned"]["failing_old_expectations"]),
+                                  "carry_added_field": len(report[side]["carry_added_field"])} for side in ("to", "current")}})
+    return reports
+
+
+def mismatches(report):
+    """固定した分母との食い違いを、位置つきで返す。"""
+    found = []
+    for key, want in EXPECTED["base"].items():
+        if report["base"][key] != want:
+            found.append(f"base.{key}")
+    if not report["base"]["passed"]:
+        found.append("base.passed")
+    for key, want in EXPECTED["extensions"].items():
+        got = len(report["extensions"][key]) if key == "refused" else report["extensions"][key]       # 拒否は件数で照合する
+        if got != want:
+            found.append(f"extensions.{key}")
+    for name, want in EXPECTED["suites"].items():
+        got = report["suites"][name]
+        if got["examples"] != want["examples"] or got["checks"] != want["checks"] or got["failures"]:
+            found.append(f"suites.{name}")
+    budget = report["budget"]
+    if budget["requests"] != EXPECTED["budget"]["requests"] or budget["evaluations"] != EXPECTED["budget"]["budget_evaluations"]:
+        found.append("budget.denominator")
+    if budget["violations"]:
+        found.append("budget.violations")
+    if budget["allowed_budget_dependent_refusals"] != EXPECTED["budget"]["allowed_budget_dependent_refusals"]:
+        found.append("budget.allowlist")
+    for entry in report["versions"]:
+        if entry["status"] == "failed":
+            found.append("versions." + entry["record"])
+    return found
+
+
+def run(output, versions=True, limit=300):
+    output = output.resolve()
+    if not output.is_relative_to((ROOT / "data/research/p2-d").resolve()):
+        raise ValueError("output_must_be_under_data_research_p2_d")
+    report = {"schema_version": "p2-integrated-evaluation-draft-1", "evaluation_kind": "author_draft_engineering",
+              "recorded_at": datetime.now(timezone.utc).isoformat(), "python": platform.python_version(),
+              "git_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+              "git_dirty": bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT)),
+              "independent_review": False, "evaluation_frozen": False}
+    report["base"] = base_report()
+    report["extensions"] = extension_report()
+    report["suites"] = suites_report()
+    report["budget"] = budget_report(limit)
+    report["versions"] = versions_report() if versions else []
+    report["expected"] = copy.deepcopy(EXPECTED)
+    report["mismatches"] = mismatches(report)
+    # 評価の間にディスクの固定対象が変わっていないこと
+    if base_report()["manifest_sha256"] != report["base"]["manifest_sha256"]:
+        raise ValueError("snapshot_changed_during_evaluation")
+    report["passed"] = not report["mismatches"]
+    output.mkdir(parents=True, exist_ok=True)
+    temporary = output / "results.json.tmp"
+    temporary.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(output / "results.json")
+    return report
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--output", type=Path, default=ROOT / "data/research/p2-d/latest")
+    parser.add_argument("--no-versions", action="store_true", help="版の比較（git の履歴が要る）を省く")
+    parser.add_argument("--budget-limit", type=int, default=300, help="一つの要求の予算の掃引の上限")
+    args = parser.parse_args()
+    try:
+        report = run(args.output, versions=not args.no_versions, limit=args.budget_limit)
+    except (Problem, OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
+        print(str(error), file=sys.stderr)
+        return 2
+    print(json.dumps({"passed": report["passed"], "mismatches": report["mismatches"],
+                      "base": {k: report["base"][k] for k in ("p1_cases", "p1_files", "p1_checks", "p0_files", "p0_checks")},
+                      "extensions": {k: report["extensions"][k] for k in ("registered", "obligations", "guards", "guard_gaps", "independent_pairs", "pairs")},
+                      "suites": {k: [v["examples"], v["checks"], len(v["failures"])] for k, v in report["suites"].items()},
+                      "budget": {k: (v if k != "violations" else len(v)) for k, v in report["budget"].items()},
+                      "versions": [{k: v for k, v in e.items() if k in ("record", "status", "reason")} for e in report["versions"]],
+                      "manifest_sha256": report["base"]["manifest_sha256"], "bundle_sha256": report["base"]["bundle_sha256"]}, ensure_ascii=False))
+    return 0 if report["passed"] else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

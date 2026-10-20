@@ -26,6 +26,7 @@ python3 scripts/research/check-extensions.py            # 12件を登録し、�
 python3 scripts/research/check-extensions.py --strict   # 防護例のない義務（現在3件、すべて理由つき）があると失敗する
 python3 scripts/research/check-extensions.py --json     # 機械可読
 python3 -m unittest discover -s tests/p2 -v             # P2 系列のテスト。tests/ 直下の discover には含まれない
+python3 scripts/research/evaluate-p2.py                 # 統合評価：登録・P2 の例・共通予算・版の比較を、固定した分母と照合（P2-d）
 ```
 
 ## 読むときの注意

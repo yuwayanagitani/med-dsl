@@ -40,7 +40,10 @@ MODES = {**{f"H{i:02}": "typed_forecast" for i in range(1, 7)},
 # P2-a：拡張の宣言と、宣言が根拠として引く実体（防護例・検査・オラクル・登録の入口）。
 # scripts/research/audit-preservation.py は lock の hash を定数に持つので、載せると循環する（載せない）。
 EXTENSION_PATTERNS = ("extensions/*.json", "examples/p2/*.json", "examples/p2-split/*.json", "examples/p2-splits/*.json", "examples/review/*.json", "tests/review/*.py",
-                      "tests/p2/*.py", "tests/audits/*.py", "scripts/research/check-extensions.py")
+                      "tests/p2/*.py", "tests/audits/*.py", "scripts/research/check-extensions.py",
+                      # P2-d：統合評価が使う共通部品、版の比較、版の記録、独立確認の資料（変異表・生成器・前後比較）
+                      "scripts/research/p2_checks.py", "scripts/research/compare-versions.py", "scripts/research/p2/*.py",
+                      "examples/p2-versions/*.json")
 
 
 def sha(path):

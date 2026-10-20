@@ -1,0 +1,36 @@
+{
+  "schema_version": "p2-version-record-draft-1",
+  "id": "p0-draft-1-to-draft-2",
+  "status": "author_draft",
+  "independent_review": false,
+  "note": "版を上げる手順の実演（X11）。旧版 p0-draft-1 を消さず、旧版は旧版の契約で再現でき、旧入力は新版で黙って再解釈されず、再固定した旧入力は旧版の期待を満たす。変更の宣言（declared_changes）は作成者が書き、measured は比較器の測定値を固定したもの。",
+  "from": {
+    "version": "p0-draft-1",
+    "commit": "e73d4bab30cbb40b9354724c361610d5c22033c1",
+    "evaluation": {"passed": true, "p1": [20, 80, 417], "p0": [37, 221], "bundle_sha256": "561ef3924483c4f36c0ec3edec571979dd2418a880ac84320c70bfe7f36ef864", "manifest_sha256": "1f01ed6593f555b42e370661c225fac1012bdf89b115bc29fd91513474d35efb"}
+  },
+  "to": {
+    "version": "p0-draft-2",
+    "commit": "2b501c1c825eafe6a8b48f419dd4a6fb6baae6de",
+    "evaluation": {"passed": true, "p1": [20, 80, 417], "p0": [37, 221], "bundle_sha256": "faf0269dfc66ef1da77461a22f859e4a3f37fdba7c2a589d09dfbb230465fca1", "manifest_sha256": "de30791900150135fb4b413bc8a535fa5a13a15da2fd4540df1f6a8168e86831"}
+  },
+  "suites": ["p0", "p1-a", "p1-b", "p1-c"],
+  "pins_changed": ["HANDOVER_SPEC_SHA256", "P0_RUNTIME_SHA256", "P0_SPEC_SHA256"],
+  "pin_refusal_codes": ["profile_spec_mismatch"],
+  "declared_changes": [
+    {"id": "V-1", "kind": "added_field", "path": "certifier", "description": "すべての certificate に certifier（実装の生バイトの束）を付ける（RV-04）", "inputs": []},
+    {"id": "V-2", "kind": "changed_value", "path": "/incomplete", "description": "forecast の incomplete が、未知の能力の行も列挙する（RV-03）",
+     "inputs": ["p1-a/unknown-capability-pending.json", "p1-a/unknown-capability.json"]},
+    {"id": "V-3", "kind": "not_observed", "path": "review.recorded_at", "description": "確認の recorded_at が対象の主張より厳密に前なら入力不正 review_precedes_assertion（RV-05）。旧版の入力に該当する例はない",
+     "inputs": [], "evidence": "examples/review/review-precedes-assertion.json"},
+    {"id": "V-4", "kind": "not_observed", "path": "certificate.reason_codes", "description": "参考意味の不認定の理由コードが、未証明の側を指す（RV-02）。旧版の入力で理由コードが変わる例はない",
+     "inputs": [], "evidence": "tests/review/test_draft2_changes.py"},
+    {"id": "V-5", "kind": "not_observed", "path": "certificate.reason_codes", "description": "鎖の不認定の理由に answers_mismatch を加える（RV-02）。旧版の入力に該当する例はない",
+     "inputs": [], "evidence": "tests/review/test_draft2_changes.py"}
+  ],
+  "measured": {
+    "old_inputs_without_repin": {"identical": 88, "pin_refused": 27, "changed": 2},
+    "repinned": {"identical": 115, "failing_old_expectations": 0},
+    "carry_added_field": 37
+  }
+}
