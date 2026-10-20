@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from med_dsl.validation import canonical_bytes, decode_json
 
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
-SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity", "p2-measurement")
+SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity", "p2-measurement", "p2-display")
 
 
 # ---- 例の読み込みと期待の照合 ----
@@ -74,7 +74,13 @@ def suite_report(directory, evaluate):
 BUDGET_DEPENDENT_REFUSALS = {"p1-a/unnormalized.json": "forecast_spec.json: 重みの加算と正規化の比較は課金される"}
 VALUE_FIELDS = ("bindings", "evidence", "answer", "split", "splits", "base", "leaf_candidates", "information_requests",
                 "literal_state", "positive_assertion_refs", "negative_assertion_refs", "masked_assertion_refs", "assertion_evidence", "revision_evidence",
-                "converted_domain", "relation_set", "certain_relation", "calculation_evidence", "binding_evidence", "diagnostics")
+                "converted_domain", "relation_set", "certain_relation", "calculation_evidence", "binding_evidence", "diagnostics", "artifact", "artifact_sha256", "rounding_cell", "question_results", "projection_evidence", "source_evidence")
+
+
+def display_values_on_stopped(row):
+    # 表示の未完了値は空配列・空object・falseでもnullの代わりにしない。
+    return any(key in row and row[key] is not None for key in
+               ("artifact", "artifact_sha256", "rounding_cell", "question_results", "projection_evidence", "source_evidence"))
 
 
 def without_input_hash(result):
@@ -111,7 +117,7 @@ def budget_violations(name, request, evaluate, limit=300):
             if result["status"] != "resource_limit" or contains_value(result, "certified"):
                 problems.append((name, maximum, "resource_stop_not_honest"))
             for row in result.get("results", []):
-                if row.get("assessment_complete") is False and any(bool(row.get(key)) for key in VALUE_FIELDS):
+                if row.get("assessment_complete") is False and (any(bool(row.get(key)) for key in VALUE_FIELDS) or display_values_on_stopped(row)):
                     problems.append((name, maximum, "value_on_stopped_row"))
         return problems, 3
     if full["status"] != "ok":
@@ -157,6 +163,8 @@ def budget_violations(name, request, evaluate, limit=300):
                     if row.get("assessment_complete") is True:
                         problems.append((name, budget, "completion_on_stopped_row"))
                     if any(row.get(field) for field in VALUE_FIELDS):
+                        problems.append((name, budget, "value_on_stopped_row"))
+                    elif display_values_on_stopped(row):
                         problems.append((name, budget, "value_on_stopped_row"))
                 elif row != full_row:
                     problems.append((name, budget, "completed_row_changed"))

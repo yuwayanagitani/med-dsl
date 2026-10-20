@@ -1,0 +1,294 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "B01-16",
+  "condition": "B01",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-display-request-draft-1",
+    "operation": "project_measurement_displays",
+    "consumer": {
+      "profile": "p2-quantity-display-draft-1",
+      "profile_spec_sha256": "15f57a8b8f5729862a8afe66d86e1dab2406e036a2b3854cbc25e783ee4f3e44",
+      "operations": [
+        "project_measurement_displays"
+      ],
+      "measurement_profile": "p2-measurement-binding-draft-1",
+      "measurement_profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+      "quantity_profile": "p2-quantity-literal-draft-1",
+      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+    },
+    "measurement_plan": {
+      "schema_version": "p2-measurement-request-draft-1",
+      "operation": "evaluate_measurements",
+      "consumer": {
+        "profile": "p2-measurement-binding-draft-1",
+        "profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+        "operations": [
+          "evaluate_measurements"
+        ],
+        "quantity_profile": "p2-quantity-literal-draft-1",
+        "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      },
+      "source": {
+        "schema_version": "p2-measurement-ledger-draft-1",
+        "ref": "fiction:measurement:source@1",
+        "slots": [
+          {
+            "id": "S",
+            "subject_ref": "u"
+          }
+        ],
+        "quantities": [
+          {
+            "ref": "Q",
+            "profile": "p2-quantity-literal-draft-1",
+            "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+            "literal": {
+              "id": "Q",
+              "quantity_kind_ref": "k_a",
+              "unit_ref": "u_base",
+              "magnitude": {
+                "kind": "point",
+                "value": {
+                  "numerator": 121,
+                  "denominator": 100
+                }
+              },
+              "uncertainty": {
+                "kind": "not_evaluated"
+              },
+              "origin": {
+                "kind": "literal",
+                "ref": "fiction:quantity:Q"
+              },
+              "required_capabilities": [
+                "p2-quantity-literal-draft-1"
+              ]
+            }
+          }
+        ],
+        "records": [
+          {
+            "id": "A",
+            "kind": "measurement",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "effective_at": {
+              "kind": "instant",
+              "at": "2026-10-20T01:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-20T02:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:A"
+            },
+            "required_capabilities": [
+              "p2-measurement-binding-draft-1"
+            ],
+            "supersedes": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "RA",
+            "record_ref": "A",
+            "record_sha256": "4a69d9b7f0873b07004b77f193eb178246c7ed2559d23f0eaef54a4505c92907",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-20T03:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      },
+      "views": [
+        {
+          "id": "v",
+          "as_of": "2026-10-20T05:00:00Z",
+          "policy_ref": "fiction:reviewed-measurement-record@1"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base"
+        }
+      ]
+    },
+    "displays": [
+      {
+        "id": "d",
+        "view_ref": "v",
+        "query_ref": "q",
+        "decimal_places": 1,
+        "rounding_policy": "fiction:decimal-half-even@1",
+        "required_capabilities": [
+          "p2-quantity-display-draft-1"
+        ],
+        "questions": [
+          {
+            "id": "q",
+            "kind": "display_text"
+          }
+        ]
+      }
+    ],
+    "retention": "none",
+    "budget": {
+      "max_steps": 16
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "steps_used"
+        ],
+        "equals": 16
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "unassessed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "assessment_complete"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reason_codes"
+        ],
+        "equals": [
+          "step_limit"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "artifact"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "artifact_sha256"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "rounding_cell"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "projection_evidence"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "source_evidence"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "question_results"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "measurement_display_projection"
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "source_bundle"
+        ],
+        "equals": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,671 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p2-quantity-display",
+  "version": "draft-1",
+  "title": "厳密な測定値と型付き表示の射影、問いの因子化と別添えの分離",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R4",
+  "spec": {
+    "path": "src/med_dsl/display_spec.json",
+    "sha256": "15f57a8b8f5729862a8afe66d86e1dab2406e036a2b3854cbc25e783ee4f3e44"
+  },
+  "contract_doc": "docs/research/40-p2-h-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/display.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
+      "path": "docs/research/41-p2-h-cases.md",
+      "role": "hand_specified_expectations"
+    },
+    {
+      "path": "src/med_dsl/measurement_spec.json",
+      "role": "measurement_native_spec"
+    },
+    {
+      "path": "src/med_dsl/quantity_spec.json",
+      "role": "quantity_native_spec"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/display_spec.json",
+    "src/med_dsl/measurement_spec.json",
+    "src/med_dsl/measurement.py",
+    "src/med_dsl/quantity.py",
+    "examples/p2-display/*.json",
+    "examples/p2-measurement/*.json",
+    "examples/p2-quantity/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    },
+    {
+      "id": "p2-quantity-literal",
+      "version": "draft-1"
+    },
+    {
+      "id": "p2-measurement-binding",
+      "version": "draft-1"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "project_measurement_displays"
+    ],
+    "schema_versions": [
+      "p2-display-request-draft-1",
+      "p2-display-result-draft-1",
+      "p2-display-artifact-draft-1"
+    ],
+    "profiles": [
+      "p2-quantity-display-draft-1"
+    ],
+    "answer_kinds": [
+      "measurement_display_projection"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-quantity-display-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "旧経路を変更せず、P2-gの一点convert結果を読む",
+    "fragment": "型付きartifactだけに因子化するdisplay_textとセル上で一定のthreshold。exact_valueは初回テンプレート外。出所・原値・別添えをartifactの保証へ含めない"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "自己・測定・量の仕様とpolicyを照合",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_native_pins_static_limits_and_refusals_precede_budget"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/n07-measurement_profile_spec_sha256.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "measurement_profile_mismatch"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "不正・未対応・未知・非単一点と予算を分離",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_hand_expectations_api_cli_manifest_and_obligations"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p15.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_display_domain"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/n08-compare.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "AI出自・臨床未評価と原情報の境界を保持",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_ai_origin_confirmation_and_no_clinical_writes"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p19-reviewed.json",
+          "path": [
+            "clinical_assertions_added"
+          ],
+          "equals": [],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/p36.json",
+          "path": [
+            "uncertainty_propagated"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "子と表示と最終確定を共通予算から先払い",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_budget_prepaid_child_rows_completion_and_exact_values"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/b01-16.json",
+          "path": [
+            "results",
+            0,
+            "artifact"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/b02-27.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R4-1",
+      "statement": "セルで一定の問いだけを表示の保存範囲へ入れる",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_finite_threshold_questions_against_cell_witnesses"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p26-none.json",
+          "path": [
+            "results",
+            0,
+            "question_results",
+            0,
+            "status"
+          ],
+          "equals": "out_of_scope",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R4-2",
+      "statement": "同一artifactでも原回答が異なる受理可能な反例を保持",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_collision_encoding_typed_artifacts_and_scope"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p28.json",
+          "path": [
+            "results",
+            0,
+            "question_results",
+            0,
+            "source_answer",
+            "answer"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/p28.json",
+          "path": [
+            "results",
+            1,
+            "question_results",
+            0,
+            "source_answer",
+            "answer"
+          ],
+          "equals": true,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R4-3",
+      "statement": "符号化・別添えで射影の全体保存を認定しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_collision_encoding_typed_artifacts_and_scope"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p29.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/p30.json",
+          "path": [
+            "results",
+            0,
+            "projection_evidence",
+            "artifact_encoding",
+            "roundtrip_matches"
+          ],
+          "equals": true,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-1",
+      "statement": "表示と双方の依存仕様・量の型・局所単位を固定",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_hand_expectations_api_cli_manifest_and_obligations"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p33-unit.json",
+          "path": [
+            "results",
+            1,
+            "artifact",
+            "unit_ref"
+          ],
+          "equals": "u_ten",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-2",
+      "statement": "正確な直接丸め、負数、半整数、大数",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_finite_rounding_and_formatting_against_nearest_distance"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p03.json",
+          "path": [
+            "results",
+            0,
+            "artifact",
+            "text"
+          ],
+          "equals": "1.2",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/p11.json",
+          "path": [
+            "results",
+            0,
+            "artifact",
+            "text"
+          ],
+          "equals": "9007199254740993",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-3",
+      "statement": "末尾零・負の零・表示の変更を原値と分離",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_seeded_fractions_and_units_keep_source_answers_separate"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p07-negative.json",
+          "path": [
+            "results",
+            0,
+            "artifact",
+            "text"
+          ],
+          "equals": "0.0",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/p09.json",
+          "path": [
+            "results",
+            0,
+            "artifact",
+            "text"
+          ],
+          "equals": "0.50",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-4",
+      "statement": "セルの端点と開閉を厳密に扱う",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_finite_threshold_questions_against_cell_witnesses"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p23-lt-1.json",
+          "path": [
+            "results",
+            0,
+            "question_results",
+            0,
+            "projection_answer"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/p24-lt-1.json",
+          "path": [
+            "results",
+            0,
+            "question_results",
+            0,
+            "projection_answer"
+          ],
+          "equals": true,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-5",
+      "statement": "原値での偶然の正答と因子化を分ける",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_collision_encoding_typed_artifacts_and_scope"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p26-none.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/p22.json",
+          "path": [
+            "results",
+            0,
+            "question_results",
+            2,
+            "projection_answer"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-6",
+      "statement": "同じ表示・原回答相違・符号化・追加情報を分離",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_collision_encoding_typed_artifacts_and_scope"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p25-source_bundle.json",
+          "path": [
+            "results",
+            0,
+            "question_results",
+            0,
+            "status"
+          ],
+          "equals": "out_of_scope",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/p27.json",
+          "path": [
+            "additional_source_used"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-7",
+      "statement": "全計画料金と子の実費を照合し一度だけ予約する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_cost_planning_with_histories_matches_paid_child_execution"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/b03-none-38.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 38,
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/n11-large-plan.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-8",
+      "statement": "未完了の値・根拠を返さず、最終料金まで認定しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_child_and_row_resource_stops_do_not_salvage_partial_values"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/b02-26.json",
+          "path": [
+            "results",
+            0,
+            "question_results"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/b02-27.json",
+          "path": [
+            "incomplete"
+          ],
+          "equals": [
+            {
+              "stage": "completion",
+              "reason_codes": [
+                "step_limit"
+              ]
+            }
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-9",
+      "statement": "全計画の参照とP2-gの確認・未知・競合を尊重",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_native_pins_static_limits_and_refusals_precede_budget"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/n03-future-quantity.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "quantity_reference_hash_mismatch"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/p20.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unresolved_measurement_conflict"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-10",
+      "statement": "AI出自を消さず臨床主張へ書き戻さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_ai_origin_confirmation_and_no_clinical_writes"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p19-pending.json",
+          "path": [
+            "results",
+            0,
+            "artifact"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/p19-reviewed.json",
+          "path": [
+            "clinical_confirmation"
+          ],
+          "equals": "not_evaluated",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-11",
+      "statement": "順序・snapshot・精度の変更を原情報と分け再現",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_retention_hashes_order_snapshot_and_precision_are_separate"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p34-now.json",
+          "path": [
+            "results",
+            0,
+            "projection_evidence",
+            "selected",
+            0,
+            "record_ref"
+          ],
+          "equals": "B",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/p32.json",
+          "path": [
+            "results",
+            1,
+            "artifact",
+            "text"
+          ],
+          "equals": "1.3",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "DP-12",
+      "statement": "非単一点・未知・静的上限・資源を誠実に停止",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_display.py::DisplayTests.test_checker_detects_early_values_empty_containers_and_certificate"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-display/p21-display.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-display/n10-questions.json",
+          "path": [
+            "status"
+          ],
+          "equals": "resource_limit",
+          "kind": "boundary"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "表示自身の未知能力を先に検査し、P2-gの未知・競合も停止として保持",
+    "unsupported": "unsupported_profile。別policy/依存/schema/質問・compare。非単一点は行のunassessed",
+    "resource": "resource_limit。子の部分結果を拾わず、未完了行は空配列を含め全値null。最終料金不足でも認定なし",
+    "invalid_input": "全計画の型・参照・hash・確認・訂正・表示指定を予算前に検証"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [
+      "p2-measurement-binding",
+      "p2-quantity-literal"
+    ],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p2-display/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_display.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/display_oracle.py"
+  }
+}

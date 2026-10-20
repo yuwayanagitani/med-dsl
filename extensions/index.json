@@ -93,6 +93,12 @@
       "class": "R5",
       "path": "p2-measurement-binding.json",
       "sha256": "1d77161bd7fa09005753b099dec8e92a27f12dcf3be75a33a8759ab03c091ed8"
+    },
+    {
+      "id": "p2-quantity-display",
+      "class": "R4",
+      "path": "p2-quantity-display.json",
+      "sha256": "ed7f5100888e35d9c312288b46c425349f74044526ffd3c95264433810587665"
     }
   ]
 }
