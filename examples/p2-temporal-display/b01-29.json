@@ -1,0 +1,236 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "B01-29",
+  "condition": "B01",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-temporal-display-request-draft-1",
+    "operation": "project_temporal_measurement_displays",
+    "consumer": {
+      "profile": "p2-temporal-display-draft-1",
+      "profile_spec_sha256": "8b401795d6687df75ddaf7962f02b49d558a306fff98af9d311a7bbd2a83ba0e",
+      "operations": [
+        "project_temporal_measurement_displays"
+      ],
+      "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
+      "temporal_measurement_profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+      "quantity_profile": "p2-quantity-literal-draft-1",
+      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+    },
+    "temporal_measurement_plan": {
+      "schema_version": "p2-temporal-measurement-request-draft-1",
+      "operation": "evaluate_temporal_measurements",
+      "consumer": {
+        "profile": "p2-temporal-measurement-draft-1",
+        "profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+        "operations": [
+          "evaluate_temporal_measurements"
+        ],
+        "quantity_profile": "p2-quantity-literal-draft-1",
+        "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      },
+      "source": {
+        "schema_version": "p2-temporal-measurement-ledger-draft-1",
+        "ref": "fiction:period:source@1",
+        "slots": [
+          {
+            "id": "S",
+            "subject_ref": "u"
+          }
+        ],
+        "quantities": [
+          {
+            "ref": "Q",
+            "profile": "p2-quantity-literal-draft-1",
+            "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+            "literal": {
+              "id": "Q",
+              "quantity_kind_ref": "k_a",
+              "unit_ref": "u_base",
+              "magnitude": {
+                "kind": "point",
+                "value": {
+                  "numerator": 121,
+                  "denominator": 100
+                }
+              },
+              "uncertainty": {
+                "kind": "not_evaluated"
+              },
+              "origin": {
+                "kind": "literal",
+                "ref": "fiction:quantity:Q"
+              },
+              "required_capabilities": [
+                "p2-quantity-literal-draft-1"
+              ]
+            }
+          }
+        ],
+        "records": [
+          {
+            "id": "A",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:A"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "RA",
+            "record_ref": "A",
+            "record_sha256": "8dcfb0d030ea15d6c0270f47ce7a0855d96e31a62e02e261df71935b20f7465b",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      },
+      "views": [
+        {
+          "id": "v",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        }
+      ]
+    },
+    "displays": [
+      {
+        "id": "d",
+        "view_ref": "v",
+        "query_ref": "q",
+        "decimal_places": 1,
+        "rounding_policy": "fiction:decimal-half-even@1",
+        "required_capabilities": [
+          "p2-temporal-display-draft-1"
+        ],
+        "questions": [
+          {
+            "id": "q",
+            "kind": "display_text"
+          }
+        ]
+      }
+    ],
+    "retention": "none",
+    "budget": {
+      "max_steps": 29
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "steps_used"
+        ],
+        "equals": 28
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "certified"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "assessment_complete"
+        ],
+        "equals": true
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "temporal_measurement_display_projection"
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "review_verification"
+        ],
+        "equals": "structural_only"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "source_bundle"
+        ],
+        "equals": null
+      }
+    ]
+  }
+}

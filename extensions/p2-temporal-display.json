@@ -1,0 +1,498 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p2-temporal-display",
+  "version": "draft-1",
+  "title": "期間付き数量計画の丸め表示と、原値・記録・時点・期間の保存境界",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R4",
+  "spec": {
+    "path": "src/med_dsl/temporal_display_spec.json",
+    "sha256": "8b401795d6687df75ddaf7962f02b49d558a306fff98af9d311a7bbd2a83ba0e"
+  },
+  "contract_doc": "docs/research/46-p2-j-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/temporal_display.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
+      "path": "docs/research/47-p2-j-cases.md",
+      "role": "hand_specified_expectations"
+    },
+    {
+      "path": "src/med_dsl/temporal_measurement_spec.json",
+      "role": "temporal_measurement_native_spec"
+    },
+    {
+      "path": "src/med_dsl/quantity_spec.json",
+      "role": "quantity_native_spec"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/temporal_display_spec.json",
+    "src/med_dsl/temporal_measurement.py",
+    "src/med_dsl/temporal_measurement_spec.json",
+    "src/med_dsl/quantity.py",
+    "examples/p2-temporal-display/*.json",
+    "examples/p2-temporal-measurement/*.json",
+    "examples/p2-quantity/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    },
+    {
+      "id": "p2-quantity-literal",
+      "version": "draft-1"
+    },
+    {
+      "id": "p2-temporal-measurement",
+      "version": "draft-1"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "project_temporal_measurement_displays"
+    ],
+    "schema_versions": [
+      "p2-temporal-display-request-draft-1",
+      "p2-temporal-display-result-draft-1",
+      "p2-temporal-display-artifact-draft-1"
+    ],
+    "profiles": [
+      "p2-temporal-display-draft-1"
+    ],
+    "answer_kinds": [
+      "temporal_measurement_display_projection"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-temporal-display-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "旧要求とG/Hを変えずIの原計画を再実行",
+    "fragment": "閉じた単一点の型付き表示、全実数セルで一定の問い。原値・記録・両時点・期間は初回テンプレート外。時点固定族の普遍的喪失証明ではない"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "自己・期間量・量の仕様を固定",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_static_validation_hashes_pins_limits_and_native_refusals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/n07-temporal_measurement_profile_spec_sha256.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "temporal_measurement_profile_mismatch"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "未知・非単一点・不正・資源を区別",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_semantic_stops_do_not_answer_metadata_or_expose_values"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j09.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_display_domain"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "AI由来・原情報と臨床未評価を保持",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_ai_origin_and_old_profiles_are_separate"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j19-reviewed.json",
+          "path": [
+            "clinical_assertions_added"
+          ],
+          "equals": [],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "全子計画・表示・完成を先払い",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_budget_child_rows_and_final_fee"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/b01-27.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R4-1",
+      "statement": "全セルで一定の問いだけを認定",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_finite_thresholds_against_witnesses"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j24.json",
+          "path": [
+            "results",
+            0,
+            "question_results",
+            2,
+            "projection_answer"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R4-2",
+      "statement": "同一artifactと原回答の相違を受理可能な反例にする",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_actual_artifact_collisions_do_not_restore_source"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j25-source_bundle.json",
+          "path": [
+            "results",
+            1,
+            "question_results",
+            0,
+            "source_answer",
+            "answer"
+          ],
+          "equals": true,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R4-3",
+      "statement": "符号化と別添えで認定範囲を広げない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_provenance_retention_encoding_and_seven_questions"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j35-source_bundle.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-1",
+      "statement": "自己/I/量の版・実体と新artifact型を固定",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_static_validation_hashes_pins_limits_and_native_refusals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/n07-profile_spec_sha256.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-2",
+      "statement": "計画を再実行し確認・G/Hの偽装をしない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_ai_origin_and_old_profiles_are_separate"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/n09-child-budget.json",
+          "path": [
+            "status"
+          ],
+          "equals": "invalid_input",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-3",
+      "statement": "二時点・半開境界・局所訂正・非復活を保持",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_confirmation_delays_revisions_and_context_against_subtraction"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j15.json",
+          "path": [
+            "results",
+            0,
+            "projection_evidence",
+            "revision_evidence",
+            0,
+            "record_ref"
+          ],
+          "equals": "B",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-4",
+      "statement": "全可視slotの未知能力・期間・文脈を保持",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_seeded_quantities_units_unknowns_and_intervals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j21-masked.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-5",
+      "statement": "単一点だけを厳密に丸め区間を潰さない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_finite_rounding_against_nearest_distance"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j04.json",
+          "path": [
+            "results",
+            0,
+            "artifact",
+            "text"
+          ],
+          "equals": "1.3",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-6",
+      "statement": "セルで一定の問いと原値での偶然の回答を分離",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_finite_thresholds_against_witnesses"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j24-13-0-gt.json",
+          "path": [
+            "results",
+            0,
+            "question_results",
+            0,
+            "projection_answer"
+          ],
+          "equals": true,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-7",
+      "statement": "原値・記録・両時点・期間の問いの入力族と範囲を明示",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_actual_artifact_collisions_do_not_restore_source"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j29-9-source_bundle.json",
+          "path": [
+            "results",
+            0,
+            "question_results",
+            0,
+            "status"
+          ],
+          "equals": "out_of_scope",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-8",
+      "statement": "元の確認・両origin・訂正根拠・原入力を保持",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_provenance_retention_encoding_and_seven_questions"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j19-reviewed.json",
+          "path": [
+            "clinical_confirmation"
+          ],
+          "equals": "not_evaluated",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-9",
+      "statement": "別添え・符号化・artifactの区別を認定へ反映",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_provenance_retention_encoding_and_seven_questions"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j32-source_bundle.json",
+          "path": [
+            "additional_source_used"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-10",
+      "statement": "全計画C・実費・一度の呼出・共通予算を照合",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_full_plan_cost_funded_once_without_unreferenced_row_leak"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j23-method.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 42,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-11",
+      "statement": "原子性・最後の完成・子の部分結果を拾わない停止",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_child_partial_and_later_row_resource_failure_are_atomic"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/b02-36.json",
+          "path": [
+            "results",
+            1,
+            "question_results"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TD-12",
+      "statement": "旧観測・順序・snapshot・変更波及を検査",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_display.py::TemporalDisplayTests.test_order_hashes_snapshot_future_and_precision"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-display/j30.json",
+          "path": [
+            "results",
+            0,
+            "projection_evidence",
+            "selected",
+            0,
+            "record_ref"
+          ],
+          "equals": "A",
+          "kind": "boundary"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "表示自身を先に検査し、Iの未知能力も停止として保持",
+    "unsupported": "unsupported_profile。別意味・旧schema・未知質問等を補完しない",
+    "resource": "resource_limit。未完了六値は全てnull、完成料金前は認定なし、子の部分結果は使わない",
+    "invalid_input": "全計画の型・参照・hash・確認と表示指定を予算前に検査"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [
+      "p2-temporal-measurement",
+      "p2-quantity-literal"
+    ],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p2-temporal-display/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_temporal_display.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/temporal_display_oracle.py"
+  }
+}

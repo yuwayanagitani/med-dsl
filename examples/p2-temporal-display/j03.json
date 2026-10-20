@@ -1,0 +1,353 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "J03",
+  "condition": "J03",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-temporal-display-request-draft-1",
+    "operation": "project_temporal_measurement_displays",
+    "consumer": {
+      "profile": "p2-temporal-display-draft-1",
+      "profile_spec_sha256": "8b401795d6687df75ddaf7962f02b49d558a306fff98af9d311a7bbd2a83ba0e",
+      "operations": [
+        "project_temporal_measurement_displays"
+      ],
+      "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
+      "temporal_measurement_profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+      "quantity_profile": "p2-quantity-literal-draft-1",
+      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+    },
+    "temporal_measurement_plan": {
+      "schema_version": "p2-temporal-measurement-request-draft-1",
+      "operation": "evaluate_temporal_measurements",
+      "consumer": {
+        "profile": "p2-temporal-measurement-draft-1",
+        "profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+        "operations": [
+          "evaluate_temporal_measurements"
+        ],
+        "quantity_profile": "p2-quantity-literal-draft-1",
+        "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      },
+      "source": {
+        "schema_version": "p2-temporal-measurement-ledger-draft-1",
+        "ref": "fiction:period:source@1",
+        "slots": [
+          {
+            "id": "S",
+            "subject_ref": "u"
+          }
+        ],
+        "quantities": [
+          {
+            "ref": "Q",
+            "profile": "p2-quantity-literal-draft-1",
+            "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+            "literal": {
+              "id": "Q",
+              "quantity_kind_ref": "k_a",
+              "unit_ref": "u_base",
+              "magnitude": {
+                "kind": "point",
+                "value": {
+                  "numerator": 9007199254740993,
+                  "denominator": 1
+                }
+              },
+              "uncertainty": {
+                "kind": "not_evaluated"
+              },
+              "origin": {
+                "kind": "literal",
+                "ref": "fiction:quantity:Q"
+              },
+              "required_capabilities": [
+                "p2-quantity-literal-draft-1"
+              ]
+            }
+          }
+        ],
+        "records": [
+          {
+            "id": "A",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "6562c4f60c62213ca185c69f7ad5644aceb488c5440280bd53cc7fcccbbaa61d"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:A"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "RA",
+            "record_ref": "A",
+            "record_sha256": "d28334650b239241e59e168d8c77e3360f24104d9d157aa016f2ab83b6a9c640",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      },
+      "views": [
+        {
+          "id": "v",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        }
+      ]
+    },
+    "displays": [
+      {
+        "id": "d",
+        "view_ref": "v",
+        "query_ref": "q",
+        "decimal_places": 0,
+        "rounding_policy": "fiction:decimal-half-even@1",
+        "required_capabilities": [
+          "p2-temporal-display-draft-1"
+        ],
+        "questions": [
+          {
+            "id": "q",
+            "kind": "display_text"
+          }
+        ]
+      }
+    ],
+    "retention": "none",
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "computed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "assessment_complete"
+        ],
+        "equals": true
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "artifact"
+        ],
+        "equals": {
+          "schema_version": "p2-temporal-display-artifact-draft-1",
+          "profile": "p2-temporal-display-draft-1",
+          "profile_spec_sha256": "8b401795d6687df75ddaf7962f02b49d558a306fff98af9d311a7bbd2a83ba0e",
+          "quantity_profile": "p2-quantity-literal-draft-1",
+          "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "quantity_kind_ref": "k_a",
+          "unit_ref": "u_base",
+          "rounding_policy": "fiction:decimal-half-even@1",
+          "decimal_places": 0,
+          "coefficient": 9007199254740993,
+          "text": "9007199254740993"
+        }
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "artifact_sha256"
+        ],
+        "equals": "f6dd655821b226c487e496caa89edd33df126bd84fc22758be83f6395f4b08cb"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "rounding_cell"
+        ],
+        "equals": {
+          "lower": {
+            "numerator": 18014398509481985,
+            "denominator": 2
+          },
+          "upper": {
+            "numerator": 18014398509481987,
+            "denominator": 2
+          },
+          "lower_closed": false,
+          "upper_closed": false
+        }
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "projection_evidence",
+          "artifact_encoding"
+        ],
+        "equals": {
+          "kind": "canonical_json",
+          "bytes_base64": "eyJjb2VmZmljaWVudCI6OTAwNzE5OTI1NDc0MDk5MywiZGVjaW1hbF9wbGFjZXMiOjAsInByb2ZpbGUiOiJwMi10ZW1wb3JhbC1kaXNwbGF5LWRyYWZ0LTEiLCJwcm9maWxlX3NwZWNfc2hhMjU2IjoiOGI0MDE3OTVkNjY4N2RmNzVkZGFmNzk2MmYwMmI0OWQ1NThhMzA2ZmZmOThhZjlkMzExYTdiYmQyYTgzYmEwZSIsInF1YW50aXR5X2tpbmRfcmVmIjoia19hIiwicXVhbnRpdHlfcHJvZmlsZSI6InAyLXF1YW50aXR5LWxpdGVyYWwtZHJhZnQtMSIsInF1YW50aXR5X3Byb2ZpbGVfc3BlY19zaGEyNTYiOiI4NGFmMmU3NzFkMTg2ODQ3MWQwYTg0NDEwMjFmZGUyYTcyNTNiMWZjMTdmOGZmOWI4MDc0NjFlM2RmN2YxZjQzIiwicm91bmRpbmdfcG9saWN5IjoiZmljdGlvbjpkZWNpbWFsLWhhbGYtZXZlbkAxIiwic2NoZW1hX3ZlcnNpb24iOiJwMi10ZW1wb3JhbC1kaXNwbGF5LWFydGlmYWN0LWRyYWZ0LTEiLCJ0ZXh0IjoiOTAwNzE5OTI1NDc0MDk5MyIsInVuaXRfcmVmIjoidV9iYXNlIn0=",
+          "sha256": "f6dd655821b226c487e496caa89edd33df126bd84fc22758be83f6395f4b08cb",
+          "roundtrip_matches": true
+        }
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "projection_evidence",
+          "temporal_measurement_certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "source_evidence"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "question_results",
+          0,
+          "status"
+        ],
+        "equals": "preserved"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "question_results",
+          0,
+          "projection_answer"
+        ],
+        "equals": "9007199254740993"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "question_results",
+          0,
+          "source_answer"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "certified"
+      },
+      {
+        "path": [
+          "additional_source_used"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "temporal_measurement_display_projection"
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "review_verification"
+        ],
+        "equals": "structural_only"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "source_bundle"
+        ],
+        "equals": null
+      }
+    ]
+  }
+}

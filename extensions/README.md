@@ -23,11 +23,12 @@
 | [p2-measurement-binding](p2-measurement-binding.json) | R5 | 内容を指定した確認・訂正・文脈の点検を数量計算へ結ぶ。臨床主張・保存認定なし | p0-positive, p2-quantity-literal |
 | [p2-quantity-display](p2-quantity-display.json) | R4 | 型付き表示へ因子化する問い、丸めセル、原情報の別添え。臨床の認定なし | p0-positive, p2-quantity-literal, p2-measurement-binding |
 | [p2-temporal-measurement](p2-temporal-measurement.json) | R5 | 明示された期間つき数量主張の内容指定確認・部分訂正・換算。表示・臨床認定なし | p0-positive, p2-quantity-literal |
+| [p2-temporal-display](p2-temporal-display.json) | R4 | I計画の再実行、型付き表示だけの問い、原値・記録・両時点・期間の別回答 | p0-positive, p2-quantity-literal, p2-temporal-measurement |
 
 [index.json](index.json) は上の一覧と、各宣言の sha256 です。登録は基底から順に行い、依存が先に登録されていることが必要です。
 
 ```bash
-python3 scripts/research/check-extensions.py            # 17件を登録し、宣言した防護例をすべて評価する
+python3 scripts/research/check-extensions.py            # 18件を登録し、宣言した防護例をすべて評価する
 python3 scripts/research/check-extensions.py --strict   # 防護例のない義務（現在3件、すべて理由つき）があると失敗する
 python3 scripts/research/check-extensions.py --json     # 機械可読
 python3 -m unittest discover -s tests/p2 -v             # P2 系列のテスト。tests/ 直下の discover には含まれない
@@ -46,3 +47,5 @@ python3 scripts/research/evaluate-p2.py                 # 統合評価：登録�
 - すべて架空の識別子・例だけを参照します。外部の体系・患者情報・実データは含みません。
 
 P2-iの契約と内部評価は [43](../docs/research/43-p2-i-design.md)・[45](../docs/research/45-p2-i-results.md) に記録します。
+
+P2-jの契約と内部評価は [46](../docs/research/46-p2-j-design.md)・[48](../docs/research/48-p2-j-results.md) に記録します。

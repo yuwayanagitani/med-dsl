@@ -105,6 +105,12 @@
       "class": "R5",
       "path": "p2-temporal-measurement.json",
       "sha256": "e80bfc3a20e7a2a3e35045574bb7c136820bf52062075f8f06ef966ed277c14d"
+    },
+    {
+      "id": "p2-temporal-display",
+      "class": "R4",
+      "path": "p2-temporal-display.json",
+      "sha256": "57346e880a8e8481ead75e037c8af47ca972b7c88c2a10365f87421615fd1783"
     }
   ]
 }

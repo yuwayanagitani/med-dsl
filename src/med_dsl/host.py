@@ -17,6 +17,7 @@ from .query import run_query
 from .split import SPLIT_PROFILE, run_split
 from .splits import SPLITS_PROFILE, run_splits
 from .temporal import TEMPORAL_PROFILE, run_temporal
+from .temporal_display import TEMPORAL_DISPLAY_PROFILE, run_temporal_displays
 from .temporal_measurement import TEMPORAL_MEASUREMENT_PROFILE, run_temporal_measurements
 from .validation import check_json, validate_compare, validate_extension, validate_header, validate_query
 
@@ -40,6 +41,7 @@ def run_p0(request):
 
 P0 = Surface("p0-request-draft-1", "p0-result-draft-1", PROFILE, run_p0)
 SURFACES = {s.request_schema: s for s in (
+    Surface("p2-temporal-display-request-draft-1", "p2-temporal-display-result-draft-1", TEMPORAL_DISPLAY_PROFILE, run_temporal_displays),
     Surface("p1-handover-request-draft-1", "p1-handover-result-draft-1", HANDOVER_PROFILE, run_handover),
     Surface("p1-events-request-draft-1", "p1-events-result-draft-1", EVENT_PROFILE, run_events),
     Surface("p1-request-draft-1", "p1-result-draft-1", FORECAST_PROFILE, run_forecast),

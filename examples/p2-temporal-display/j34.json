@@ -1,0 +1,1913 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "J34",
+  "condition": "J34",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-temporal-display-request-draft-1",
+    "operation": "project_temporal_measurement_displays",
+    "consumer": {
+      "profile": "p2-temporal-display-draft-1",
+      "profile_spec_sha256": "8b401795d6687df75ddaf7962f02b49d558a306fff98af9d311a7bbd2a83ba0e",
+      "operations": [
+        "project_temporal_measurement_displays"
+      ],
+      "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
+      "temporal_measurement_profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+      "quantity_profile": "p2-quantity-literal-draft-1",
+      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+    },
+    "temporal_measurement_plan": {
+      "schema_version": "p2-temporal-measurement-request-draft-1",
+      "operation": "evaluate_temporal_measurements",
+      "consumer": {
+        "profile": "p2-temporal-measurement-draft-1",
+        "profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+        "operations": [
+          "evaluate_temporal_measurements"
+        ],
+        "quantity_profile": "p2-quantity-literal-draft-1",
+        "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      },
+      "source": {
+        "schema_version": "p2-temporal-measurement-ledger-draft-1",
+        "ref": "fiction:period:source@1",
+        "slots": [
+          {
+            "id": "S",
+            "subject_ref": "u"
+          }
+        ],
+        "quantities": [
+          {
+            "ref": "Q",
+            "profile": "p2-quantity-literal-draft-1",
+            "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+            "literal": {
+              "id": "Q",
+              "quantity_kind_ref": "k_a",
+              "unit_ref": "u_base",
+              "magnitude": {
+                "kind": "point",
+                "value": {
+                  "numerator": 121,
+                  "denominator": 100
+                }
+              },
+              "uncertainty": {
+                "kind": "not_evaluated"
+              },
+              "origin": {
+                "kind": "literal",
+                "ref": "fiction:quantity:Q"
+              },
+              "required_capabilities": [
+                "p2-quantity-literal-draft-1"
+              ]
+            }
+          }
+        ],
+        "records": [
+          {
+            "id": "R0",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R0"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R1",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R1"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R2",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R2"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R3",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R3"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R4",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R4"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R5",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R5"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R6",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R6"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R7",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R7"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R8",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R8"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R9",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R9"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R10",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R10"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R11",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R11"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R12",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R12"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R13",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R13"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R14",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R14"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R15",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R15"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R16",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R16"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R17",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R17"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R18",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R18"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          },
+          {
+            "id": "R19",
+            "kind": "period_quantity",
+            "slot_ref": "S",
+            "subject_ref": "u",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "quantity_ref": {
+              "ref": "Q",
+              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:measurement:origin:R19"
+            },
+            "required_capabilities": [
+              "p2-temporal-measurement-draft-1"
+            ],
+            "revises": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "RR0",
+            "record_ref": "R0",
+            "record_sha256": "3946a2d02280c6599122a990be97dac9b10c8bd96ebd16a61b12921b11efaa37",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR1",
+            "record_ref": "R1",
+            "record_sha256": "64ca74719727139e87c45ada2c47c8b2858822fbe0b7592c332e260a3082dd95",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR2",
+            "record_ref": "R2",
+            "record_sha256": "e4453f45c86f95e1630caf95a4a108eb25977f34bf590b19a9fcad1ffcf20326",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR3",
+            "record_ref": "R3",
+            "record_sha256": "c0465a8d2d2a12aa158cfc3d3eff783cc28852d648993e1faf8a5026e3edecc2",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR4",
+            "record_ref": "R4",
+            "record_sha256": "de442e4cfbb47f0bca7db217d07d52a17e794b8e55dbce8a2eacf92cf2c715f9",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR5",
+            "record_ref": "R5",
+            "record_sha256": "75392f045a566f39e7f234be2107573046d656ce913a0885ee20a495eb093734",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR6",
+            "record_ref": "R6",
+            "record_sha256": "abffc543f91a04127af71f655364d3e456ca14f48ade3bcd3e076e1dcd26cc1d",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR7",
+            "record_ref": "R7",
+            "record_sha256": "09019d9e03ea99618637475dddee7fed2b98f04a2652fb36206fe0b394ee2895",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR8",
+            "record_ref": "R8",
+            "record_sha256": "9fca910016c48c46d94745d9d50f09dbcead5752dd964bdf60a1d74e5120211b",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR9",
+            "record_ref": "R9",
+            "record_sha256": "5168d44dc24d0a7b39cf576d858844d41b4fb4e39a4dbb3399d7f7937c33e37a",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR10",
+            "record_ref": "R10",
+            "record_sha256": "bb200e3d8fc720f59eea5011831d09cff5e3f6a0a29a6ea29880e85bfa7dc2ab",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR11",
+            "record_ref": "R11",
+            "record_sha256": "6b3b027452f6f9eab1f8004a0d2d819a2d9679f9efbff240c5a4b42b9841c435",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR12",
+            "record_ref": "R12",
+            "record_sha256": "5e260cb0255ea11f24bf55ac8b26cce6e9dbb4a2a429d355ddd2ca361c74181c",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR13",
+            "record_ref": "R13",
+            "record_sha256": "cf38645a325ef758a70bc67d1dc20eb91ab611e1c0ca874e877a80208cd9a046",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR14",
+            "record_ref": "R14",
+            "record_sha256": "1b15247b3ba0490db43d6f06d6581600cd8008bc291be22483495276b800a05a",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR15",
+            "record_ref": "R15",
+            "record_sha256": "1e1d649c36e1b6e1fafc972e0ca4e98bdccd540b345c2e07559159a6aa074910",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR16",
+            "record_ref": "R16",
+            "record_sha256": "618f4dd9f36674142d70bd956178253d669b2ef0a9a594293db432a4886e62b9",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR17",
+            "record_ref": "R17",
+            "record_sha256": "c1fad2e715aa60880078c9ebc8b878f46bac69e41a1e63c3fc6de9d6ed8441a4",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR18",
+            "record_ref": "R18",
+            "record_sha256": "74fe31f6bb5fcac3fa8b45cec721a83ada93048983d47fcf2d4c4e0ea6357ba5",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          },
+          {
+            "id": "RR19",
+            "record_ref": "R19",
+            "record_sha256": "67bcc07c9e458f6dd0e4d427d0a814d93724940a84db5d731a7f78da66840992",
+            "reviewer_ref": "fiction:human:reviewer",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-03T00:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      },
+      "views": [
+        {
+          "id": "v0",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v1",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v2",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v3",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v4",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v5",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v6",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v7",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v8",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v9",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v10",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v11",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v12",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v13",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v14",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v15",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v16",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v17",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v18",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v19",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v20",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v21",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v22",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v23",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v24",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v25",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v26",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v27",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v28",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v29",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v30",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v31",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v32",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v33",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v34",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v35",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v36",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v37",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v38",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v39",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v40",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v41",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v42",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v43",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v44",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v45",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v46",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v47",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v48",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v49",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v50",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v51",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v52",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v53",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v54",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v55",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v56",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v57",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v58",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v59",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v60",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v61",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v62",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        },
+        {
+          "id": "v63",
+          "as_of": "2026-10-08T00:00:00Z",
+          "policy_ref": "fiction:reviewed-scoped-measurement@1"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q0",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q1",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q2",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q3",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q4",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q5",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q6",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q7",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q8",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q9",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q10",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q11",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q12",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q13",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q14",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q15",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q16",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q17",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q18",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q19",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q20",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q21",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q22",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q23",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q24",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q25",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q26",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q27",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q28",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q29",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q30",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q31",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q32",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q33",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q34",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q35",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q36",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q37",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q38",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q39",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q40",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q41",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q42",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q43",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q44",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q45",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q46",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q47",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q48",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q49",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q50",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q51",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q52",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q53",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q54",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q55",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q56",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q57",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q58",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q59",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q60",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q61",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q62",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "q63",
+          "kind": "convert",
+          "slot_ref": "S",
+          "target_unit_ref": "u_base",
+          "target_at": "2026-10-05T00:00:00Z"
+        }
+      ]
+    },
+    "displays": [
+      {
+        "id": "d",
+        "view_ref": "v0",
+        "query_ref": "q0",
+        "decimal_places": 1,
+        "rounding_policy": "fiction:decimal-half-even@1",
+        "required_capabilities": [
+          "p2-temporal-display-draft-1"
+        ],
+        "questions": [
+          {
+            "id": "q",
+            "kind": "display_text"
+          }
+        ]
+      }
+    ],
+    "retention": "none",
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "steps_used"
+        ],
+        "equals": 100000
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "unassessed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "assessment_complete"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reason_codes"
+        ],
+        "equals": [
+          "step_limit"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "artifact"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "artifact_sha256"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "rounding_cell"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "projection_evidence"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "source_evidence"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "question_results"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "temporal_measurement_display_projection"
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "review_verification"
+        ],
+        "equals": "structural_only"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "source_bundle"
+        ],
+        "equals": null
+      }
+    ]
+  }
+}
