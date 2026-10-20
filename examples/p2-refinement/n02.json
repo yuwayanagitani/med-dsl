@@ -1,0 +1,163 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N02",
+  "condition": "N02",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-refinement-request-draft-1",
+    "operation": "probe_refined_temporal_literal",
+    "consumer": {
+      "profile": "p2-validity-refinement-draft-1",
+      "profile_spec_sha256": "66ff3f35cfee608b7a2dd7ff7d77a7ddb2506a17dafc5eaff705470b3644e124",
+      "operations": [
+        "probe_refined_temporal_literal"
+      ]
+    },
+    "source": {
+      "package": {
+        "ref": "fiction:refinement:package@1",
+        "profile": "p0-positive-1",
+        "predicates": [
+          {
+            "ref": "fiction:refinement:P@1",
+            "roles": [
+              "subject"
+            ]
+          }
+        ],
+        "definitions": [],
+        "inclusions": [],
+        "dependencies": []
+      },
+      "contexts": [
+        {
+          "ref": "fiction:refinement:context@1",
+          "subject_ref": "fiction:refinement:u",
+          "effective_at": "2026-10-01T00:00:00Z",
+          "purpose": "fiction:research"
+        }
+      ],
+      "ledger": {
+        "schema_version": "p2-refinement-ledger-draft-1",
+        "ref": "fiction:refinement:ledger@1",
+        "assertions": [
+          {
+            "id": "A",
+            "context_ref": "fiction:refinement:context@1",
+            "atom": {
+              "predicate": "fiction:refinement:P@1",
+              "args": [
+                "fiction:refinement:u"
+              ]
+            },
+            "polarity": "positive",
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:refinement:source:A"
+            },
+            "required_capabilities": [
+              "p0-positive-1",
+              "p2-validity-refinement-draft-1"
+            ],
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-30T00:00:00Z"
+            },
+            "revises": []
+          }
+        ],
+        "reviews": [
+          {
+            "id": "review-A",
+            "assertion_ref": "A",
+            "reviewer_ref": "fiction:refinement:human",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "outcome": "confirmed"
+          }
+        ],
+        "refinements": [
+          {
+            "id": "F1",
+            "assertion_ref": "A",
+            "target_sha256": "ce5799f37fddb43764c745f2f76b615ead629d974676724ec06f19cd9dd4add2",
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-10T00:00:00Z",
+              "end": "2026-10-20T00:00:00Z"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-05T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:refinement:source:F1"
+            },
+            "required_capabilities": [
+              "p0-positive-1",
+              "p2-validity-refinement-draft-1"
+            ],
+            "change_reason": "架空の期間の追加"
+          }
+        ],
+        "refinement_reviews": [
+          {
+            "id": "FR1",
+            "refinement_ref": "F1",
+            "refinement_sha256": "4e831696bc1365aa9c82638212b317234f76065c41c4cf1200bac8b34b2acb5a",
+            "reviewer_ref": "fiction:refinement:human",
+            "reviewer_kind": "human",
+            "recorded_at": "2026-10-06T00:00:00Z",
+            "outcome": "confirmed"
+          }
+        ]
+      }
+    },
+    "views": [
+      {
+        "id": "v",
+        "as_of": "2026-10-09T00:00:00Z",
+        "policy_ref": "fiction:confirmed-validity-refinement@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q",
+        "context_ref": "fiction:refinement:context@1",
+        "atom": {
+          "predicate": "fiction:refinement:P@1",
+          "args": [
+            "fiction:refinement:u"
+          ]
+        },
+        "target_at": "2026-10-15T00:00:00Z"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "refinement_target_not_unresolved"
+        ]
+      }
+    ]
+  }
+}

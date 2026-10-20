@@ -14,6 +14,7 @@ from .measurement import MEASUREMENT_PROFILE, run_measurements
 from .model import PROFILE, Problem
 from .quantity import QUANTITY_PROFILE, run_quantities
 from .query import run_query
+from .refinement import REFINEMENT_PROFILE, run_refinement
 from .split import SPLIT_PROFILE, run_split
 from .splits import SPLITS_PROFILE, run_splits
 from .temporal import TEMPORAL_PROFILE, run_temporal
@@ -41,6 +42,7 @@ def run_p0(request):
 
 P0 = Surface("p0-request-draft-1", "p0-result-draft-1", PROFILE, run_p0)
 SURFACES = {s.request_schema: s for s in (
+    Surface("p2-refinement-request-draft-1", "p2-refinement-result-draft-1", REFINEMENT_PROFILE, run_refinement),
     Surface("p2-temporal-display-request-draft-1", "p2-temporal-display-result-draft-1", TEMPORAL_DISPLAY_PROFILE, run_temporal_displays),
     Surface("p1-handover-request-draft-1", "p1-handover-result-draft-1", HANDOVER_PROFILE, run_handover),
     Surface("p1-events-request-draft-1", "p1-events-result-draft-1", EVENT_PROFILE, run_events),

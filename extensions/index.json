@@ -111,6 +111,12 @@
       "class": "R4",
       "path": "p2-temporal-display.json",
       "sha256": "57346e880a8e8481ead75e037c8af47ca972b7c88c2a10365f87421615fd1783"
+    },
+    {
+      "id": "p2-validity-refinement",
+      "class": "R5",
+      "path": "p2-validity-refinement.json",
+      "sha256": "4cc1c4fd5bdd0ec1d6a6a68cf8411cbe69ddf223048da65c03ed63d01d34734e"
     }
   ]
 }

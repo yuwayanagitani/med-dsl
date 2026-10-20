@@ -1,0 +1,31 @@
+{
+  "profile": "p2-validity-refinement-draft-1",
+  "request_schema": "p2-refinement-request-draft-1",
+  "result_schema": "p2-refinement-result-draft-1",
+  "ledger_schema": "p2-refinement-ledger-draft-1",
+  "operation": "probe_refined_temporal_literal",
+  "answer_kind": "refined_temporal_literal_probe",
+  "policy_ref": "fiction:confirmed-validity-refinement@1",
+  "class": "R5",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "scope": "one context, one subject, one unary extensional atom; no rules, imports, automatic P0 or P2-e migration, clinical writes or base conversion",
+  "time": "strict UTC second timestamps; as_of controls record, refinement and human confirmation visibility; target_at selects the explicitly asserted or refined half-open bounded validity; no inferred persistence or prediction",
+  "validity": {
+    "bounded": "required start < end; start <= target_at < end",
+    "unknown": "an eligible record blocks with validity_unknown until exactly one distinct eligible refinement interval exists",
+    "unspecified": "an eligible record blocks with validity_unspecified until exactly one distinct eligible refinement interval exists",
+    "open_end": "recognized but unsupported_profile; never filled as forever"
+  },
+  "refinement": "a refinement assigns a bounded validity to an earlier record whose validity is unknown or unspecified; eligible when certainty is confirmed and at least one visible human confirmed review binds the target and the refinement by content hash; identical eligible intervals collapse, distinct ones are a conflict (never latest-wins); the original record is retained and never rewritten; refinements of refinements, retractions and conflict resolution are unsupported",
+  "revision": "revises targets same atom/context and strictly earlier records; the reviser must be bounded; bounded targets require the static containing interval; unknown or unspecified targets are checked per view against the single eligible refined interval, and a reviser outside it stops the row with revision_outside_refined_validity; all applicable eligible revision edges mask their targets even when the reviser is masked",
+  "eligibility": "confirmed certainty AND at least one visible human confirmed review; review recorded_at >= recorded_at of what it confirms",
+  "stops": "unknown capability on ANY visible record or refinement takes precedence; then unresolved or conflicting validity of eligible records; then revision containment against refined validity; structural validation is independent of budget",
+  "literal_states": ["positive_only", "negative_only", "both", "neither"],
+  "assumptions": ["explicit_interval_uniformity", "scoped_revision", "validity_refinement"],
+  "answers": "unassessed rows have null literal state, adoption sets and evidence; finished rows retain visible human review, refinement and revision-edge evidence; never certify or add clinical assertions",
+  "steps": "1 request start + sum_view(N_assertions + N_reviews + N_refinements + N_refinement_reviews + sum_query(2 + N_visible + N_visible_refinements + N_eligible_revision_edges)); prepay scans, then commit each row; shared budget; sorted IDs; no cache discounts",
+  "limits": {"contexts": 1, "predicates": 1, "assertions": 1000, "reviews": 1000, "refinements": 1000, "refinement_reviews": 1000, "views": 64, "queries": 64, "max_steps": 100000},
+  "limitations": "no refinement of refinements, retraction, conflict resolution, instant or aggregate to period inheritance, longitudinal comparison, persistent identity store or clinical validity guarantee"
+}

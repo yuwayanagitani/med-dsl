@@ -1,6 +1,6 @@
 # 拡張の宣言（P2-a、`p2-extension-manifest-draft-1`）
 
-既存の handler 10件への後付けに、P2-b・P2-c・P2-e・P2-f・P2-g・P2-h・P2-iで追加した7件を加え、計17件の **拡張契約の宣言** があります。書式・検査・限界は [P2-a の実行契約](../docs/research/20-p2-a-contract.md)、結果は [P2-a の結果](../docs/research/21-p2-a-results.md) と [追加作業](../docs/research/22-p2-a-hardening.md)、P2-b は [23](../docs/research/23-p2-b-design.md)・[24](../docs/research/24-p2-b-results.md)、P2-c は [25](../docs/research/25-p2-c-design.md)・[26](../docs/research/26-p2-c-results.md)、P2-eは [31](../docs/research/31-p2-e-design.md)・[33](../docs/research/33-p2-e-results.md)、P2-fは [34](../docs/research/34-p2-f-design.md)・[36](../docs/research/36-p2-f-results.md)、P2-gは [37](../docs/research/37-p2-g-design.md)・[39](../docs/research/39-p2-g-results.md)、P2-hは [40](../docs/research/40-p2-h-design.md)・[42](../docs/research/42-p2-h-results.md) にあります。状態は作成者側の草案で、[運用方針](../docs/research/29-review-repository-policy.md) に従って内部検証を進めます。`independent_review` はfalseです。
+既存の handler 10件への後付けに、P2-b・P2-c・P2-e・P2-f・P2-g・P2-h・P2-i・P2-j・P2-kで追加した9件を加え、計19件の **拡張契約の宣言** があります。書式・検査・限界は [P2-a の実行契約](../docs/research/20-p2-a-contract.md)、結果は [P2-a の結果](../docs/research/21-p2-a-results.md) と [追加作業](../docs/research/22-p2-a-hardening.md)、P2-b は [23](../docs/research/23-p2-b-design.md)・[24](../docs/research/24-p2-b-results.md)、P2-c は [25](../docs/research/25-p2-c-design.md)・[26](../docs/research/26-p2-c-results.md)、P2-eは [31](../docs/research/31-p2-e-design.md)・[33](../docs/research/33-p2-e-results.md)、P2-fは [34](../docs/research/34-p2-f-design.md)・[36](../docs/research/36-p2-f-results.md)、P2-gは [37](../docs/research/37-p2-g-design.md)・[39](../docs/research/39-p2-g-results.md)、P2-hは [40](../docs/research/40-p2-h-design.md)・[42](../docs/research/42-p2-h-results.md) にあります。状態は作成者側の草案で、[運用方針](../docs/research/29-review-repository-policy.md) に従って内部検証を進めます。`independent_review` はfalseです。
 
 宣言は作成者の主張で、**意味の正しさの証拠ではありません**。検査が確かめるのは、必須項目がそろっていること、実体（仕様の hash・実装・例）と食い違わないこと、所有する名前が衝突しないこと、防護例が宣言どおりの結果を返すことです。この系列は P1 の20条件・80 JSON・417必須パス、231開発テスト、レビュー系列とは別の分母です。
 
@@ -24,11 +24,12 @@
 | [p2-quantity-display](p2-quantity-display.json) | R4 | 型付き表示へ因子化する問い、丸めセル、原情報の別添え。臨床の認定なし | p0-positive, p2-quantity-literal, p2-measurement-binding |
 | [p2-temporal-measurement](p2-temporal-measurement.json) | R5 | 明示された期間つき数量主張の内容指定確認・部分訂正・換算。表示・臨床認定なし | p0-positive, p2-quantity-literal |
 | [p2-temporal-display](p2-temporal-display.json) | R4 | I計画の再実行、型付き表示だけの問い、原値・記録・両時点・期間の別回答 | p0-positive, p2-quantity-literal, p2-temporal-measurement |
+| [p2-validity-refinement](p2-validity-refinement.json) | R5 | 確認済みの期間不明記録を、確認した期間で精密化する（記録についての記録。元の記録は消さない） | p0-positive |
 
 [index.json](index.json) は上の一覧と、各宣言の sha256 です。登録は基底から順に行い、依存が先に登録されていることが必要です。
 
 ```bash
-python3 scripts/research/check-extensions.py            # 18件を登録し、宣言した防護例をすべて評価する
+python3 scripts/research/check-extensions.py            # 19件を登録し、宣言した防護例をすべて評価する
 python3 scripts/research/check-extensions.py --strict   # 防護例のない義務（現在3件、すべて理由つき）があると失敗する
 python3 scripts/research/check-extensions.py --json     # 機械可読
 python3 -m unittest discover -s tests/p2 -v             # P2 系列のテスト。tests/ 直下の discover には含まれない
@@ -49,3 +50,5 @@ python3 scripts/research/evaluate-p2.py                 # 統合評価：登録�
 P2-iの契約と内部評価は [43](../docs/research/43-p2-i-design.md)・[45](../docs/research/45-p2-i-results.md) に記録します。
 
 P2-jの契約と内部評価は [46](../docs/research/46-p2-j-design.md)・[48](../docs/research/48-p2-j-results.md) に記録します。
+
+P2-kの契約と内部評価は [50](../docs/research/50-p2-k-design.md)・[52](../docs/research/52-p2-k-results.md) に記録します。この宣言は P2-e の意味を継承しますが実装は共有せず、継承は精密化のない要求を P2-e の実装に流す差分の検査で確認しています（宣言に継承を書く欄はありません）。

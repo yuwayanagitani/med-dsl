@@ -1,0 +1,629 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p2-validity-refinement",
+  "version": "draft-1",
+  "title": "確認済みの期間不明記録の精密化（記録についての記録）",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R5",
+  "spec": {
+    "path": "src/med_dsl/refinement_spec.json",
+    "sha256": "66ff3f35cfee608b7a2dd7ff7d77a7ddb2506a17dafc5eaff705470b3644e124"
+  },
+  "contract_doc": "docs/research/50-p2-k-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/refinement.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
+      "path": "docs/research/51-p2-k-cases.md",
+      "role": "hand_specified_expectations"
+    }
+  ],
+  "embedded_in": [
+    "examples/p2-refinement/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "probe_refined_temporal_literal"
+    ],
+    "schema_versions": [
+      "p2-refinement-request-draft-1",
+      "p2-refinement-result-draft-1",
+      "p2-refinement-ledger-draft-1"
+    ],
+    "profiles": [
+      "p2-validity-refinement-draft-1"
+    ],
+    "answer_kinds": [
+      "refined_temporal_literal_probe"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-validity-refinement-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "精密化つきの要求と旧要求（P0・P2-e）の答えの一致は主張しない。旧要求は専用の旧経路に保持する",
+    "fragment": "単一文脈・個体・単項原子。期間不明・未指定の確認済み記録を、確認済みの bounded な精密化で割り当てる。精密化の精密化・撤回・競合の解消・基底への変換なし"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "native仕様・方針・消費側の版・hash・操作・台帳のschemaを照合し、P2-eと区別する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_native_identity_and_spec_mismatch_fail_closed"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/n11.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "未知能力、期間の阻害、競合、包含の矛盾、未対応、不正を区別して止める",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_hand_expectations_and_manifest_integrity"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/u17.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "確認前の候補を採用せず、入力を変更せず、新結果を基底へ変換しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_input_immutability_and_permutation_including_evidence"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/u11.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "validity_unknown"
+          ],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "共通予算に従い、未完了の行に値を返さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_budget_sweep_has_no_partial_values_or_changed_finished_rows"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/b01.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 0,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-1",
+      "statement": "部分訂正との意味差と、区間全体の明示主張・精密化の前提を示す",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_hand_expectations_and_manifest_integrity"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/u02.json",
+          "path": [
+            "results",
+            0,
+            "assumptions"
+          ],
+          "equals": [
+            "explicit_interval_uniformity",
+            "scoped_revision",
+            "validity_refinement"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-2",
+      "statement": "保存・医学的正しさの認定を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_old_route_and_new_route_are_separate_implementations"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/u02.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R5-3",
+      "statement": "臨床の主張を追加しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_old_route_and_new_route_are_separate_implementations"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/u02.json",
+          "path": [
+            "clinical_assertions_added"
+          ],
+          "equals": [],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "RF-1",
+      "statement": "native仕様・方針・consumer・台帳のschemaを固定し、P2-eの入口と区別する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_native_identity_and_spec_mismatch_fail_closed"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/n10a.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-refinement/n12.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_refinement_ledger"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "RF-2",
+      "statement": "精密化の確認が対象と精密化の内容hashを拘束し、変更前の確認を流用できない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_a_confirmation_of_a_changed_refinement_or_target_is_refused"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/n04.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "refinement_target_hash_mismatch"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-refinement/n08.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "refinement_review_hash_mismatch"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "RF-3",
+      "statement": "記録・確認の可視性が参照時点以下で、未来の精密化が過去の結果を変えず、精密化の前を再現する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_an_earlier_view_reproduces_the_result_before_the_refinement",
+        "tests/p2/test_refinement.py::RefinementTests.test_pending_and_ineligible_refinements_never_change_a_result"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/u06.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "validity_unknown"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-refinement/u06.json",
+          "path": [
+            "results",
+            2,
+            "literal_state"
+          ],
+          "equals": "positive_only",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-refinement/u25.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": "positive_only",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "RF-4",
+      "statement": "異なる適格な精密化は競合、同一の区間は一つにまとめ、後勝ちにせず、未確認・suspectedは効かない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_each_of_the_semantic_mutants_is_detected_by_its_guard"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/u08.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "validity_refinement_conflict"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-refinement/u12.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": "positive_only",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-refinement/u10.json",
+          "path": [
+            "results",
+            0,
+            "pending_refinement_refs"
+          ],
+          "equals": [
+            "F1"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "RF-5",
+      "statement": "未知能力→期間の阻害→包含矛盾の順に止め、前の阻害のうちは後の診断を出さない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_hand_expectations_and_manifest_integrity"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/u18.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-refinement/u24.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "validity_unknown"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "RF-6",
+      "statement": "課金式に従い、先払いし、未完了行は値を持たない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_the_cost_formula_matches_the_measured_steps"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/b03-exact.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 13,
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-refinement/b04-9.json",
+          "path": [
+            "results",
+            1,
+            "literal_state"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "RF-7",
+      "statement": "旧経路の観測を変えず、記録・確認・訂正の到着順で結果が変わらない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_arrival_order_of_refinements_and_corrections_does_not_change_a_view",
+        "tests/p2/test_refinement.py::RefinementTests.test_semantics_are_inherited_from_p2_e_on_ledgers_without_refinements"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/n01.json",
+          "path": [
+            "status"
+          ],
+          "equals": "ok",
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-refinement/u15.json",
+          "path": [
+            "results",
+            3,
+            "literal_state"
+          ],
+          "equals": "positive_only",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "RF-8",
+      "statement": "AI由来の精密化は人の確認まで効かず、臨床主張を追加せず基底へ変換しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_old_route_and_new_route_are_separate_implementations",
+        "tests/p2/test_refinement.py::RefinementTests.test_pending_and_ineligible_refinements_never_change_a_result"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/u11.json",
+          "path": [
+            "results",
+            0,
+            "pending_refinement_refs"
+          ],
+          "equals": [
+            "F1"
+          ],
+          "kind": "non_conversion"
+        },
+        {
+          "example": "examples/p2-refinement/u02.json",
+          "path": [
+            "converted_to_base"
+          ],
+          "equals": false,
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "RF-9",
+      "statement": "精密化の対象と区間を限定する（bounded な対象・不明な区間・open_endを受け付けない）",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_hand_expectations_and_manifest_integrity"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/n02.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "refinement_target_not_unresolved"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-refinement/n06a.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "invalid_refinement_validity"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-refinement/n07a.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_validity"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "RF-10",
+      "statement": "精密化後の区間の半開境界を守り、区間の外を否定にも全期間にもしない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_finite_histories_with_refinements_agree_with_interval_subtraction"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/u03.json",
+          "path": [
+            "results",
+            0,
+            "literal_state"
+          ],
+          "equals": "neither",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-refinement/u04.json",
+          "path": [
+            "results",
+            1,
+            "literal_state"
+          ],
+          "equals": "positive_only",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "RF-11",
+      "statement": "精密化と部分訂正が相互作用し、順序に依らず、矛盾を参照時点ごとの診断にする",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_finite_histories_with_refinements_agree_with_interval_subtraction"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/u14.json",
+          "path": [
+            "results",
+            1,
+            "literal_state"
+          ],
+          "equals": "negative_only",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-refinement/u16.json",
+          "path": [
+            "results",
+            1,
+            "reason_codes"
+          ],
+          "equals": [
+            "revision_outside_refined_validity"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "RF-12",
+      "statement": "精密化の精密化・撤回・競合の解消は対応せず、競合の情報要求は解消可能と偽らない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_refinement.py::RefinementTests.test_information_requests_offer_a_resolution_only_where_one_exists"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-refinement/n09.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unresolved_assertion"
+          ],
+          "kind": "refusal"
+        },
+        {
+          "example": "examples/p2-refinement/u08.json",
+          "path": [
+            "results",
+            0,
+            "information_requests",
+            0,
+            "resolution_supported"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "可視の全主張・精密化を検査しunassessed。保留・訂正済み・期間外・効いていない精密化も落とさない",
+    "unsupported": "unsupported_profile。open_end・精密化の精密化・未対応のprofile/方針/操作/台帳",
+    "resource": "resource_limit。未完了行の値・採用集合・根拠はnull。認定なし",
+    "invalid_input": "構造・参照・hash・区間・確認順序は予算に依らず検査"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p2-refinement/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_refinement.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/refinement_oracle.py"
+  }
+}
