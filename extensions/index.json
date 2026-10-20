@@ -87,6 +87,12 @@
       "class": "R2",
       "path": "p2-quantity-literal.json",
       "sha256": "8bc1953ef327ddc2bc331161bb3ba3086eb881ca3d682b2a93ba33e621909c25"
+    },
+    {
+      "id": "p2-measurement-binding",
+      "class": "R5",
+      "path": "p2-measurement-binding.json",
+      "sha256": "1d77161bd7fa09005753b099dec8e92a27f12dcf3be75a33a8759ab03c091ed8"
     }
   ]
 }

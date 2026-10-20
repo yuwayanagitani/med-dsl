@@ -669,6 +669,8 @@ from gen_temporal_manifest import temporal_manifest
 manifests.append(temporal_manifest(ROOT))
 from gen_quantity_manifest import quantity_manifest
 manifests.append(quantity_manifest(ROOT))
+from gen_measurement_manifest import measurement_manifest
+manifests.append(measurement_manifest(ROOT))
 
 OUT.mkdir(exist_ok=True)
 for m in manifests:

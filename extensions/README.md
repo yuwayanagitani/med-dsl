@@ -1,6 +1,6 @@
 # 拡張の宣言（P2-a、`p2-extension-manifest-draft-1`）
 
-既存の handler 10件への後付けに、P2-b・P2-c・P2-e・P2-fで追加した4件を加え、計14件の **拡張契約の宣言** があります。書式・検査・限界は [P2-a の実行契約](../docs/research/20-p2-a-contract.md)、結果は [P2-a の結果](../docs/research/21-p2-a-results.md) と [追加作業](../docs/research/22-p2-a-hardening.md)、P2-b は [23](../docs/research/23-p2-b-design.md)・[24](../docs/research/24-p2-b-results.md)、P2-c は [25](../docs/research/25-p2-c-design.md)・[26](../docs/research/26-p2-c-results.md)、P2-eは [31](../docs/research/31-p2-e-design.md)・[33](../docs/research/33-p2-e-results.md)、P2-fは [34](../docs/research/34-p2-f-design.md)・[36](../docs/research/36-p2-f-results.md) にあります。状態は作成者側の草案で、[運用方針](../docs/research/29-review-repository-policy.md) に従って内部検証を進めます。`independent_review` はfalseです。
+既存の handler 10件への後付けに、P2-b・P2-c・P2-e・P2-f・P2-gで追加した5件を加え、計15件の **拡張契約の宣言** があります。書式・検査・限界は [P2-a の実行契約](../docs/research/20-p2-a-contract.md)、結果は [P2-a の結果](../docs/research/21-p2-a-results.md) と [追加作業](../docs/research/22-p2-a-hardening.md)、P2-b は [23](../docs/research/23-p2-b-design.md)・[24](../docs/research/24-p2-b-results.md)、P2-c は [25](../docs/research/25-p2-c-design.md)・[26](../docs/research/26-p2-c-results.md)、P2-eは [31](../docs/research/31-p2-e-design.md)・[33](../docs/research/33-p2-e-results.md)、P2-fは [34](../docs/research/34-p2-f-design.md)・[36](../docs/research/36-p2-f-results.md)、P2-gは [37](../docs/research/37-p2-g-design.md)・[39](../docs/research/39-p2-g-results.md) にあります。状態は作成者側の草案で、[運用方針](../docs/research/29-review-repository-policy.md) に従って内部検証を進めます。`independent_review` はfalseです。
 
 宣言は作成者の主張で、**意味の正しさの証拠ではありません**。検査が確かめるのは、必須項目がそろっていること、実体（仕様の hash・実装・例）と食い違わないこと、所有する名前が衝突しないこと、防護例が宣言どおりの結果を返すことです。この系列は P1 の20条件・80 JSON・417必須パス、231開発テスト、レビュー系列とは別の分母です。
 
@@ -20,11 +20,12 @@
 | [p2-split-combination](p2-split-combination.json) | JOINT | 概念の分割の併用：保存性の判定と併用での候補集合（記号を共有し得る拡張の合成。P2-c） | p0-positive, p2-concept-split |
 | [p2-temporal-assertion](p2-temporal-assertion.json) | R5 | 有効期間と参照時点、部分訂正の方針診断。臨床主張・保存認定なし | p0-positive |
 | [p2-quantity-literal](p2-quantity-literal.json) | R2 | 点・有限区間の厳密換算と比較。臨床状態を読み書きしない | p0-positive |
+| [p2-measurement-binding](p2-measurement-binding.json) | R5 | 内容を指定した確認・訂正・文脈の点検を数量計算へ結ぶ。臨床主張・保存認定なし | p0-positive, p2-quantity-literal |
 
 [index.json](index.json) は上の一覧と、各宣言の sha256 です。登録は基底から順に行い、依存が先に登録されていることが必要です。
 
 ```bash
-python3 scripts/research/check-extensions.py            # 14件を登録し、宣言した防護例をすべて評価する
+python3 scripts/research/check-extensions.py            # 15件を登録し、宣言した防護例をすべて評価する
 python3 scripts/research/check-extensions.py --strict   # 防護例のない義務（現在3件、すべて理由つき）があると失敗する
 python3 scripts/research/check-extensions.py --json     # 機械可読
 python3 -m unittest discover -s tests/p2 -v             # P2 系列のテスト。tests/ 直下の discover には含まれない

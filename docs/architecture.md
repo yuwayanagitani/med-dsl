@@ -30,9 +30,9 @@ flowchart TD
 
 保存の前提・結論・実装への対応を [12の証明義務](research/16-proof-obligations.md) に整理しました。[追加の有限監査](research/16-pre-review-results.md) は作成者側の検証で、[独立レビュー計画](research/16-review-plan.md) による確認と区別します。
 
-## 数量と測定記録の接続（P2-gの設計）
+## 数量と測定記録の接続（P2-gの最小実装）
 
-[P2-f](research/36-p2-f-results.md) の数値リテラル計算と、[P2-g](research/37-p2-g-design.md) で設計する測定主張の選択を分けます。記録版は数量の内容hashと文脈・出自を含み、確認はその内容全体を対象とします。訂正は新しい版・確認として残し、原snapshotと仕様・処理系を保持した再現を目指します。接続runtimeは未実装です。
+[P2-f](research/36-p2-f-results.md) の数値リテラル計算と、[P2-g](research/37-p2-g-design.md) の測定主張の選択を分けます。記録版は数量の内容hashと文脈・出自を含み、確認はその内容全体を対象とします。訂正は新しい版・確認として残し、原snapshotと仕様・処理系を保持した再現を目指します。[専用のR5モジュールとして最小実装](research/39-p2-g-results.md) し、参照時点に見える内容一致の人の確認、slot単位の訂正、既知文脈の一致を点検してP2-fへ渡します。子の計算予算は親から予約し、未完了行の値・根拠を返しません。確認は構造の照合に限り、認証・医学的妥当性・臨床主張の生成は対象外です。
 
 ```mermaid
 flowchart TD

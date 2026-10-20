@@ -1,0 +1,618 @@
+{
+  "schema_version": "p2-extension-manifest-draft-1",
+  "id": "p2-measurement-binding",
+  "version": "draft-1",
+  "title": "確認対象の内容を固定した測定記録の選択と数量計算への接続",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R5",
+  "spec": {
+    "path": "src/med_dsl/measurement_spec.json",
+    "sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454"
+  },
+  "contract_doc": "docs/research/37-p2-g-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/measurement.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
+      "path": "docs/research/38-p2-g-cases.md",
+      "role": "hand_specified_expectations"
+    },
+    {
+      "path": "src/med_dsl/quantity_spec.json",
+      "role": "quantity_native_spec"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/measurement_spec.json",
+    "src/med_dsl/quantity.py",
+    "examples/p2-measurement/*.json",
+    "examples/p2-quantity/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    },
+    {
+      "id": "p2-quantity-literal",
+      "version": "draft-1"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "evaluate_measurements"
+    ],
+    "schema_versions": [
+      "p2-measurement-request-draft-1",
+      "p2-measurement-result-draft-1",
+      "p2-measurement-ledger-draft-1"
+    ],
+    "profiles": [
+      "p2-measurement-binding-draft-1"
+    ],
+    "answer_kinds": [
+      "measurement_literal_projection"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-measurement-binding-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "旧schemaは旧経路に保持する。型付き確認から旧基底の支持へ変換しない",
+    "fragment": "三つの架空property、瞬間・未知・未指定の文脈、slot単位の全体訂正、内容全体を指定した人の確認。文脈一致の数値点検のみ"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "nativeと量の依存版・hash・方針を照合",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_native_dependency_pins_and_structural_refusals_precede_budget"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/n10-hash.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "未知能力・情報不足・競合・相違・不正を区別",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_hand_expectations_api_cli_and_manifest"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m22-masked-record.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/m16.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "method_unknown"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "原情報・両出自を保持し臨床主張を生成しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_ai_origin_and_confirmation_are_preserved_without_clinical_or_base_writes"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m08.json",
+          "path": [
+            "clinical_confirmation"
+          ],
+          "equals": "not_evaluated",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "共有予算から予約し未完了の値・根拠を返さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_budget_sweep_atomic_values_receipts_and_no_child_before_reservation"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/b02-15.json",
+          "path": [
+            "results",
+            0,
+            "binding_evidence"
+          ],
+          "equals": null,
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/b02-16.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 16,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-1",
+      "statement": "内容を指定した確認とslot選択を旧採用と分離",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_hash_chain_binds_all_original_content_and_cannot_reuse_confirmation"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/n04-method.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "review_record_hash_mismatch"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-2",
+      "statement": "保存・医学的妥当性の認定を返さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_ai_origin_and_confirmation_are_preserved_without_clinical_or_base_writes"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m24.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-3",
+      "statement": "計算結果を新しい臨床主張へ書き戻さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_ai_origin_and_confirmation_are_preserved_without_clinical_or_base_writes"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m01.json",
+          "path": [
+            "clinical_assertions_added"
+          ],
+          "equals": [],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-1",
+      "statement": "数量・記録・確認の内容参照を連鎖して拘束",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_hash_chain_binds_all_original_content_and_cannot_reuse_confirmation"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/n03-unit_ref.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "quantity_reference_hash_mismatch"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/n04-origin.json",
+          "path": [
+            "status"
+          ],
+          "equals": "invalid_input",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-2",
+      "statement": "人の確認・確定性・両記録時刻の可視性",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_all_small_revision_graphs_and_confirmation_arrivals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m05-before.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "no_adopted_measurement"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/m05-at.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "computed",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-3",
+      "statement": "適格な訂正辺を使い、復活・最新勝ち・等値の統合をしない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_all_small_revision_graphs_and_confirmation_arrivals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m11.json",
+          "path": [
+            "results",
+            0,
+            "binding_evidence",
+            "selected",
+            0,
+            "record_ref"
+          ],
+          "equals": "C",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/m12-before.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unresolved_measurement_conflict"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-4",
+      "statement": "不明と未指定を分け、新しい版と確認でのみ精密化",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_hand_expectations_api_cli_and_manifest"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m33-before.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "method_unknown"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/m33-after.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "computed",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-5",
+      "statement": "文脈一致を限定し医学的同等性に変換しない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_two_slot_context_variable_and_unknown_cross_product"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m30-version.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "different_method"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-6",
+      "statement": "共有literalでも別記録は別変数、同じ版だけ自己比較",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_record_identity_preserves_shared_domains_without_aliasing_distinct_measurements"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m25.json",
+          "path": [
+            "results",
+            0,
+            "relation_set"
+          ],
+          "equals": [
+            "less",
+            "equal",
+            "greater"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/m26.json",
+          "path": [
+            "results",
+            0,
+            "relation_set"
+          ],
+          "equals": [
+            "equal"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-7",
+      "statement": "保留・訂正済みの可視の未知能力も検査しslot外は分離",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_two_slot_context_variable_and_unknown_cross_product"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m22-pending-quantity.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/m23-other.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "computed",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-8",
+      "statement": "量の固定版・厳密演算と未対応の境界",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_native_dependency_pins_and_structural_refusals_precede_budget"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/n07-dependency.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "quantity_profile_mismatch"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/m35-negative.json",
+          "path": [
+            "results",
+            0,
+            "converted_domain",
+            "lower"
+          ],
+          "equals": {
+            "numerator": -3,
+            "denominator": 2
+          },
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-9",
+      "statement": "AI由来・未評価の不確かさを保持し確認を補わない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_ai_origin_and_confirmation_are_preserved_without_clinical_or_base_writes"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m07.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "no_adopted_measurement"
+          ],
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/m08.json",
+          "path": [
+            "uncertainty_propagated"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-10",
+      "statement": "行の先払いと子予算の予約、完成値・根拠の原子性",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_child_size_and_injected_resource_stop_have_no_partial_receipts"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/b04-16.json",
+          "path": [
+            "results",
+            1,
+            "assessment_complete"
+          ],
+          "equals": false,
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/b03-true-20.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 20,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-11",
+      "statement": "固定snapshotの再現と旧経路の非干渉",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_input_retention_permutation_snapshot_pins_and_no_hidden_latest_state"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/m36-past.json",
+          "path": [
+            "results",
+            0,
+            "binding_evidence",
+            "selected",
+            0,
+            "record_ref"
+          ],
+          "equals": "A",
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-measurement/m36-now.json",
+          "path": [
+            "results",
+            0,
+            "binding_evidence",
+            "selected",
+            0,
+            "record_ref"
+          ],
+          "equals": "B",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "MB-12",
+      "statement": "全体の検証・決定性・依存の識別",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_measurement.py::MeasurementTests.test_targeted_semantic_mutants_are_detected_by_their_guards"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-measurement/n02-literal-id.json",
+          "path": [
+            "status"
+          ],
+          "equals": "invalid_input",
+          "kind": "boundary"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "可視の全記録・数量の能力を問うslot内で検査しunassessed",
+    "unsupported": "unsupported_profile。別の方針・scope・量仕様・context/record表現",
+    "resource": "resource_limit。先払い前に子を呼ばず、未完了行の値・根拠・diagnosticsはnull",
+    "invalid_input": "全体の構造・参照・hash・型・訂正・確認順序を予算前に検査"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [
+      "p2-quantity-literal"
+    ],
+    "order_dependent": false
+  },
+  "evaluation": {
+    "examples": [
+      "examples/p2-measurement/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_measurement.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/measurement_oracle.py"
+  }
+}

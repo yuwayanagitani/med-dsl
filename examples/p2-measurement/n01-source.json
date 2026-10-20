@@ -1,0 +1,58 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N01-source",
+  "condition": "N01",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-measurement-request-draft-1",
+    "operation": "evaluate_measurements",
+    "consumer": {
+      "profile": "p2-measurement-binding-draft-1",
+      "profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+      "operations": [
+        "evaluate_measurements"
+      ],
+      "quantity_profile": "p2-quantity-literal-draft-1",
+      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+    },
+    "views": [
+      {
+        "id": "v",
+        "as_of": "2026-10-20T05:00:00Z",
+        "policy_ref": "fiction:reviewed-measurement-record@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q",
+        "kind": "convert",
+        "slot_ref": "S",
+        "target_unit_ref": "u_base"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "missing_field"
+        ]
+      }
+    ]
+  }
+}

@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from med_dsl.validation import canonical_bytes, decode_json
 
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
-SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity")
+SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity", "p2-measurement")
 
 
 # ---- 例の読み込みと期待の照合 ----
@@ -74,7 +74,7 @@ def suite_report(directory, evaluate):
 BUDGET_DEPENDENT_REFUSALS = {"p1-a/unnormalized.json": "forecast_spec.json: 重みの加算と正規化の比較は課金される"}
 VALUE_FIELDS = ("bindings", "evidence", "answer", "split", "splits", "base", "leaf_candidates", "information_requests",
                 "literal_state", "positive_assertion_refs", "negative_assertion_refs", "masked_assertion_refs", "assertion_evidence", "revision_evidence",
-                "converted_domain", "relation_set", "certain_relation", "calculation_evidence")
+                "converted_domain", "relation_set", "certain_relation", "calculation_evidence", "binding_evidence", "diagnostics")
 
 
 def without_input_hash(result):
@@ -106,10 +106,13 @@ def budget_violations(name, request, evaluate, limit=300):
     problems, full = [], run(100000)
     if full["status"] == "resource_limit":
         # 無制限でも止まる（資源の上限）。予算が小さければ別の上限（steps）で止まってよいが、認定票は出さない
-        for budget in (0, 1, 7):
-            result = run(budget)
+        # 明示した完了flagを持つ行は、下位計算のサイズ上限で止まった場合も検査する。
+        for result, maximum in [(full, 100000), *((run(b), b) for b in (0, 1, 7))]:
             if result["status"] != "resource_limit" or contains_value(result, "certified"):
-                problems.append((name, budget, "resource_stop_not_honest"))
+                problems.append((name, maximum, "resource_stop_not_honest"))
+            for row in result.get("results", []):
+                if row.get("assessment_complete") is False and any(bool(row.get(key)) for key in VALUE_FIELDS):
+                    problems.append((name, maximum, "value_on_stopped_row"))
         return problems, 3
     if full["status"] != "ok":
         for budget in (0, 1, 7):
@@ -149,7 +152,10 @@ def budget_violations(name, request, evaluate, limit=300):
         if isinstance(rows, list) and isinstance(full_rows, list) and len(rows) == len(full_rows):
             for row, full_row in zip(rows, full_rows):
                 limited = row.get("status") != "ok" and any("step_limit" in code for code in (row.get("reason_codes") or []))
+                limited = limited or row.get("assessment_complete") is False
                 if limited:
+                    if row.get("assessment_complete") is True:
+                        problems.append((name, budget, "completion_on_stopped_row"))
                     if any(row.get(field) for field in VALUE_FIELDS):
                         problems.append((name, budget, "value_on_stopped_row"))
                 elif row != full_row:

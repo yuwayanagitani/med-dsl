@@ -1,0 +1,50 @@
+{
+  "profile": "p2-measurement-binding-draft-1",
+  "request_schema": "p2-measurement-request-draft-1",
+  "result_schema": "p2-measurement-result-draft-1",
+  "source_schema": "p2-measurement-ledger-draft-1",
+  "operation": "evaluate_measurements",
+  "answer_kind": "measurement_literal_projection",
+  "policy_ref": "fiction:reviewed-measurement-record@1",
+  "class": "R5",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "quantity_profile": "p2-quantity-literal-draft-1",
+  "quantity_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+  "properties": {
+    "fiction:measurement:property:A@1": "k_a",
+    "fiction:measurement:property:A-other@1": "k_a",
+    "fiction:measurement:property:B@1": "k_b"
+  },
+  "hashes": {
+    "quantity": "SHA256(canonical_bytes(full quantity wrapper))",
+    "record": "SHA256(canonical_bytes({binding_profile,binding_spec_sha256,source_ref,record}))",
+    "source": "SHA256(canonical_bytes(source with slots/records/reviews sorted by id and quantities by ref)); nested arrays remain unchanged; preserve original source separately"
+  },
+  "selection": "visible records recorded_at <= as_of; eligible iff certainty confirmed and at least one visible human confirmed review with exact record hash; all eligible supersedes edges mask direct targets even when their source is masked; no latest-wins or transitive masking through ineligible records",
+  "gates": [
+    "unknown capabilities on every visible record and its quantity in queried slots",
+    "candidate count != 1 per operand slot",
+    "all unknown property/context/kind/units",
+    "all known context differences for compare",
+    "quantity delegation"
+  ],
+  "context": "matched_context compares subject, property, specimen ref/version, method ref/version and instant exactly; unknown/unspecified never match; no clinical equivalence, longitudinal comparison or metadata inference",
+  "variables": "distinct selected record versions instantiate distinct quantity IDs even for a shared literal; only the same selected record aliases; retain mapping and both origins",
+  "confirmation": "record hashes bind complete metadata, origin, supersedes and quantity wrapper hash including dependency profile/spec; human flag is structurally checked, not authenticated; no clinical assertions, base conversion or certification",
+  "steps": "1 + N_slots + N_quantities + sum_view(N_records + N_reviews + sum_query(2 + N_visible_in_queried_slots + N_eligible_supersedes_edges_in_queried_slots + reserve)); reserve convert=8 compare=12; fully prepay each row including stopped semantic rows before delegation/publication; alias comparison uses 11 child steps but reservation 12 is not refunded; child budget funded by parent, never 100000",
+  "answers": "computed only publishes values, binding_evidence and calculation_evidence; all other rows null these; completed semantic diagnostics allowed; unfinished diagnostics null and assessment_complete=false; incomplete lists only unfinished rows",
+  "limits": {
+    "slots": 64,
+    "quantities": 64,
+    "records": 64,
+    "reviews": 128,
+    "views": 64,
+    "queries": 64,
+    "max_steps": 100000,
+    "json_bytes": 1048576,
+    "json_depth": 64
+  },
+  "scope": "fictional point-in-time measurement records only; unknown/unspecified context retained, corrected only through new reviewed record; whole-record supersession, no retraction, absence or temporal intervals; no persistent identity store, signature verification or external retrieval"
+}

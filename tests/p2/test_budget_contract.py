@@ -36,7 +36,7 @@ class BudgetContractTests(unittest.TestCase):
     def test_every_request_satisfies_the_budget_contract(self):
         report = checks.budget_report(self.requests, evaluate)
         self.assertEqual(report["violations"], [])
-        self.assertEqual(report["requests"], len(self.requests))      # 予算を持たず検査されない要求がない
+        self.assertEqual(report["requests"], sum(isinstance(r, dict) and isinstance(r.get("budget"), dict) for _, r in self.requests))  # 欠落した予算欄の負例はfixtureで照合
         self.assertGreater(report["evaluations"], 2000)
 
     def test_the_budget_dependent_refusal_is_one_documented_exception(self):
@@ -55,9 +55,13 @@ class BudgetContractTests(unittest.TestCase):
         for name, other in self.requests:
             if name == BUDGET_DEPENDENT or evaluate(deepcopy(other))["status"] != "invalid_input":
                 continue
+            original = evaluate(deepcopy(other))
+            if "budget" not in other:
+                # 欄の追加は入力の修復で、同じ入力の予算掃引ではない。欠落の拒否はfixtureでも照合する。
+                self.assertEqual(original["reason_codes"], ["missing_field"], name)
+                continue
             zero = deepcopy(other)
             zero["budget"] = {"max_steps": 0}
-            original = evaluate(deepcopy(other))
             if original.get("reason_codes") == ["invalid_step_budget"]:
                 # 不正な予算を0に置換する操作は入力の修復。同じ拒否を要求する対象ではない。
                 self.assertEqual(original["error_path"], "budget.max_steps", name)

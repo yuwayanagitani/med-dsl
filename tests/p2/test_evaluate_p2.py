@@ -61,7 +61,7 @@ class DenominatorTests(unittest.TestCase):
 
     def test_the_pinned_request_count_is_the_number_of_requests_the_budget_check_covers(self):
         import p2_checks
-        self.assertEqual(len(p2_checks.load_requests()), EXPECTED["budget"]["requests"])
+        self.assertEqual(sum(isinstance(r, dict) and isinstance(r.get("budget"), dict) for _, r in p2_checks.load_requests()), EXPECTED["budget"]["requests"])
 
     def test_the_computed_extension_report_equals_the_pinned_one(self):
         report = evaluate_p2.extension_report()

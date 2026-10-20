@@ -60,6 +60,18 @@ EXPECTED["suites"]["p2-quantity"] = {"examples": 79, "checks": 609}
 EXPECTED["budget"] = {"requests": 343, "budget_evaluations": 4077, "violations": 0, "allowed_budget_dependent_refusals": 1}
 
 
+# P2-f時点の分母を残し、測定の接続を加えた現在値を固定する。
+P2_F_EXPECTED = copy.deepcopy(EXPECTED)
+EXPECTED["extensions"] = {
+    "registered": 15, "refused": 0, "obligations": 163, "guards": 313, "guard_gaps": 3,
+    "evidence": {"checked_native_template": 122, "finite_check": 33, "hand_derivation": 8, "self_declared": 0, "individual_io": 0},
+    "independent_pairs": 77, "pairs": 91,
+}
+EXPECTED["suites"]["p2-measurement"] = {"examples": 137, "checks": 1425}
+# budget欄欠落の負例1件は要求全体の拒否で照合し、予算の置換掃引へ加算しない。
+EXPECTED["budget"] = {"requests": 479, "budget_evaluations": 6070, "violations": 0, "allowed_budget_dependent_refusals": 1}
+
+
 def _p1d():
     spec = importlib.util.spec_from_file_location("evaluate_p1_d", ROOT / "scripts/research/evaluate-p1-d.py")
     module = importlib.util.module_from_spec(spec)

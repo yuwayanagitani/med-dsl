@@ -1,0 +1,145 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N10-operation",
+  "condition": "N10",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-measurement-request-draft-1",
+    "operation": "evaluate_measurements",
+    "consumer": {
+      "profile": "p2-measurement-binding-draft-1",
+      "profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+      "operations": [
+        "future"
+      ],
+      "quantity_profile": "p2-quantity-literal-draft-1",
+      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+    },
+    "source": {
+      "schema_version": "p2-measurement-ledger-draft-1",
+      "ref": "fiction:measurement:source@1",
+      "slots": [
+        {
+          "id": "S",
+          "subject_ref": "u"
+        }
+      ],
+      "quantities": [
+        {
+          "ref": "Q",
+          "profile": "p2-quantity-literal-draft-1",
+          "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "literal": {
+            "id": "Q",
+            "quantity_kind_ref": "k_a",
+            "unit_ref": "u_ten",
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "uncertainty": {
+              "kind": "not_evaluated"
+            },
+            "origin": {
+              "kind": "literal",
+              "ref": "fiction:quantity:Q"
+            },
+            "required_capabilities": [
+              "p2-quantity-literal-draft-1"
+            ]
+          }
+        }
+      ],
+      "records": [
+        {
+          "id": "A",
+          "kind": "measurement",
+          "slot_ref": "S",
+          "subject_ref": "u",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "effective_at": {
+            "kind": "instant",
+            "at": "2026-10-20T01:00:00Z"
+          },
+          "quantity_ref": {
+            "ref": "Q",
+            "sha256": "54ef1265c268caee90b006424e57314a3f45f6b6cc2cf7a9715ea9d81f98287c"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-20T02:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:measurement:origin:A"
+          },
+          "required_capabilities": [
+            "p2-measurement-binding-draft-1"
+          ],
+          "supersedes": []
+        }
+      ],
+      "reviews": [
+        {
+          "id": "RA",
+          "record_ref": "A",
+          "record_sha256": "32db41fcb14c643d8a1b59a5808003232a5184e5234a644f83fe8f1d84138100",
+          "reviewer_ref": "fiction:human:reviewer",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-10-20T03:00:00Z",
+          "outcome": "confirmed"
+        }
+      ]
+    },
+    "views": [
+      {
+        "id": "v",
+        "as_of": "2026-10-20T05:00:00Z",
+        "policy_ref": "fiction:reviewed-measurement-record@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q",
+        "kind": "convert",
+        "slot_ref": "S",
+        "target_unit_ref": "u_base"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "unsupported_profile"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "unsupported_operation"
+        ]
+      }
+    ]
+  }
+}
