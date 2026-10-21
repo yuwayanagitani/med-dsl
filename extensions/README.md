@@ -74,6 +74,8 @@ P2-iの契約と内部評価は [43](../docs/research/43-p2-i-design.md)・[45](
 
 P2-jの契約と内部評価は [46](../docs/research/46-p2-j-design.md)・[48](../docs/research/48-p2-j-results.md) に記録します。
 
+P2-rの契約と内部評価は [73](../docs/research/73-p2-r-design.md)・[75](../docs/research/75-p2-r-results.md) に記録します。P2-i（`p2-temporal-measurement`）を draft-3 に上げ、P2-j（draft-3）、P2-m・P2-o・P2-p・P2-q（draft-2）を再固定しました。義務は TM-13・CL-13・QR-12 を足し、宣言の数は変わりません。版の記録は [examples/p2-versions/](../examples/p2-versions/README.md) にあります。
+
 P2-qの契約と内部評価は [70](../docs/research/70-p2-q-design.md)・[72](../docs/research/72-p2-q-results.md) に記録します。この宣言はP2-pを固定版で呼ぶ合成で、他の拡張の規則を再び述べないので、継承は宣言しません。例が入れ子の要求の仕様の hash を埋め込むので、`pins` に6つの仕様を持ちます。
 
 P2-pの契約と内部評価は [67](../docs/research/67-p2-p-design.md)・[69](../docs/research/69-p2-p-results.md) に記録します。この宣言はP2-oを固定版で呼ぶ合成で、他の拡張の規則を再び述べないので、継承は宣言しません。構造の事実は、取得したページ（台帳に記録、Git管理外）の出典のハッシュに結ばれます。
