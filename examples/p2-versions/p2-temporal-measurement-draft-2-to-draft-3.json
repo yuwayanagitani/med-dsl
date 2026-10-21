@@ -1,0 +1,334 @@
+{
+  "schema_version": "p2-version-record-draft-2",
+  "id": "p2-temporal-measurement-draft-2-to-draft-3",
+  "status": "author_draft",
+  "independent_review": false,
+  "note": "期間つき数量（P2-i）の記録に任意の項目 observer を足す版の更新と、依存する5拡張の再固定・採用の記録。旧版は消さず、旧入力は新版で黙って再解釈されず、再生成した入力と比べて宣言した変更だけが違う。declared_changes と predicted は文書73・74から手で書いた値、measured と from／to の評価は比較器の測定値を固定したもの。",
+  "from": {
+    "version": "draft-2",
+    "commit": "dc0aabebab799b8921f58ae9a354e332bcbcaf62",
+    "evaluation": {
+      "passed": true,
+      "registered": 23,
+      "obligations": 313,
+      "guards": 495,
+      "suites": {
+        "p2": [
+          35,
+          128
+        ],
+        "p2-split": [
+          34,
+          224
+        ],
+        "p2-splits": [
+          38,
+          221
+        ],
+        "p2-temporal": [
+          61,
+          462
+        ],
+        "p2-quantity": [
+          80,
+          622
+        ],
+        "p2-measurement": [
+          137,
+          1425
+        ],
+        "p2-display": [
+          145,
+          2128
+        ],
+        "p2-temporal-measurement": [
+          151,
+          1676
+        ],
+        "p2-temporal-display": [
+          170,
+          2670
+        ],
+        "p2-refinement": [
+          66,
+          721
+        ],
+        "p2-longitudinal": [
+          103,
+          2020
+        ],
+        "p2-library": [
+          141,
+          2417
+        ],
+        "p2-grounding": [
+          97,
+          1998
+        ],
+        "p2-observation": [
+          75,
+          1249
+        ]
+      },
+      "manifest_sha256": "89cb715d68bf84f41e78fd9701c58dc51f5e906af46cd2d0926414ae8f0dcd5a",
+      "bundle_sha256": "7b13731aed3779ab8f238713e0ae6747fd7832055014ad62611857ed64594c1d"
+    }
+  },
+  "to": {
+    "version": "draft-3",
+    "commit": "4963f9146fd26cdd7a16387439953284e4c38cad",
+    "evaluation": {
+      "passed": true,
+      "registered": 23,
+      "obligations": 316,
+      "guards": 498,
+      "suites": {
+        "p2": [
+          35,
+          128
+        ],
+        "p2-split": [
+          34,
+          224
+        ],
+        "p2-splits": [
+          38,
+          221
+        ],
+        "p2-temporal": [
+          61,
+          462
+        ],
+        "p2-quantity": [
+          80,
+          622
+        ],
+        "p2-measurement": [
+          137,
+          1425
+        ],
+        "p2-display": [
+          145,
+          2128
+        ],
+        "p2-temporal-measurement": [
+          162,
+          1757
+        ],
+        "p2-temporal-display": [
+          170,
+          2670
+        ],
+        "p2-refinement": [
+          66,
+          721
+        ],
+        "p2-longitudinal": [
+          103,
+          2020
+        ],
+        "p2-library": [
+          147,
+          2527
+        ],
+        "p2-grounding": [
+          97,
+          1998
+        ],
+        "p2-observation": [
+          83,
+          1446
+        ]
+      },
+      "manifest_sha256": "b1da2c3ef4bbbf671224b3414ff6a5f3d30395d519de211f5a0bd4e3f33ee371",
+      "bundle_sha256": "f54792d8afdabcaf01850399e14e1fb22258bdbb307c0cd9f235c83ed93b2cd8"
+    }
+  },
+  "extensions": [
+    "p2-clinical-library",
+    "p2-longitudinal-comparison",
+    "p2-observation-projection",
+    "p2-structure-grounding",
+    "p2-temporal-display",
+    "p2-temporal-measurement"
+  ],
+  "suites": [
+    "p2-temporal-measurement",
+    "p2-temporal-display",
+    "p2-longitudinal",
+    "p2-library",
+    "p2-grounding",
+    "p2-observation"
+  ],
+  "pins": [
+    {
+      "file": "src/med_dsl/temporal_measurement.py",
+      "name": "SPEC_SHA256"
+    },
+    {
+      "file": "src/med_dsl/temporal_display.py",
+      "name": "SPEC_SHA256"
+    },
+    {
+      "file": "src/med_dsl/longitudinal.py",
+      "name": "SPEC_SHA256"
+    },
+    {
+      "file": "src/med_dsl/clinical_library.py",
+      "name": "SPEC_SHA256"
+    },
+    {
+      "file": "src/med_dsl/structure_grounding.py",
+      "name": "SPEC_SHA256"
+    },
+    {
+      "file": "src/med_dsl/observation_projection.py",
+      "name": "SPEC_SHA256"
+    }
+  ],
+  "pin_refusals": [
+    {
+      "status": "unsupported_profile",
+      "code": "profile_spec_mismatch"
+    }
+  ],
+  "pure_pin_suites": [
+    "p2-library",
+    "p2-grounding",
+    "p2-observation"
+  ],
+  "intended_changes": [
+    "src/med_dsl/temporal_measurement_spec.json"
+  ],
+  "predicted": {
+    "extensions": [
+      "p2-clinical-library",
+      "p2-longitudinal-comparison",
+      "p2-observation-projection",
+      "p2-structure-grounding",
+      "p2-temporal-display",
+      "p2-temporal-measurement"
+    ],
+    "regenerate": [
+      "src/med_dsl/clinical_library.py",
+      "src/med_dsl/clinical_library_spec.json",
+      "src/med_dsl/longitudinal_spec.json",
+      "src/med_dsl/observation_projection_spec.json",
+      "src/med_dsl/quantity.py",
+      "src/med_dsl/structure_grounding.py",
+      "src/med_dsl/structure_grounding_spec.json",
+      "src/med_dsl/temporal_display_spec.json",
+      "src/med_dsl/temporal_measurement.py",
+      "src/med_dsl/temporal_measurement_spec.json",
+      "examples/p2-temporal-measurement/*.json",
+      "examples/p2-temporal-display/*.json",
+      "examples/p2-longitudinal/*.json",
+      "examples/p2-library/*.json",
+      "examples/p2-grounding/*.json",
+      "examples/p2-observation/*.json",
+      "examples/p2-quantity/*.json"
+    ],
+    "undercount": [
+      "src/med_dsl/temporal_display.py",
+      "src/med_dsl/longitudinal.py",
+      "src/med_dsl/observation_projection.py",
+      "extensions/p2-clinical-library.json",
+      "extensions/p2-longitudinal-comparison.json",
+      "extensions/p2-observation-projection.json",
+      "extensions/p2-structure-grounding.json",
+      "extensions/p2-temporal-display.json",
+      "extensions/p2-temporal-measurement.json"
+    ]
+  },
+  "declared_changes": [
+    {
+      "id": "D-1",
+      "kind": "added_field",
+      "extension": "p2-temporal-measurement",
+      "field": "record.observer",
+      "inputs": [],
+      "added_inputs": [
+        "p2-temporal-measurement/o01.json",
+        "p2-temporal-measurement/o02.json",
+        "p2-temporal-measurement/o03.json",
+        "p2-temporal-measurement/o04.json",
+        "p2-temporal-measurement/o05.json",
+        "p2-temporal-measurement/o10.json",
+        "p2-temporal-measurement/o11.json",
+        "p2-temporal-measurement/o12.json",
+        "p2-temporal-measurement/o13.json",
+        "p2-temporal-measurement/o14-null.json",
+        "p2-temporal-measurement/o14-string.json"
+      ],
+      "description": "記録の任意の項目 observer {kind: human|device, ref}。省略は観察者不明。確認が拘束する内容の一部。選ばれた記録が持つときだけ根拠に record_observer を出す"
+    },
+    {
+      "id": "D-2",
+      "kind": "added_field",
+      "extension": "p2-clinical-library",
+      "field": "selection.record_observer",
+      "inputs": [],
+      "added_inputs": [
+        "p2-library/o70.json",
+        "p2-library/o71.json",
+        "p2-library/o72.json",
+        "p2-library/n03-observer-kind.json",
+        "p2-library/n03-observer-ref.json",
+        "p2-library/n03-observer-confirm.json"
+      ],
+      "description": "操作の任意の observer を台帳へ渡し、選択の根拠に、あるときだけ record_observer を出す"
+    },
+    {
+      "id": "D-3",
+      "kind": "added_field",
+      "extension": "p2-observation-projection",
+      "field": "provenance.observer_type",
+      "inputs": [],
+      "added_inputs": [
+        "p2-observation/q20.json",
+        "p2-observation/q21.json",
+        "p2-observation/q22.json",
+        "p2-observation/q23.json",
+        "p2-observation/q24.json",
+        "p2-observation/q25.json",
+        "p2-observation/n14-observer-type-device.json",
+        "p2-observation/n14-observer-type-organization.json"
+      ],
+      "description": "観察者から生成の Provenance を出し、人の観察者の型は宣言を使う（推測せず依頼 declare_observer_type）"
+    },
+    {
+      "id": "D-4",
+      "kind": "repinned",
+      "inputs": [],
+      "description": "意味の変更のない再固定：P2-j・P2-m・P2-p。6つの仕様の hash、それを固定するモジュールの定数、依存先の仕様・宣言・実行例"
+    }
+  ],
+  "measured": {
+    "old_inputs_without_regeneration": {
+      "identical": 59,
+      "pin_refused": 678,
+      "changed": 0
+    },
+    "inputs": {
+      "old": 737,
+      "new": 762
+    },
+    "unpredicted_repin": [
+      "extensions/p2-clinical-library.json",
+      "extensions/p2-longitudinal-comparison.json",
+      "extensions/p2-observation-projection.json",
+      "extensions/p2-structure-grounding.json",
+      "extensions/p2-temporal-display.json",
+      "extensions/p2-temporal-measurement.json",
+      "src/med_dsl/longitudinal.py",
+      "src/med_dsl/observation_projection.py",
+      "src/med_dsl/temporal_display.py"
+    ],
+    "prediction_deviation": {
+      "missed": [],
+      "wrong": []
+    },
+    "changed_files": 813,
+    "listed_but_unnecessary": 118
+  }
+}

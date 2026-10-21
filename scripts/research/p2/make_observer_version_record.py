@@ -42,7 +42,8 @@ def skeleton(old, new):
         "extensions": EXTENSIONS, "suites": SUITES,
         "pins": [{"file": f"src/med_dsl/{m}.py", "name": "SPEC_SHA256"} for m in MODULES],
         "pin_refusals": [{"status": "unsupported_profile", "code": "profile_spec_mismatch"}],
-        "pure_pin_suites": [],
+        # 操作の列から台帳を組み立てる系列（P2-o・P2-p・P2-q）の入力は、確認の内容の hash を持たない：pin の置換で再固定できる
+        "pure_pin_suites": ["p2-library", "p2-grounding", "p2-observation"],
         "intended_changes": ["src/med_dsl/temporal_measurement_spec.json"],
         "predicted": {"extensions": EXTENSIONS, "regenerate": REGENERATE, "undercount": UNDERCOUNT},
         "declared_changes": [
