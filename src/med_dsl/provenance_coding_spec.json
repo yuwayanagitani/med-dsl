@@ -1,0 +1,108 @@
+{
+  "profile": "p2-provenance-coding-draft-1",
+  "request_schema": "p2-provenance-request-draft-1",
+  "result_schema": "p2-provenance-result-draft-1",
+  "operation": "run_provenance_coding",
+  "answer_kind": "provenance_coding",
+  "class": "R5",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "observation_profile": "p2-observation-projection-draft-1",
+  "observation_spec_sha256": "062efe75fe3975ca00e088f300cbf0349cd944e42c5083cb9bfbebbf956f52e4",
+  "observation_request_schema": "p2-observation-request-draft-1",
+  "scope": "for each projected row of the observation projection, attaches the declared activity coding to each provenance entry and, when declared, the revision entity of the selected correction; an entry without a declared coding stays uncoded and nothing is substituted; the revision relation is carried only on the generating entry of the selected correction, so a correction whose agent is unknown cannot carry it",
+  "activity_kinds": [
+    "creation",
+    "correction",
+    "confirmation"
+  ],
+  "entity_role": "revision",
+  "revision_states": [
+    "not_applicable",
+    "not_requested",
+    "no_provenance",
+    "no_agent",
+    "carried"
+  ],
+  "facts": [
+    {
+      "id": "F-A1",
+      "statement": "Provenance.activity is 0..1 and a CodeableConcept",
+      "source": "fhir-provenance-5.0.0",
+      "source_sha256": "3124befd937fa142245f09f1db724c524a82f9ce2831e29aff9185dae62487a6",
+      "marker": "Activity that occurred"
+    },
+    {
+      "id": "F-A2",
+      "statement": "the activity binding is Example; the page lists candidate code systems and does not limit the codes",
+      "source": "fhir-provenance-5.0.0",
+      "source_sha256": "3124befd937fa142245f09f1db724c524a82f9ce2831e29aff9185dae62487a6",
+      "marker": "Some potential code systems are"
+    },
+    {
+      "id": "F-E1",
+      "statement": "Provenance.entity is 0..* and describes an entity used in the activity",
+      "source": "fhir-provenance-5.0.0",
+      "source_sha256": "3124befd937fa142245f09f1db724c524a82f9ce2831e29aff9185dae62487a6",
+      "marker": "An entity used in this activity"
+    },
+    {
+      "id": "F-E2",
+      "statement": "entity.role is 1..1 code with the required values revision, quotation, source, instantiates and removal",
+      "source": "fhir-provenance-5.0.0",
+      "source_sha256": "3124befd937fa142245f09f1db724c524a82f9ce2831e29aff9185dae62487a6",
+      "marker": "revision | quotation | source | instantiates | removal"
+    },
+    {
+      "id": "F-E3",
+      "statement": "entity.what is 1..1 Reference(Any), the identity of the entity",
+      "source": "fhir-provenance-5.0.0",
+      "source_sha256": "3124befd937fa142245f09f1db724c524a82f9ce2831e29aff9185dae62487a6",
+      "marker": "Identity of entity"
+    },
+    {
+      "id": "F-E4",
+      "statement": "revision: an entity used by the activity to produce a new version of that entity (the entity is the older version)",
+      "source": "fhir-codesystem-provenance-entity-role-5.0.0",
+      "source_sha256": "1c0381514c2a535579b042935ecc451cfd3c57edaeaba2ad2036f32974dc6ad2",
+      "marker": "An entity that is used by the activity to produce a new version of that entity"
+    },
+    {
+      "id": "F-E5",
+      "statement": "Provenance.target are the references generated or updated by the activity (the newer version)",
+      "source": "fhir-provenance-5.0.0",
+      "source_sha256": "3124befd937fa142245f09f1db724c524a82f9ce2831e29aff9185dae62487a6",
+      "marker": "generated or updated by the activity"
+    },
+    {
+      "id": "F-V1",
+      "statement": "between R4 and R5 the entity.role code derivation was removed and instantiates was added",
+      "source": "fhir-provenance-5.0.0",
+      "source_sha256": "3124befd937fa142245f09f1db724c524a82f9ce2831e29aff9185dae62487a6",
+      "marker": "Remove code derivation Add code instantiates"
+    }
+  ],
+  "flows": {
+    "revision_carried": [
+      "revision:predecessor_identity"
+    ],
+    "revision_lost": [
+      "revision:predecessor_identity"
+    ],
+    "assumptions": {
+      "activity": "assumption:activity_coding_declared",
+      "revision": "assumption:revision_role_declared"
+    },
+    "activity_lost": "activity:{kind}"
+  },
+  "steps": "1 + M_q + 2 per query + 1; M_q is the full observation projection fee and the projection is called once at budget M_q and must use exactly M_q; fees are prepaid, never refunded",
+  "answers": "results keep the observation row and add coding; certificate is always not_certified and inferred information is always empty",
+  "limits": {
+    "coding": 16,
+    "max_steps": 100000,
+    "json_bytes": 1048576,
+    "json_depth": 64
+  },
+  "limitations": "diagnostic only; activity codes are opaque declarations and their code systems are not checked; only the revision role is produced; the entity identity is the library record reference and hash, not a FHIR resource id; the change reason and the chain beyond the direct predecessors are not carried; no conformance claim"
+}

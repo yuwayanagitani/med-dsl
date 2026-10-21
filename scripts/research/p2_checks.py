@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from med_dsl.validation import canonical_bytes, decode_json
 
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
-SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity", "p2-measurement", "p2-display", "p2-temporal-measurement", "p2-temporal-display", "p2-refinement", "p2-longitudinal", "p2-library", "p2-grounding", "p2-observation")
+SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity", "p2-measurement", "p2-display", "p2-temporal-measurement", "p2-temporal-display", "p2-refinement", "p2-longitudinal", "p2-library", "p2-grounding", "p2-observation", "p2-provenance")
 
 
 # ---- 例の読み込みと期待の照合 ----
@@ -84,7 +84,7 @@ def display_values_on_stopped(row):
     return any(key in row and row[key] is not None for key in
                ("artifact", "artifact_sha256", "rounding_cell", "question_results", "projection_evidence", "source_evidence",
                 "relation_set", "certain_relation", "context_differences", "endpoints", "comparison_evidence",
-                "selection", "elements", "requests", "output", "flows", "grounding", "base_status", "observation"))
+                "selection", "elements", "requests", "output", "flows", "grounding", "base_status", "observation", "coding"))
 
 
 def unfinished_conversion_values(row):

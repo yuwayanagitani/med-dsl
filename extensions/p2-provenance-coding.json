@@ -1,0 +1,497 @@
+{
+  "schema_version": "p2-extension-manifest-draft-2",
+  "id": "p2-provenance-coding",
+  "version": "draft-1",
+  "title": "Observation の status・code と Provenance の出力の出せた行に、宣言した活動の符号と、訂正の関係（revision の entity）を足し、運べない理由を区別する",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R5",
+  "spec": {
+    "path": "src/med_dsl/provenance_coding_spec.json",
+    "sha256": "d1eb04acda3d8c68e38773fa6895767e762e7e7465c28a35709976a7d400cf93"
+  },
+  "contract_doc": "docs/research/79-p2-t-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/provenance_coding.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
+      "path": "docs/research/80-p2-t-cases.md",
+      "role": "hand_specified_expectations"
+    },
+    {
+      "path": "src/med_dsl/observation_projection_spec.json",
+      "role": "observation_projection_native_spec"
+    },
+    {
+      "path": "src/med_dsl/structure_grounding_spec.json",
+      "role": "structure_grounding_native_spec"
+    },
+    {
+      "path": "src/med_dsl/clinical_library_spec.json",
+      "role": "clinical_library_native_spec"
+    },
+    {
+      "path": "src/med_dsl/temporal_measurement_spec.json",
+      "role": "temporal_measurement_native_spec"
+    },
+    {
+      "path": "src/med_dsl/quantity_spec.json",
+      "role": "quantity_native_spec"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/provenance_coding_spec.json",
+    "src/med_dsl/observation_projection.py",
+    "src/med_dsl/observation_projection_spec.json",
+    "src/med_dsl/structure_grounding.py",
+    "src/med_dsl/structure_grounding_spec.json",
+    "src/med_dsl/clinical_library.py",
+    "examples/p2-provenance/*.json",
+    "examples/p2-observation/*.json",
+    "examples/p2-grounding/*.json",
+    "examples/p2-library/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    },
+    {
+      "id": "p2-observation-projection",
+      "version": "draft-3"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "run_provenance_coding"
+    ],
+    "schema_versions": [
+      "p2-provenance-request-draft-1",
+      "p2-provenance-result-draft-1"
+    ],
+    "profiles": [
+      "p2-provenance-coding-draft-1"
+    ],
+    "answer_kinds": [
+      "provenance_coding"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-provenance-coding-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "旧要求とP2-q・P2-p・P2-o・P2-i・P2-fを変えず、P2-qを固定版で一度だけ実行し、出せた行にだけ活動の符号と訂正の関係を足す",
+    "fragment": "Provenance の activity の符号（宣言、不透明）と、entity の役割 revision（選ばれた訂正記録の生成側の項目に、訂正された記録ごとに一つ）。他の役割、entity.agent、符号の系の検証、訂正の理由と連鎖の全体の運搬、署名は範囲外。FHIRへの適合は主張しない"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "自己・P2-qの版と実体を固定し、旧profileや他拡張の結果を代用しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_static_validation_pins_limits_and_native_refusals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/n02-profile_spec_sha256.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "P2-qの停止（表せない・評価不能・不足の行）をそのまま通し、符号と実体の付与は出せた行だけに行う",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_rows_not_evaluated_or_not_declared_pass_through_the_observation_rows"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v14.json",
+          "path": [
+            "results",
+            0,
+            "coding",
+            "state"
+          ],
+          "equals": "not_evaluated",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "推測で補った情報を作らず、入力を変更せず、臨床の主張を追加しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_activity_codes_are_declared_never_substituted"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v01.json",
+          "path": [
+            "inferred_information"
+          ],
+          "equals": [],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "共通予算に従い、未完了の行に値を返さず、資源停止で認定しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_budget_sweep_keeps_finished_rows_and_has_no_partial_values"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/b01-44.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-1",
+      "statement": "使った宣言（活動の符号・revision の読み）を仮定として示す",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_hand_expectations_api_cli_manifest_and_obligations"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v04.json",
+          "path": [
+            "results",
+            0,
+            "flows",
+            "added"
+          ],
+          "equals": [
+            "assumption:activity_coding_declared",
+            "assumption:code_mapping_declared",
+            "assumption:observer_type_declared",
+            "assumption:reviewer_type_declared",
+            "assumption:revision_role_declared",
+            "assumption:status_mapping:correction:amended"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-2",
+      "statement": "保存・医学的な意味の認定を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_activity_codes_are_declared_never_substituted"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v01.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R5-3",
+      "statement": "構造への適合・臨床の傾向・基底への変換を主張しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_activity_codes_are_declared_never_substituted"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v01.json",
+          "path": [
+            "converted_to_base"
+          ],
+          "equals": false,
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "PT-1",
+      "statement": "自己・P2-qのprofileと仕様hash、構造の事実の出典のハッシュを固定し、呼び出し側が事実を変えられない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_static_validation_pins_limits_and_native_refusals",
+        "tests/p2/test_provenance.py::ProvenanceTests.test_structure_facts_are_bound_to_their_sources"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/n02-observation_profile_spec_sha256.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "observation_profile_mismatch"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "PT-2",
+      "statement": "P2-qの行をそのまま通し、再選択・再計算しない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_rows_not_evaluated_or_not_declared_pass_through_the_observation_rows"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v13.json",
+          "path": [
+            "results",
+            0,
+            "coding",
+            "state"
+          ],
+          "equals": "not_declared",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "PT-3",
+      "statement": "活動の符号は宣言した種類の符号だけを使い、別の種類で代用せず、付けられなかった種類を失うものに残す",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_activity_codes_are_declared_never_substituted",
+        "tests/p2/test_provenance.py::ProvenanceTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v12.json",
+          "path": [
+            "results",
+            0,
+            "coding",
+            "entries",
+            0,
+            "activity"
+          ],
+          "equals": null,
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "PT-4",
+      "statement": "revision の entity の向き・同一性・多重度・付ける場所（訂正された記録ごとに一つ、昇順、生成側の項目だけ）",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_revision_entities_carry_the_revised_record_with_an_independent_hash",
+        "tests/p2/test_provenance.py::ProvenanceTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v09.json",
+          "path": [
+            "results",
+            0,
+            "coding",
+            "entries",
+            0,
+            "entities",
+            1,
+            "what",
+            "record_ref"
+          ],
+          "equals": "A2",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "PT-5",
+      "statement": "revision の状態と優先、運べない理由の区別（観察者が不明な訂正は運べない）",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_the_relation_needs_a_known_agent",
+        "tests/p2/test_provenance.py::ProvenanceTests.test_enumeration_against_the_oracle",
+        "tests/p2/test_provenance.py::ProvenanceTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v06.json",
+          "path": [
+            "results",
+            0,
+            "coding",
+            "revision",
+            "state"
+          ],
+          "equals": "no_agent",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "PT-6",
+      "statement": "流れの規則（符号の仮定、付けられなかった種類、訂正の関係の保持／喪失）",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_enumeration_against_the_oracle",
+        "tests/p2/test_provenance.py::ProvenanceTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v04.json",
+          "path": [
+            "results",
+            0,
+            "flows",
+            "retained"
+          ],
+          "equals": [
+            "context:method",
+            "context:property",
+            "context:specimen",
+            "human_confirmed",
+            "observer",
+            "record:identity",
+            "revision:predecessor_identity",
+            "unit",
+            "value:exact_domain"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "PT-7",
+      "statement": "全体の料金・子の予約の使い切り・原子性・最後の確定を照合する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_full_cost_funded_once_and_the_child_uses_its_reservation",
+        "tests/p2/test_provenance.py::ProvenanceTests.test_child_failure_and_mismatch_are_atomic_and_refused"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v01.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 46,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "PT-8",
+      "statement": "停止の順序（P2-qの停止→静的検査→activity→entity）と状態の優先を守る",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_rows_not_evaluated_or_not_declared_pass_through_the_observation_rows"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v16.json",
+          "path": [
+            "results",
+            0,
+            "coding",
+            "state"
+          ],
+          "equals": "not_evaluated",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "PT-9",
+      "statement": "agent・確認・符号を作らない（推測で補わない）",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_the_relation_needs_a_known_agent",
+        "tests/p2/test_provenance.py::ProvenanceTests.test_activity_codes_are_declared_never_substituted",
+        "tests/p2/test_provenance.py::ProvenanceTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/v06.json",
+          "path": [
+            "results",
+            0,
+            "coding",
+            "entries",
+            0,
+            "kind"
+          ],
+          "equals": "confirmation",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "PT-10",
+      "statement": "構造の事実が出典に結ばれ、許容外の宣言（種類・真偽値）を拒否する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_provenance.py::ProvenanceTests.test_structure_facts_are_bound_to_their_sources"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-provenance/n08-kind-derivation.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_field"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "P2-qの行（表せない・評価不能・不足）は、そのまま通し not_evaluated と明示する",
+    "unsupported": "unsupported_profile。許容外の種類・符号を補完しない",
+    "resource": "resource_limit。未完了の九欄は全てnull、完成料金前は認定なし、子の部分結果は使わない",
+    "invalid_input": "子の要求（P2-qの検査）と宣言の形を予算前に検査"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [
+      "p2-observation-projection"
+    ],
+    "order_dependent": false
+  },
+  "inherits": [],
+  "evaluation": {
+    "examples": [
+      "examples/p2-provenance/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_provenance.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/provenance_oracle.py"
+  }
+}

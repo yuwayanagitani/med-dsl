@@ -50,6 +50,7 @@ HTML_RESOURCES = {
     "Specimen": {"5.0.0": "accessionIdentifier"},
     "Datatypes": {"5.0.0": "comparator"},
     "Codesystem-observation-status": {"5.0.0": "entered-in-error"},
+    "Codesystem-provenance-entity-role": {"5.0.0": "instantiates"},
     "Valueset-data-absent-reason": {"5.0.0": "not-asked"},
     "Provenance": {"5.0.0": "onBehalfOf"},
     "Extensibility": {"5.0.0": "modifierExtension"},

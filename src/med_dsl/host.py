@@ -15,6 +15,7 @@ from .longitudinal import LONGITUDINAL_PROFILE, run_longitudinal
 from .measurement import MEASUREMENT_PROFILE, run_measurements
 from .model import PROFILE, Problem
 from .observation_projection import OBSERVATION_PROFILE, run_observation
+from .provenance_coding import CODING_PROFILE, run_coding
 from .quantity import QUANTITY_PROFILE, run_quantities
 from .query import run_query
 from .refinement import REFINEMENT_PROFILE, run_refinement
@@ -46,6 +47,7 @@ def run_p0(request):
 
 P0 = Surface("p0-request-draft-1", "p0-result-draft-1", PROFILE, run_p0)
 SURFACES = {s.request_schema: s for s in (
+    Surface("p2-provenance-request-draft-1", "p2-provenance-result-draft-1", CODING_PROFILE, run_coding),
     Surface("p2-observation-request-draft-1", "p2-observation-result-draft-1", OBSERVATION_PROFILE, run_observation),
     Surface("p2-grounding-request-draft-1", "p2-grounding-result-draft-1", GROUNDING_PROFILE, run_grounding),
     Surface("p2-library-request-draft-1", "p2-library-result-draft-1", LIBRARY_PROFILE, run_library),

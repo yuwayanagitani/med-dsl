@@ -29,12 +29,13 @@ from med_dsl.model import Problem
 from med_dsl.validation import canonical_bytes, decode_json, digest
 
 IDS = ["p0-positive", "p0-definitions", "p1-finite-forecast", "p1-events", "p1-handover-host", "p1-event-chain",
-       "p1-projection", "p1-reference", "p1-absence", "p1-replay", "p2-concept-split", "p2-split-combination", "p2-temporal-assertion", "p2-quantity-literal", "p2-measurement-binding", "p2-quantity-display", "p2-temporal-measurement", "p2-temporal-display", "p2-validity-refinement", "p2-longitudinal-comparison", "p2-clinical-library", "p2-structure-grounding", "p2-observation-projection"]
+       "p1-projection", "p1-reference", "p1-absence", "p1-replay", "p2-concept-split", "p2-split-combination", "p2-temporal-assertion", "p2-quantity-literal", "p2-measurement-binding", "p2-quantity-display", "p2-temporal-measurement", "p2-temporal-display", "p2-validity-refinement", "p2-longitudinal-comparison", "p2-clinical-library", "p2-structure-grounding", "p2-observation-projection", "p2-provenance-coding"]
 # 防護例のない義務（理由は宣言の guard_gap）。増やすときはここも更新して、検査の見逃しが黙って増えないようにする。
 # 残る 3 件は、拒否する入力を構成できない（構文の十分条件による保証・手作業の導出・損失のある段がない）
 # P1 の予測の変更が及ぶ拡張：予測自身と、その有理数の入力検査を再び述べる P2-f（継承）、P2-f に依存する5件（手で導いた値、文書60の§2）
 FORECAST_FAMILY = sorted(["p1-finite-forecast", "p2-quantity-literal", "p2-measurement-binding", "p2-quantity-display",
-                          "p2-temporal-measurement", "p2-temporal-display", "p2-longitudinal-comparison", "p2-clinical-library", "p2-structure-grounding", "p2-observation-projection"])
+                          "p2-temporal-measurement", "p2-temporal-display", "p2-longitudinal-comparison", "p2-clinical-library", "p2-structure-grounding", "p2-observation-projection",
+                          "p2-provenance-coding"])
 KNOWN_GAPS = {
     "p0-definitions": ["R1-3"],
     "p1-events": ["R3-3"],
@@ -710,7 +711,7 @@ class CommandLineTests(unittest.TestCase):
         plain = self.run_script("--json")
         self.assertEqual(plain.returncode, 0, plain.stderr)
         report = json.loads(plain.stdout)
-        self.assertEqual((len(report["registered"]), report["refused"]), (23, []))
+        self.assertEqual((len(report["registered"]), report["refused"]), (24, []))
         self.assertEqual(report["guard_gaps"], sum(len(v) for v in KNOWN_GAPS.values()))
         self.assertEqual(self.run_script("--strict").returncode, 1)
 

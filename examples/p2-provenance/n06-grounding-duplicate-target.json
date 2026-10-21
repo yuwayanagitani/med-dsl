@@ -1,0 +1,261 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N06-grounding-duplicate-target",
+  "condition": "N06",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-provenance-request-draft-1",
+    "operation": "run_provenance_coding",
+    "consumer": {
+      "profile": "p2-provenance-coding-draft-1",
+      "profile_spec_sha256": "d1eb04acda3d8c68e38773fa6895767e762e7e7465c28a35709976a7d400cf93",
+      "operations": [
+        "run_provenance_coding"
+      ],
+      "observation_profile": "p2-observation-projection-draft-1",
+      "observation_profile_spec_sha256": "062efe75fe3975ca00e088f300cbf0349cd944e42c5083cb9bfbebbf956f52e4"
+    },
+    "observation_request": {
+      "schema_version": "p2-observation-request-draft-1",
+      "operation": "run_observation_projection",
+      "consumer": {
+        "profile": "p2-observation-projection-draft-1",
+        "profile_spec_sha256": "062efe75fe3975ca00e088f300cbf0349cd944e42c5083cb9bfbebbf956f52e4",
+        "operations": [
+          "run_observation_projection"
+        ],
+        "grounding_profile": "p2-structure-grounding-draft-1",
+        "grounding_profile_spec_sha256": "34f88aa6a41e29e605394d129ddc5d84adeee33f931e2d749c3bd834f5647695"
+      },
+      "grounding_request": {
+        "schema_version": "p2-grounding-request-draft-1",
+        "operation": "run_structure_grounding",
+        "consumer": {
+          "profile": "p2-structure-grounding-draft-1",
+          "profile_spec_sha256": "34f88aa6a41e29e605394d129ddc5d84adeee33f931e2d749c3bd834f5647695",
+          "operations": [
+            "run_structure_grounding"
+          ],
+          "library_profile": "p2-clinical-library-draft-1",
+          "library_profile_spec_sha256": "58abe63fca0b964120e88fd3773ef2226c6d516e7d7eed745fce126e9bcfd9c2"
+        },
+        "library_request": {
+          "schema_version": "p2-library-request-draft-1",
+          "operation": "run_clinical_library",
+          "consumer": {
+            "profile": "p2-clinical-library-draft-1",
+            "profile_spec_sha256": "58abe63fca0b964120e88fd3773ef2226c6d516e7d7eed745fce126e9bcfd9c2",
+            "operations": [
+              "run_clinical_library"
+            ],
+            "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
+            "temporal_measurement_profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
+            "quantity_profile": "p2-quantity-literal-draft-1",
+            "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
+          },
+          "library": {
+            "ref": "fiction:library:session@1",
+            "slots": [
+              {
+                "id": "S",
+                "subject_ref": "u"
+              }
+            ],
+            "operations": [
+              {
+                "id": "A",
+                "kind": "record",
+                "slot_ref": "S",
+                "property_ref": "fiction:measurement:property:A@1",
+                "specimen": {
+                  "kind": "known",
+                  "ref": "fiction:specimen:s",
+                  "version": "1"
+                },
+                "method": {
+                  "kind": "known",
+                  "ref": "fiction:method:m",
+                  "version": "1"
+                },
+                "validity": {
+                  "kind": "bounded",
+                  "start": "2026-10-01T00:00:00Z",
+                  "end": "2026-10-10T00:00:00Z"
+                },
+                "value": {
+                  "magnitude": {
+                    "kind": "point",
+                    "value": {
+                      "numerator": 2,
+                      "denominator": 1
+                    }
+                  },
+                  "unit_ref": "u_ten",
+                  "quantity_kind_ref": "k_a"
+                },
+                "certainty": "confirmed",
+                "recorded_at": "2026-10-02T00:00:00Z",
+                "origin": {
+                  "kind": "observed",
+                  "ref": "fiction:library:origin:A"
+                },
+                "observer": {
+                  "kind": "unknown"
+                }
+              },
+              {
+                "id": "RA",
+                "kind": "confirm",
+                "record_ref": "A",
+                "reviewer_ref": "fiction:human:reviewer",
+                "recorded_at": "2026-10-03T00:00:00Z"
+              }
+            ]
+          },
+          "destinations": [
+            {
+              "id": "dest:numeric-exchange",
+              "version": "1",
+              "output": {
+                "kind": "exchange"
+              },
+              "elements": [
+                {
+                  "element": "value",
+                  "form": "domain",
+                  "unit_ref": "u_base"
+                },
+                {
+                  "element": "context",
+                  "field": "property",
+                  "requires": "known"
+                }
+              ]
+            }
+          ],
+          "views": [
+            {
+              "id": "v",
+              "as_of": "2026-10-08T00:00:00Z"
+            }
+          ],
+          "queries": [
+            {
+              "id": "q1",
+              "view_ref": "v",
+              "slot_ref": "S",
+              "destination_ref": {
+                "id": "dest:numeric-exchange",
+                "version": "1"
+              },
+              "target_at": "2026-10-05T00:00:00Z"
+            }
+          ],
+          "budget": {
+            "max_steps": 0
+          }
+        },
+        "targets": [
+          {
+            "destination_ref": {
+              "id": "dest:numeric-exchange",
+              "version": "1"
+            },
+            "structure": "fhir-r5-observation",
+            "value": "quantity",
+            "context_fields": [
+              "method",
+              "specimen"
+            ]
+          },
+          {
+            "destination_ref": {
+              "id": "dest:numeric-exchange",
+              "version": "1"
+            },
+            "structure": "fhir-r5-observation",
+            "value": "range",
+            "context_fields": [
+              "method",
+              "specimen"
+            ]
+          }
+        ],
+        "budget": {
+          "max_steps": 0
+        }
+      },
+      "observations": [
+        {
+          "destination_ref": {
+            "id": "dest:numeric-exchange",
+            "version": "1"
+          },
+          "status": {
+            "original": "final"
+          },
+          "code_map": [
+            {
+              "property_ref": "fiction:measurement:property:A@1",
+              "system": "fiction:code-system:s",
+              "code": "fiction-code-1"
+            }
+          ],
+          "provenance": {
+            "reviewer_type": "Practitioner"
+          }
+        }
+      ],
+      "budget": {
+        "max_steps": 0
+      }
+    },
+    "coding": [
+      {
+        "destination_ref": {
+          "id": "dest:numeric-exchange",
+          "version": "1"
+        },
+        "activities": {
+          "creation": {
+            "system": "fiction:activity-system:s",
+            "code": "fiction-create"
+          },
+          "correction": {
+            "system": "fiction:activity-system:s",
+            "code": "fiction-correct"
+          },
+          "confirmation": {
+            "system": "fiction:activity-system:s",
+            "code": "fiction-confirm"
+          }
+        },
+        "revision": true
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "duplicate_target"
+        ]
+      }
+    ]
+  }
+}

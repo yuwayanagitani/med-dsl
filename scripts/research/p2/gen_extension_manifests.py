@@ -694,12 +694,16 @@ manifests.append(grounding_manifest(ROOT))
 from gen_observation_manifest import observation_manifest
 manifests.append(observation_manifest(ROOT))
 
+from gen_provenance_manifest import provenance_manifest
+manifests.append(provenance_manifest(ROOT))
+
 # ---- 継承（P2-n、manifest draft-2）：実装を共有せず、断片で元の拡張と観測が一致することの宣言 ----
 # 継承する側 -> 項目の列。宣言の正本はここではなく extensions/*.json だが、書き手が一箇所で監査できるよう表にまとめる。
 DIRECTORIES = {"p2-temporal-assertion": "p2-temporal", "p2-measurement-binding": "p2-measurement", "p2-temporal-measurement": "p2-temporal-measurement",
                "p2-quantity-display": "p2-display", "p2-temporal-display": "p2-temporal-display", "p2-longitudinal-comparison": "p2-longitudinal",
                "p2-validity-refinement": "p2-refinement", "p2-quantity-literal": "p2-quantity", "p1-finite-forecast": "p1-a",
-               "p2-clinical-library": "p2-library", "p2-structure-grounding": "p2-grounding", "p2-observation-projection": "p2-observation"}
+               "p2-clinical-library": "p2-library", "p2-structure-grounding": "p2-grounding", "p2-observation-projection": "p2-observation",
+               "p2-provenance-coding": "p2-provenance"}
 REASONS = ["results", 0, "reason_codes"]
 
 

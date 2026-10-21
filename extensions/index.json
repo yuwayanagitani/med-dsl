@@ -141,6 +141,12 @@
       "class": "R5",
       "path": "p2-observation-projection.json",
       "sha256": "8d00273a31c8fb7e69df1110faadc574e0b0a059567334a687d50ae040abffe8"
+    },
+    {
+      "id": "p2-provenance-coding",
+      "class": "R5",
+      "path": "p2-provenance-coding.json",
+      "sha256": "fb4294d68265089cf84be366f85c0bb28295c2bc80577acd8381d6c6bb290260"
     }
   ]
 }

@@ -22,6 +22,7 @@ CHAIN = [
     ("src/med_dsl/clinical_library_spec.json", "src/med_dsl/clinical_library.py", "SPEC_SHA256"),
     ("src/med_dsl/structure_grounding_spec.json", "src/med_dsl/structure_grounding.py", "SPEC_SHA256"),
     ("src/med_dsl/observation_projection_spec.json", "src/med_dsl/observation_projection.py", "SPEC_SHA256"),
+    ("src/med_dsl/provenance_coding_spec.json", "src/med_dsl/provenance_coding.py", "SPEC_SHA256"),
 ]
 
 

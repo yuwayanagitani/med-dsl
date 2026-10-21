@@ -1,0 +1,66 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N01-missing-observation_request",
+  "condition": "N01",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-provenance-request-draft-1",
+    "operation": "run_provenance_coding",
+    "consumer": {
+      "profile": "p2-provenance-coding-draft-1",
+      "profile_spec_sha256": "d1eb04acda3d8c68e38773fa6895767e762e7e7465c28a35709976a7d400cf93",
+      "operations": [
+        "run_provenance_coding"
+      ],
+      "observation_profile": "p2-observation-projection-draft-1",
+      "observation_profile_spec_sha256": "062efe75fe3975ca00e088f300cbf0349cd944e42c5083cb9bfbebbf956f52e4"
+    },
+    "coding": [
+      {
+        "destination_ref": {
+          "id": "dest:numeric-exchange",
+          "version": "1"
+        },
+        "activities": {
+          "creation": {
+            "system": "fiction:activity-system:s",
+            "code": "fiction-create"
+          },
+          "correction": {
+            "system": "fiction:activity-system:s",
+            "code": "fiction-correct"
+          },
+          "confirmation": {
+            "system": "fiction:activity-system:s",
+            "code": "fiction-confirm"
+          }
+        },
+        "revision": true
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "missing_field"
+        ]
+      }
+    ]
+  }
+}
