@@ -31,7 +31,7 @@ FLOWS = {
 def rec(ident='A', **change):
     op = {'id': ident, 'kind': 'record', 'slot_ref': 'S', 'property_ref': PROPERTY, 'specimen': deepcopy(SPECIMEN), 'method': deepcopy(METHOD),
           'validity': m.span(1, 10), 'value': {'magnitude': q.point(2), 'unit_ref': 'u_ten', 'quantity_kind_ref': 'k_a'}, 'certainty': 'confirmed',
-          'recorded_at': day(2), 'origin': {'kind': 'observed', 'ref': 'fiction:library:origin:'+ident}}
+          'recorded_at': day(2), 'origin': {'kind': 'observed', 'ref': 'fiction:library:origin:'+ident}, 'observer': {'kind': 'unknown'}}
     op.update(change)
     return op
 
@@ -380,6 +380,12 @@ def main():
     bad('N03-denominator', request([rec(value=value(q.point(1, 0))), confirm('A')]), 'invalid_rational')
     bad('N03-bits', request([rec(value=value(q.point(2**63))), confirm('A')]), 'rational_integer_limit', 'resource_limit')
     bad('N03-dimension', request([rec(value=value(q.point(1), 'v_base')), confirm('A')]), 'input_dimension_mismatch')
+    unknown = {'kind': 'unknown'}
+    good('O73', request([rec(observer=unknown), confirm('A')]), satisfied(0, 'line', line_output('20.0', 200), S0) + shown(0, unknown), 32)
+    missing_observer = [rec(), confirm('A')]
+    del missing_observer[0]['observer']
+    bad('N03-observer-missing', request(missing_observer), 'missing_field')
+    bad('N03-observer-unknown-ref', request([rec(observer={'kind': 'unknown', 'ref': 'x'}), confirm('A')]), 'unknown_field')
     bad('N03-observer-kind', request([rec(observer={'kind': 'robot', 'ref': 'x'}), confirm('A')]), 'invalid_observer')
     bad('N03-observer-ref', request([rec(observer={'kind': 'human', 'ref': ''}), confirm('A')]), 'expected_nonempty_string')
     watching = [rec(), confirm('A')]

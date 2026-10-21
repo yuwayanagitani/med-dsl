@@ -10,12 +10,12 @@
     "operation": "run_clinical_library",
     "consumer": {
       "profile": "p2-clinical-library-draft-1",
-      "profile_spec_sha256": "bb87cc22078825e776e13933609ec37c341d152f31629b8a5f8574d402ee0d67",
+      "profile_spec_sha256": "58abe63fca0b964120e88fd3773ef2226c6d516e7d7eed745fce126e9bcfd9c2",
       "operations": [
         "run_clinical_library"
       ],
       "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
-      "temporal_measurement_profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+      "temporal_measurement_profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
       "quantity_profile": "p2-quantity-literal-draft-1",
       "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
@@ -64,6 +64,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R0"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -102,6 +105,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R1"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -140,6 +146,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R2"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -178,6 +187,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R3"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -216,6 +228,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R4"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -254,6 +269,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R5"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -292,6 +310,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R6"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -330,6 +351,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R7"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -368,6 +392,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R8"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -406,6 +433,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R9"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -444,6 +474,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R10"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -482,6 +515,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R11"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -520,6 +556,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R12"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -558,6 +597,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R13"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -596,6 +638,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R14"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -634,6 +679,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R15"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -672,6 +720,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R16"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -710,6 +761,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R17"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -748,6 +802,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R18"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -786,6 +843,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R19"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -824,6 +884,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R20"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -862,6 +925,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R21"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -900,6 +966,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R22"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -938,6 +1007,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R23"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -976,6 +1048,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R24"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1014,6 +1089,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R25"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1052,6 +1130,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R26"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1090,6 +1171,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R27"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1128,6 +1212,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R28"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1166,6 +1253,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R29"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1204,6 +1294,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R30"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1242,6 +1335,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R31"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1280,6 +1376,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R32"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1318,6 +1417,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R33"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1356,6 +1458,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R34"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1394,6 +1499,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R35"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1432,6 +1540,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R36"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1470,6 +1581,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R37"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1508,6 +1622,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R38"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1546,6 +1663,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R39"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1584,6 +1704,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R40"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1622,6 +1745,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R41"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1660,6 +1786,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R42"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1698,6 +1827,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R43"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1736,6 +1868,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R44"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1774,6 +1909,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R45"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1812,6 +1950,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R46"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1850,6 +1991,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R47"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1888,6 +2032,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R48"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1926,6 +2073,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R49"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -1964,6 +2114,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R50"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2002,6 +2155,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R51"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2040,6 +2196,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R52"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2078,6 +2237,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R53"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2116,6 +2278,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R54"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2154,6 +2319,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R55"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2192,6 +2360,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R56"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2230,6 +2401,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R57"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2268,6 +2442,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R58"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2306,6 +2483,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R59"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2344,6 +2524,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R60"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2382,6 +2565,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R61"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2420,6 +2606,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R62"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {
@@ -2458,6 +2647,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:R63"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {

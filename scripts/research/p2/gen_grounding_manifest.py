@@ -49,7 +49,7 @@ def grounding_manifest(root):
                     'checks': [tests+name for name in first(test)],
                     'guards': [{'example': 'examples/p2-grounding/'+example.lower()+'.json', 'path': path, 'equals': value, 'kind': kind}]}
                    for ident, text, test, example, path, value, finite, kind in rows]
-    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-structure-grounding', 'version': 'draft-2',
+    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-structure-grounding', 'version': 'draft-3',
             'title': '満たされた exchange の行が、出力先の構造（FHIR R5 Observation）で、丸めず・閉じず・補わずに表せるかを診断する',
             'status': {'review_state': 'author_draft', 'independent_review': False}, 'class': 'R5',
             'spec': {'path': 'src/med_dsl/structure_grounding_spec.json', 'sha256': hashlib.sha256((root/'src/med_dsl/structure_grounding_spec.json').read_bytes()).hexdigest()},
@@ -59,7 +59,7 @@ def grounding_manifest(root):
                      {'path': 'src/med_dsl/temporal_measurement_spec.json', 'role': 'temporal_measurement_native_spec'},
                      {'path': 'src/med_dsl/quantity_spec.json', 'role': 'quantity_native_spec'}],
             'embedded_in': ['src/med_dsl/structure_grounding_spec.json', 'src/med_dsl/clinical_library.py', 'examples/p2-grounding/*.json', 'examples/p2-library/*.json'],
-            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-clinical-library', 'version': 'draft-2'}],
+            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-clinical-library', 'version': 'draft-3'}],
             'owns': {'operations': ['run_structure_grounding'], 'schema_versions': ['p2-grounding-request-draft-1', 'p2-grounding-result-draft-1'],
                      'profiles': ['p2-structure-grounding-draft-1'], 'answer_kinds': ['structure_grounding_projection'], 'predicates': [],
                      'capabilities': ['p2-structure-grounding-draft-1']},

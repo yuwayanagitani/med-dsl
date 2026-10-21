@@ -87,6 +87,9 @@
             "kind": "observed",
             "ref": "fiction:measurement:origin:A"
           },
+          "observer": {
+            "kind": "unknown"
+          },
           "required_capabilities": [
             "p2-temporal-measurement-draft-1"
           ],
@@ -97,7 +100,7 @@
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "027b2fae4f350afe525de6c5a710cf86ac5de5eb601df76894613bc665eb0bb8",
+          "record_sha256": "27dc9aa0851d597c1103a5c85b58417ae86798255036d4a051b8773562339c26",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-03T00:00:00Z",

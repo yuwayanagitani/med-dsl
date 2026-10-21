@@ -52,3 +52,22 @@ python3 -B -m unittest tests.p2.test_observer_version -v
 ```
 
 手順（V1〜V8）と予測は [設計73](../../docs/research/73-p2-r-design.md)・[期待74](../../docs/research/74-p2-r-cases.md)。宣言と予測は作成者の主張です。履歴がない環境では、記録に沿った比較は行われません。
+
+## 観察者を必須にする版の更新（P2-s、`p2-version-record-draft-2`）
+
+[p2-temporal-measurement-draft-3-to-draft-4.json](p2-temporal-measurement-draft-3-to-draft-4.json) は、P2-r で足した任意の観察者を**必須**にし（不明は明示の `unknown`）、旧入力を拒否する版の更新（P2-i の draft-3 → draft-4）と、依存する5拡張の再固定・採用の記録です。宣言の種類 `required_field` を足しました。
+
+| 項目 | 内容 |
+| --- | --- |
+| `from`・`to` | 旧版 `ab4c358`（P2-r の追加後）と新版のコミットと、その木での統合評価の要約 |
+| `declared_changes` | D-1 `required_field`：要求の項目名 `request_leaf`（`observer`）、結果・期待の項目名 `result_leaf`（`record_observer`）、置換した旧入力の拒否 `substitution_refusal`（`invalid_input`／`missing_field`）、期待を個別に変えた入力。D-2：P2-o の操作の必須化と追加した入力。D-3：意味の変更のない再固定 |
+| `measured` | 比較器の測定値（分類、移行した入力の差の数、旧版へ渡した新入力の受理と拒否、列挙の過不足、変更ファイルの数） |
+
+比較器は、宣言した項目名の追加だけを要求・期待・結果の差として許し、置換した入力が宣言した理由で拒否されることを検査します（P2-l・P2-r の記録の検査は変わりません）。
+
+```bash
+python3 -B scripts/research/compare-versions.py --record examples/p2-versions/p2-temporal-measurement-draft-3-to-draft-4.json   # git の履歴に旧版・新版のコミットが要る
+python3 -B -m unittest tests.p2.test_required_observer_version -v
+```
+
+手順（V1〜V8）と予測は [設計76](../../docs/research/76-p2-s-design.md)・[期待77](../../docs/research/77-p2-s-cases.md)。宣言と予測は作成者の主張です。履歴がない環境では、記録に沿った比較は行われません。

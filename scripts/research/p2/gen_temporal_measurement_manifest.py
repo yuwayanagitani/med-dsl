@@ -23,11 +23,12 @@ def temporal_measurement_manifest(root):
         ('TM-10','未完成の値・完成根拠・診断はnull','test_child_resource_stop_discards_partial_values_and_receipts','B02-26',['results',1,'diagnostics'],None,True),
         ('TM-11','表示の保存・時間解釈・医学的認定を分離','test_old_routes_instant_display_boundary_and_ai_origin','N08-display',['status'],'unsupported_profile',False),
         ('TM-12','全体の構造検証と旧経路の非干渉・決定性','test_selected_semantic_mutants_are_detected','N08-supersedes',['status'],'invalid_input',True),
-        ('TM-13','観察者は任意の項目で記録の内容の一部。選ばれた記録に観察者があるときだけ根拠に出し、訂正は継がない','test_optional_observer_is_content_bound_and_shown_only_when_present','O05',['reason_codes'],['review_record_hash_mismatch'],True)]
+        ('TM-13','観察者は記録の内容の一部で、確認が拘束する。選ばれた記録の観察者を根拠に常に出し、訂正は継がない','test_observer_is_content_bound_and_always_shown','O05',['reason_codes'],['review_record_hash_mismatch'],True),
+        ('TM-14','観察者は必須で、不明は明示の unknown。欠落は拒否し、補完しない','test_a_missing_observer_is_refused_and_unknown_is_explicit','O20',['reason_codes'],['missing_field'],True)]
     obligations=[{'id':ident,'statement':text,'evidence':'finite_check' if finite else 'checked_native_template',
         'checks':['tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.'+test],
         'guards':[{'example':'examples/p2-temporal-measurement/'+name.lower()+'.json','path':path,'equals':value,'kind':'boundary'}]} for ident,text,test,name,path,value,finite in rows]
-    return {'schema_version':'p2-extension-manifest-draft-2','id':'p2-temporal-measurement','version':'draft-3',
+    return {'schema_version':'p2-extension-manifest-draft-2','id':'p2-temporal-measurement','version':'draft-4',
         'title':'明示された期間つき数量主張の内容指定確認・部分訂正と換算','status':{'review_state':'author_draft','independent_review':False},'class':'R5',
         'spec':{'path':'src/med_dsl/temporal_measurement_spec.json','sha256':hashlib.sha256((root/'src/med_dsl/temporal_measurement_spec.json').read_bytes()).hexdigest()},
         'contract_doc':'docs/research/43-p2-i-design.md','implementation':{'modules':['src/med_dsl/temporal_measurement.py']},

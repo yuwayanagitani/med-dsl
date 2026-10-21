@@ -10,12 +10,12 @@
     "operation": "project_temporal_measurement_displays",
     "consumer": {
       "profile": "p2-temporal-display-draft-1",
-      "profile_spec_sha256": "d1673a14d406656a7baaa89569d6676f322b40c878d314ac48a542c2edd1defb",
+      "profile_spec_sha256": "65550ac5e10f1ed72c7b59d7b2ccce40e59dffc6f4712766688bdf070d698436",
       "operations": [
         "project_temporal_measurement_displays"
       ],
       "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
-      "temporal_measurement_profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+      "temporal_measurement_profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
       "quantity_profile": "future",
       "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
@@ -24,7 +24,7 @@
       "operation": "evaluate_temporal_measurements",
       "consumer": {
         "profile": "p2-temporal-measurement-draft-1",
-        "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+        "profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
         "operations": [
           "evaluate_temporal_measurements"
         ],
@@ -101,6 +101,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:A"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -111,7 +114,7 @@
           {
             "id": "RA",
             "record_ref": "A",
-            "record_sha256": "d4e8595045e9787bf1c51f2e8e979d5f700a09fddc150dffadba2105deec683c",
+            "record_sha256": "01dd93130ed8e3f2bba2b8f4cff9fbd76f824d99a331ba92e943941a40e7fa60",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",

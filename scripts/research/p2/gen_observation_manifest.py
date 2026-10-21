@@ -54,7 +54,7 @@ def observation_manifest(root):
                     'checks': [tests+name for name in first(test)],
                     'guards': [{'example': 'examples/p2-observation/'+example.lower()+'.json', 'path': path, 'equals': value, 'kind': kind}]}
                    for ident, text, test, example, path, value, finite, kind in rows]
-    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-observation-projection', 'version': 'draft-2',
+    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-observation-projection', 'version': 'draft-3',
             'title': '構造への写像の可否の診断の表せる行に、Observation の status・code と Provenance の宣言を適用し、足りない宣言を依頼にする',
             'status': {'review_state': 'author_draft', 'independent_review': False}, 'class': 'R5',
             'spec': {'path': 'src/med_dsl/observation_projection_spec.json', 'sha256': hashlib.sha256((root/'src/med_dsl/observation_projection_spec.json').read_bytes()).hexdigest()},
@@ -66,7 +66,7 @@ def observation_manifest(root):
                      {'path': 'src/med_dsl/quantity_spec.json', 'role': 'quantity_native_spec'}],
             'embedded_in': ['src/med_dsl/observation_projection_spec.json', 'src/med_dsl/structure_grounding.py', 'src/med_dsl/structure_grounding_spec.json', 'src/med_dsl/clinical_library.py',
                             'examples/p2-observation/*.json', 'examples/p2-grounding/*.json', 'examples/p2-library/*.json'],
-            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-structure-grounding', 'version': 'draft-2'}],
+            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-structure-grounding', 'version': 'draft-3'}],
             'owns': {'operations': ['run_observation_projection'], 'schema_versions': ['p2-observation-request-draft-1', 'p2-observation-result-draft-1'],
                      'profiles': ['p2-observation-projection-draft-1'], 'answer_kinds': ['observation_projection'], 'predicates': [],
                      'capabilities': ['p2-observation-projection-draft-1']},

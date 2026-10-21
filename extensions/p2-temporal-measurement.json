@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-temporal-measurement",
-  "version": "draft-3",
+  "version": "draft-4",
   "title": "明示された期間つき数量主張の内容指定確認・部分訂正と換算",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R5",
   "spec": {
     "path": "src/med_dsl/temporal_measurement_spec.json",
-    "sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f"
+    "sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972"
   },
   "contract_doc": "docs/research/43-p2-i-design.md",
   "implementation": {
@@ -460,10 +460,10 @@
     },
     {
       "id": "TM-13",
-      "statement": "観察者は任意の項目で記録の内容の一部。選ばれた記録に観察者があるときだけ根拠に出し、訂正は継がない",
+      "statement": "観察者は記録の内容の一部で、確認が拘束する。選ばれた記録の観察者を根拠に常に出し、訂正は継がない",
       "evidence": "finite_check",
       "checks": [
-        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_optional_observer_is_content_bound_and_shown_only_when_present"
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_observer_is_content_bound_and_always_shown"
       ],
       "guards": [
         {
@@ -473,6 +473,26 @@
           ],
           "equals": [
             "review_record_hash_mismatch"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-14",
+      "statement": "観察者は必須で、不明は明示の unknown。欠落は拒否し、補完しない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_a_missing_observer_is_refused_and_unknown_is_explicit"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/o20.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "missing_field"
           ],
           "kind": "boundary"
         }

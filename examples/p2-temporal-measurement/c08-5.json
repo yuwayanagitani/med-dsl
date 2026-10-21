@@ -10,7 +10,7 @@
     "operation": "evaluate_temporal_measurements",
     "consumer": {
       "profile": "p2-temporal-measurement-draft-1",
-      "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+      "profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
       "operations": [
         "evaluate_temporal_measurements"
       ],
@@ -141,6 +141,9 @@
             "kind": "observed",
             "ref": "fiction:measurement:origin:A"
           },
+          "observer": {
+            "kind": "unknown"
+          },
           "required_capabilities": [
             "p2-temporal-measurement-draft-1"
           ],
@@ -176,6 +179,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:measurement:origin:B"
+          },
+          "observer": {
+            "kind": "unknown"
           },
           "required_capabilities": [
             "p2-temporal-measurement-draft-1"
@@ -216,6 +222,9 @@
             "kind": "observed",
             "ref": "fiction:measurement:origin:C"
           },
+          "observer": {
+            "kind": "unknown"
+          },
           "required_capabilities": [
             "p2-temporal-measurement-draft-1"
           ],
@@ -229,7 +238,7 @@
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "027b2fae4f350afe525de6c5a710cf86ac5de5eb601df76894613bc665eb0bb8",
+          "record_sha256": "27dc9aa0851d597c1103a5c85b58417ae86798255036d4a051b8773562339c26",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-03T00:00:00Z",
@@ -238,7 +247,7 @@
         {
           "id": "RB",
           "record_ref": "B",
-          "record_sha256": "885fe3c739aba960be2e86099c68bcaedf3bc1ff0941f2263f98441a1764d8a2",
+          "record_sha256": "f6213ef09ecdae0ea1048f40ced8f279fe4a0718097cbc68988a875709c1a46a",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-07T00:00:00Z",
@@ -247,7 +256,7 @@
         {
           "id": "RC",
           "record_ref": "C",
-          "record_sha256": "ad6f72c1e4f7281509174c64ca39823206e40d9f1305917862306fda4c845dc6",
+          "record_sha256": "6def6dc2bc3351f15e67f70bd0f973670517d17026c7ea4aa767682f326c1997",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-09T00:00:00Z",
@@ -537,6 +546,9 @@
                 "kind": "observed",
                 "ref": "fiction:measurement:origin:A"
               },
+              "observer": {
+                "kind": "unknown"
+              },
               "required_capabilities": [
                 "p2-temporal-measurement-draft-1"
               ],
@@ -572,6 +584,9 @@
               "origin": {
                 "kind": "observed",
                 "ref": "fiction:measurement:origin:B"
+              },
+              "observer": {
+                "kind": "unknown"
               },
               "required_capabilities": [
                 "p2-temporal-measurement-draft-1"
@@ -612,6 +627,9 @@
                 "kind": "observed",
                 "ref": "fiction:measurement:origin:C"
               },
+              "observer": {
+                "kind": "unknown"
+              },
               "required_capabilities": [
                 "p2-temporal-measurement-draft-1"
               ],
@@ -625,7 +643,7 @@
             {
               "id": "RA",
               "record_ref": "A",
-              "record_sha256": "027b2fae4f350afe525de6c5a710cf86ac5de5eb601df76894613bc665eb0bb8",
+              "record_sha256": "27dc9aa0851d597c1103a5c85b58417ae86798255036d4a051b8773562339c26",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-03T00:00:00Z",
@@ -634,7 +652,7 @@
             {
               "id": "RB",
               "record_ref": "B",
-              "record_sha256": "885fe3c739aba960be2e86099c68bcaedf3bc1ff0941f2263f98441a1764d8a2",
+              "record_sha256": "f6213ef09ecdae0ea1048f40ced8f279fe4a0718097cbc68988a875709c1a46a",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-07T00:00:00Z",
@@ -643,7 +661,7 @@
             {
               "id": "RC",
               "record_ref": "C",
-              "record_sha256": "ad6f72c1e4f7281509174c64ca39823206e40d9f1305917862306fda4c845dc6",
+              "record_sha256": "6def6dc2bc3351f15e67f70bd0f973670517d17026c7ea4aa767682f326c1997",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-09T00:00:00Z",

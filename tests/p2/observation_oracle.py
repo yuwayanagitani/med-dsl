@@ -49,6 +49,8 @@ def row(request, query):
     mapping = {entry['property_ref']: entry for entry in declaration['code_map']}
     needs = []
     observer = record.get('observer')
+    if observer is not None and observer['kind'] == 'unknown':
+        observer = None
     reviewer = declaration.get('provenance', {}).get('reviewer_type')
     observer_type = declaration.get('provenance', {}).get('observer_type')
     if reviewer is not None and observer is not None and observer['kind'] == 'human' and observer_type is None:

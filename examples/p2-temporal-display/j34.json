@@ -10,12 +10,12 @@
     "operation": "project_temporal_measurement_displays",
     "consumer": {
       "profile": "p2-temporal-display-draft-1",
-      "profile_spec_sha256": "d1673a14d406656a7baaa89569d6676f322b40c878d314ac48a542c2edd1defb",
+      "profile_spec_sha256": "65550ac5e10f1ed72c7b59d7b2ccce40e59dffc6f4712766688bdf070d698436",
       "operations": [
         "project_temporal_measurement_displays"
       ],
       "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
-      "temporal_measurement_profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+      "temporal_measurement_profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
       "quantity_profile": "p2-quantity-literal-draft-1",
       "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
@@ -24,7 +24,7 @@
       "operation": "evaluate_temporal_measurements",
       "consumer": {
         "profile": "p2-temporal-measurement-draft-1",
-        "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+        "profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
         "operations": [
           "evaluate_temporal_measurements"
         ],
@@ -101,6 +101,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:R0"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -136,6 +139,9 @@
             "origin": {
               "kind": "observed",
               "ref": "fiction:measurement:origin:R1"
+            },
+            "observer": {
+              "kind": "unknown"
             },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
@@ -173,6 +179,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:R2"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -208,6 +217,9 @@
             "origin": {
               "kind": "observed",
               "ref": "fiction:measurement:origin:R3"
+            },
+            "observer": {
+              "kind": "unknown"
             },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
@@ -245,6 +257,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:R4"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -280,6 +295,9 @@
             "origin": {
               "kind": "observed",
               "ref": "fiction:measurement:origin:R5"
+            },
+            "observer": {
+              "kind": "unknown"
             },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
@@ -317,6 +335,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:R6"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -352,6 +373,9 @@
             "origin": {
               "kind": "observed",
               "ref": "fiction:measurement:origin:R7"
+            },
+            "observer": {
+              "kind": "unknown"
             },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
@@ -389,6 +413,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:R8"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -424,6 +451,9 @@
             "origin": {
               "kind": "observed",
               "ref": "fiction:measurement:origin:R9"
+            },
+            "observer": {
+              "kind": "unknown"
             },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
@@ -461,6 +491,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:R10"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -496,6 +529,9 @@
             "origin": {
               "kind": "observed",
               "ref": "fiction:measurement:origin:R11"
+            },
+            "observer": {
+              "kind": "unknown"
             },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
@@ -533,6 +569,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:R12"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -568,6 +607,9 @@
             "origin": {
               "kind": "observed",
               "ref": "fiction:measurement:origin:R13"
+            },
+            "observer": {
+              "kind": "unknown"
             },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
@@ -605,6 +647,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:R14"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -640,6 +685,9 @@
             "origin": {
               "kind": "observed",
               "ref": "fiction:measurement:origin:R15"
+            },
+            "observer": {
+              "kind": "unknown"
             },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
@@ -677,6 +725,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:R16"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -712,6 +763,9 @@
             "origin": {
               "kind": "observed",
               "ref": "fiction:measurement:origin:R17"
+            },
+            "observer": {
+              "kind": "unknown"
             },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
@@ -749,6 +803,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:R18"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -785,6 +842,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:R19"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -795,7 +855,7 @@
           {
             "id": "RR0",
             "record_ref": "R0",
-            "record_sha256": "006c64be243490213d4b12a9ca2a1d7b414391228e232ff29c121b3963098e4b",
+            "record_sha256": "fe6f90e19b7d81bec5160c69a9a488d3f13577b10c3c8a96aaf194117befe99c",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -804,7 +864,7 @@
           {
             "id": "RR1",
             "record_ref": "R1",
-            "record_sha256": "b6b5461a8cd48846205ec041fcb2e10409e272deec682c9abddf8132bca63600",
+            "record_sha256": "27835babd1790116430c7298af310472221014d26fcd4f98a9cbf3781fc53da1",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -813,7 +873,7 @@
           {
             "id": "RR2",
             "record_ref": "R2",
-            "record_sha256": "73177eb11c631301e249e76c9d3b1122639e162575f1793b80644fa85a47bbd8",
+            "record_sha256": "eb2113c534eba3b6e37a784b5d05207ce87187b7432dd7be727d5ae0b73ec0f1",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -822,7 +882,7 @@
           {
             "id": "RR3",
             "record_ref": "R3",
-            "record_sha256": "adee483c2c6fc5336fb85c1dd32be33fc6e7b97796324809f14b0d9d6ba5f8da",
+            "record_sha256": "1936bf2284f5c265c1257d6d546d73ceabbdbc908bd44747d68d688f916c7de9",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -831,7 +891,7 @@
           {
             "id": "RR4",
             "record_ref": "R4",
-            "record_sha256": "3fe6ebb89b7fe3f73864af48197069260f7ffe20d57895afce256c81bb199e15",
+            "record_sha256": "27e246841a0b8c69f2df2adbd54477e0e6ced4ba7b6097709dc0aacf6ec01d5e",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -840,7 +900,7 @@
           {
             "id": "RR5",
             "record_ref": "R5",
-            "record_sha256": "a250306ea632d1a6ec67924d3226127ab998f36982035e7a19fc032b85d06b37",
+            "record_sha256": "c7538f2849caf42d9ad1e3b209887a840b23d4c77d30e532992c48d4e2313671",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -849,7 +909,7 @@
           {
             "id": "RR6",
             "record_ref": "R6",
-            "record_sha256": "48af3af5cddf2b7640c6b47219420cce69b6cef02ab70e07c13a338c171dea44",
+            "record_sha256": "2a61d21aba71d497872964227b04541986f80ea573667c9786df307dd4eff7ca",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -858,7 +918,7 @@
           {
             "id": "RR7",
             "record_ref": "R7",
-            "record_sha256": "aaadf80e7bbea1132d0c6c2ebf885e60f011e6bb34d7e1eb48b202a96bf7aa4a",
+            "record_sha256": "c834cf0e0e086f255cdf9e6987b014991ad1db6f0539ed295baf5835f0358f9d",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -867,7 +927,7 @@
           {
             "id": "RR8",
             "record_ref": "R8",
-            "record_sha256": "c6d3e1f737038ed978d2ef5ed40d89010a9b0dcbbf3630bc9b6c6e0200267aed",
+            "record_sha256": "123bdea8236778e781d671ebff1cd9b022eec9caf47d6a0ede18885055924e20",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -876,7 +936,7 @@
           {
             "id": "RR9",
             "record_ref": "R9",
-            "record_sha256": "f5df909fd4ce9d789ce3ca0679828fe508e3f50986d0a0977464df9905f17113",
+            "record_sha256": "6c7f5adc800bb3d759d108b532f4ddc9292e4254a404df9fac8eaa9dca0e79a5",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -885,7 +945,7 @@
           {
             "id": "RR10",
             "record_ref": "R10",
-            "record_sha256": "11c2dac9c4acbd3deb8bcbf81054f0bf093c8297396e39d15129cc9c2515dfc8",
+            "record_sha256": "2382a7e33790ee873449f24960d90d999902f910cd2a3dfab4b7aa459ad4384c",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -894,7 +954,7 @@
           {
             "id": "RR11",
             "record_ref": "R11",
-            "record_sha256": "aebb2770698a83398f868dcc9676ccd2ef7c16e5872062ad04c03fbb65d40ad2",
+            "record_sha256": "918150c84795910243b132750bf4bde5673d193afa75e0687492bd48bfe70707",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -903,7 +963,7 @@
           {
             "id": "RR12",
             "record_ref": "R12",
-            "record_sha256": "3b9bedbdf9b6e97810668fea54fb3acaffa3c4b4dd52b3fd59b313df0abec07f",
+            "record_sha256": "27f0871c14e3bf72c8e36bbcce697bace45cc4fbd7c7a85f9f1f8ef141846db2",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -912,7 +972,7 @@
           {
             "id": "RR13",
             "record_ref": "R13",
-            "record_sha256": "ace5fc090d7d80694aade637f68a719b77f3acde307059ebb17771f12c6c76dd",
+            "record_sha256": "2681aa7aed6922a9d75496ac06c7a6edea31322e5f4176a375cb2045629740fb",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -921,7 +981,7 @@
           {
             "id": "RR14",
             "record_ref": "R14",
-            "record_sha256": "27a4405ac321ba4a266c4b4c8d06d0c4b49ccf95c26e36f6cd2a9a2522e2b351",
+            "record_sha256": "61a49386b16c380a6651992dfdc24033e9802340a746f6801d5cc3871fb9b8b9",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -930,7 +990,7 @@
           {
             "id": "RR15",
             "record_ref": "R15",
-            "record_sha256": "d3afb40ca84ea774c696c3468bbd5a1fab2950c7f611a0dff2e47469c4f075d2",
+            "record_sha256": "454f2cecc1a359fa2f7b8b2059531036e56b23f83f2a9d01ed1ce1063dba5395",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -939,7 +999,7 @@
           {
             "id": "RR16",
             "record_ref": "R16",
-            "record_sha256": "3830010e08a6b0389d16bd7d9b98d97f8832a572cec68c771c9ee6c375683a64",
+            "record_sha256": "913186f344f6e145afe7cd303e7c9dff0a0d7c17d2c58c2410a729493ba02b09",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -948,7 +1008,7 @@
           {
             "id": "RR17",
             "record_ref": "R17",
-            "record_sha256": "f152b7e219e54b4dbae0d86dd9bac6d38456a1bb402d5bda45ac4d6923306476",
+            "record_sha256": "3d6447c41b783db053c097494ea0de3ad3366f7d8c77aa90278885500cdd22bd",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -957,7 +1017,7 @@
           {
             "id": "RR18",
             "record_ref": "R18",
-            "record_sha256": "14041e031fbdce9c2a9ba1fd8dbc4618a2b9b18f07054017701f93d5a1821b34",
+            "record_sha256": "68445294eec8819e11c2b125a5c69073d87d8fa14a17933e7aaa0a7c46e2d43e",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -966,7 +1026,7 @@
           {
             "id": "RR19",
             "record_ref": "R19",
-            "record_sha256": "16157e3c0b59430c159a1a10ceceb1028dcdecb7b8e30404569d27fb814948eb",
+            "record_sha256": "9a4c425be0eaf054c9a9c5b224eb76042231c65aafcfd6ca973735844a4c5ab7",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",

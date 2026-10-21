@@ -56,8 +56,8 @@ class MutantTableTests(unittest.TestCase):
 
     def test_the_tables_have_the_documented_sizes(self):
         sizes = {name: len(rows) for name, rows in self.tables().items()}
-        # guards の 29 ＝ 変異 28 ＋ 対照 C0、checkers の 75 ＝ 変異 74 ＋ 対照 Z0
-        self.assertEqual(sizes, {"mutants_extensions": 72, "mutrun_split": 35, "mutrun_splits": 39, "mutrun_guards": 29, "mutrun_checkers": 75})
+        # guards の 29 ＝ 変異 28 ＋ 対照 C0、checkers の 77 ＝ 変異 76 ＋ 対照 Z0
+        self.assertEqual(sizes, {"mutants_extensions": 72, "mutrun_split": 35, "mutrun_splits": 39, "mutrun_guards": 29, "mutrun_checkers": 77})
 
     def test_every_pattern_occurs_exactly_once_in_the_current_source(self):
         for name, rows in self.tables().items():

@@ -201,6 +201,16 @@ EXPECTED["suites"]["p2-observation"] = {"examples": 83, "checks": 1446}
 EXPECTED["budget"] = {"requests": 1446, "budget_evaluations": 31113, "violations": 0, "allowed_budget_dependent_refusals": 1}
 
 
+# P2-rの分母を保持し、観察者を必須にする版の更新（P2-s。P2-iを draft-4 に上げ、依存する5拡張を再固定）後の現在値を固定する。宣言の数は変わらず、
+# 義務を2つ足す（TM-14は有限の検査、CL-14は検査済みの型。防護例各1）。例はP2-iに4、P2-oに3を足す。
+P2_R_EXPECTED = copy.deepcopy(EXPECTED)
+EXPECTED["extensions"].update({"obligations": 318, "guards": 500, "evidence": {"checked_native_template": 201, "finite_check": 109, "hand_derivation": 8, "self_declared": 0, "individual_io": 0}})
+EXPECTED["suites"]["p2-temporal-measurement"] = {"examples": 166, "checks": 1796}
+EXPECTED["suites"]["p2-library"] = {"examples": 150, "checks": 2559}
+# 要求は1446＋4＋3。掃引の回数31,198は実測の値（予測ではない）。
+EXPECTED["budget"] = {"requests": 1453, "budget_evaluations": 31198, "violations": 0, "allowed_budget_dependent_refusals": 1}
+
+
 def _p1d():
     spec = importlib.util.spec_from_file_location("evaluate_p1_d", ROOT / "scripts/research/evaluate-p1-d.py")
     module = importlib.util.module_from_spec(spec)

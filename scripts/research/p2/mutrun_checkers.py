@@ -69,9 +69,9 @@ M = [
     ("V07", "scripts/research/compare-versions.py", '            return 2', '            return 0', [VERSIONS], ""),
     # ---- P2 の拡張の版の更新：再生成した入力の比較の判定（P2-l） ----
     ("G01", CHECKS, '    if report["old_inputs_without_regeneration"]["changed"]:', '    if False:', [REGENERATED], ""),
-    ("G02", CHECKS, '    if report["request_changed"]:', '    if False:', [REGENERATED], ""),
-    ("G03", CHECKS, '    if set(report["expectation_changed"]) != declared:', '    if False:', [REGENERATED], ""),
-    ("G04", CHECKS, '    if set(report["result_differences"]) != declared:', '    if False:', [REGENERATED], ""),
+    ("G02", CHECKS, '    if outside_leaves(report["request_changed"], report.get("request_diffs", {})):', '    if False:', [REGENERATED], ""),
+    ("G03", CHECKS, '    if outside_leaves(report["expectation_changed"], report.get("expectation_diffs", {})) != declared_expectations:', '    if False:', [REGENERATED], ""),
+    ("G04", CHECKS, '    if outside_leaves(report["result_differences"], report["result_differences"]) != declared:', '    if False:', [REGENERATED], ""),
     ("G05", CHECKS, '        if name in prefixes and any(not allowed_difference(path, prefixes[name]) for path in paths):', '        if False:', [REGENERATED], ""),
     ("G06", CHECKS, '    if report["steps_changed"]:', '    if False:', [REGENERATED], ""),
     ("G07", CHECKS, '    if set(report["inputs"]["added"]) != added or report["inputs"]["removed"]:', '    if False:', [REGENERATED], ""),
@@ -82,6 +82,8 @@ M = [
     ("G12", CHECKS, '    if sorted(set(report["necessary_repin"]) - listed) != sorted(measured["unpredicted_repin"]):', '    if False:', [REGENERATED], ""),
     ("G13", CHECKS, '    if (report["inputs"]["old"], report["inputs"]["new"]) != (measured["inputs"]["old"], measured["inputs"]["new"]):', '    if False:', [REGENERATED], ""),
     ("G14", CHECKS, '    if {k: len(v) for k, v in report["old_inputs_without_regeneration"].items()} != measured["old_inputs_without_regeneration"]:', '    if False:', [REGENERATED], ""),
+    ("G15", CHECKS, '        return bool(paths) and all(path.rsplit("/", 1)[-1] in leaves for path in paths)', '        return True', ["tests.p2.test_required_observer_version"], "必須にした項目の許容の緩め（宣言した名前以外の差も許す）"),
+    ("G16", CHECKS, '        if any(status != refusal["status"] or (report.get("substituted_reasons", {}).get(n) or [None])[0] != refusal["code"] for n, status in report["substituted"].items()):', '        if False:', ["tests.p2.test_required_observer_version"], "置換した入力の拒否の理由の照合の削除"),
     # ---- 統合評価 ----
     ("E01", EVAL, '        if got != want:\n            found.append(f"extensions.{key}")', '        if False:\n            found.append(f"extensions.{key}")', [EVALUATE], ""),
     ("E02", EVAL, '    if budget["violations"]:', '    if False:', [EVALUATE], ""),

@@ -9,7 +9,7 @@
   "independent_review": false,
   "evaluation_frozen": false,
   "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
-  "temporal_measurement_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+  "temporal_measurement_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
   "quantity_profile": "p2-quantity-literal-draft-1",
   "quantity_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
   "scope": "three clinician operations (record, confirm, correct) build a P2-i ledger; destination requirement profiles are data; each query asks whether a destination version is satisfied by the ledger at a reference time and target time(s); no UI, LLM, DSL syntax, real master, persistence, billing or clinical judgment",
@@ -52,5 +52,5 @@
     "json_depth": 64
   },
   "limitations": "diagnostic only; not a certification of preservation or clinical correctness; no destination outside the three output kinds; rounding only half-even; requirement versions are fictional",
-  "observer": "record and correct operations may carry an optional observer {kind: human|device, ref} that is passed to the ledger record unchanged and checked by the temporal measurement child; selection evidence emits record_observer only when the selected record has one; confirm operations carry none"
+  "observer": "record and correct operations must carry an observer {kind: human|device, ref} or {kind: unknown}; it is passed to the ledger record unchanged and checked by the temporal measurement child; the library never fills in a missing observer; selection evidence always emits record_observer; confirm operations carry none"
 }

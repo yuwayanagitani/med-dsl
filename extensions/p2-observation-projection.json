@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-observation-projection",
-  "version": "draft-2",
+  "version": "draft-3",
   "title": "構造への写像の可否の診断の表せる行に、Observation の status・code と Provenance の宣言を適用し、足りない宣言を依頼にする",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R5",
   "spec": {
     "path": "src/med_dsl/observation_projection_spec.json",
-    "sha256": "422285b02c1d33d40d1e96d598fddc10c30decf51e3c91daaf1ba6f3bae1b20a"
+    "sha256": "062efe75fe3975ca00e088f300cbf0349cd944e42c5083cb9bfbebbf956f52e4"
   },
   "contract_doc": "docs/research/70-p2-q-design.md",
   "implementation": {
@@ -60,7 +60,7 @@
     },
     {
       "id": "p2-structure-grounding",
-      "version": "draft-2"
+      "version": "draft-3"
     }
   ],
   "owns": {

@@ -11,7 +11,7 @@ from .structure_grounding import (GROUNDING_PROFILE, SPEC_SHA256 as GROUNDING_SP
 from .validation import check_json, fields, string, strings, values
 
 OBSERVATION_PROFILE = 'p2-observation-projection-draft-1'
-SPEC_SHA256 = '422285b02c1d33d40d1e96d598fddc10c30decf51e3c91daaf1ba6f3bae1b20a'
+SPEC_SHA256 = '062efe75fe3975ca00e088f300cbf0349cd944e42c5083cb9bfbebbf956f52e4'
 OPERATION = 'run_observation_projection'
 ANSWER_KIND = 'observation_projection'
 GROUNDING_REQUEST_SCHEMA = 'p2-grounding-request-draft-1'
@@ -136,6 +136,8 @@ def _project(row, declaration, ledger, spec):
     property_ref = row['output']['context']['property_ref']
     requests = []
     observer = selection.get('record_observer')
+    if observer is not None and observer['kind'] == 'unknown':               # 明示の不明は、観察者がないことと同じに扱う（agent・依頼・流れを変えない）
+        observer = None
     if declaration['reviewer_type'] is not None and observer is not None and observer['kind'] == 'human' and declaration['observer_type'] is None:
         requests.append({'element': 'provenance', 'action': spec['requests']['observer'], 'record_ref': record['id'], 'property_ref': None})
     if property_ref not in declaration['code_map']:

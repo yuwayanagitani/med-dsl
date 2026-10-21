@@ -9,7 +9,7 @@
   "independent_review": false,
   "evaluation_frozen": false,
   "library_profile": "p2-clinical-library-draft-1",
-  "library_spec_sha256": "bb87cc22078825e776e13933609ec37c341d152f31629b8a5f8574d402ee0d67",
+  "library_spec_sha256": "58abe63fca0b964120e88fd3773ef2226c6d516e7d7eed745fce126e9bcfd9c2",
   "library_request_schema": "p2-library-request-draft-1",
   "scope": "decides, for each satisfied exchange row of the clinical library, whether the declared target structure can represent the output without rounding, closing, or adding anything; the library is run once and its rows are passed through otherwise",
   "structures": {

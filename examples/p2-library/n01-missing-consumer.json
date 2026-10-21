@@ -53,6 +53,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:A"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {

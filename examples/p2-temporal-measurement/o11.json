@@ -10,7 +10,7 @@
     "operation": "evaluate_temporal_measurements",
     "consumer": {
       "profile": "p2-temporal-measurement-draft-1",
-      "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+      "profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
       "operations": [
         "evaluate_temporal_measurements"
       ],
@@ -87,21 +87,21 @@
             "kind": "observed",
             "ref": "fiction:measurement:origin:A"
           },
-          "required_capabilities": [
-            "p2-temporal-measurement-draft-1"
-          ],
-          "revises": [],
           "observer": {
             "kind": "human",
             "ref": ""
-          }
+          },
+          "required_capabilities": [
+            "p2-temporal-measurement-draft-1"
+          ],
+          "revises": []
         }
       ],
       "reviews": [
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "9b65a06701422ffbfe5b492e9e494ee18ecdb1eab899adf01f682d21746f75f3",
+          "record_sha256": "ebd649e723fe26e105c1fa2ec931104785ad896d31714555349df3dfa2df704c",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-03T00:00:00Z",

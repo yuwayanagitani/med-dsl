@@ -104,13 +104,13 @@
       "id": "p2-temporal-measurement",
       "class": "R5",
       "path": "p2-temporal-measurement.json",
-      "sha256": "735e9752f4f0ea2c917a4d9abac23f1c7b47bfe22c792a94f9f9608cb0dd9007"
+      "sha256": "d54626118d6e3888be59c0b7a265e79b5282a53e896c6d7e9037c6c35634f30a"
     },
     {
       "id": "p2-temporal-display",
       "class": "R4",
       "path": "p2-temporal-display.json",
-      "sha256": "09fbff2b127392203ffe9c6425c4967fd71ffb0503b91844d429de289a240256"
+      "sha256": "7d32ff8467909247b472183c4183808d1d5181b7322b9dbc7436377bd9962657"
     },
     {
       "id": "p2-validity-refinement",
@@ -122,25 +122,25 @@
       "id": "p2-longitudinal-comparison",
       "class": "R5",
       "path": "p2-longitudinal-comparison.json",
-      "sha256": "e89724e396feeabb6e748a812692684adc2feff4ae0b1a31c87afa5ebe4f087c"
+      "sha256": "a249a5742da5d3a10f716919cbc4cf6c882802642890b1ba65127f0401f598a4"
     },
     {
       "id": "p2-clinical-library",
       "class": "R5",
       "path": "p2-clinical-library.json",
-      "sha256": "7a4f211809e560995018b729984d1d3f43d199bb5dc209e56630bf091e492422"
+      "sha256": "3c597d5be53dc52fd36ea3315947835a425ce16ab295b6f154671d3c6d604276"
     },
     {
       "id": "p2-structure-grounding",
       "class": "R5",
       "path": "p2-structure-grounding.json",
-      "sha256": "0d0b57decc13110dde8346b52dfb61ef5c1a0b5c279c87b619cb85992dcda5f8"
+      "sha256": "dc176ecb7ea4e988f21d74ea7aa9e6e4ec98b4b8a025f5ddd2145d6c5de39a7a"
     },
     {
       "id": "p2-observation-projection",
       "class": "R5",
       "path": "p2-observation-projection.json",
-      "sha256": "8fc7ac998610bc2007fbf7939590375bdf5284a70262caa46ed252b7f6efcb19"
+      "sha256": "8d00273a31c8fb7e69df1110faadc574e0b0a059567334a687d50ae040abffe8"
     }
   ]
 }

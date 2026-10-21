@@ -10,12 +10,12 @@
     "operation": "project_temporal_measurement_displays",
     "consumer": {
       "profile": "p2-temporal-display-draft-1",
-      "profile_spec_sha256": "d1673a14d406656a7baaa89569d6676f322b40c878d314ac48a542c2edd1defb",
+      "profile_spec_sha256": "65550ac5e10f1ed72c7b59d7b2ccce40e59dffc6f4712766688bdf070d698436",
       "operations": [
         "project_temporal_measurement_displays"
       ],
       "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
-      "temporal_measurement_profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+      "temporal_measurement_profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
       "quantity_profile": "p2-quantity-literal-draft-1",
       "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
@@ -24,7 +24,7 @@
       "operation": "evaluate_temporal_measurements",
       "consumer": {
         "profile": "p2-temporal-measurement-draft-1",
-        "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+        "profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
         "operations": [
           "evaluate_temporal_measurements"
         ],
@@ -101,6 +101,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:A"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -111,7 +114,7 @@
           {
             "id": "RA",
             "record_ref": "A",
-            "record_sha256": "adb1f8bcad3b85ed9c009c8be5ca1b18b714b58ff8fc7cc818c937a122422813",
+            "record_sha256": "e419f5ceb5a706cdeb8b8cf4f1d4674f703178d659889ddc578d9123c8af154e",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -193,7 +196,7 @@
         "equals": {
           "schema_version": "p2-temporal-display-artifact-draft-1",
           "profile": "p2-temporal-display-draft-1",
-          "profile_spec_sha256": "d1673a14d406656a7baaa89569d6676f322b40c878d314ac48a542c2edd1defb",
+          "profile_spec_sha256": "65550ac5e10f1ed72c7b59d7b2ccce40e59dffc6f4712766688bdf070d698436",
           "quantity_profile": "p2-quantity-literal-draft-1",
           "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
           "quantity_kind_ref": "k_a",
@@ -210,7 +213,7 @@
           0,
           "artifact_sha256"
         ],
-        "equals": "0bfea47fed5ed60f9eefecabd87961685a27605c2f6158c36a61834bc1190f0a"
+        "equals": "2ac9b356eaf740261d7e59bb630ef774261d7bec3d2c35f2d48403049313f2f5"
       },
       {
         "path": [
@@ -240,8 +243,8 @@
         ],
         "equals": {
           "kind": "canonical_json",
-          "bytes_base64": "eyJjb2VmZmljaWVudCI6LTEyLCJkZWNpbWFsX3BsYWNlcyI6MSwicHJvZmlsZSI6InAyLXRlbXBvcmFsLWRpc3BsYXktZHJhZnQtMSIsInByb2ZpbGVfc3BlY19zaGEyNTYiOiJkMTY3M2ExNGQ0MDY2NTZhN2JhYWE4OTU2OWQ2Njc2ZjMyMmI0MGM4NzhkMzE0YWM0OGE1NDJjMmVkZDFkZWZiIiwicXVhbnRpdHlfa2luZF9yZWYiOiJrX2EiLCJxdWFudGl0eV9wcm9maWxlIjoicDItcXVhbnRpdHktbGl0ZXJhbC1kcmFmdC0xIiwicXVhbnRpdHlfcHJvZmlsZV9zcGVjX3NoYTI1NiI6ImY1MmVhNTI2OTQ2NTY4MjIyNDRhOGJlNjBlNDM5OTYyNGFjY2E2NmY1Y2JiNWYzZTQzNGVkODBkOWFmNTFkNDIiLCJyb3VuZGluZ19wb2xpY3kiOiJmaWN0aW9uOmRlY2ltYWwtaGFsZi1ldmVuQDEiLCJzY2hlbWFfdmVyc2lvbiI6InAyLXRlbXBvcmFsLWRpc3BsYXktYXJ0aWZhY3QtZHJhZnQtMSIsInRleHQiOiItMS4yIiwidW5pdF9yZWYiOiJ1X2Jhc2UifQ==",
-          "sha256": "0bfea47fed5ed60f9eefecabd87961685a27605c2f6158c36a61834bc1190f0a",
+          "bytes_base64": "eyJjb2VmZmljaWVudCI6LTEyLCJkZWNpbWFsX3BsYWNlcyI6MSwicHJvZmlsZSI6InAyLXRlbXBvcmFsLWRpc3BsYXktZHJhZnQtMSIsInByb2ZpbGVfc3BlY19zaGEyNTYiOiI2NTU1MGFjNWUxMGYxZWQ3MmM3YjU5ZDdiMmNjY2U0MGU1OWRmZmM2ZjQ3MTI3NjY2ODhiZGYwNzBkNjk4NDM2IiwicXVhbnRpdHlfa2luZF9yZWYiOiJrX2EiLCJxdWFudGl0eV9wcm9maWxlIjoicDItcXVhbnRpdHktbGl0ZXJhbC1kcmFmdC0xIiwicXVhbnRpdHlfcHJvZmlsZV9zcGVjX3NoYTI1NiI6ImY1MmVhNTI2OTQ2NTY4MjIyNDRhOGJlNjBlNDM5OTYyNGFjY2E2NmY1Y2JiNWYzZTQzNGVkODBkOWFmNTFkNDIiLCJyb3VuZGluZ19wb2xpY3kiOiJmaWN0aW9uOmRlY2ltYWwtaGFsZi1ldmVuQDEiLCJzY2hlbWFfdmVyc2lvbiI6InAyLXRlbXBvcmFsLWRpc3BsYXktYXJ0aWZhY3QtZHJhZnQtMSIsInRleHQiOiItMS4yIiwidW5pdF9yZWYiOiJ1X2Jhc2UifQ==",
+          "sha256": "2ac9b356eaf740261d7e59bb630ef774261d7bec3d2c35f2d48403049313f2f5",
           "roundtrip_matches": true
         }
       },

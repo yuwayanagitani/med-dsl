@@ -495,6 +495,9 @@ def regenerated_report(record, evaluations=True):
         report["old_inputs_without_regeneration"] = {k: sorted(v) for k, v in categories.items()}
         report["request_changed"] = sorted(n for n in both if normalize(old_requests[n], set()) != normalize(new_requests[n], set()))
         report["expectation_changed"] = sorted(n for n in both if normalize(old[n][1], set()) != normalize(new[n][1], set()))
+        # 経路ごとの差（P2-s）：必須にした項目のように、全ての入力の要求・期待・結果に加わる変更を、宣言した項目名で許すための材料
+        report["request_diffs"] = {n: diff_paths(normalize(old_requests[n], set()), normalize(new_requests[n], set())) for n in report["request_changed"]}
+        report["expectation_diffs"] = {n: diff_paths(normalize(old[n][1], set()), normalize(new[n][1], set())) for n in report["expectation_changed"]}
         report["result_differences"] = {n: diff_paths(normalize(old_results[n], set()), normalize(new_results[n], set()))
                                         for n in both if normalize(old_results[n], set()) != normalize(new_results[n], set())}
         report["steps_changed"] = sorted(n for n in both if old_results[n].get("steps_used") != new_results[n].get("steps_used"))
@@ -506,12 +509,17 @@ def regenerated_report(record, evaluations=True):
         report["forward"] = {n: {"status": r.get("status"), "reason_codes": r.get("reason_codes"),
                                  "row_reasons": [row.get("reason_codes") for row in r.get("results", [])]}
                              for n, r in evaluate_tree(trees["from"], forward).items()} if forward else {}
+        # 新版の全ての入力を、旧い pin に替えて旧版の木へ渡す（P2-s の V8：互換の部分集合）
+        everything = {n: repin(new_requests[n], {v: k for k, v in mapping.items()}) for n in sorted(new_requests) if embeds_pin(new_requests[n], list(mapping.values()))}
+        report["forward_old_pin"] = {n: {"status": r.get("status"), "reason_codes": r.get("reason_codes")} for n, r in evaluate_tree(trees["from"], everything).items()}
         report["changed_files"] = changed_files(record["from"]["commit"], record["to"]["commit"])
         # 置換での再固定の限界（R1）：旧い pin を新しい値へ文字列で置換した旧入力を、新版の木へ渡す。系列ごとの先頭3件
         sample = {s: [n for n in sorted(old_requests) if n.startswith(s + "/") and embeds_pin(old_requests[n], mapping)
                       and old_results[n].get("status") == "ok"][:3] for s in suites}
         substituted = {n: repin(old_requests[n], mapping) for names in sample.values() for n in names}
-        report["substituted"] = {n: r.get("status") for n, r in evaluate_tree(trees["to"], substituted).items()} if substituted else {}
+        substituted_results = evaluate_tree(trees["to"], substituted) if substituted else {}
+        report["substituted"] = {n: r.get("status") for n, r in substituted_results.items()}
+        report["substituted_reasons"] = {n: r.get("reason_codes") for n, r in substituted_results.items()}
         # 再検証の範囲（V7）：宣言から列挙した範囲と、旧版の木で旧い hash を埋め込んでいた実体
         listed = tree_affected(trees["to"], record["intended_changes"])
         expanded = sorted({p.relative_to(trees["to"]).as_posix() for pattern in record["predicted"]["regenerate"]
@@ -544,18 +552,27 @@ def regenerated_mismatches(record, report):
     if report["pins_changed"] != sorted(p["file"] for p in record["pins"]):
         problems.append("pins_changed")
     changes = [c for c in record["declared_changes"] if c["kind"] == "changed_value"]
-    declared = {n for c in changes for n in c["inputs"]}
+    required = [c for c in record["declared_changes"] if c["kind"] == "required_field"]
+    declared = {n for c in changes for n in c["inputs"]}                                    # 値が変わる入力（結果の差も宣言）
+    declared_expectations = declared | {n for c in required for n in c["inputs"]}            # 必須にした項目で期待を個別に変えた入力を加える
+    leaves = {c["request_leaf"] for c in required} | {c["result_leaf"] for c in required}      # 必須にした項目の名前（要求・期待・結果の最後の経路の要素）
+
+    def only_declared_leaves(paths):
+        return bool(paths) and all(path.rsplit("/", 1)[-1] in leaves for path in paths)
+
+    def outside_leaves(names, diffs):
+        return {n for n in names if not only_declared_leaves(diffs.get(n, [""]))}
     added = {n for c in record["declared_changes"] for n in c.get("added_inputs", [])}
     measured = record["measured"]
     if {k: len(v) for k, v in report["old_inputs_without_regeneration"].items()} != measured["old_inputs_without_regeneration"]:
         problems.append("classification_counts")
     if report["old_inputs_without_regeneration"]["changed"]:
         problems.append("silent_reinterpretation")
-    if report["request_changed"]:
+    if outside_leaves(report["request_changed"], report.get("request_diffs", {})):
         problems.append("regenerated_request_changed")
-    if set(report["expectation_changed"]) != declared:
+    if outside_leaves(report["expectation_changed"], report.get("expectation_diffs", {})) != declared_expectations:
         problems.append("undeclared_or_missing_expectation_change")
-    if set(report["result_differences"]) != declared:
+    if outside_leaves(report["result_differences"], report["result_differences"]) != declared:
         problems.append("undeclared_or_missing_result_difference")
     prefixes = {n: c["allowed_prefixes"] for c in changes for n in c["inputs"]}
     for name, paths in report["result_differences"].items():
@@ -570,6 +587,10 @@ def regenerated_mismatches(record, report):
     # 置換での再固定の限界：確認が拘束する内容の hash を持つ系列は、置換した入力が受理されない
     if any(report["substituted"].get(n) == "ok" for n in report["substituted"] if not n.startswith(tuple(record["pure_pin_suites"]))):
         problems.append("substitution_repinned_a_content_bound_input")
+    for change in required:                                       # 必須にした項目の欠落で拒否される：置換した入力は、宣言した状態と理由で拒否される
+        refusal = change["substitution_refusal"]
+        if any(status != refusal["status"] or (report.get("substituted_reasons", {}).get(n) or [None])[0] != refusal["code"] for n, status in report["substituted"].items()):
+            problems.append("substitution_not_refused_as_declared")
     # 再検証の範囲：宣言した予測が、列挙の実際の出力と一致すること（列挙そのものが変わったら失敗）
     predicted = record["predicted"]
     if report["affected"]["extensions"] != sorted(predicted["extensions"]) or report["affected"]["regenerate"] != report["affected"]["predicted_regenerate"]:

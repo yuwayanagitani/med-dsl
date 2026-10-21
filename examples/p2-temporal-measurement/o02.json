@@ -10,7 +10,7 @@
     "operation": "evaluate_temporal_measurements",
     "consumer": {
       "profile": "p2-temporal-measurement-draft-1",
-      "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+      "profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
       "operations": [
         "evaluate_temporal_measurements"
       ],
@@ -87,21 +87,21 @@
             "kind": "observed",
             "ref": "fiction:measurement:origin:A"
           },
-          "required_capabilities": [
-            "p2-temporal-measurement-draft-1"
-          ],
-          "revises": [],
           "observer": {
             "kind": "device",
             "ref": "fiction:device:meter"
-          }
+          },
+          "required_capabilities": [
+            "p2-temporal-measurement-draft-1"
+          ],
+          "revises": []
         }
       ],
       "reviews": [
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "7c752c7271d81c60f66b37f105b4c68511e6eb248489637c38943f7eccba17ff",
+          "record_sha256": "dcb1aa812bce69deb9da87877352780d9dcdf4096de4d373e2d0989bbd057116",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-03T00:00:00Z",
@@ -339,21 +339,21 @@
                 "kind": "observed",
                 "ref": "fiction:measurement:origin:A"
               },
-              "required_capabilities": [
-                "p2-temporal-measurement-draft-1"
-              ],
-              "revises": [],
               "observer": {
                 "kind": "device",
                 "ref": "fiction:device:meter"
-              }
+              },
+              "required_capabilities": [
+                "p2-temporal-measurement-draft-1"
+              ],
+              "revises": []
             }
           ],
           "reviews": [
             {
               "id": "RA",
               "record_ref": "A",
-              "record_sha256": "7c752c7271d81c60f66b37f105b4c68511e6eb248489637c38943f7eccba17ff",
+              "record_sha256": "dcb1aa812bce69deb9da87877352780d9dcdf4096de4d373e2d0989bbd057116",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-03T00:00:00Z",

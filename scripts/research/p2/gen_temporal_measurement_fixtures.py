@@ -41,7 +41,7 @@ def record(ident='A',slot='S',qref='Q',revises=(),rec=None):
             'method':{'kind':'known','ref':'fiction:method:m','version':'1'},
             'validity':span(),'quantity_ref':{'ref':qref,'sha256':'0'*64},
             'certainty':'confirmed','recorded_at':day(rec if rec is not None else {'A':2,'B':6,'C':8}.get(ident,2)),
-            'origin':{'kind':'observed','ref':'fiction:measurement:origin:'+ident},
+            'origin':{'kind':'observed','ref':'fiction:measurement:origin:'+ident},'observer':{'kind':'unknown'},
             'required_capabilities':[PROFILE],'revises':list(revises),
             **({'change_reason':'架空の測定記録の明示訂正'} if revises else {})}
 
@@ -290,14 +290,20 @@ def main():
     good('O01',observed(request(),0,human),extra=shown(human))
     good('O02',observed(request(),0,device),extra=shown(device))
     good('O03',observed(chain(at=5),1,human),'B',((30,1),),shown(human))
-    good('O04',observed(chain(at=5),0,human),'B',((30,1),))          # 訂正は元の観察者を継がない：record_observer を出さない（キーの不在はテストで確認）
+    good('O04',observed(chain(at=5),0,human),'B',((30,1),),shown({'kind':'unknown'}))          # 訂正は元の観察者を継がない：B は明示の unknown
     req=observed(request(),0,human);req['source']['records'][0]['observer']['ref']='fiction:human:other';bad('O05',req,'review_record_hash_mismatch')
     for name,change,code in [('O10',lambda o:o.update(kind='robot'),'invalid_observer'),('O11',lambda o:o.update(ref=''),'expected_nonempty_string'),
                              ('O12',lambda o:o.pop('ref'),'missing_field'),('O13',lambda o:o.update(extra=1),'unknown_field')]:
         req=observed(request(),0,human);change(req['source']['records'][0]['observer']);seal(req);bad(name,req,code)
     for suffix,value in [('null',None),('string','fiction:human:observer')]:
         req=request();req['source']['records'][0]['observer']=value;seal(req);bad('O14-'+suffix,req,'expected_object')
-    manifest={'schema_version':'p2-fixture-manifest-draft-1','suite':'p2-temporal-measurement','review_state':'author_draft','independent_review':False,'evaluation_frozen':False,'conditions':{'C':32,'N':12,'B':4,'O':10},'files':entries}
+    # ---- 観察者を必須にする（P2-s、文書77の§1）：欠落は拒否し、不明は明示の unknown ----
+    req=request();del req['source']['records'][0]['observer'];seal(req);bad('O20',req,'missing_field')
+    unknown={'kind':'unknown'}
+    good('O21',observed(request(),0,unknown),extra=shown(unknown))
+    req=observed(request(),0,{'kind':'unknown','ref':'fiction:x'});bad('O22',req,'unknown_field')
+    good('O23',request(),extra=shown(unknown))
+    manifest={'schema_version':'p2-fixture-manifest-draft-1','suite':'p2-temporal-measurement','review_state':'author_draft','independent_review':False,'evaluation_frozen':False,'conditions':{'C':32,'N':12,'B':4,'O':14},'files':entries}
     (DIRECTORY/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'files':len(entries),'checks':sum(len(json.loads((DIRECTORY/e['path']).read_text())['expected']['checks']) for e in entries)}))
 

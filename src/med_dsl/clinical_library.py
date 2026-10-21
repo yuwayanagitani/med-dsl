@@ -13,7 +13,7 @@ from .temporal_measurement import (TEMPORAL_MEASUREMENT_PROFILE, SPEC_SHA256 as 
 from .validation import check_json, digest, fields, indexed, string, strings, timestamp, values
 
 LIBRARY_PROFILE = 'p2-clinical-library-draft-1'
-SPEC_SHA256 = 'bb87cc22078825e776e13933609ec37c341d152f31629b8a5f8574d402ee0d67'
+SPEC_SHA256 = '58abe63fca0b964120e88fd3773ef2226c6d516e7d7eed745fce126e9bcfd9c2'
 OPERATION = 'run_clinical_library'
 ANSWER_KIND = 'clinical_library_projection'
 VALUE_FIELDS = ('selection', 'elements', 'requests', 'output', 'flows')
@@ -23,7 +23,7 @@ ORIGIN_OF_QUANTITY = {'observed': 'literal', 'judgment': 'literal', 'imported': 
 SELECTION_STOPS = ('validity_unknown', 'validity_unspecified', 'no_adopted_measurement', 'unresolved_measurement_conflict')
 CONTEXT_FIELDS = ('method', 'property', 'specimen')
 OWN_FEE, CONVERT_RESERVE, COMPARE_RESERVE = 6, 8, 12
-RECORD_FIELDS = ('id', 'kind', 'slot_ref', 'property_ref', 'specimen', 'method', 'validity', 'value', 'certainty', 'recorded_at', 'origin')
+RECORD_FIELDS = ('id', 'kind', 'slot_ref', 'property_ref', 'specimen', 'method', 'validity', 'value', 'certainty', 'recorded_at', 'origin', 'observer')
 CORRECT_FIELDS = RECORD_FIELDS + ('corrects', 'reason')
 CONFIRM_FIELDS = ('id', 'kind', 'record_ref', 'reviewer_ref', 'recorded_at')
 
@@ -93,7 +93,7 @@ def _operations(library):
             if op['record_ref'] not in records:
                 raise Problem('unresolved_record', 'operation.record_ref')
             continue
-        fields(op, CORRECT_FIELDS if op['kind'] == 'correct' else RECORD_FIELDS, ('capabilities', 'observer'), 'operation')
+        fields(op, CORRECT_FIELDS if op['kind'] == 'correct' else RECORD_FIELDS, ('capabilities',), 'operation')
         for key in ('slot_ref', 'property_ref'):
             string(op[key], 'operation.' + key)
         if op['slot_ref'] not in slots:
@@ -138,8 +138,7 @@ def _ledger(library, slots, operations):
                   'certainty': op['certainty'], 'recorded_at': op['recorded_at'], 'origin': deepcopy(op['origin']),
                   'required_capabilities': [TEMPORAL_MEASUREMENT_PROFILE, *op.get('capabilities', [])],
                   'revises': list(op['corrects']) if op['kind'] == 'correct' else []}
-        if 'observer' in op:
-            record['observer'] = deepcopy(op['observer'])
+        record['observer'] = deepcopy(op['observer'])
         if op['kind'] == 'correct':
             record['change_reason'] = op['reason']
         records.append(record)
@@ -353,8 +352,7 @@ def _evidence(state, key, view, at):
     reviews = sorted(r['id'] for r in state['reviews'].values() if r['record_ref'] == key and r['recorded_at'] <= view['as_of'])
     evidence = {'record_ref': key, 'record_sha256': state['hashes'][key], 'review_refs': reviews, 'as_of': view['as_of'], 'target_at': at,
                 'record_origin': deepcopy(record['origin']), 'quantity_origin': deepcopy(literal['origin']), 'validity': deepcopy(record['validity'])}
-    if 'observer' in record:
-        evidence['record_observer'] = deepcopy(record['observer'])
+    evidence['record_observer'] = deepcopy(record['observer'])
     return evidence
 
 

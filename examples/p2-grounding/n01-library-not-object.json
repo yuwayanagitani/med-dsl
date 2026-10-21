@@ -10,12 +10,12 @@
     "operation": "run_structure_grounding",
     "consumer": {
       "profile": "p2-structure-grounding-draft-1",
-      "profile_spec_sha256": "3f8527fbf60baea044e7116de4a6d9e6e2d12fd47e2f471b791012653938be73",
+      "profile_spec_sha256": "34f88aa6a41e29e605394d129ddc5d84adeee33f931e2d749c3bd834f5647695",
       "operations": [
         "run_structure_grounding"
       ],
       "library_profile": "p2-clinical-library-draft-1",
-      "library_profile_spec_sha256": "bb87cc22078825e776e13933609ec37c341d152f31629b8a5f8574d402ee0d67"
+      "library_profile_spec_sha256": "58abe63fca0b964120e88fd3773ef2226c6d516e7d7eed745fce126e9bcfd9c2"
     },
     "library_request": [],
     "targets": [

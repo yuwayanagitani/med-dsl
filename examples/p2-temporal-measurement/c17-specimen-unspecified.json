@@ -10,7 +10,7 @@
     "operation": "evaluate_temporal_measurements",
     "consumer": {
       "profile": "p2-temporal-measurement-draft-1",
-      "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+      "profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
       "operations": [
         "evaluate_temporal_measurements"
       ],
@@ -85,6 +85,9 @@
             "kind": "observed",
             "ref": "fiction:measurement:origin:A"
           },
+          "observer": {
+            "kind": "unknown"
+          },
           "required_capabilities": [
             "p2-temporal-measurement-draft-1"
           ],
@@ -95,7 +98,7 @@
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "ba51cbeac4dc627b7ff7448d943c21072bff5adbfc1eb92560f515b3205f4007",
+          "record_sha256": "e3e733a32a14284b0a3d4de6215b3e0c10b3838a942f175123c606ead35f2174",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-03T00:00:00Z",
@@ -313,6 +316,9 @@
                 "kind": "observed",
                 "ref": "fiction:measurement:origin:A"
               },
+              "observer": {
+                "kind": "unknown"
+              },
               "required_capabilities": [
                 "p2-temporal-measurement-draft-1"
               ],
@@ -323,7 +329,7 @@
             {
               "id": "RA",
               "record_ref": "A",
-              "record_sha256": "ba51cbeac4dc627b7ff7448d943c21072bff5adbfc1eb92560f515b3205f4007",
+              "record_sha256": "e3e733a32a14284b0a3d4de6215b3e0c10b3838a942f175123c606ead35f2174",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-03T00:00:00Z",

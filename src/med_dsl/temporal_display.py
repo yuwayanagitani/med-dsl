@@ -14,7 +14,7 @@ from .quantity import _rational as rational_input, _bounded as bounded, _encode 
 from .validation import canonical_bytes, check_json, digest, fields, indexed, string, strings
 
 TEMPORAL_DISPLAY_PROFILE = 'p2-temporal-display-draft-1'
-SPEC_SHA256 = 'd1673a14d406656a7baaa89569d6676f322b40c878d314ac48a542c2edd1defb'
+SPEC_SHA256 = '65550ac5e10f1ed72c7b59d7b2ccce40e59dffc6f4712766688bdf070d698436'
 OPERATION = 'project_temporal_measurement_displays'
 POLICY = 'fiction:decimal-half-even@1'
 ANSWER_KIND = 'temporal_measurement_display_projection'

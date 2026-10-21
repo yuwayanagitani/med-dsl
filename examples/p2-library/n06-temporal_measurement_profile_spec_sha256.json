@@ -10,7 +10,7 @@
     "operation": "run_clinical_library",
     "consumer": {
       "profile": "p2-clinical-library-draft-1",
-      "profile_spec_sha256": "bb87cc22078825e776e13933609ec37c341d152f31629b8a5f8574d402ee0d67",
+      "profile_spec_sha256": "58abe63fca0b964120e88fd3773ef2226c6d516e7d7eed745fce126e9bcfd9c2",
       "operations": [
         "run_clinical_library"
       ],
@@ -64,6 +64,9 @@
           "origin": {
             "kind": "observed",
             "ref": "fiction:library:origin:A"
+          },
+          "observer": {
+            "kind": "unknown"
           }
         },
         {

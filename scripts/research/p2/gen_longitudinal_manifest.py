@@ -49,7 +49,7 @@ def longitudinal_manifest(root):
                     'checks': [tests+name for name in first(test)],
                     'guards': [{'example': 'examples/p2-longitudinal/'+example.lower()+'.json', 'path': path, 'equals': value, 'kind': kind}]}
                    for ident, text, test, example, path, value, finite, kind in rows]
-    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-longitudinal-comparison', 'version': 'draft-2',
+    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-longitudinal-comparison', 'version': 'draft-3',
             'title': '同じslotの二時点の期間つき数量を、独立な変数として比べる縦断比較',
             'status': {'review_state': 'author_draft', 'independent_review': False}, 'class': 'R5',
             'spec': {'path': 'src/med_dsl/longitudinal_spec.json', 'sha256': hashlib.sha256((root/'src/med_dsl/longitudinal_spec.json').read_bytes()).hexdigest()},
@@ -58,7 +58,7 @@ def longitudinal_manifest(root):
                      {'path': 'src/med_dsl/temporal_measurement_spec.json', 'role': 'temporal_measurement_native_spec'}, {'path': 'src/med_dsl/quantity_spec.json', 'role': 'quantity_native_spec'}],
             'embedded_in': ['src/med_dsl/longitudinal_spec.json', 'src/med_dsl/temporal_measurement.py', 'src/med_dsl/temporal_measurement_spec.json', 'src/med_dsl/quantity.py',
                             'examples/p2-longitudinal/*.json', 'examples/p2-temporal-measurement/*.json', 'examples/p2-quantity/*.json'],
-            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-quantity-literal', 'version': 'draft-2'}, {'id': 'p2-temporal-measurement', 'version': 'draft-3'}],
+            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-quantity-literal', 'version': 'draft-2'}, {'id': 'p2-temporal-measurement', 'version': 'draft-4'}],
             'owns': {'operations': ['compare_longitudinal_measurements'], 'schema_versions': ['p2-longitudinal-request-draft-1', 'p2-longitudinal-result-draft-1'],
                      'profiles': ['p2-longitudinal-comparison-draft-1'], 'answer_kinds': ['longitudinal_measurement_comparison'], 'predicates': [],
                      'capabilities': ['p2-longitudinal-comparison-draft-1']},

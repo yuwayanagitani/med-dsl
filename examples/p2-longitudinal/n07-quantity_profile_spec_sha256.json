@@ -10,12 +10,12 @@
     "operation": "compare_longitudinal_measurements",
     "consumer": {
       "profile": "p2-longitudinal-comparison-draft-1",
-      "profile_spec_sha256": "8e84f9059091605aa9539f43736d860e7a93528863eff1d770fba2e740784575",
+      "profile_spec_sha256": "bd782f9c7d7aa4f1e584c764281760a92142f01937d92b7508e403216fdf667f",
       "operations": [
         "compare_longitudinal_measurements"
       ],
       "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
-      "temporal_measurement_profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+      "temporal_measurement_profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
       "quantity_profile": "p2-quantity-literal-draft-1",
       "quantity_profile_spec_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
     },
@@ -24,7 +24,7 @@
       "operation": "evaluate_temporal_measurements",
       "consumer": {
         "profile": "p2-temporal-measurement-draft-1",
-        "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+        "profile_spec_sha256": "5de7893a0449a12b37273e331acb0b337d8f99b05391d7ef7e793aedc5132972",
         "operations": [
           "evaluate_temporal_measurements"
         ],
@@ -101,6 +101,9 @@
               "kind": "observed",
               "ref": "fiction:measurement:origin:A"
             },
+            "observer": {
+              "kind": "unknown"
+            },
             "required_capabilities": [
               "p2-temporal-measurement-draft-1"
             ],
@@ -111,7 +114,7 @@
           {
             "id": "RA",
             "record_ref": "A",
-            "record_sha256": "027b2fae4f350afe525de6c5a710cf86ac5de5eb601df76894613bc665eb0bb8",
+            "record_sha256": "27dc9aa0851d597c1103a5c85b58417ae86798255036d4a051b8773562339c26",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
