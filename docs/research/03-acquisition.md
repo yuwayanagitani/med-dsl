@@ -60,3 +60,5 @@ python3 scripts/research/verify-r3-materials.py --record
 ## 追加の取得（2026-10-21）
 
 [P2-o の第二段](66-p2-p-grounding-audit.md)（FHIR への接地の監査）のために、D03 が「R5 v5.0.0 の HTML 定義を参照」と選定していた範囲から、FHIR Observation R5 v5.0.0（706,699バイト）と FHIR Specimen R5 v5.0.0（365,066バイト）のページを追加で取得しました。同じ手順で `data/research/r3/` に保存し、取得記録（`*.receipt.json`）と [台帳](03-materials.json) の項目を作りました。検査スクリプトは、ページ名・版・目印の項目（資源ごとの表）を確かめるよう、資源の種類を台帳の `resource` で引く形にしました。検査は Observation・Specimen を含む6件がすべて通っています（公表ハッシュはなく、`not_available`）。使い方は構造・濃度・制約の読み取りに限り、第三者用語の内容は取り込んでいません。
+
+同日、監査の未確認を減らすため、同じ FHIR R5 v5.0.0 の本体から、データ型（Datatypes）、observation-status の符号系ページ、data-absent-reason の値集合ページ、Provenance、Extensibility の5ページを追加で取得し、同じ手順で記録しました（台帳は計11件、検査はすべて通過）。status と data-absent-reason の符号は HL7 自身が定義する小さな集合で、名前と意味の把握のために読んだだけで、プロジェクトの語彙には取り込んでいません。

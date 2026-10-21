@@ -48,6 +48,11 @@ HTML_RESOURCES = {
     "Procedure": {"4.0.1": "performed[x]", "5.0.0": "occurrence[x]"},
     "Observation": {"5.0.0": "dataAbsentReason"},
     "Specimen": {"5.0.0": "accessionIdentifier"},
+    "Datatypes": {"5.0.0": "comparator"},
+    "Codesystem-observation-status": {"5.0.0": "entered-in-error"},
+    "Valueset-data-absent-reason": {"5.0.0": "not-asked"},
+    "Provenance": {"5.0.0": "onBehalfOf"},
+    "Extensibility": {"5.0.0": "modifierExtension"},
 }
 
 
