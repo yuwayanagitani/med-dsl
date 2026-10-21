@@ -309,7 +309,7 @@ class TemporalMeasurementTests(unittest.TestCase):
             ('clinical-promotion',"'certificate': {'status': 'not_certified'","'certificate': {'status': 'certified'",'C01'),
             ('observer-kind-unchecked',"if record['observer']['kind'] not in ('human', 'device', 'unknown'):",'if False:','O10'),
             ('observer-not-shown',"    binding['record_observer'] = deepcopy(record['observer'])",'    pass','O01'),
-            ('unknown-with-ref-allowed',"            if 'ref' in record['observer']:\n                raise Problem('unknown_field', 'record.observer.ref')",'            pass','O22')]
+            ('unknown-with-ref-allowed',"            if 'ref' in record['observer']:\n                raise Problem('unknown_field', 'record.observer')",'            pass','O22')]
         for name,old,new,ident in cases:
             self.assertEqual(source.count(old),1,name);namespace=dict(vars(native));exec(compile(source.replace(old,new),str(native.__file__),'exec'),namespace)
             surface=host.SURFACES[make.request()['schema_version']]

@@ -177,9 +177,9 @@ def _validate(request):
             raise Problem('invalid_observer', 'record.observer.kind')
         if record['observer']['kind'] == 'unknown':
             if 'ref' in record['observer']:
-                raise Problem('unknown_field', 'record.observer.ref')
+                raise Problem('unknown_field', 'record.observer')
         elif 'ref' not in record['observer']:
-            raise Problem('missing_field', 'record.observer.ref')
+            raise Problem('missing_field', 'record.observer')
         else:
             string(record['observer']['ref'], 'record.observer.ref')
         strings(record['required_capabilities'], 64, 'record.required_capabilities')
