@@ -26,7 +26,7 @@ def temporal_display_manifest(root):
     obligations=[{'id':ident,'statement':text,'evidence':'finite_check' if finite else 'checked_native_template',
         'checks':['tests/p2/test_temporal_display.py::TemporalDisplayTests.'+test],
         'guards':[{'example':'examples/p2-temporal-display/'+name.lower()+'.json','path':path,'equals':value,'kind':'boundary'}]} for ident,text,test,name,path,value,finite in rows]
-    return {'schema_version':'p2-extension-manifest-draft-1','id':'p2-temporal-display','version':'draft-2',
+    return {'schema_version':'p2-extension-manifest-draft-2','id':'p2-temporal-display','version':'draft-2',
         'title':'期間付き数量計画の丸め表示と、原値・記録・時点・期間の保存境界',
         'status':{'review_state':'author_draft','independent_review':False},'class':'R4',
         'spec':{'path':'src/med_dsl/temporal_display_spec.json','sha256':hashlib.sha256((root/'src/med_dsl/temporal_display_spec.json').read_bytes()).hexdigest()},

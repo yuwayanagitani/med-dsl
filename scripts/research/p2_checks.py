@@ -19,7 +19,6 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 
-from med_dsl.extensions import affected, standard_registry
 from med_dsl.validation import canonical_bytes, decode_json
 
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
@@ -441,6 +440,25 @@ def p2_tree_evaluation(tree):
             "manifest_sha256": data.get("manifest_sha256"), "bundle_sha256": data.get("bundle_sha256")}
 
 
+# 木の宣言と registry は、その木の実装で扱う（P2-n）。作業ツリーの registry に旧い版の宣言を渡すと、契約の版が違えば拒否される
+AFFECTED_RUNNER = (
+    "import json, sys\n"
+    "tree, changed = sys.argv[1], json.loads(sys.argv[2])\n"
+    "sys.path.insert(0, tree + '/src')\n"
+    "from med_dsl.extensions import affected, standard_registry\n"
+    "print(json.dumps(affected(standard_registry(tree), changed, root=tree)))\n"
+)
+
+
+def tree_affected(tree, changed):
+    """木で宣言から列挙した再検証の範囲（その木の `affected()`）。"""
+    done = subprocess.run([sys.executable, "-I", "-B", "-c", AFFECTED_RUNNER, str(tree), json.dumps(sorted(changed))],
+                          capture_output=True, text=True, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
+    if done.returncode != 0:
+        raise RuntimeError("tree_affected_failed: " + done.stderr[-300:])
+    return json.loads(done.stdout)
+
+
 def changed_files(old_commit, new_commit):
     return sorted(git("diff", "--name-only", old_commit, new_commit).stdout.decode().split())
 
@@ -494,8 +512,7 @@ def regenerated_report(record, evaluations=True):
         substituted = {n: repin(old_requests[n], mapping) for names in sample.values() for n in names}
         report["substituted"] = {n: r.get("status") for n, r in evaluate_tree(trees["to"], substituted).items()} if substituted else {}
         # 再検証の範囲（V7）：宣言から列挙した範囲と、旧版の木で旧い hash を埋め込んでいた実体
-        registry = standard_registry(trees["to"])
-        listed = affected(registry, record["intended_changes"], root=trees["to"])
+        listed = tree_affected(trees["to"], record["intended_changes"])
         expanded = sorted({p.relative_to(trees["to"]).as_posix() for pattern in record["predicted"]["regenerate"]
                            for p in Path(trees["to"]).glob(pattern) if p.is_file()})
         report["affected"] = {"extensions": listed["extensions"], "regenerate": listed["regenerate"], "lock": listed["lock"], "predicted_regenerate": expanded}

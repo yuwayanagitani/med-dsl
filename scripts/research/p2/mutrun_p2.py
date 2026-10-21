@@ -22,7 +22,12 @@ for (i, f, old, new, po) in M:
     src = p.read_text(); assert src.count(old) == 1, (i, src.count(old))
     p.write_text(src.replace(old, new))
     env = dict(os.environ, PYTHONPATH=str(d / "src"), PYTHONDONTWRITEBYTECODE="1", GIT_DIR=str(REPO / ".git"))
-    t = subprocess.run([sys.executable, "-B", "-m", "unittest", "discover", "-s", "tests/p2"], cwd=d, capture_output=True, text=True, env=env, timeout=900)
+    # P2_MUTATION_TESTS（空白区切りのモジュール名）で、実行するテストを絞れる。絞った場合の「検出」は十分、「未検出」は全体での確認が要る
+    selected = os.environ.get("P2_MUTATION_TESTS", "").split()
+    command = [sys.executable, "-B", "-m", "unittest", *selected] if selected else [sys.executable, "-B", "-m", "unittest", "discover", "-s", "tests/p2"]
+    if selected:
+        env["PYTHONPATH"] = os.pathsep.join([str(d / "src"), str(d / "tests/p2"), str(d / "scripts/research"), str(d / "scripts/research/p2"), str(d)])
+    t = subprocess.run(command, cwd=d, capture_output=True, text=True, env=env, timeout=900)
     failed = sum(1 for l in t.stderr.splitlines() if l.startswith(("FAIL:", "ERROR:")))
     out.append({"id": i, "failed": failed, "detected": failed > 0})
     print(i, "失敗=%d" % failed, "検出" if failed else "未検出", flush=True)

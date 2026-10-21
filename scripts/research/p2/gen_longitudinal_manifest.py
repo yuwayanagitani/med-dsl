@@ -49,7 +49,7 @@ def longitudinal_manifest(root):
                     'checks': [tests+name for name in first(test)],
                     'guards': [{'example': 'examples/p2-longitudinal/'+example.lower()+'.json', 'path': path, 'equals': value, 'kind': kind}]}
                    for ident, text, test, example, path, value, finite, kind in rows]
-    return {'schema_version': 'p2-extension-manifest-draft-1', 'id': 'p2-longitudinal-comparison', 'version': 'draft-1',
+    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-longitudinal-comparison', 'version': 'draft-1',
             'title': '同じslotの二時点の期間つき数量を、独立な変数として比べる縦断比較',
             'status': {'review_state': 'author_draft', 'independent_review': False}, 'class': 'R5',
             'spec': {'path': 'src/med_dsl/longitudinal_spec.json', 'sha256': hashlib.sha256((root/'src/med_dsl/longitudinal_spec.json').read_bytes()).hexdigest()},

@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p1-event-chain",
   "version": "draft-2",
   "title": "事象化＋改名の鎖の認定（既知テンプレート）",
@@ -304,6 +304,7 @@
     ],
     "order_dependent": false
   },
+  "inherits": [],
   "evaluation": {
     "examples": [
       "examples/p1-c/*.json",

@@ -1,4 +1,4 @@
-"""契約の検査（src/med_dsl/extensions.py）の変異表 X01〜X54：(id, ファイル, 旧, 新, 証明義務)。
+"""契約の検査（src/med_dsl/extensions.py）の変異表 X01〜X73：(id, ファイル, 旧, 新, 証明義務)。
 各変異は、旧の文字列が対象のファイルにちょうど 1 回現れる置換。mutrun_p2.py が、変異後の木で tests/p2 を実行して検出を調べる。"""
 
 M = []
@@ -37,7 +37,7 @@ _x("X26", '            if name not in declared:', '            if False:')
 _x("X27", '            raise Refused(found)\n        self._items[manifest["id"]]', '            self._items[manifest.get("id", "?")] = deepcopy(manifest)\n            raise Refused(found)\n        self._items[manifest["id"]]')
 _x("X28", '            if isinstance(node, ast.ImportFrom) and node.level == 1:', '            if isinstance(node, ast.ImportFrom) and node.level == 2:')
 _x("X29", '        stack.extend(e for e in graph[name] if e not in skip)', '        pass')
-_x("X30", '            if ext["id"] not in reasons and any(d["id"] in reasons for d in ext["depends_on"]):', '            if False:')
+_x("X30", '            depended = sorted(d["id"] for d in ext["depends_on"] if d["id"] in reasons)', '            depended = []')
 _x("X31", '    for ident in pinned:\n        for pattern in registry.get(ident)["embedded_in"]:', '    for ident in reasons:\n        for pattern in registry.get(ident)["embedded_in"]:')
 _x("X32", '        if listed & changed:', '        if True:')
 _x("X33", 'return sorted(o["id"] for o in manifest["obligations"] if o.get("guard_gap"))', 'return sorted(o["id"] for o in manifest["obligations"] if True)')
@@ -65,3 +65,23 @@ _x("X51", '    own = {i: {Path(m).stem for m in ext["implementation"]["modules"]
 _x("X52", 'extra.startswith(("COMP-", "JOINT-"))', 'extra.startswith(("COMP-",))')
 _x("X53", '+ tuple(f"JOINT-{i}" for i in range(1, 7)),', '+ tuple(f"JOINT-{i}" for i in range(1, 6)),')
 _x("X54", '    reach = {i: _closure(graph, own[i]) for i in own}', '    reach = {i: set(own[i]) for i in own}')
+# ---- extensions.py：継承の欄（P2-n、manifest draft-2 の inherits）：書式・解決・証人・列挙・独立・順序・版 ----
+_x("X55", '            inherited = sorted({i["from"] for i in ext.get("inherits", []) if i["from"] in reasons})', '            inherited = []')
+_x("X56", '            inherits = any(i["from"] == b for i in items[a].get("inherits", [])) or any(i["from"] == a for i in items[b].get("inherits", []))', '            inherits = False')
+_x("X57", '            if source is None:', '            if False:')
+_x("X58", '        if item["from"] == manifest["id"]:', '        if False:')
+_x("X59", '        if (item["from"], item["fragment"]) in seen:', '        if False:')
+_x("X60", '        if carrier is None:', '        if False:')
+_x("X61", '        elif not carrier.get("checks"):', '        elif False:')
+_x("X62", '        elif witnesses and "witness_gap" in item:', '        elif False:')
+_x("X63", '        elif not witnesses and not _is_text(item.get("witness_gap")):', '        elif False:')
+_x("X64", '                if not any(fnmatchcase(example, pattern) for pattern in owner["evaluation"]["examples"]):', '                if False:')
+_x("X65", '                elif canonical_bytes(values[0][1]) != canonical_bytes(values[1][1]):', '                elif False:')
+_x("X66", '                if any(not ok for ok, _ in values):', '                if False:')
+_x("X67", '            if len(values) == 2:', '            if False:')
+_x("X68", '                if self.evaluate is not None:', '                if False:')
+_x("X69", ' and all(type(i) is dict and i.get("from") in placed for i in inherited)', '')
+_x("X70", 'MANIFEST_SCHEMA = "p2-extension-manifest-draft-2"', 'MANIFEST_SCHEMA = "p2-extension-manifest-draft-1"')
+_x("X71", '"composition", "inherits", "evaluation")', '"composition", "evaluation")')
+_x("X72", 'type(value["path"]) is list and bool(value["path"]) and all(', 'type(value["path"]) is list and all(')
+_x("X73", '(type(k) is str and k) or (type(k) is int)', '(type(k) is str and k) or isinstance(k, int)')

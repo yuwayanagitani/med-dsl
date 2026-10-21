@@ -26,7 +26,7 @@ def temporal_measurement_manifest(root):
     obligations=[{'id':ident,'statement':text,'evidence':'finite_check' if finite else 'checked_native_template',
         'checks':['tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.'+test],
         'guards':[{'example':'examples/p2-temporal-measurement/'+name.lower()+'.json','path':path,'equals':value,'kind':'boundary'}]} for ident,text,test,name,path,value,finite in rows]
-    return {'schema_version':'p2-extension-manifest-draft-1','id':'p2-temporal-measurement','version':'draft-2',
+    return {'schema_version':'p2-extension-manifest-draft-2','id':'p2-temporal-measurement','version':'draft-2',
         'title':'明示された期間つき数量主張の内容指定確認・部分訂正と換算','status':{'review_state':'author_draft','independent_review':False},'class':'R5',
         'spec':{'path':'src/med_dsl/temporal_measurement_spec.json','sha256':hashlib.sha256((root/'src/med_dsl/temporal_measurement_spec.json').read_bytes()).hexdigest()},
         'contract_doc':'docs/research/43-p2-i-design.md','implementation':{'modules':['src/med_dsl/temporal_measurement.py']},

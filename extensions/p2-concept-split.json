@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-concept-split",
   "version": "draft-2",
   "title": "概念の分割：候補集合と情報要求（公理つき読み取りモジュール）",
@@ -713,6 +713,7 @@
     "reads_extensions": [],
     "order_dependent": false
   },
+  "inherits": [],
   "evaluation": {
     "examples": [
       "examples/p2-split/*.json"

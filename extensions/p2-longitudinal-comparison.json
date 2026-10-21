@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-longitudinal-comparison",
   "version": "draft-1",
   "title": "同じslotの二時点の期間つき数量を、独立な変数として比べる縦断比較",
@@ -501,6 +501,146 @@
     ],
     "order_dependent": false
   },
+  "inherits": [
+    {
+      "from": "p2-measurement-binding",
+      "fragment": "matched_context：property・specimen・method の一致と、不一致の理由 different_property／different_specimen／different_method",
+      "obligation": "LC-10",
+      "witnesses": [
+        {
+          "from": {
+            "example": "examples/p2-measurement/m28.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-longitudinal/l24.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-measurement/m29.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-longitudinal/l22.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-measurement/m29-version.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-longitudinal/l23.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-measurement/m30.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-longitudinal/l21.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-measurement/m30-version.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-longitudinal/l20.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "from": "p2-temporal-measurement",
+      "fragment": "P2-i の全計画の料金 C の再述",
+      "obligation": "LC-6",
+      "witnesses": [
+        {
+          "from": {
+            "example": "examples/p2-temporal-measurement/c25.json",
+            "path": [
+              "steps_used"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-longitudinal/l01.json",
+            "path": [
+              "results",
+              0,
+              "comparison_evidence",
+              "temporal_measurement_reserved_steps"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal-measurement/c30.json",
+            "path": [
+              "steps_used"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-longitudinal/l04.json",
+            "path": [
+              "results",
+              0,
+              "comparison_evidence",
+              "temporal_measurement_reserved_steps"
+            ]
+          }
+        }
+      ]
+    }
+  ],
   "evaluation": {
     "examples": [
       "examples/p2-longitudinal/*.json"

@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p1-replay",
   "version": "draft-2",
   "title": "原保存・旧処理系の可用性と、新側の保証の分離（点検）",
@@ -249,6 +249,7 @@
     ],
     "order_dependent": false
   },
+  "inherits": [],
   "evaluation": {
     "examples": [
       "examples/p1-c/*.json",

@@ -13,7 +13,7 @@ def refinement_manifest(root):
 
     row = lambda index, field: ["results", index, field]
     return {
-        "schema_version": "p2-extension-manifest-draft-1", "id": "p2-validity-refinement", "version": "draft-1",
+        "schema_version": "p2-extension-manifest-draft-2", "id": "p2-validity-refinement", "version": "draft-1",
         "title": "確認済みの期間不明記録の精密化（記録についての記録）",
         "status": {"review_state": "author_draft", "independent_review": False}, "class": "R5",
         "spec": {"path": "src/med_dsl/refinement_spec.json", "sha256": hashlib.sha256((root / "src/med_dsl/refinement_spec.json").read_bytes()).hexdigest()},

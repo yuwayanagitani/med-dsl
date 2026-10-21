@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p0-positive",
   "version": "draft-2",
   "title": "P0 の基底（採用・問い合わせ・比較）と核の不変条件",
@@ -251,6 +251,7 @@
     "reads_extensions": [],
     "order_dependent": false
   },
+  "inherits": [],
   "evaluation": {
     "examples": [
       "examples/p0/*.json"

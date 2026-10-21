@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-temporal-measurement",
   "version": "draft-2",
   "title": "明示された期間つき数量主張の内容指定確認・部分訂正と換算",
@@ -472,6 +472,184 @@
     ],
     "order_dependent": false
   },
+  "inherits": [
+    {
+      "from": "p2-temporal-assertion",
+      "fragment": "期間の分類（bounded の半開区間、unknown、unspecified）と、確認済みの unknown／unspecified の記録が阻害する理由 validity_unknown／validity_unspecified",
+      "obligation": "TM-5",
+      "witnesses": [
+        {
+          "from": {
+            "example": "examples/p2-temporal/t13.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-measurement/c13-unknown.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal/t14.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-measurement/c13-unspecified.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "from": "p2-measurement-binding",
+      "fragment": "文脈（method・specimen）の unknown／unspecified と、property・量種・単位の未知による停止の理由名",
+      "obligation": "TM-5",
+      "witnesses": [
+        {
+          "from": {
+            "example": "examples/p2-measurement/m16.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-measurement/c17-method-unknown.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-measurement/m17.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-measurement/c17-method-unspecified.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-measurement/m18.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-measurement/c17-specimen-unknown.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-measurement/m19.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-measurement/c17-specimen-unspecified.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-measurement/m32-property.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-measurement/c19-property_ref.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-measurement/m32-kind.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-measurement/c19-quantity_kind_ref.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-measurement/m32-unit.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-measurement/c19-unit_ref.json",
+            "path": [
+              "results",
+              0,
+              "reason_codes"
+            ]
+          }
+        }
+      ]
+    }
+  ],
   "evaluation": {
     "examples": [
       "examples/p2-temporal-measurement/*.json"

@@ -8,121 +8,121 @@
       "id": "p0-positive",
       "class": "BASE",
       "path": "p0-positive.json",
-      "sha256": "6320caa0c041fd84dde9337c86696a228ffe8fa9d4752015beaf402c02529f79"
+      "sha256": "4a46f4f2a45c2d304d837814d7a3a00198ac0f7e6d581ab9cddba76686b40cbd"
     },
     {
       "id": "p0-definitions",
       "class": "R1",
       "path": "p0-definitions.json",
-      "sha256": "a27a7fb2c9010c0cbd8fa9d58febee8189f4deeb2d4da14e91cdf8ea2e701f08"
+      "sha256": "5543815e7983f4a5557fd87dac6c08e726801f975b8a7c753fcf72d61314d41f"
     },
     {
       "id": "p1-finite-forecast",
       "class": "R2",
       "path": "p1-finite-forecast.json",
-      "sha256": "864b6ce901055e9ce5562d8ad9a234bea946be7f73e80e173e544c6ee060d5c1"
+      "sha256": "88f4becd77ecaca70331bc6612c699601e33870fb75b54e6fe3b2e263d15a7bb"
     },
     {
       "id": "p1-events",
       "class": "R3",
       "path": "p1-events.json",
-      "sha256": "014133218206132c6a9c918b8cb383021d53773c2d8c3f2ab21ff4fdb389e5ad"
+      "sha256": "1fa39730ca7e3b054ac3725869b52b9b1e30040c6b9ffa4069684c352e25730e"
     },
     {
       "id": "p1-handover-host",
       "class": "HOST",
       "path": "p1-handover-host.json",
-      "sha256": "69be45d59ff1d5cae85908ff810c5ea7cdbb9c82c28835b2192b0aac0a40bc6c"
+      "sha256": "4a76ef8fde596007239339c65b59ea39ac06828c5ee42793e79cf4f46e0309de"
     },
     {
       "id": "p1-event-chain",
       "class": "COMP",
       "path": "p1-event-chain.json",
-      "sha256": "e728d7eb461bd18fa99b1971fb33d8eab9b56dd5fae986c7d72a39e1c30b016d"
+      "sha256": "719477e98e15c11b61d5b31879686abe5569fa754c410e1b0ec7835dbd1365b6"
     },
     {
       "id": "p1-projection",
       "class": "R4",
       "path": "p1-projection.json",
-      "sha256": "de5336fff433859ba64a7e3c09e3ec717fb3ea3ce80a0c2568bac209daa93ab2"
+      "sha256": "56402c53e794f4007faf2d561dae4fadf2d01abe4dafd9a85c3217ec3c17795f"
     },
     {
       "id": "p1-reference",
       "class": "R3",
       "path": "p1-reference.json",
-      "sha256": "5b398da4b93fe251b9694e6c8e05321023218626cc75a0635317c09090745eea"
+      "sha256": "be166475a38ff804f9e5b96ae622fa7c0a6a6d4f8db65d670d135dfa74359a8c"
     },
     {
       "id": "p1-absence",
       "class": "R5",
       "path": "p1-absence.json",
-      "sha256": "8e2f18dd8e4684814c64804fdef34224b02ba7bcbe375ac3bcf9d7743ee425d9"
+      "sha256": "a83391e826a259aa66a4bbc0350ef5891b6546e10caa5de177f14a8740ab55c9"
     },
     {
       "id": "p1-replay",
       "class": "R5",
       "path": "p1-replay.json",
-      "sha256": "a084d94f2879145e52def46fa32ff3c1b1fa155b63512924345c4af41d7d6742"
+      "sha256": "33082ae40c1d5b4af81e4bf196a8bc9baf5a5effe8fe7cd3c79caff0748b1566"
     },
     {
       "id": "p2-concept-split",
       "class": "R6",
       "path": "p2-concept-split.json",
-      "sha256": "9817ccbc732b5ec76fed4de2b6ef9aa63856255d38832f357316b3bc1abd5ce9"
+      "sha256": "3accffebb70c16e3e26deef6480e21302ca394008cbc7b363c3d6773f95bdb8a"
     },
     {
       "id": "p2-split-combination",
       "class": "JOINT",
       "path": "p2-split-combination.json",
-      "sha256": "8a6a802cae601c67505f33044814b383d1d441a21c19e0d6af8b7462544b99f3"
+      "sha256": "e2af88206135ed5f5dc4678a4f15a70259d04f57bcecd8cc7c9f297a01c7dfe0"
     },
     {
       "id": "p2-temporal-assertion",
       "class": "R5",
       "path": "p2-temporal-assertion.json",
-      "sha256": "9d929e73c1fddf709049d9265fc73b27bb226c35b9443aa592a655fe9411e7f6"
+      "sha256": "63e9c246093302e8f4377088aa476bcc772fc5f786c583da1bf37f9e04e1ad23"
     },
     {
       "id": "p2-quantity-literal",
       "class": "R2",
       "path": "p2-quantity-literal.json",
-      "sha256": "57955910a328a5795dde04804c3515f8d15a7eee07a440b6e9b95dc1ecb3369a"
+      "sha256": "958c12bf026967af8d162c63f43deeb953c4fd628fd340625e8328a5c6be64c3"
     },
     {
       "id": "p2-measurement-binding",
       "class": "R5",
       "path": "p2-measurement-binding.json",
-      "sha256": "c7c3e6e659a6e51eba79d3279c1bb74de42779f95a45285c39007db900cb2fdc"
+      "sha256": "972eb21d9a72ae58d591ee8c08e46242974aaa2f158879c5f6dabf4a338f29b7"
     },
     {
       "id": "p2-quantity-display",
       "class": "R4",
       "path": "p2-quantity-display.json",
-      "sha256": "eac8c3b0bb1457730602f248f33a1e8df6bddd15eee29bba1e490908e1d1ab14"
+      "sha256": "12323fa234c048762cb9f5c4a5d213946e67244498eb6183c0eb77807c59c24f"
     },
     {
       "id": "p2-temporal-measurement",
       "class": "R5",
       "path": "p2-temporal-measurement.json",
-      "sha256": "83234a47da19b2d9ad0064dae7039dd951439a18b76394655b075929c966a97c"
+      "sha256": "a84341b2115d1a1c1ec69ddc455513160ba4def3edb273a6534e112eac884b69"
     },
     {
       "id": "p2-temporal-display",
       "class": "R4",
       "path": "p2-temporal-display.json",
-      "sha256": "0d42808dfc7121383f71e83fd0f7cc7ac991c5d5e0616f158cab443d86eddeac"
+      "sha256": "5ad90ab20abcc61a47a8053322c35338bae8f0d1f5194a8a3aaf9d99964ebcf4"
     },
     {
       "id": "p2-validity-refinement",
       "class": "R5",
       "path": "p2-validity-refinement.json",
-      "sha256": "4cc1c4fd5bdd0ec1d6a6a68cf8411cbe69ddf223048da65c03ed63d01d34734e"
+      "sha256": "7cb6e1e7fe0774a1ab92bf0a0d3d8280568b5b27687d53c580e7254f3ac30f10"
     },
     {
       "id": "p2-longitudinal-comparison",
       "class": "R5",
       "path": "p2-longitudinal-comparison.json",
-      "sha256": "451b91ecada479ad5bd1f7139092da4fe156da04daadee910c07cfa0d636da11"
+      "sha256": "a5ef634edf181c6625efa374d22d255c537aece016f3b83aa871cee6a11a55b8"
     }
   ]
 }

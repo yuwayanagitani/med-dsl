@@ -180,7 +180,7 @@ class CommandLineTests(unittest.TestCase):
 
     def report(self, passed):
         return {"passed": passed, "mismatches": [] if passed else ["x"], "base": {k: 0 for k in ("p1_cases", "p1_files", "p1_checks", "p0_files", "p0_checks", "manifest_sha256", "bundle_sha256")},
-                "extensions": {k: 0 for k in ("registered", "obligations", "guards", "guard_gaps", "independent_pairs", "pairs")}, "suites": {},
+                "extensions": {k: 0 for k in ("registered", "obligations", "guards", "guard_gaps", "independent_pairs", "pairs", "inherits")}, "suites": {},
                 "budget": {"violations": []}, "versions": []}
 
     def test_exit_codes(self):

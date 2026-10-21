@@ -141,6 +141,13 @@ EXPECTED["suites"]["p2-longitudinal"] = {"examples": 103, "checks": 2020}
 EXPECTED["budget"] = {"requests": 1111, "budget_evaluations": 20909, "violations": 0, "allowed_budget_dependent_refusals": 1}
 
 
+# P2-mの分母を保持し、継承の欄（P2-n、宣言の書式 draft-2）を加えた現在値を固定する。宣言・例・実装の数は変わらない。
+# 継承の項目は9（予測8＋予測外1）、証人は30、理由つきの欠落は2。継承で結ばれた組は独立としないので、独立な組は150から143になる。
+P2_M_EXPECTED = copy.deepcopy(EXPECTED)
+EXPECTED["extensions"]["independent_pairs"] = 143
+EXPECTED["extensions"]["inherits"] = {"entries": 9, "witnesses": 30, "gaps": 2}
+
+
 def _p1d():
     spec = importlib.util.spec_from_file_location("evaluate_p1_d", ROOT / "scripts/research/evaluate-p1-d.py")
     module = importlib.util.module_from_spec(spec)
@@ -179,9 +186,12 @@ def extension_report():
             evidence[obligation["evidence"]] += 1
     pairs = independent_pairs(registry)
     count = len([m for m in registry if m["class"] != "BASE"])
+    inherited = [item for manifest in registry for item in manifest["inherits"]]
     return {"registered": len(rows), "refused": refused, "obligations": sum(r["obligations"] for r in rows),
             "guards": sum(r["guards"] for r in rows), "guard_gaps": sum(len(r["guard_gaps"]) for r in rows),
-            "evidence": evidence, "independent_pairs": len(pairs), "pairs": count * (count - 1) // 2, "rows": rows}
+            "evidence": evidence, "independent_pairs": len(pairs), "pairs": count * (count - 1) // 2,
+            "inherits": {"entries": len(inherited), "witnesses": sum(len(i["witnesses"]) for i in inherited), "gaps": sum(1 for i in inherited if not i["witnesses"])},
+            "rows": rows}
 
 
 def suites_report():
@@ -291,7 +301,7 @@ def main():
         return 2
     print(json.dumps({"passed": report["passed"], "mismatches": report["mismatches"],
                       "base": {k: report["base"][k] for k in ("p1_cases", "p1_files", "p1_checks", "p0_files", "p0_checks")},
-                      "extensions": {k: report["extensions"][k] for k in ("registered", "obligations", "guards", "guard_gaps", "independent_pairs", "pairs")},
+                      "extensions": {k: report["extensions"][k] for k in ("registered", "obligations", "guards", "guard_gaps", "independent_pairs", "pairs", "inherits")},
                       "suites": {k: [v["examples"], v["checks"], len(v["failures"])] for k, v in report["suites"].items()},
                       "budget": {k: (v if k != "violations" else len(v)) for k, v in report["budget"].items()},
                       "versions": [{k: v for k, v in e.items() if k in ("record", "status", "reason")} for e in report["versions"]],

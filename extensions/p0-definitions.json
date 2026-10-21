@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p0-definitions",
   "version": "draft-2",
   "title": "定義の追加（S1/S2）の保存的拡張の認定",
@@ -275,6 +275,7 @@
     "reads_extensions": [],
     "order_dependent": false
   },
+  "inherits": [],
   "evaluation": {
     "examples": [
       "examples/p0/*.json",

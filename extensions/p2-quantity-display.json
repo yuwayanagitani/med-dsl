@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-quantity-display",
   "version": "draft-2",
   "title": "厳密な測定値と型付き表示の射影、問いの因子化と別添えの分離",
@@ -658,6 +658,7 @@
     ],
     "order_dependent": false
   },
+  "inherits": [],
   "evaluation": {
     "examples": [
       "examples/p2-display/*.json"

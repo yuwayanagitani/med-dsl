@@ -8,7 +8,7 @@ def measurement_manifest(root):
                 'checks':['tests/p2/test_measurement.py::MeasurementTests.'+test],
                 'guards':[{'example':'examples/p2-measurement/'+name.lower()+'.json','path':path,'equals':value,'kind':'boundary'} for name,path,value in guards]}
     row=lambda key:['results',0,key]
-    return {'schema_version':'p2-extension-manifest-draft-1','id':'p2-measurement-binding','version':'draft-2',
+    return {'schema_version':'p2-extension-manifest-draft-2','id':'p2-measurement-binding','version':'draft-2',
         'title':'確認対象の内容を固定した測定記録の選択と数量計算への接続','status':{'review_state':'author_draft','independent_review':False},'class':'R5',
         'spec':{'path':'src/med_dsl/measurement_spec.json','sha256':hashlib.sha256((root/'src/med_dsl/measurement_spec.json').read_bytes()).hexdigest()},
         'contract_doc':'docs/research/37-p2-g-design.md','implementation':{'modules':['src/med_dsl/measurement.py']},

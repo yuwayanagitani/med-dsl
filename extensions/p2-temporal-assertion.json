@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-temporal-assertion",
   "version": "draft-1",
   "title": "有効期間と参照時点を分けた部分訂正の方針診断",
@@ -423,6 +423,7 @@
     "reads_extensions": [],
     "order_dependent": false
   },
+  "inherits": [],
   "evaluation": {
     "examples": [
       "examples/p2-temporal/*.json"

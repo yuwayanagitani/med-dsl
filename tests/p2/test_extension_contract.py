@@ -32,6 +32,9 @@ IDS = ["p0-positive", "p0-definitions", "p1-finite-forecast", "p1-events", "p1-h
        "p1-projection", "p1-reference", "p1-absence", "p1-replay", "p2-concept-split", "p2-split-combination", "p2-temporal-assertion", "p2-quantity-literal", "p2-measurement-binding", "p2-quantity-display", "p2-temporal-measurement", "p2-temporal-display", "p2-validity-refinement", "p2-longitudinal-comparison"]
 # 防護例のない義務（理由は宣言の guard_gap）。増やすときはここも更新して、検査の見逃しが黙って増えないようにする。
 # 残る 3 件は、拒否する入力を構成できない（構文の十分条件による保証・手作業の導出・損失のある段がない）
+# P1 の予測の変更が及ぶ拡張：予測自身と、その有理数の入力検査を再び述べる P2-f（継承）、P2-f に依存する5件（手で導いた値、文書60の§2）
+FORECAST_FAMILY = sorted(["p1-finite-forecast", "p2-quantity-literal", "p2-measurement-binding", "p2-quantity-display",
+                          "p2-temporal-measurement", "p2-temporal-display", "p2-longitudinal-comparison"])
 KNOWN_GAPS = {
     "p0-definitions": ["R1-3"],
     "p1-events": ["R3-3"],
@@ -48,6 +51,19 @@ def base_registry(*ids):
     for ident in ids:
         registry.register(shipped()[ident])
     return registry
+
+
+def prefix(ident):
+    """宣言の依存と継承を辿り、登録の順に並べた前提の拡張（自分を除く）。手で保つ一覧を使わない（P2-n）。"""
+    manifests = shipped()
+    needed, stack = set(), [ident]
+    while stack:
+        current = stack.pop()
+        for source in [d["id"] for d in manifests[current]["depends_on"]] + [i["from"] for i in manifests[current]["inherits"]]:
+            if source not in needed:
+                needed.add(source)
+                stack.append(source)
+    return tuple(m["id"] for m in load_manifests(ROOT / "extensions") if m["id"] in needed)
 
 
 def refused_codes(registry, manifest):
@@ -202,7 +218,10 @@ class RefusalTests(unittest.TestCase):
     """X01（欠落）・X02（衝突）・X06（クラス別の義務）・X07（防護例）：拒否は全か無か。"""
 
     def check_refusal(self, mutate, code, base=("p0-positive",), target="p1-finite-forecast"):
-        registry = base_registry(*base)
+        registry = Registry(ROOT, None)                    # 前提の拡張の防護例・証人は評価しない（対象の宣言だけを評価する）
+        for ident in base:
+            registry.register(shipped()[ident])
+        registry.evaluate = evaluate
         manifest = deepcopy(shipped()[target])
         mutate(manifest)
         before = [m["id"] for m in registry]
@@ -243,23 +262,7 @@ class RefusalTests(unittest.TestCase):
                 continue
             for need in REQUIRED[manifest["class"]]:
                 with self.subTest(extension=ident, missing=need):
-                    chain = {"p0-definitions": ("p0-positive",), "p1-finite-forecast": ("p0-positive",), "p1-events": ("p0-positive",),
-                             "p1-handover-host": ("p0-positive", "p1-events"),
-                             "p1-event-chain": ("p0-positive", "p1-events", "p1-handover-host"),
-                             "p1-projection": ("p0-positive", "p1-events", "p1-handover-host"),
-                             "p1-reference": ("p0-positive", "p1-events", "p1-handover-host"),
-                             "p1-absence": ("p0-positive", "p1-events", "p1-handover-host"),
-                             "p1-replay": ("p0-positive", "p1-events", "p1-handover-host", "p1-event-chain"),
-                             "p2-concept-split": ("p0-positive",),
-                             "p2-temporal-assertion": ("p0-positive",),
-                             "p2-quantity-literal": ("p0-positive",),
-                             "p2-measurement-binding": ("p0-positive", "p2-quantity-literal"),
-                             "p2-quantity-display": ("p0-positive", "p2-quantity-literal", "p2-measurement-binding"),
-                             "p2-temporal-measurement": ("p0-positive", "p2-quantity-literal"),
-                             "p2-temporal-display": ("p0-positive", "p2-quantity-literal", "p2-temporal-measurement"),
-                             "p2-validity-refinement": ("p0-positive",),
-                             "p2-longitudinal-comparison": ("p0-positive", "p2-quantity-literal", "p2-temporal-measurement"),
-                             "p2-split-combination": ("p0-positive", "p2-concept-split")}[ident]
+                    chain = prefix(ident)
                     self.check_refusal(lambda m, n=need: m["obligations"].__delitem__([o["id"] for o in m["obligations"]].index(n)),
                                        "missing_obligation", chain, ident)
 
@@ -457,15 +460,16 @@ class ReverificationTests(unittest.TestCase):
         self.assertNotIn("forecast", graph["handover"])
         self.assertEqual(graph["model"], set())
 
-    def test_a_change_to_the_forecast_module_affects_only_forecast(self):
+    def test_a_change_to_the_forecast_module_affects_forecast_and_what_restates_its_rational_checks(self):
+        """P2-f は P1 の予測の有理数の入力検査を再び述べる（継承、P2-n）。継承の先と、その先に依存する拡張に及ぶ。"""
         result = affected(self.registry, ["src/med_dsl/forecast.py"])
-        self.assertEqual(result["extensions"], ["p1-finite-forecast"])
+        self.assertEqual(result["extensions"], FORECAST_FAMILY)
         self.assertEqual(result["regenerate"], [])
         self.assertEqual(result["lock"], LOCK)
 
     def test_a_change_to_a_pinned_spec_also_lists_the_artifacts_that_embed_its_hash(self):
         result = affected(self.registry, ["src/med_dsl/forecast_spec.json"])
-        self.assertEqual(result["extensions"], ["p1-finite-forecast"])
+        self.assertEqual(result["extensions"], FORECAST_FAMILY)
         self.assertIn("src/med_dsl/forecast.py", result["regenerate"])
         self.assertIn("examples/p1-a/finite-forecast.json", result["regenerate"])
         self.assertNotIn("examples/p1-b/native-query.json", result["regenerate"])
@@ -679,7 +683,7 @@ class IndependenceLogicTests(unittest.TestCase):
 class RealAffectedTests(unittest.TestCase):
     def test_contract_document_and_dispatcher_changes_are_enumerated(self):
         registry = standard_registry(ROOT, evaluate=evaluate)
-        self.assertEqual(affected(registry, ["docs/research/12-p1-a-contract.md"])["extensions"], ["p1-finite-forecast"])
+        self.assertEqual(affected(registry, ["docs/research/12-p1-a-contract.md"])["extensions"], FORECAST_FAMILY)
         self.assertEqual(affected(registry, ["src/med_dsl/__init__.py"])["extensions"], sorted(IDS))
         self.assertEqual(affected(registry, ["src/med_dsl/host.py"])["extensions"], sorted(IDS))
 
@@ -695,7 +699,7 @@ class RealAffectedTests(unittest.TestCase):
         family = sorted(["p1-handover-host", "p1-event-chain", "p1-projection", "p1-reference", "p1-absence", "p1-replay"])
         self.assertEqual(one("handover"), family)
         self.assertEqual(one("handover_common"), family)
-        self.assertEqual(one("forecast"), ["p1-finite-forecast"])
+        self.assertEqual(one("forecast"), FORECAST_FAMILY)
 
 
 class CommandLineTests(unittest.TestCase):

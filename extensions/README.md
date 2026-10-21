@@ -1,6 +1,6 @@
-# 拡張の宣言（P2-a、`p2-extension-manifest-draft-1`）
+# 拡張の宣言（P2-a、`p2-extension-manifest-draft-2`）
 
-既存の handler 10件への後付けに、P2-b・P2-c・P2-e・P2-f・P2-g・P2-h・P2-i・P2-j・P2-kで追加した9件を加え、計19件の **拡張契約の宣言** があります。書式・検査・限界は [P2-a の実行契約](../docs/research/20-p2-a-contract.md)、結果は [P2-a の結果](../docs/research/21-p2-a-results.md) と [追加作業](../docs/research/22-p2-a-hardening.md)、P2-b は [23](../docs/research/23-p2-b-design.md)・[24](../docs/research/24-p2-b-results.md)、P2-c は [25](../docs/research/25-p2-c-design.md)・[26](../docs/research/26-p2-c-results.md)、P2-eは [31](../docs/research/31-p2-e-design.md)・[33](../docs/research/33-p2-e-results.md)、P2-fは [34](../docs/research/34-p2-f-design.md)・[36](../docs/research/36-p2-f-results.md)、P2-gは [37](../docs/research/37-p2-g-design.md)・[39](../docs/research/39-p2-g-results.md)、P2-hは [40](../docs/research/40-p2-h-design.md)・[42](../docs/research/42-p2-h-results.md) にあります。状態は作成者側の草案で、[運用方針](../docs/research/29-review-repository-policy.md) に従って内部検証を進めます。`independent_review` はfalseです。
+既存の handler 10件への後付けに、P2-b・P2-c・P2-e・P2-f・P2-g・P2-h・P2-i・P2-j・P2-k・P2-mで追加した10件を加え、計20件の **拡張契約の宣言** があります。書式・検査・限界は [P2-a の実行契約](../docs/research/20-p2-a-contract.md)、結果は [P2-a の結果](../docs/research/21-p2-a-results.md) と [追加作業](../docs/research/22-p2-a-hardening.md)、P2-b は [23](../docs/research/23-p2-b-design.md)・[24](../docs/research/24-p2-b-results.md)、P2-c は [25](../docs/research/25-p2-c-design.md)・[26](../docs/research/26-p2-c-results.md)、P2-eは [31](../docs/research/31-p2-e-design.md)・[33](../docs/research/33-p2-e-results.md)、P2-fは [34](../docs/research/34-p2-f-design.md)・[36](../docs/research/36-p2-f-results.md)、P2-gは [37](../docs/research/37-p2-g-design.md)・[39](../docs/research/39-p2-g-results.md)、P2-hは [40](../docs/research/40-p2-h-design.md)・[42](../docs/research/42-p2-h-results.md) にあります。状態は作成者側の草案で、[運用方針](../docs/research/29-review-repository-policy.md) に従って内部検証を進めます。`independent_review` はfalseです。
 
 宣言は作成者の主張で、**意味の正しさの証拠ではありません**。検査が確かめるのは、必須項目がそろっていること、実体（仕様の hash・実装・例）と食い違わないこと、所有する名前が衝突しないこと、防護例が宣言どおりの結果を返すことです。この系列は P1 の20条件・80 JSON・417必須パス、231開発テスト、レビュー系列とは別の分母です。
 
@@ -25,16 +25,33 @@
 | [p2-temporal-measurement](p2-temporal-measurement.json) | R5 | 明示された期間つき数量主張の内容指定確認・部分訂正・換算。表示・臨床認定なし | p0-positive, p2-quantity-literal |
 | [p2-temporal-display](p2-temporal-display.json) | R4 | I計画の再実行、型付き表示だけの問い、原値・記録・両時点・期間の別回答 | p0-positive, p2-quantity-literal, p2-temporal-measurement |
 | [p2-validity-refinement](p2-validity-refinement.json) | R5 | 確認済みの期間不明記録を、確認した期間で精密化する（記録についての記録。元の記録は消さない） | p0-positive |
+| [p2-longitudinal-comparison](p2-longitudinal-comparison.json) | R5 | 同じ slot の二時点の期間つき数量を、独立な変数として比べる（P2-iの端点とP2-fの比較）。臨床の傾向・有意性なし | p0-positive, p2-quantity-literal, p2-temporal-measurement |
 
 [index.json](index.json) は上の一覧と、各宣言の sha256 です。登録は基底から順に行い、依存が先に登録されていることが必要です。
 
 ```bash
-python3 scripts/research/check-extensions.py            # 19件を登録し、宣言した防護例をすべて評価する
+python3 scripts/research/check-extensions.py            # 20件を登録し、宣言した防護例と継承の証人をすべて評価する
 python3 scripts/research/check-extensions.py --strict   # 防護例のない義務（現在3件、すべて理由つき）があると失敗する
 python3 scripts/research/check-extensions.py --json     # 機械可読
 python3 -m unittest discover -s tests/p2 -v             # P2 系列のテスト。tests/ 直下の discover には含まれない
 python3 scripts/research/evaluate-p2.py                 # 統合評価：登録・P2 の例・共通予算・版の比較を、固定した分母と照合（P2-d）
 ```
+
+## 継承（`inherits`、P2-n）
+
+宣言の書式を draft-2 に上げ、`inherits` を必須の項目にしました（空配列は「継承なし」の明示。draft-1 の宣言は拒否されます）。継承とは、拡張 X が拡張 Y の意味の断片を**実装を共有せず**に再び述べ、その断片で観測が一致することの宣言です（実装の import で共有するのは「依存」で、継承ではありません）。項目は `{from, fragment, obligation, witnesses, witness_gap}` で、`obligation` は継承の主張を担う自分の義務、`witnesses` は元の拡張の既存の例と自分の既存の例の組と、結果の中の同じ意味の位置です。登録時に両方を評価して値が一致することを確かめます。証人がなければ理由（`witness_gap`）を書きます。元の拡張が影響を受けると、継承する側も `affected()` に列挙され、継承で結ばれた組は `independent_pairs()` で独立とされません。契約は [実行契約 20 の §8](../docs/research/20-p2-a-contract.md)、設計は [59](../docs/research/59-p2-n-design.md)、期待は [60](../docs/research/60-p2-n-cases.md) です。
+
+| 継承する側 | 元 | 断片 | 義務 | 証人 |
+| --- | --- | --- | --- | --- |
+| p2-longitudinal-comparison | p2-measurement-binding | matched_context：property・specimen・method の一致と、不一致の理由 diffe… | LC-10 | 5 |
+| p2-longitudinal-comparison | p2-temporal-measurement | P2-i の全計画の料金 C の再述 | LC-6 | 2 |
+| p2-measurement-binding | p2-temporal-assertion | 記録・確認の可視性（recorded_at が参照時点以前）と、適格性（確定かつ可視の人の確認がある） | MB-2 | 欠落（理由つき） |
+| p2-quantity-literal | p1-finite-forecast | 有理数の入力の検査：整数・正の分母の形（invalid_rational）と、分子・分母の63bit上限（ratio… | QT-2 | 4 |
+| p2-temporal-display | p2-quantity-display | 10進の最近接偶数丸め（係数・文字列）と、丸めセルによる閾値の判定 | TD-5 | 8 |
+| p2-temporal-display | p2-temporal-measurement | P2-i の全計画の料金 C（記録・確認・訂正辺・query の数からの式）の再述 | TD-10 | 2 |
+| p2-temporal-measurement | p2-temporal-assertion | 期間の分類（bounded の半開区間、unknown、unspecified）と、確認済みの unknown／un… | TM-5 | 2 |
+| p2-temporal-measurement | p2-measurement-binding | 文脈（method・specimen）の unknown／unspecified と、property・量種・単位の… | TM-5 | 7 |
+| p2-validity-refinement | p2-temporal-assertion | 適格な主張・訂正辺・半開区間による対象時点の判定（literal_state と採用集合） | RF-7 | 欠落（理由つき） |
 
 ## 読むときの注意
 
@@ -53,6 +70,6 @@ P2-jの契約と内部評価は [46](../docs/research/46-p2-j-design.md)・[48](
 
 P2-lの契約と内部評価は [53](../docs/research/53-p2-l-design.md)・[55](../docs/research/55-p2-l-results.md) に記録します。数量の宣言を draft-2 に上げ（単位表の改訂）、依存する4件の宣言の版と依存の版を draft-2 に更新しました。数量の宣言には継承の差分の義務 VR-1 があります。
 
-P2-mの契約と内部評価は [56](../docs/research/56-p2-m-design.md)・[58](../docs/research/58-p2-m-results.md) に記録します。この宣言はP2-iの選択とP2-fの比較に依存し、P2-gの比較可能性（`matched_context`）の観点を期間の記録について再び述べますが、P2-gへの依存は宣言せず（読まないため）、継承は端点の行をP2-iの直接実行と照合する検査と、文脈の判定をP2-gと照合する検査で確認しています。P2-gの変更は `affected()` にP2-mを含めません（宣言に継承を書く欄はありません）。
+P2-mの契約と内部評価は [56](../docs/research/56-p2-m-design.md)・[58](../docs/research/58-p2-m-results.md) に記録します。この宣言はP2-iの選択とP2-fの比較に依存し、P2-gの比較可能性（`matched_context`）の観点を期間の記録について再び述べます。P2-gは読まないので依存は宣言せず、P2-nで足した `inherits` で継承（断片の一致と証人）を宣言します（P2-m の時点では、P2-gの変更は `affected()` にP2-mを含めませんでした）。
 
-P2-kの契約と内部評価は [50](../docs/research/50-p2-k-design.md)・[52](../docs/research/52-p2-k-results.md) に記録します。この宣言は P2-e の意味を継承しますが実装は共有せず、継承は精密化のない要求を P2-e の実装に流す差分の検査で確認しています（宣言に継承を書く欄はありません）。
+P2-kの契約と内部評価は [50](../docs/research/50-p2-k-design.md)・[52](../docs/research/52-p2-k-results.md) に記録します。この宣言は P2-e の意味を継承しますが実装は共有せず、継承は精密化のない要求を P2-e の実装に流す差分の検査で確認しています。P2-n 以後は、この継承を `inherits` に宣言しています（P2-e の例と台帳が構造的に等しい P2-k の例がないので、証人は欠落として理由を書いています）。

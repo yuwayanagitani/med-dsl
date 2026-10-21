@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p1-handover-host",
   "version": "draft-2",
   "title": "引き継ぎ操作の共有の前段（識別・仕様と P0 実体の固定）",
@@ -208,6 +208,7 @@
     "reads_extensions": [],
     "order_dependent": false
   },
+  "inherits": [],
   "evaluation": {
     "examples": [
       "examples/p1-c/*.json",

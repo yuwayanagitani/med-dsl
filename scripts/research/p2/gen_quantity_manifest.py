@@ -10,7 +10,7 @@ def quantity_manifest(root):
                           for name,path,value in guards]}
     row=lambda field:['results',0,field]
     return {
-        'schema_version':'p2-extension-manifest-draft-1','id':'p2-quantity-literal','version':'draft-2',
+        'schema_version':'p2-extension-manifest-draft-2','id':'p2-quantity-literal','version':'draft-2',
         'title':'量リテラルの厳密換算と有限区間比較','status':{'review_state':'author_draft','independent_review':False},'class':'R2',
         'spec':{'path':'src/med_dsl/quantity_spec.json','sha256':hashlib.sha256((root/'src/med_dsl/quantity_spec.json').read_bytes()).hexdigest()},
         'contract_doc':'docs/research/34-p2-f-design.md','implementation':{'modules':['src/med_dsl/quantity.py']},

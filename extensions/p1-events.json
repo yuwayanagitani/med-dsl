@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p1-events",
   "version": "draft-2",
   "title": "四項関係の事象化（役割付き事象への表現の改訂）",
@@ -339,6 +339,7 @@
     "reads_extensions": [],
     "order_dependent": false
   },
+  "inherits": [],
   "evaluation": {
     "examples": [
       "examples/p1-b/*.json",

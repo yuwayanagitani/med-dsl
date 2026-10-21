@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-temporal-display",
   "version": "draft-2",
   "title": "期間付き数量計画の丸め表示と、原値・記録・時点・期間の保存境界",
@@ -485,6 +485,220 @@
     ],
     "order_dependent": false
   },
+  "inherits": [
+    {
+      "from": "p2-quantity-display",
+      "fragment": "10進の最近接偶数丸め（係数・文字列）と、丸めセルによる閾値の判定",
+      "obligation": "TD-5",
+      "witnesses": [
+        {
+          "from": {
+            "example": "examples/p2-display/p03.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-display/j02-5.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-display/p04.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-display/j02-27.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-display/p05.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-display/j02--5.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-display/p06.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-display/j02--27.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-display/p10-5.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-display/j06-5.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-display/p10-7.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-display/j06-7.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-display/p24-ge-0.json",
+            "path": [
+              "results",
+              0,
+              "question_results",
+              0,
+              "projection_answer"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-display/j24-13-0-ge.json",
+            "path": [
+              "results",
+              0,
+              "question_results",
+              0,
+              "projection_answer"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-display/p24-lt-1.json",
+            "path": [
+              "results",
+              0,
+              "question_results",
+              0,
+              "projection_answer"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-display/j24-13-1-lt.json",
+            "path": [
+              "results",
+              0,
+              "question_results",
+              0,
+              "projection_answer"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "from": "p2-temporal-measurement",
+      "fragment": "P2-i の全計画の料金 C（記録・確認・訂正辺・query の数からの式）の再述",
+      "obligation": "TD-10",
+      "witnesses": [
+        {
+          "from": {
+            "example": "examples/p2-temporal-measurement/c01.json",
+            "path": [
+              "steps_used"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-display/j01.json",
+            "path": [
+              "results",
+              0,
+              "projection_evidence",
+              "temporal_measurement_reserved_steps"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal-measurement/c06-5.json",
+            "path": [
+              "steps_used"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-temporal-display/j14-5.json",
+            "path": [
+              "results",
+              0,
+              "projection_evidence",
+              "temporal_measurement_reserved_steps"
+            ]
+          }
+        }
+      ]
+    }
+  ],
   "evaluation": {
     "examples": [
       "examples/p2-temporal-display/*.json"

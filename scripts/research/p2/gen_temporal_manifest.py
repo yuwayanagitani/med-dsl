@@ -11,7 +11,7 @@ def temporal_manifest(root):
                           for name,path,value in guards]}
     row=lambda field:["results",0,field]
     return {
-        "schema_version":"p2-extension-manifest-draft-1","id":"p2-temporal-assertion","version":"draft-1",
+        "schema_version":"p2-extension-manifest-draft-2","id":"p2-temporal-assertion","version":"draft-1",
         "title":"有効期間と参照時点を分けた部分訂正の方針診断",
         "status":{"review_state":"author_draft","independent_review":False},"class":"R5",
         "spec":{"path":"src/med_dsl/temporal_spec.json","sha256":hashlib.sha256((root/"src/med_dsl/temporal_spec.json").read_bytes()).hexdigest()},

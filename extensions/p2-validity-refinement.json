@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-validity-refinement",
   "version": "draft-1",
   "title": "確認済みの期間不明記録の精密化（記録についての記録）",
@@ -616,6 +616,15 @@
     "reads_extensions": [],
     "order_dependent": false
   },
+  "inherits": [
+    {
+      "from": "p2-temporal-assertion",
+      "fragment": "適格な主張・訂正辺・半開区間による対象時点の判定（literal_state と採用集合）。精密化のない台帳で一致",
+      "obligation": "RF-7",
+      "witnesses": [],
+      "witness_gap": "P2-e の例と台帳が構造的に等しい P2-k の例がない（n01 は P2-e の経路の対照で、P2-e の要求）。全数の差分は検査 test_semantics_are_inherited_from_p2_e_on_ledgers_without_refinements が担う"
+    }
+  ],
   "evaluation": {
     "examples": [
       "examples/p2-refinement/*.json"

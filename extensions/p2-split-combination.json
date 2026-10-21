@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-split-combination",
   "version": "draft-2",
   "title": "概念の分割の併用：保存性の判定と併用での候補集合（記号を共有し得る拡張の合成）",
@@ -944,6 +944,7 @@
     ],
     "order_dependent": false
   },
+  "inherits": [],
   "evaluation": {
     "examples": [
       "examples/p2-splits/*.json"

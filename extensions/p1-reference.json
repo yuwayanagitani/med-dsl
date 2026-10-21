@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p1-reference",
   "version": "draft-2",
   "title": "参考意味：同じ語彙での文集合の恒等テンプレートと有限モデルの反例",
@@ -324,6 +324,7 @@
     "reads_extensions": [],
     "order_dependent": false
   },
+  "inherits": [],
   "evaluation": {
     "examples": [
       "examples/p1-c/*.json",

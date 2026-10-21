@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-quantity-literal",
   "version": "draft-2",
   "title": "量リテラルの厳密換算と有限区間比較",
@@ -547,6 +547,71 @@
     "reads_extensions": [],
     "order_dependent": false
   },
+  "inherits": [
+    {
+      "from": "p1-finite-forecast",
+      "fragment": "有理数の入力の検査：整数・正の分母の形（invalid_rational）と、分子・分母の63bit上限（rational_integer_limit）。意図した差：重みの範囲 0〜1 は P1 固有、中間の上限は P1 が4096bit・P2-f が256bit",
+      "obligation": "QT-2",
+      "witnesses": [
+        {
+          "from": {
+            "example": "examples/p1-a/zero-denominator.json",
+            "path": [
+              "status"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-quantity/n01-zero.json",
+            "path": [
+              "status"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p1-a/zero-denominator.json",
+            "path": [
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-quantity/n01-zero.json",
+            "path": [
+              "reason_codes"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p1-a/integer-limit.json",
+            "path": [
+              "status"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-quantity/n02-n.json",
+            "path": [
+              "status"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p1-a/integer-limit.json",
+            "path": [
+              "reason_codes"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-quantity/n02-n.json",
+            "path": [
+              "reason_codes"
+            ]
+          }
+        }
+      ]
+    }
+  ],
   "evaluation": {
     "examples": [
       "examples/p2-quantity/*.json"

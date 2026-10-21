@@ -4,7 +4,7 @@ import hashlib, json, os, sys
 from pathlib import Path
 ROOT = Path(os.environ.get("P2_REPO") or Path(__file__).resolve().parents[3]).resolve()
 OUT = ROOT / "extensions"
-SCHEMA = "p2-extension-manifest-draft-1"
+SCHEMA = "p2-extension-manifest-draft-2"
 VERSION = "draft-2"
 sha = lambda p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest()
 S = lambda p: "src/med_dsl/" + p
@@ -684,6 +684,70 @@ manifests.append(refinement_manifest(ROOT))
 
 from gen_longitudinal_manifest import longitudinal_manifest
 manifests.append(longitudinal_manifest(ROOT))
+
+# ---- 継承（P2-n、manifest draft-2）：実装を共有せず、断片で元の拡張と観測が一致することの宣言 ----
+# 継承する側 -> 項目の列。宣言の正本はここではなく extensions/*.json だが、書き手が一箇所で監査できるよう表にまとめる。
+DIRECTORIES = {"p2-temporal-assertion": "p2-temporal", "p2-measurement-binding": "p2-measurement", "p2-temporal-measurement": "p2-temporal-measurement",
+               "p2-quantity-display": "p2-display", "p2-temporal-display": "p2-temporal-display", "p2-longitudinal-comparison": "p2-longitudinal",
+               "p2-validity-refinement": "p2-refinement", "p2-quantity-literal": "p2-quantity", "p1-finite-forecast": "p1-a"}
+REASONS = ["results", 0, "reason_codes"]
+
+
+def inherit(inheritor, source, fragment, obligation, pairs=(), gap=None):
+    """pairs：(元の例, 自分の例[, 元の位置, 自分の位置])。位置の既定は reason_codes。"""
+    witnesses = []
+    for pair in pairs:
+        start_path = pair[2] if len(pair) > 2 else REASONS
+        end_path = pair[3] if len(pair) > 3 else start_path
+        witnesses.append({"from": {"example": f"examples/{DIRECTORIES[source]}/{pair[0]}.json", "path": start_path},
+                          "to": {"example": f"examples/{DIRECTORIES[inheritor]}/{pair[1]}.json", "path": end_path}})
+    item = {"from": source, "fragment": fragment, "obligation": obligation, "witnesses": witnesses}
+    if gap:
+        item["witness_gap"] = gap
+    return item
+
+
+STEPS = ["steps_used"]
+RESERVED = ["results", 0, "projection_evidence", "temporal_measurement_reserved_steps"]
+COMPARED = ["results", 0, "comparison_evidence", "temporal_measurement_reserved_steps"]
+TEXT = ["results", 0, "artifact", "text"]
+ANSWER = ["results", 0, "question_results", 0, "projection_answer"]
+INHERITS = {
+    "p2-temporal-measurement": [
+        inherit("p2-temporal-measurement", "p2-temporal-assertion", "期間の分類（bounded の半開区間、unknown、unspecified）と、確認済みの unknown／unspecified の記録が阻害する理由 validity_unknown／validity_unspecified",
+                "TM-5", [("t13", "c13-unknown"), ("t14", "c13-unspecified")]),
+        inherit("p2-temporal-measurement", "p2-measurement-binding", "文脈（method・specimen）の unknown／unspecified と、property・量種・単位の未知による停止の理由名",
+                "TM-5", [("m16", "c17-method-unknown"), ("m17", "c17-method-unspecified"), ("m18", "c17-specimen-unknown"), ("m19", "c17-specimen-unspecified"),
+                         ("m32-property", "c19-property_ref"), ("m32-kind", "c19-quantity_kind_ref"), ("m32-unit", "c19-unit_ref")])],
+    "p2-temporal-display": [
+        inherit("p2-temporal-display", "p2-quantity-display", "10進の最近接偶数丸め（係数・文字列）と、丸めセルによる閾値の判定",
+                "TD-5", [("p03", "j02-5", TEXT), ("p04", "j02-27", TEXT), ("p05", "j02--5", TEXT), ("p06", "j02--27", TEXT), ("p10-5", "j06-5", TEXT), ("p10-7", "j06-7", TEXT),
+                         ("p24-ge-0", "j24-13-0-ge", ANSWER), ("p24-lt-1", "j24-13-1-lt", ANSWER)]),
+        inherit("p2-temporal-display", "p2-temporal-measurement", "P2-i の全計画の料金 C（記録・確認・訂正辺・query の数からの式）の再述",
+                "TD-10", [("c01", "j01", STEPS, RESERVED), ("c06-5", "j14-5", STEPS, RESERVED)])],
+    "p2-validity-refinement": [
+        inherit("p2-validity-refinement", "p2-temporal-assertion", "適格な主張・訂正辺・半開区間による対象時点の判定（literal_state と採用集合）。精密化のない台帳で一致",
+                "RF-7", gap="P2-e の例と台帳が構造的に等しい P2-k の例がない（n01 は P2-e の経路の対照で、P2-e の要求）。全数の差分は検査 test_semantics_are_inherited_from_p2_e_on_ledgers_without_refinements が担う")],
+    "p2-longitudinal-comparison": [
+        inherit("p2-longitudinal-comparison", "p2-measurement-binding", "matched_context：property・specimen・method の一致と、不一致の理由 different_property／different_specimen／different_method",
+                "LC-10", [("m28", "l24"), ("m29", "l22"), ("m29-version", "l23"), ("m30", "l21"), ("m30-version", "l20")]),
+        inherit("p2-longitudinal-comparison", "p2-temporal-measurement", "P2-i の全計画の料金 C の再述",
+                "LC-6", [("c25", "l01", STEPS, COMPARED), ("c30", "l04", STEPS, COMPARED)])],
+    "p2-measurement-binding": [
+        inherit("p2-measurement-binding", "p2-temporal-assertion", "記録・確認の可視性（recorded_at が参照時点以前）と、適格性（確定かつ可視の人の確認がある）",
+                "MB-2", gap="台帳の型が違い（測定の記録と主張）、構造的に等しい例の組がない。P2-g の設計は P2-e の台帳を読まないと書くが、規則は同形")],
+    "p2-quantity-literal": [
+        inherit("p2-quantity-literal", "p1-finite-forecast", "有理数の入力の検査：整数・正の分母の形（invalid_rational）と、分子・分母の63bit上限（rational_integer_limit）。意図した差：重みの範囲 0〜1 は P1 固有、中間の上限は P1 が4096bit・P2-f が256bit",
+                "QT-2", [("zero-denominator", "n01-zero", ["status"]), ("zero-denominator", "n01-zero", ["reason_codes"]), ("integer-limit", "n02-n", ["status"]), ("integer-limit", "n02-n", ["reason_codes"])])],
+}
+
+for index, m in enumerate(manifests):
+    ordered = {}
+    for key, value in m.items():
+        if key == "evaluation":
+            ordered["inherits"] = INHERITS.get(m["id"], [])
+        ordered[key] = value
+    manifests[index] = ordered
 
 OUT.mkdir(exist_ok=True)
 for m in manifests:

@@ -1,6 +1,6 @@
 # P2-a：拡張契約の宣言の書式と検査（実行契約）
 
-作成日：2026-10-19。状態：**作成者草案・独立確認前**。[P2 の研究設計](19-p2-design.md) の P2-a を、実行できる形にした契約です。宣言の書式 `p2-extension-manifest-draft-1`、その検査（`src/med_dsl/extensions.py`）、既存の handler への後付けの宣言 10 件（`extensions/`）、検査のテスト（`tests/p2/`）を定めます。**宣言と検査は意味の正しさを検査しません**。確かめるのは、宣言が欠けていないこと、実体と食い違わないこと、防護例が宣言どおりの結果を返すことです。実装・契約（`p0-draft-2`）の振る舞いは変えていません。
+作成日：2026-10-19。状態：**作成者草案・独立確認前**。[P2 の研究設計](19-p2-design.md) の P2-a を、実行できる形にした契約です。宣言の書式 `p2-extension-manifest-draft-1`（P2-n で draft-2 に更新。§8）、その検査（`src/med_dsl/extensions.py`）、既存の handler への後付けの宣言 10 件（`extensions/`）、検査のテスト（`tests/p2/`）を定めます。**宣言と検査は意味の正しさを検査しません**。確かめるのは、宣言が欠けていないこと、実体と食い違わないこと、防護例が宣言どおりの結果を返すことです。実装・契約（`p0-draft-2`）の振る舞いは変えていません。
 
 ## 1. 宣言（manifest）
 
@@ -8,7 +8,7 @@
 
 | 項目 | 内容 | 検査 |
 | --- | --- | --- |
-| `schema_version` | `p2-extension-manifest-draft-1` | 一致 |
+| `schema_version` | `p2-extension-manifest-draft-1`（P2-n 以後は `p2-extension-manifest-draft-2`。§8） | 一致 |
 | `id`・`version`・`title` | 拡張の識別 | 空でない文字列 |
 | `status` | `{review_state, independent_review}`。独立確認の主張（true）は、記録の仕組みができるまで拒否 | 型・値 |
 | `class` | `BASE`／`HOST`／`R1`〜`R6`／`COMP`／`JOINT`（§2。R6 は P2-b、JOINT は P2-c で追加） | 既知のクラス |
@@ -23,6 +23,7 @@
 | `obligations` | 義務の配列（§3） | クラス別の必須項目がそろう |
 | `stops` | `unknown_capability`・`unsupported`・`resource`・`invalid_input` の振る舞い | 4項目がそろう |
 | `composition` | `shares_names_with`・`reads_extensions`・`order_dependent` | 共有は空、読む拡張は依存に含める |
+| `inherits` | 継承する断片の宣言（draft-2、P2-n。§8） | 元の解決・証人の一致・結ぶ義務 |
 | `evaluation` | `examples`（glob）・`tests`・`budget_sweep`・`oracle` | 実在 |
 
 名前は、末尾が `:` のものを**名前空間**（その下のすべての名前を所有）として扱い、重なりを検査します（例：`urn:med-dsl:events:role:` を所有する拡張がある場合、`urn:med-dsl:events:` や `urn:med-dsl:events:role:key` を別の拡張は所有できない）。
@@ -98,3 +99,24 @@ X04・X05・X14 は P2-b（[24](24-p2-b-results.md)）、X08〜X10 は P2-c（[2
 - 拡張ホストの分離（引き継ぎの族のホストと操作の分離、最上位の登録表）は、P2-a の後の追加作業で行った（[22](22-p2-a-hardening.md)）。3 つの族のヘッダー検査の共通化は、エラーの path・code が変わるので行っていない。
 - 独立確認は未実施。`independent_review` の主張は拒否される。
 - 宣言（`extensions/*.json`）、宣言が根拠として引く防護例・検査・オラクル、`check-extensions.py` は、P2-a の後の追加作業で P1-d の固定対象に加えた。例外は `audit-preservation.py`（固定対象の hash を持つので循環する）。固定対象は同じリポジトリのファイルなので、改ざん防止ではなく、変更を見落とさないための関門である（[22](22-p2-a-hardening.md)）。
+
+## 8. 継承の欄（P2-n、`p2-extension-manifest-draft-2`）
+
+宣言の書式を draft-2 に上げ、項目 `inherits` を足しました（2026-10-21。設計は [59](59-p2-n-design.md)、期待は [60](60-p2-n-cases.md)）。他の項目の書式・検査・登録の規則は変わりません。draft-1 の宣言は `unsupported_manifest_schema` で拒否します（旧い宣言を黙って再解釈しない）。
+
+継承とは、拡張 X が拡張 Y の意味の断片を**実装を共有せずに**再び述べ、その断片では Y と観測が一致することです。実装の import で共有する場合は依存で、継承ではありません。
+
+| 項目 | 内容 | 検査・拒否の理由 |
+| --- | --- | --- |
+| `inherits` | 項目の配列（必須。空は「継承なし」の明示） | `missing_field`、配列でなければ `invalid_inherits` |
+| `from` | 元の拡張の id | 自己でない（`self_inheritance`）。登録済み（`unresolved_inheritance`）。`from` と `fragment` の組で一意（`duplicate_inheritance`） |
+| `fragment` | 再び述べた断片の説明（何が一致するか、意図した差も書く） | 空でない文字列（`invalid_inheritance`） |
+| `obligation` | 継承の主張を担う、この宣言の義務の id | 実在し（`inheritance_obligation_missing`）、`checks` が空でない（`inheritance_obligation_without_checks`） |
+| `witnesses` | 証人の配列。`{from: {example, path}, to: {example, path}}`。元の拡張の例と自分の例、結果の中の位置 | 形（`invalid_witness`）。`from.example` は元の拡張の、`to.example` は自分の `evaluation.examples` に含まれ（`witness_example_not_owned`）、実在し（`missing_witness_example`）、登録時に評価して位置が結果にあり（`inheritance_witness_unresolved`）、値が一致する（`inheritance_witness_mismatch`） |
+| `witness_gap` | 証人がない理由。証人が空のときだけ、必須 | `unexplained_witness_gap`、証人と併存は `witness_gap_with_witnesses` |
+
+- **登録**：防護例の評価と同じく、登録する registry が評価の関数を持つときだけ証人を評価する。登録の順は、依存に加えて継承の元を先にする。相互の継承は解決できず拒否される。
+- **`affected()`**：元の拡張が影響を受けたら、継承する側も影響を受けたとして列挙する（理由 `inherits:…`）。依存と同様に推移する。継承する側の変更は元に及ばない。
+- **`independent_pairs`**：継承で結ばれた組は独立としない。
+- **版の比較の道具**：木の宣言と registry は、その木の実装で扱う（`p2_checks.tree_affected`）。作業ツリーの registry に旧い版の宣言を渡すと、契約の版が違えば拒否されるため。
+- **限界**：証人の一致は、断片の一致の有限の証拠で、継承の真偽の証明ではありません。継承がないのに宣言すること、継承があるのに宣言しないことは、機械的には排除できません（疑いの探索は測定だけ。[結果 61](61-p2-n-results.md)）。同じ拡張の版の間の継承（P2-l の VR-1）は別の関係で、この欄の対象外です。

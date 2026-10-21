@@ -1,4 +1,4 @@
-"""拡張契約の宣言（p2-extension-manifest-draft-1）の検査・登録・再検証範囲の列挙。
+"""拡張契約の宣言（p2-extension-manifest-draft-2）の検査・登録・再検証範囲の列挙。
 
 宣言の書式、hash と実体の一致、所有の素性、クラス別の義務と防護例の対応、依存の閉包を機械的に検査する。
 **意味の正しさは検査しない。** 宣言は拡張の作者が書く主張で、ここで確かめるのは、宣言が欠けていないこと・
@@ -8,12 +8,13 @@
 import ast
 from copy import deepcopy
 from dataclasses import dataclass
+from fnmatch import fnmatchcase
 import hashlib
 from pathlib import Path
 
 from .validation import canonical_bytes, decode_json
 
-MANIFEST_SCHEMA = "p2-extension-manifest-draft-1"
+MANIFEST_SCHEMA = "p2-extension-manifest-draft-2"
 CLASSES = ("BASE", "HOST", "R1", "R2", "R3", "R4", "R5", "R6", "COMP", "JOINT")
 # 弱い順。拡張全体の強さは、最も弱い義務の強さ
 EVIDENCE = ("self_declared", "individual_io", "finite_check", "hand_derivation", "checked_native_template")
@@ -34,9 +35,11 @@ REQUIRED = {
 }
 OWN_KINDS = ("operations", "schema_versions", "profiles", "answer_kinds", "predicates", "capabilities")
 TOP_LEVEL = ("schema_version", "id", "version", "title", "status", "class", "spec", "contract_doc", "implementation", "pins",
-             "embedded_in", "depends_on", "owns", "scope", "obligations", "stops", "composition", "evaluation")
+             "embedded_in", "depends_on", "owns", "scope", "obligations", "stops", "composition", "inherits", "evaluation")
 STOP_KEYS = ("unknown_capability", "unsupported", "resource", "invalid_input")
 COMPOSITION_KEYS = ("shares_names_with", "reads_extensions", "order_dependent")
+# 継承（P2-n）：実装を共有せず、断片で元の拡張と観測が一致することの宣言
+INHERIT_KEYS = ("from", "fragment", "obligation", "witnesses")
 EVALUATION_KEYS = ("examples", "tests", "budget_sweep", "oracle")
 GUARD_KINDS = ("refusal", "non_conversion", "boundary")
 LOCK = "examples/p1-evaluation/manifest.json"
@@ -136,6 +139,45 @@ def check_structure(manifest):
             or not _text_list(evaluation["tests"]) or type(evaluation["budget_sweep"]) is not bool or not _is_text(evaluation["oracle"]):
         found.append(Finding("invalid_evaluation", "evaluation"))
     found += _check_obligations(manifest)
+    found += _check_inherits(manifest)
+    return found
+
+
+def _is_place(value):
+    return type(value) is dict and set(value) == {"example", "path"} and _is_text(value["example"]) \
+        and type(value["path"]) is list and bool(value["path"]) and all((type(k) is str and k) or (type(k) is int) for k in value["path"])
+
+
+def _check_inherits(manifest):
+    """継承の項目の書式。元の拡張の解決と証人の評価は、登録（Registry）で行う。"""
+    items = manifest["inherits"]
+    if type(items) is not list:
+        return [Finding("invalid_inherits", "inherits")]
+    obligations = {o["id"]: o for o in manifest["obligations"] if type(o) is dict and "id" in o} if type(manifest["obligations"]) is list else {}
+    found, seen = [], set()
+    for i, item in enumerate(items):
+        where = f"inherits[{i}]"
+        if type(item) is not dict or not set(INHERIT_KEYS) <= set(item) or not set(item) <= set(INHERIT_KEYS) | {"witness_gap"} \
+                or not all(_is_text(item[k]) for k in ("from", "fragment", "obligation")) or type(item["witnesses"]) is not list:
+            found.append(Finding("invalid_inheritance", where))
+            continue
+        if item["from"] == manifest["id"]:
+            found.append(Finding("self_inheritance", where, item["from"]))
+        if (item["from"], item["fragment"]) in seen:
+            found.append(Finding("duplicate_inheritance", where, item["from"]))
+        seen.add((item["from"], item["fragment"]))
+        carrier = obligations.get(item["obligation"])
+        if carrier is None:
+            found.append(Finding("inheritance_obligation_missing", where, item["obligation"]))
+        elif not carrier.get("checks"):
+            found.append(Finding("inheritance_obligation_without_checks", where, item["obligation"]))
+        witnesses = item["witnesses"]
+        if not all(type(w) is dict and set(w) == {"from", "to"} and _is_place(w["from"]) and _is_place(w["to"]) for w in witnesses):
+            found.append(Finding("invalid_witness", where + ".witnesses"))
+        elif witnesses and "witness_gap" in item:
+            found.append(Finding("witness_gap_with_witnesses", where))
+        elif not witnesses and not _is_text(item.get("witness_gap")):
+            found.append(Finding("unexplained_witness_gap", where, item["from"]))
     return found
 
 
@@ -331,7 +373,46 @@ class Registry:
         for name in composition["reads_extensions"]:
             if name not in declared:
                 found.append(Finding("undeclared_read", "composition.reads_extensions", name))
+        for i, item in enumerate(manifest["inherits"]):
+            source = self._items.get(item["from"])
+            if source is None:
+                found.append(Finding("unresolved_inheritance", f"inherits[{i}]", item["from"]))
+            else:
+                found += self._check_witnesses(manifest, source, item, i)
         return found
+
+    def _check_witnesses(self, manifest, source, item, index):
+        """証人：元の拡張の例と自分の例の組を評価し、結果の中の同じ意味の位置の値が一致することを確かめる。"""
+        found = []
+        for w, witness in enumerate(item["witnesses"]):
+            where = f"inherits[{index}].witnesses[{w}]"
+            values = []
+            for side, owner in (("from", source), ("to", manifest)):
+                example = witness[side]["example"]
+                if not any(fnmatchcase(example, pattern) for pattern in owner["evaluation"]["examples"]):
+                    found.append(Finding("witness_example_not_owned", where, f"{side}: {example}"))
+                    continue
+                path = self.root / example
+                if ".." in Path(example).parts or not path.is_file():
+                    found.append(Finding("missing_witness_example", where, example))
+                    continue
+                if self.evaluate is not None:
+                    values.append(self._observe(path, witness[side]["path"]))
+            if len(values) == 2:
+                if any(not ok for ok, _ in values):
+                    found.append(Finding("inheritance_witness_unresolved", where, item["from"]))
+                elif canonical_bytes(values[0][1]) != canonical_bytes(values[1][1]):
+                    found.append(Finding("inheritance_witness_mismatch", where, item["from"]))
+        return found
+
+    def _observe(self, path, place):
+        outcome = self.evaluate(deepcopy(decode_json(path.read_bytes())["request"]))
+        for key in place:
+            if (type(outcome) is dict and type(key) is str and key in outcome) or (type(outcome) is list and type(key) is int and 0 <= key < len(outcome)):
+                outcome = outcome[key]
+            else:
+                return False, None
+        return True, outcome
 
     def _reaches_base(self, manifest):
         stack, seen = [d["id"] for d in manifest["depends_on"]], set()
@@ -359,7 +440,8 @@ def load_manifests(directory):
         progressed = False
         for manifest in list(pending):
             deps = manifest.get("depends_on", []) if type(manifest) is dict else []
-            if all(type(d) is dict and d.get("id") in placed for d in deps):
+            inherited = manifest.get("inherits", []) if type(manifest) is dict and type(manifest.get("inherits")) is list else []
+            if all(type(d) is dict and d.get("id") in placed for d in deps) and all(type(i) is dict and i.get("from") in placed for i in inherited):
                 ordered.append(manifest)
                 placed.add(manifest.get("id") if type(manifest) is dict else None)
                 pending.remove(manifest)
@@ -443,7 +525,8 @@ def independent_pairs(registry, root=None):
             reads = b in items[a]["composition"]["reads_extensions"] or a in items[b]["composition"]["reads_extensions"]
             ordered = items[a]["composition"]["order_dependent"] or items[b]["composition"]["order_dependent"]
             reaches = bool(own[b] & reach[a]) or bool(own[a] & reach[b])
-            if not (related or reads or ordered or reaches):
+            inherits = any(i["from"] == b for i in items[a].get("inherits", [])) or any(i["from"] == a for i in items[b].get("inherits", []))
+            if not (related or reads or ordered or reaches or inherits):
                 found.append((a, b))
     return found
 
@@ -479,8 +562,12 @@ def affected(registry, changed, root=None):
     while grew:
         grew = False
         for ext in registry:
-            if ext["id"] not in reasons and any(d["id"] in reasons for d in ext["depends_on"]):
-                reasons[ext["id"]] = ["depends_on:" + ",".join(sorted(d["id"] for d in ext["depends_on"] if d["id"] in reasons))]
+            if ext["id"] in reasons:
+                continue
+            depended = sorted(d["id"] for d in ext["depends_on"] if d["id"] in reasons)
+            inherited = sorted({i["from"] for i in ext.get("inherits", []) if i["from"] in reasons})
+            if depended or inherited:
+                reasons[ext["id"]] = (["depends_on:" + ",".join(depended)] if depended else []) + (["inherits:" + ",".join(inherited)] if inherited else [])
                 grew = True
     regenerate = set()
     for ident in pinned:

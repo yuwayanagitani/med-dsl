@@ -8,7 +8,7 @@ def display_manifest(root):
                 'checks':['tests/p2/test_display.py::DisplayTests.'+test],
                 'guards':[{'example':'examples/p2-display/'+name.lower()+'.json','path':path,'equals':value,'kind':'boundary'} for name,path,value in guards]}
     r=lambda key:['results',0,key]
-    return {'schema_version':'p2-extension-manifest-draft-1','id':'p2-quantity-display','version':'draft-2',
+    return {'schema_version':'p2-extension-manifest-draft-2','id':'p2-quantity-display','version':'draft-2',
         'title':'厳密な測定値と型付き表示の射影、問いの因子化と別添えの分離',
         'status':{'review_state':'author_draft','independent_review':False},'class':'R4',
         'spec':{'path':'src/med_dsl/display_spec.json','sha256':hashlib.sha256((root/'src/med_dsl/display_spec.json').read_bytes()).hexdigest()},

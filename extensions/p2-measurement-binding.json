@@ -1,5 +1,5 @@
 {
-  "schema_version": "p2-extension-manifest-draft-1",
+  "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-measurement-binding",
   "version": "draft-2",
   "title": "確認対象の内容を固定した測定記録の選択と数量計算への接続",
@@ -605,6 +605,15 @@
     ],
     "order_dependent": false
   },
+  "inherits": [
+    {
+      "from": "p2-temporal-assertion",
+      "fragment": "記録・確認の可視性（recorded_at が参照時点以前）と、適格性（確定かつ可視の人の確認がある）",
+      "obligation": "MB-2",
+      "witnesses": [],
+      "witness_gap": "台帳の型が違い（測定の記録と主張）、構造的に等しい例の組がない。P2-g の設計は P2-e の台帳を読まないと書くが、規則は同形"
+    }
+  ],
   "evaluation": {
     "examples": [
       "examples/p2-measurement/*.json"
