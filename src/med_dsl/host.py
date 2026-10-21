@@ -24,6 +24,7 @@ from .splits import SPLITS_PROFILE, run_splits
 from .structure_grounding import GROUNDING_PROFILE, run_grounding
 from .temporal import TEMPORAL_PROFILE, run_temporal
 from .temporal_display import TEMPORAL_DISPLAY_PROFILE, run_temporal_displays
+from .terminology_audit import AUDIT_PROFILE, run_audit
 from .temporal_measurement import TEMPORAL_MEASUREMENT_PROFILE, run_temporal_measurements
 from .validation import check_json, validate_compare, validate_extension, validate_header, validate_query
 
@@ -47,6 +48,7 @@ def run_p0(request):
 
 P0 = Surface("p0-request-draft-1", "p0-result-draft-1", PROFILE, run_p0)
 SURFACES = {s.request_schema: s for s in (
+    Surface("p2-audit-request-draft-1", "p2-audit-result-draft-1", AUDIT_PROFILE, run_audit),
     Surface("p2-provenance-request-draft-1", "p2-provenance-result-draft-1", CODING_PROFILE, run_coding),
     Surface("p2-observation-request-draft-1", "p2-observation-result-draft-1", OBSERVATION_PROFILE, run_observation),
     Surface("p2-grounding-request-draft-1", "p2-grounding-result-draft-1", GROUNDING_PROFILE, run_grounding),

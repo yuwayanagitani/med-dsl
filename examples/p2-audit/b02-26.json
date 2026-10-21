@@ -1,0 +1,613 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "B02-26",
+  "condition": "B02",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-audit-request-draft-1",
+    "operation": "run_terminology_audit",
+    "consumer": {
+      "profile": "p2-terminology-audit-draft-1",
+      "profile_spec_sha256": "8291f2df3ad0cb07d650d05aae9bce7a9f716b6ee43f4347742a54dfb12c2ea4",
+      "operations": [
+        "run_terminology_audit"
+      ]
+    },
+    "from": {
+      "ref": "fiction:terminology:drugs",
+      "version": "2026-09",
+      "concepts": [
+        {
+          "id": "c1",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a1",
+              "kind": "full",
+              "name": "alpha 5 mg tablet",
+              "attributes": [
+                {
+                  "name": "code_list",
+                  "value": "N1"
+                },
+                {
+                  "name": "strength",
+                  "value": "5 mg"
+                }
+              ]
+            },
+            {
+              "id": "a2",
+              "kind": "syn",
+              "name": "alpha tab 5",
+              "attributes": []
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            },
+            {
+              "kind": "has_form",
+              "target": "c8"
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a3",
+              "kind": "full",
+              "name": "beta 10 mg tablet",
+              "attributes": [
+                {
+                  "name": "strength",
+                  "value": "10 mg"
+                }
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            }
+          ]
+        },
+        {
+          "id": "c8",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a8",
+              "kind": "form",
+              "name": "tablet",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        },
+        {
+          "id": "c9",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a9",
+              "kind": "ingredient",
+              "name": "alpha",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        }
+      ]
+    },
+    "to": {
+      "ref": "fiction:terminology:drugs",
+      "version": "2026-10",
+      "concepts": [
+        {
+          "id": "c1",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a1",
+              "kind": "full",
+              "name": "alpha 5 mg tablet",
+              "attributes": [
+                {
+                  "name": "code_list",
+                  "value": "N1"
+                },
+                {
+                  "name": "strength",
+                  "value": "5 mg"
+                }
+              ]
+            },
+            {
+              "id": "a2",
+              "kind": "syn",
+              "name": "alpha tab 5",
+              "attributes": []
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_form",
+              "target": "c8"
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a3",
+              "kind": "full",
+              "name": "beta 10 mg tablet",
+              "attributes": [
+                {
+                  "name": "strength",
+                  "value": "10 mg"
+                }
+              ]
+            }
+          ],
+          "relations": []
+        },
+        {
+          "id": "c8",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a8",
+              "kind": "form",
+              "name": "tablet",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        }
+      ]
+    },
+    "scope": {
+      "sources": [
+        "S"
+      ]
+    },
+    "policy": {
+      "attributes": [
+        {
+          "name": "code_list",
+          "class": "administrative"
+        },
+        {
+          "name": "strength",
+          "class": "definitional"
+        }
+      ]
+    },
+    "references": [
+      "c1",
+      "c2",
+      "c9"
+    ],
+    "budget": {
+      "max_steps": 26
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "steps_used"
+        ],
+        "equals": 26
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reference"
+        ],
+        "equals": "c1"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "concept_source"
+        ],
+        "equals": "S"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "presence"
+        ],
+        "equals": "continues"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "audit_state"
+        ],
+        "equals": "changed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "facets"
+        ],
+        "equals": {
+          "names": {
+            "state": "unchanged",
+            "added": [],
+            "removed": [],
+            "modified": []
+          },
+          "relations": {
+            "state": "changed",
+            "added": [],
+            "removed": [
+              {
+                "kind": "has_ingredient",
+                "target": "c9",
+                "target_in_from": true,
+                "target_in_to": false
+              }
+            ],
+            "unresolved_in_to": []
+          },
+          "attributes": {
+            "state": "unchanged",
+            "definitional": [],
+            "administrative": [],
+            "undeclared": [],
+            "with_atom_change": {
+              "added": 0,
+              "removed": 0
+            }
+          }
+        }
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "requests"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "policy_assumptions"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "successor"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "assessment_complete"
+        ],
+        "equals": true
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reason_codes"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "reference"
+        ],
+        "equals": "c2"
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "concept_source"
+        ],
+        "equals": "S"
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "presence"
+        ],
+        "equals": "continues"
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "audit_state"
+        ],
+        "equals": "changed"
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "facets"
+        ],
+        "equals": {
+          "names": {
+            "state": "unchanged",
+            "added": [],
+            "removed": [],
+            "modified": []
+          },
+          "relations": {
+            "state": "changed",
+            "added": [],
+            "removed": [
+              {
+                "kind": "has_ingredient",
+                "target": "c9",
+                "target_in_from": true,
+                "target_in_to": false
+              }
+            ],
+            "unresolved_in_to": []
+          },
+          "attributes": {
+            "state": "unchanged",
+            "definitional": [],
+            "administrative": [],
+            "undeclared": [],
+            "with_atom_change": {
+              "added": 0,
+              "removed": 0
+            }
+          }
+        }
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "requests"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "policy_assumptions"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "successor"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "assessment_complete"
+        ],
+        "equals": true
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "reason_codes"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "reference"
+        ],
+        "equals": "c9"
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "assessment_complete"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "reason_codes"
+        ],
+        "equals": [
+          "step_limit"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "concept_source"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "presence"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "audit_state"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "facets"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "requests"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "policy_assumptions"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "successor"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "incomplete"
+        ],
+        "equals": [
+          {
+            "reference": "c9",
+            "reason_codes": [
+              "step_limit"
+            ]
+          }
+        ]
+      },
+      {
+        "path": [
+          "summary"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "terminology_version_audit"
+      },
+      {
+        "path": [
+          "direction"
+        ],
+        "equals": "from_to"
+      },
+      {
+        "path": [
+          "reverse_inferred"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "inferred_information"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "evidence_level"
+        ],
+        "equals": "known_policy_change"
+      },
+      {
+        "path": [
+          "certificate",
+          "scope"
+        ],
+        "equals": null
+      }
+    ]
+  }
+}

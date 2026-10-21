@@ -229,6 +229,7 @@ class ShippedInheritanceTests(unittest.TestCase):
         self.assertEqual(one('structure_grounding'), sorted([grounding, observation, provenance]))
         self.assertEqual(one('observation_projection'), sorted([observation, provenance]))
         self.assertEqual(one('provenance_coding'), [provenance])
+        self.assertEqual(one('terminology_audit'), ['p2-terminology-audit'])
         self.assertEqual(one('refinement'), ['p2-validity-refinement'])
 
     def test_the_reason_names_the_inheritance(self):
@@ -243,23 +244,26 @@ class ShippedInheritanceTests(unittest.TestCase):
         """P2-n の時点（20件）は150→143。P2-o の1件は、基底を除く他の19件と19組をつくり、依存か継承で結ばれるのが4件なので、独立は15組増える（手で数える）。
         P2-p の1件は、基底を除く他の20件と20組をつくり、ライブラリへの依存とその推移（数量・期間つき数量）の3件と結ばれるので、独立は17組増える。
         P2-q の1件は、基底を除く他の21件と21組をつくり、写像の可否の診断への依存とその推移（ライブラリ・数量・期間つき数量）の4件と結ばれるので、独立は17組増える。
-        P2-t の1件は、基底を除く他の22件と22組をつくり、Observation の写像への依存とその推移（写像の可否の診断・ライブラリ・数量・期間つき数量）の5件と結ばれるので、独立は17組増える。"""
+        P2-t の1件は、基底を除く他の22件と22組をつくり、Observation の写像への依存とその推移（写像の可否の診断・ライブラリ・数量・期間つき数量）の5件と結ばれるので、独立は17組増える。
+        P2-u の1件は、基底を除く他の23件と23組をつくり、依存も継承もなく、独立は23組増える。"""
         pairs = set(independent_pairs(self.registry))
-        library = {pair for pair in pairs if 'p2-clinical-library' in pair}
-        grounding = {pair for pair in pairs if 'p2-structure-grounding' in pair}
-        observation = {pair for pair in pairs if 'p2-observation-projection' in pair}
-        provenance = {pair for pair in pairs if 'p2-provenance-coding' in pair}
-        self.assertEqual(len(pairs - library - grounding - observation - provenance), 143)
+        audit = {pair for pair in pairs if 'p2-terminology-audit' in pair}                 # 単独の拡張：他の全てと独立。他の集合には数えない
+        library = {pair for pair in pairs if 'p2-clinical-library' in pair} - audit
+        grounding = {pair for pair in pairs if 'p2-structure-grounding' in pair} - audit
+        observation = {pair for pair in pairs if 'p2-observation-projection' in pair} - audit
+        provenance = {pair for pair in pairs if 'p2-provenance-coding' in pair} - audit
+        self.assertEqual(len(pairs - library - grounding - observation - provenance - audit), 143)
         self.assertEqual(len(library), 19-4)
         self.assertEqual(len(grounding), 20-3)
         self.assertEqual(len(observation), 21-4)
         self.assertEqual(len(provenance), 22-5)
+        self.assertEqual(len(audit), 23)                                  # 他の拡張に依存せず、共有もない：基底を除く他の23件の全てと独立
         self.assertEqual({other for pair in provenance for other in pair} & {'p2-observation-projection', 'p2-structure-grounding', 'p2-clinical-library', 'p2-quantity-literal', 'p2-temporal-measurement'}, set())
         self.assertEqual({other for pair in observation for other in pair} & {'p2-structure-grounding', 'p2-clinical-library', 'p2-quantity-literal', 'p2-temporal-measurement'}, set())
         self.assertEqual({other for pair in grounding for other in pair} & {'p2-clinical-library', 'p2-quantity-literal', 'p2-temporal-measurement'}, set())
         self.assertEqual({other for pair in {tuple(sorted(key)) for key in LIBRARY} for other in pair} - {'p2-clinical-library'},
                          {'p2-temporal-display', 'p2-longitudinal-comparison', 'p2-temporal-measurement'})
-        self.assertEqual(len(pairs), 143+15+17+17+17)
+        self.assertEqual(len(pairs), 143+15+17+17+17+23)
         coupled = {tuple(sorted(key)) for key in DECLARED}
         previously_independent = {('p2-temporal-assertion', 'p2-temporal-measurement'), ('p2-measurement-binding', 'p2-temporal-measurement'),
                                   ('p2-quantity-display', 'p2-temporal-display'), ('p2-temporal-assertion', 'p2-validity-refinement'),
@@ -385,7 +389,7 @@ class SuspectProbeTests(unittest.TestCase):
 
     def test_exclusive_shared_literals_find_most_declared_pairs_with_one_false_suspect(self):
         report = inheritance_suspects.suspects(minimum=2)
-        self.assertEqual(report['independent_pairs'], 150+17+17+17+17)         # P2-o の1件は、依存だけで結ばれる2件を除く17組が独立（継承の宣言を除いた判定）。P2-p の1件は、20組から依存（推移）の3件を除く17組
+        self.assertEqual(report['independent_pairs'], 150+17+17+17+17+23)         # P2-o の1件は、依存だけで結ばれる2件を除く17組が独立（継承の宣言を除いた判定）。P2-p の1件は、20組から依存（推移）の3件を除く17組
         every = {tuple(sorted(pair)) for pair in report['suspects']}
         found = {pair for pair in every if 'p2-clinical-library' not in pair}
         declared = {tuple(sorted(key)) for key in DECLARED if key not in LIBRARY}
@@ -396,13 +400,13 @@ class SuspectProbeTests(unittest.TestCase):
         self.assertEqual(pre_independent - found, {('p2-temporal-assertion', 'p2-temporal-measurement'), ('p2-measurement-binding', 'p2-temporal-assertion')})
         # 新しい拡張に対する探索（標本の外）：宣言した2組（temporal-display、longitudinal）のうち、見つかるのは1組。
         # 丸めを自分の言葉で述べ直した temporal-display との組は、二つだけが持つ識別子が2つに届かず、見つからない
-        composed = {pair for pair in every if {'p2-structure-grounding', 'p2-observation-projection', 'p2-provenance-coding'} & set(pair)}
+        composed = {pair for pair in every if {'p2-structure-grounding', 'p2-observation-projection', 'p2-provenance-coding', 'p2-terminology-audit'} & set(pair)}
         self.assertEqual(composed, set())        # P2-p・P2-q は継承を宣言せず、探索も疑いを挙げない（予測どおり。偽の疑いなし）
         self.assertEqual(every - found - composed, {('p2-clinical-library', 'p2-longitudinal-comparison')})
 
     def test_counting_the_shared_vocabulary_makes_almost_everything_a_suspect(self):
         report = inheritance_suspects.suspects(minimum=3, exclusive=False)
-        self.assertEqual((report['independent_pairs'], len(report['suspects'])), (218, 161))
+        self.assertEqual((report['independent_pairs'], len(report['suspects'])), (241, 182))
 
 
 class ContractVersionTests(unittest.TestCase):
@@ -431,7 +435,7 @@ class ContractVersionTests(unittest.TestCase):
     def test_the_new_declarations_differ_from_the_old_only_in_the_declared_fields(self):
         self.assertEqual(len(self.old), 20)   # 直前の契約のコミットにある宣言の数
         shipped = {manifest['id'] for manifest in load_manifests(ROOT/'extensions')}
-        self.assertEqual(shipped - set(self.old), {'p2-clinical-library', 'p2-structure-grounding', 'p2-observation-projection', 'p2-provenance-coding'})       # 契約の更新の後に足した宣言（旧い版を持たない）
+        self.assertEqual(shipped - set(self.old), {'p2-clinical-library', 'p2-structure-grounding', 'p2-observation-projection', 'p2-provenance-coding', 'p2-terminology-audit'})       # 契約の更新の後に足した宣言（旧い版を持たない）
         for manifest in load_manifests(ROOT/'extensions'):
             if manifest['id'] not in self.old:
                 self.assertEqual(manifest['schema_version'], 'p2-extension-manifest-draft-2')

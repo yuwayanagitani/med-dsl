@@ -40,6 +40,7 @@ M = [
     ("B19", CHECKS, '"grounding", "base_status", "observation", "coding"))', '"observation", "coding"))', ["tests.p2.test_grounding"], "構造への写像の可否の診断（P2-p）の未完了行の値の検査（空のobject・空文字・falseも漏れとして扱う）"),
     ("B20", CHECKS, '"base_status", "observation", "coding"))', '"base_status", "coding"))', ["tests.p2.test_observation"], "Observation の写像の診断（P2-q）の未完了行の値の検査（空配列・空のobject・falseも漏れとして扱う）"),
     ("B21", CHECKS, '"observation", "coding"))', '"observation"))', ["tests.p2.test_provenance"], "Provenance の符号の診断（P2-t）の未完了行の値の検査（空配列・空のobject・falseも漏れとして扱う）"),
+    ("B22", CHECKS, '"concept_source", "presence", "audit_state", "facets", "policy_assumptions", "successor",\n                "artifact", "artifact_sha256"', '"artifact", "artifact_sha256"', ["tests.p2.test_audit"], "用語の版更新の監査（P2-u）の未完了行の値の検査（空配列・空のobject・falseも漏れとして扱う）"),
     # ---- 版の比較：分類と正規化 ----
     ("C01", CHECKS, '    if a == b:\n        return "identical"', '    if True:\n        return "identical"', [VERSIONS], ""),
     ("C02", CHECKS, '[0] in refusal_codes and embeds_pin(request, mapping):', '[0] in refusal_codes:', [VERSIONS], ""),

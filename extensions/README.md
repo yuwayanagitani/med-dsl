@@ -28,6 +28,7 @@
 | [p2-clinical-library](p2-clinical-library.json) | R5 | 医療者の操作（記録・確認・訂正）から台帳を組み立て、出力先の要求（宣言）の充足を診断する薄い臨床ライブラリ（P2-o）。臨床の認定・推測で補った情報なし | p0-positive, p2-quantity-literal, p2-temporal-measurement |
 | [p2-observation-projection](p2-observation-projection.json) | R5 | 構造への写像の可否の診断の表せる行に、Observation の status・code と Provenance の宣言を適用し、足りない宣言を依頼にする（P2-q）。構造への適合・臨床の認定なし | p0-positive, p2-structure-grounding |
 | [p2-provenance-coding](p2-provenance-coding.json) | R5 | Observation の status・code と Provenance の出力の出せた行に、宣言した活動の符号と、訂正の関係（revision の entity）を足し、運べない理由を区別する（P2-t）。符号の系の検証・他の役割・FHIRへの適合は範囲外 |
+| [p2-terminology-audit](p2-terminology-audit.json) | R5 | 用語の版更新を、旧版の参照ごとの継続と、名称・関係・属性の三つの面の差で監査し、後継を決めず、未宣言の属性の差を依頼にする（P2-u）。意味の同一・置換・廃止の判定は範囲外 |
 | [p2-structure-grounding](p2-structure-grounding.json) | R5 | 満たされた exchange の行が、出力先の構造（FHIR R5 Observation）で、丸めず・閉じず・補わずに表せるかを診断する（P2-p）。構造への適合・臨床の認定なし | p0-positive, p2-clinical-library |
 | [p2-longitudinal-comparison](p2-longitudinal-comparison.json) | R5 | 同じ slot の二時点の期間つき数量を、独立な変数として比べる（P2-iの端点とP2-fの比較）。臨床の傾向・有意性なし | p0-positive, p2-quantity-literal, p2-temporal-measurement |
 
@@ -80,6 +81,8 @@ P2-rの契約と内部評価は [73](../docs/research/73-p2-r-design.md)・[75](
 P2-sの契約と内部評価は [76](../docs/research/76-p2-s-design.md)・[78](../docs/research/78-p2-s-results.md) に記録します。P2-i（`p2-temporal-measurement`）を draft-4 に上げ（`observer` を必須にし、不明は明示の `{kind: unknown}`）、P2-j（draft-4）、P2-m・P2-o・P2-p・P2-q（draft-3）を再固定・採用しました。義務は TM-14・CL-14 を足し、TM-13・CL-13 を「常に出す」へ読み替え、宣言の数は変わりません。
 
 P2-tの契約と内部評価は [79](../docs/research/79-p2-t-design.md)・[81](../docs/research/81-p2-t-results.md) に記録します。`p2-provenance-coding`（draft-1）は P2-q を固定版で一度だけ呼ぶ合成で、他の拡張の規則を再び述べないので、継承は宣言しません。例が入れ子の要求の仕様の hash を埋め込むので、`pins` に7つの仕様を持ちます。
+
+P2-uの契約と内部評価は [82](../docs/research/82-p2-u-design.md)・[84](../docs/research/84-p2-u-results.md) に記録します。`p2-terminology-audit`（draft-1）は他の拡張に依存せず、共有する名前もないので、継承は宣言しません。実データ（RxNorm CPC の2版）への適用は [audit-cpc-versions.py](../scripts/research/audit-cpc-versions.py) が契約の核の関数を直接呼びます。
 
 P2-qの契約と内部評価は [70](../docs/research/70-p2-q-design.md)・[72](../docs/research/72-p2-q-results.md) に記録します。この宣言はP2-pを固定版で呼ぶ合成で、他の拡張の規則を再び述べないので、継承は宣言しません。例が入れ子の要求の仕様の hash を埋め込むので、`pins` に6つの仕様を持ちます。
 

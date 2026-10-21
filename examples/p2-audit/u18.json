@@ -1,0 +1,478 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "U18",
+  "condition": "U18",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-audit-request-draft-1",
+    "operation": "run_terminology_audit",
+    "consumer": {
+      "profile": "p2-terminology-audit-draft-1",
+      "profile_spec_sha256": "8291f2df3ad0cb07d650d05aae9bce7a9f716b6ee43f4347742a54dfb12c2ea4",
+      "operations": [
+        "run_terminology_audit"
+      ]
+    },
+    "from": {
+      "ref": "fiction:terminology:drugs",
+      "version": "2026-09",
+      "concepts": [
+        {
+          "id": "c1",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a1",
+              "kind": "full",
+              "name": "alpha 5 mg tablet",
+              "attributes": [
+                {
+                  "name": "code_list",
+                  "value": "N1"
+                },
+                {
+                  "name": "strength",
+                  "value": "5 mg"
+                }
+              ]
+            },
+            {
+              "id": "a2",
+              "kind": "syn",
+              "name": "alpha tab 5",
+              "attributes": []
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            },
+            {
+              "kind": "has_form",
+              "target": "c8"
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a3",
+              "kind": "full",
+              "name": "beta 10 mg tablet",
+              "attributes": [
+                {
+                  "name": "strength",
+                  "value": "10 mg"
+                }
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            }
+          ]
+        },
+        {
+          "id": "c8",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a8",
+              "kind": "form",
+              "name": "tablet",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        },
+        {
+          "id": "c9",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a9",
+              "kind": "ingredient",
+              "name": "alpha",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        }
+      ]
+    },
+    "to": {
+      "ref": "fiction:terminology:drugs",
+      "version": "2026-10",
+      "concepts": [
+        {
+          "id": "c1",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a1",
+              "kind": "full",
+              "name": "alpha 5 mg tablet",
+              "attributes": [
+                {
+                  "name": "code_list",
+                  "value": "N2"
+                },
+                {
+                  "name": "strength",
+                  "value": "5 mg"
+                }
+              ]
+            },
+            {
+              "id": "a2",
+              "kind": "syn",
+              "name": "alpha tab 5",
+              "attributes": [
+                {
+                  "name": "flag",
+                  "value": "x"
+                }
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            },
+            {
+              "kind": "has_form",
+              "target": "c8"
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a3",
+              "kind": "full",
+              "name": "beta 10 mg tablet",
+              "attributes": [
+                {
+                  "name": "strength",
+                  "value": "10 mg"
+                }
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            }
+          ]
+        },
+        {
+          "id": "c8",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a8",
+              "kind": "form",
+              "name": "tablet",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        },
+        {
+          "id": "c9",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a9",
+              "kind": "ingredient",
+              "name": "alpha",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        }
+      ]
+    },
+    "scope": {
+      "sources": [
+        "S"
+      ]
+    },
+    "policy": {
+      "attributes": [
+        {
+          "name": "code_list",
+          "class": "administrative"
+        },
+        {
+          "name": "strength",
+          "class": "definitional"
+        }
+      ]
+    },
+    "references": [
+      "c1"
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "steps_used"
+        ],
+        "equals": 24
+      },
+      {
+        "path": [
+          "incomplete"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "summary"
+        ],
+        "equals": {
+          "references": 1,
+          "by_state": {
+            "unchanged_in_scope": 0,
+            "changed_administrative_only": 0,
+            "changed": 0,
+            "needs_information": 1,
+            "not_found": 0,
+            "not_compared": 0
+          },
+          "from_concepts": 4,
+          "to_concepts": 4,
+          "in_scope_from": 4,
+          "in_scope_to": 4,
+          "continuing": 4,
+          "from_only": 0,
+          "to_only": 0
+        }
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reference"
+        ],
+        "equals": "c1"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "concept_source"
+        ],
+        "equals": "S"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "presence"
+        ],
+        "equals": "continues"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "audit_state"
+        ],
+        "equals": "needs_information"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "facets"
+        ],
+        "equals": {
+          "names": {
+            "state": "unchanged",
+            "added": [],
+            "removed": [],
+            "modified": []
+          },
+          "relations": {
+            "state": "unchanged",
+            "added": [],
+            "removed": [],
+            "unresolved_in_to": []
+          },
+          "attributes": {
+            "state": "changed",
+            "definitional": [],
+            "administrative": [
+              {
+                "atom": "a1",
+                "name": "code_list",
+                "from": [
+                  "N1"
+                ],
+                "to": [
+                  "N2"
+                ]
+              }
+            ],
+            "undeclared": [
+              {
+                "atom": "a2",
+                "name": "flag",
+                "from": [],
+                "to": [
+                  "x"
+                ]
+              }
+            ],
+            "with_atom_change": {
+              "added": 0,
+              "removed": 0
+            }
+          }
+        }
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "requests"
+        ],
+        "equals": [
+          {
+            "element": "attribute",
+            "action": "declare_attribute_class",
+            "reference": "c1",
+            "name": "flag"
+          }
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "policy_assumptions"
+        ],
+        "equals": [
+          "attribute_class:code_list:administrative"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "successor"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "assessment_complete"
+        ],
+        "equals": true
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reason_codes"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "terminology_version_audit"
+      },
+      {
+        "path": [
+          "direction"
+        ],
+        "equals": "from_to"
+      },
+      {
+        "path": [
+          "reverse_inferred"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "inferred_information"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "evidence_level"
+        ],
+        "equals": "known_policy_change"
+      },
+      {
+        "path": [
+          "certificate",
+          "scope"
+        ],
+        "equals": null
+      }
+    ]
+  }
+}

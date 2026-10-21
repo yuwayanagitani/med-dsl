@@ -1,0 +1,55 @@
+{
+  "profile": "p2-terminology-audit-draft-1",
+  "request_schema": "p2-audit-request-draft-1",
+  "result_schema": "p2-audit-result-draft-1",
+  "operation": "run_terminology_audit",
+  "answer_kind": "terminology_version_audit",
+  "class": "R5",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "scope": "for each reference (a concept id of the older snapshot) states whether the same (source, id) continues in the newer snapshot and, if it does, what differs in three separate facets (names of atoms, relations of the concept, attributes of the atoms) under a caller-declared attribute policy; a missing concept has no successor determined and no candidate is offered; an attribute difference whose name is not declared is a request and is never classified; one direction only (older to newer), nothing about the reverse is inferred",
+  "attribute_classes": [
+    "definitional",
+    "administrative"
+  ],
+  "facets": [
+    "names",
+    "relations",
+    "attributes"
+  ],
+  "states": [
+    "unchanged_in_scope",
+    "changed_administrative_only",
+    "changed",
+    "needs_information",
+    "not_found",
+    "not_compared"
+  ],
+  "not_compared": [
+    "history",
+    "meaning",
+    "other_sources",
+    "atom_relations",
+    "suppression"
+  ],
+  "requests": {
+    "history": "provide_official_history",
+    "attribute": "declare_attribute_class"
+  },
+  "steps": "1 + n_from + n_to + the sum of the reference fees + 1; the fee of a reference outside the scope is 1, of a reference in the scope is 1 + A + T + R of the older concept plus A + T + R of the newer concept when it continues (A atoms, T attribute entries, R relations); fees are prepaid per reference, never refunded",
+  "answers": "results keep one row per reference; summary is null unless every reference and the final confirmation are paid; certificate is always not_certified and inferred information is always empty",
+  "limits": {
+    "concepts": 512,
+    "atoms": 32,
+    "attributes": 32,
+    "relations": 64,
+    "references": 256,
+    "policy": 64,
+    "sources": 8,
+    "max_steps": 100000,
+    "json_bytes": 1048576,
+    "json_depth": 64
+  },
+  "limitations": "diagnostic only; names, kinds, attribute names and values and relation kinds are opaque strings; the identity of a concept is (source, id), so a concept that reappears under another source is reported as not found; the direction of a relation is as normalized by the caller and is never reversed; no successor, retirement, replacement, medical meaning or clinical equivalence is determined; no conformance claim"
+}

@@ -1,0 +1,3238 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N10-concepts-limit",
+  "condition": "N10",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-audit-request-draft-1",
+    "operation": "run_terminology_audit",
+    "consumer": {
+      "profile": "p2-terminology-audit-draft-1",
+      "profile_spec_sha256": "8291f2df3ad0cb07d650d05aae9bce7a9f716b6ee43f4347742a54dfb12c2ea4",
+      "operations": [
+        "run_terminology_audit"
+      ]
+    },
+    "from": {
+      "ref": "fiction:terminology:drugs",
+      "version": "2026-09",
+      "concepts": [
+        {
+          "id": "x0",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x1",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x2",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x3",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x4",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x5",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x6",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x7",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x8",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x9",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x10",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x11",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x12",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x13",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x14",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x15",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x16",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x17",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x18",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x19",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x20",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x21",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x22",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x23",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x24",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x25",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x26",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x27",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x28",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x29",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x30",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x31",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x32",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x33",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x34",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x35",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x36",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x37",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x38",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x39",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x40",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x41",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x42",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x43",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x44",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x45",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x46",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x47",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x48",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x49",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x50",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x51",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x52",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x53",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x54",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x55",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x56",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x57",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x58",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x59",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x60",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x61",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x62",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x63",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x64",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x65",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x66",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x67",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x68",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x69",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x70",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x71",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x72",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x73",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x74",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x75",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x76",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x77",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x78",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x79",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x80",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x81",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x82",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x83",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x84",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x85",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x86",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x87",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x88",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x89",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x90",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x91",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x92",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x93",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x94",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x95",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x96",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x97",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x98",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x99",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x100",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x101",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x102",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x103",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x104",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x105",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x106",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x107",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x108",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x109",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x110",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x111",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x112",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x113",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x114",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x115",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x116",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x117",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x118",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x119",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x120",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x121",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x122",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x123",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x124",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x125",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x126",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x127",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x128",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x129",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x130",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x131",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x132",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x133",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x134",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x135",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x136",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x137",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x138",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x139",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x140",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x141",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x142",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x143",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x144",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x145",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x146",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x147",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x148",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x149",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x150",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x151",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x152",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x153",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x154",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x155",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x156",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x157",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x158",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x159",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x160",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x161",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x162",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x163",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x164",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x165",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x166",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x167",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x168",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x169",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x170",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x171",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x172",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x173",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x174",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x175",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x176",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x177",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x178",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x179",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x180",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x181",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x182",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x183",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x184",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x185",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x186",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x187",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x188",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x189",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x190",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x191",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x192",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x193",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x194",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x195",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x196",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x197",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x198",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x199",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x200",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x201",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x202",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x203",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x204",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x205",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x206",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x207",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x208",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x209",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x210",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x211",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x212",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x213",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x214",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x215",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x216",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x217",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x218",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x219",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x220",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x221",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x222",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x223",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x224",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x225",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x226",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x227",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x228",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x229",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x230",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x231",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x232",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x233",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x234",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x235",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x236",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x237",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x238",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x239",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x240",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x241",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x242",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x243",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x244",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x245",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x246",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x247",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x248",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x249",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x250",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x251",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x252",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x253",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x254",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x255",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x256",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x257",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x258",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x259",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x260",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x261",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x262",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x263",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x264",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x265",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x266",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x267",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x268",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x269",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x270",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x271",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x272",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x273",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x274",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x275",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x276",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x277",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x278",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x279",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x280",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x281",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x282",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x283",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x284",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x285",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x286",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x287",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x288",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x289",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x290",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x291",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x292",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x293",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x294",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x295",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x296",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x297",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x298",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x299",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x300",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x301",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x302",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x303",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x304",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x305",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x306",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x307",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x308",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x309",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x310",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x311",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x312",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x313",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x314",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x315",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x316",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x317",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x318",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x319",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x320",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x321",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x322",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x323",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x324",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x325",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x326",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x327",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x328",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x329",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x330",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x331",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x332",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x333",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x334",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x335",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x336",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x337",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x338",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x339",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x340",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x341",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x342",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x343",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x344",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x345",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x346",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x347",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x348",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x349",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x350",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x351",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x352",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x353",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x354",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x355",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x356",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x357",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x358",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x359",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x360",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x361",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x362",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x363",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x364",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x365",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x366",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x367",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x368",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x369",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x370",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x371",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x372",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x373",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x374",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x375",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x376",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x377",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x378",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x379",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x380",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x381",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x382",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x383",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x384",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x385",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x386",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x387",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x388",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x389",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x390",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x391",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x392",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x393",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x394",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x395",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x396",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x397",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x398",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x399",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x400",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x401",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x402",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x403",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x404",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x405",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x406",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x407",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x408",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x409",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x410",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x411",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x412",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x413",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x414",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x415",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x416",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x417",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x418",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x419",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x420",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x421",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x422",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x423",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x424",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x425",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x426",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x427",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x428",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x429",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x430",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x431",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x432",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x433",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x434",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x435",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x436",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x437",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x438",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x439",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x440",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x441",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x442",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x443",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x444",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x445",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x446",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x447",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x448",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x449",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x450",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x451",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x452",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x453",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x454",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x455",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x456",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x457",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x458",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x459",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x460",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x461",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x462",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x463",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x464",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x465",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x466",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x467",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x468",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x469",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x470",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x471",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x472",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x473",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x474",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x475",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x476",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x477",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x478",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x479",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x480",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x481",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x482",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x483",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x484",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x485",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x486",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x487",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x488",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x489",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x490",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x491",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x492",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x493",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x494",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x495",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x496",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x497",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x498",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x499",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x500",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x501",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x502",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x503",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x504",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x505",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x506",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x507",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x508",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x509",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x510",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x511",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        },
+        {
+          "id": "x512",
+          "source": "S",
+          "atoms": [],
+          "relations": []
+        }
+      ]
+    },
+    "to": {
+      "ref": "fiction:terminology:drugs",
+      "version": "2026-10",
+      "concepts": [
+        {
+          "id": "c1",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a1",
+              "kind": "full",
+              "name": "alpha 5 mg tablet",
+              "attributes": [
+                {
+                  "name": "code_list",
+                  "value": "N1"
+                },
+                {
+                  "name": "strength",
+                  "value": "5 mg"
+                }
+              ]
+            },
+            {
+              "id": "a2",
+              "kind": "syn",
+              "name": "alpha tab 5",
+              "attributes": []
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            },
+            {
+              "kind": "has_form",
+              "target": "c8"
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a3",
+              "kind": "full",
+              "name": "beta 10 mg tablet",
+              "attributes": [
+                {
+                  "name": "strength",
+                  "value": "10 mg"
+                }
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            }
+          ]
+        },
+        {
+          "id": "c8",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a8",
+              "kind": "form",
+              "name": "tablet",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        },
+        {
+          "id": "c9",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a9",
+              "kind": "ingredient",
+              "name": "alpha",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        }
+      ]
+    },
+    "scope": {
+      "sources": [
+        "S"
+      ]
+    },
+    "policy": {
+      "attributes": [
+        {
+          "name": "code_list",
+          "class": "administrative"
+        },
+        {
+          "name": "strength",
+          "class": "definitional"
+        }
+      ]
+    },
+    "references": [
+      "c1",
+      "c2"
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "item_limit"
+        ]
+      }
+    ]
+  }
+}

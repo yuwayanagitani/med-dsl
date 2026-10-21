@@ -147,6 +147,12 @@
       "class": "R5",
       "path": "p2-provenance-coding.json",
       "sha256": "fb4294d68265089cf84be366f85c0bb28295c2bc80577acd8381d6c6bb290260"
+    },
+    {
+      "id": "p2-terminology-audit",
+      "class": "R5",
+      "path": "p2-terminology-audit.json",
+      "sha256": "1d575be971b20cc65c5cf426402d55bc5760416e2c8eb1c02b29d787bcb36f9d"
     }
   ]
 }

@@ -1,0 +1,425 @@
+{
+  "schema_version": "p2-extension-manifest-draft-2",
+  "id": "p2-terminology-audit",
+  "version": "draft-1",
+  "title": "用語の版更新を、旧版の参照ごとの継続と、名称・関係・属性の三つの面の差で監査し、後継を決めず、未宣言の属性の差を依頼にする",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R5",
+  "spec": {
+    "path": "src/med_dsl/terminology_audit_spec.json",
+    "sha256": "8291f2df3ad0cb07d650d05aae9bce7a9f716b6ee43f4347742a54dfb12c2ea4"
+  },
+  "contract_doc": "docs/research/82-p2-u-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/terminology_audit.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
+      "path": "docs/research/83-p2-u-cases.md",
+      "role": "hand_specified_expectations"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/terminology_audit_spec.json",
+    "examples/p2-audit/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "run_terminology_audit"
+    ],
+    "schema_versions": [
+      "p2-audit-request-draft-1",
+      "p2-audit-result-draft-1"
+    ],
+    "profiles": [
+      "p2-terminology-audit-draft-1"
+    ],
+    "answer_kinds": [
+      "terminology_version_audit"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-terminology-audit-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "旧要求と他のP2拡張を変えず、旧版と新版の正規化したsnapshotだけを入力とする",
+    "fragment": "旧版の参照ごとの継続（(出典, id)）と、名称（原子）・関係・属性（原子に付く）の差。属性の分類は宣言。後継・廃止・置換・薬剤の意味・原子間の関係・抑制・履歴は範囲外。一方向（旧→新）"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "自己の版と実体を固定し、旧profileや他拡張の結果を代用しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_static_validation_pins_limits_and_native_refusals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/n02-profile_spec_sha256.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "比較範囲の外の参照は比較せず（not_compared）、新版にない参照は後継を決めない（not_found）",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_continuation_is_by_source_and_id_never_by_name"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u11.json",
+          "path": [
+            "results",
+            0,
+            "audit_state"
+          ],
+          "equals": "not_compared",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "推測で補った情報を作らず、入力を変更せず、臨床の主張を追加しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_attribute_policy_is_declared_never_guessed"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u01.json",
+          "path": [
+            "inferred_information"
+          ],
+          "equals": [],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "共通予算に従い、未完了の行に値を返さず、資源停止で認定しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_budget_sweep_keeps_finished_rows_and_has_no_partial_values"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/b01-22.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-1",
+      "statement": "使った宣言（差のあった属性の分類）を仮定として示す",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_hand_expectations_api_cli_manifest_and_obligations"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u02.json",
+          "path": [
+            "results",
+            0,
+            "policy_assumptions"
+          ],
+          "equals": [
+            "attribute_class:code_list:administrative"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-2",
+      "statement": "保存・医学的な意味の認定を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_attribute_policy_is_declared_never_guessed"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u01.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R5-3",
+      "statement": "薬剤の意味の同一・置換・臨床の同等を主張しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_attribute_policy_is_declared_never_guessed"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u01.json",
+          "path": [
+            "converted_to_base"
+          ],
+          "equals": false,
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "AU-1",
+      "statement": "自己のprofileと仕様hashを固定し、呼び出し側が実体を変えられない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_static_validation_pins_limits_and_native_refusals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/n02-profile.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_profile"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "AU-2",
+      "statement": "各参照がちょうど一つの状態に入り、状態別の数の和は参照の数に等しい",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_enumeration_of_differences_against_the_oracle",
+        "tests/p2/test_audit.py::AuditTests.test_random_requests_against_the_oracle",
+        "tests/p2/test_audit.py::AuditTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u25.json",
+          "path": [
+            "summary",
+            "by_state"
+          ],
+          "equals": {
+            "unchanged_in_scope": 1,
+            "changed_administrative_only": 1,
+            "changed": 1,
+            "needs_information": 1,
+            "not_found": 1,
+            "not_compared": 1
+          },
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "AU-3",
+      "statement": "継続は (出典, id) だけで決まり、新版にない参照の後継を決めず、候補も出さない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_continuation_is_by_source_and_id_never_by_name",
+        "tests/p2/test_audit.py::AuditTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u10.json",
+          "path": [
+            "results",
+            0,
+            "successor"
+          ],
+          "equals": "not_determined",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "AU-4",
+      "statement": "名称・関係・属性を別の面として比べ、全ての面に差がないときだけ「比較した範囲で差なし」と言う",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_enumeration_of_differences_against_the_oracle",
+        "tests/p2/test_audit.py::AuditTests.test_input_order_never_matters_and_the_input_is_not_changed",
+        "tests/p2/test_audit.py::AuditTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u05.json",
+          "path": [
+            "results",
+            0,
+            "facets",
+            "attributes",
+            "state"
+          ],
+          "equals": "unchanged",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "AU-5",
+      "statement": "属性の分類は宣言だけで決め、未宣言の差は依頼にして分類せず、使われなかった宣言は痕跡を残さない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_attribute_policy_is_declared_never_guessed",
+        "tests/p2/test_audit.py::AuditTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u04.json",
+          "path": [
+            "results",
+            0,
+            "audit_state"
+          ],
+          "equals": "needs_information",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "AU-6",
+      "statement": "関係は与えられた向きのまま比べ、対象が各版に存在するかと、新版で未解決かを区別する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_swapping_the_versions_swaps_the_differences_and_infers_nothing",
+        "tests/p2/test_audit.py::AuditTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u07.json",
+          "path": [
+            "results",
+            0,
+            "facets",
+            "relations",
+            "removed"
+          ],
+          "equals": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9",
+              "target_in_from": true,
+              "target_in_to": false
+            }
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "AU-7",
+      "statement": "比較範囲（出典・面・比較していないもの）を明示し、集計は範囲内の継続・旧のみ・新のみを分ける",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_random_requests_against_the_oracle",
+        "tests/p2/test_audit.py::AuditTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u11.json",
+          "path": [
+            "summary",
+            "in_scope_from"
+          ],
+          "equals": 4,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "AU-8",
+      "statement": "料金を参照ごとに先払いし、最後の確定1を払うまで集計を返さず、未完了の行は値を持たない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_the_cost_formula_is_exact_and_prepaid_per_reference",
+        "tests/p2/test_audit.py::AuditTests.test_budget_sweep_keeps_finished_rows_and_has_no_partial_values",
+        "tests/p2/test_audit.py::AuditTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u25.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 45,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "AU-9",
+      "statement": "逆向きの成立・後継・意味を推定しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_audit.py::AuditTests.test_swapping_the_versions_swaps_the_differences_and_infers_nothing",
+        "tests/p2/test_audit.py::AuditTests.test_continuation_is_by_source_and_id_never_by_name"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-audit/u01.json",
+          "path": [
+            "reverse_inferred"
+          ],
+          "equals": false,
+          "kind": "non_conversion"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "比較範囲の外の出典は比較せず not_compared と明示する",
+    "unsupported": "unsupported_profile。許容外の属性の分類・別の用語の組を補完しない",
+    "resource": "resource_limit。未完了の七欄は全てnull、集計はnull、完成料金前は認定なし",
+    "invalid_input": "snapshot・方針・参照の形を予算前に検査"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [],
+    "order_dependent": false
+  },
+  "inherits": [],
+  "evaluation": {
+    "examples": [
+      "examples/p2-audit/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_audit.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/audit_oracle.py"
+  }
+}

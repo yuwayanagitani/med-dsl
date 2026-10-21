@@ -26,6 +26,7 @@ P2-a〜P2-c の作業で、宣言・例・検査の強さを確かめるため�
 | `gen_grounding_fixtures.py`・`gen_grounding_manifest.py` | P2-pの97例・R5宣言。期待は文書68から手指定（P2-oの生成器の部品を使う）。Decimalによる別計算・値の格子の全数・20変異と子予算の観測は `tests/p2/test_grounding.py` 内で実行 |
 | `gen_observation_fixtures.py`・`gen_observation_manifest.py` | P2-qの75例・R5宣言。期待は文書71から手指定（P2-pの生成器の部品を使う）。宣言の全数・確認と出自・19変異と子予算の観測は `tests/p2/test_observation.py` 内で実行 |
 | `gen_provenance_fixtures.py`・`gen_provenance_manifest.py` | P2-tの73例・R5宣言。期待は文書80から手指定（P2-qの生成器の部品を使う）。宣言の全数（原本／訂正1件／訂正2件×観察者×出自×確認者の型×符号の部分集合×revision）・独立なハッシュ・24変異と子予算の観測は `tests/p2/test_provenance.py` 内で実行 |
+| `gen_audit_fixtures.py`・`gen_audit_manifest.py` | P2-uの88例・R5宣言。期待は文書83から手指定（実装に依らない生成器）。差の全数・継続の同一性・属性の方針・入れ替え・並びの不変性・乱数300要求・23変異は `tests/p2/test_audit.py` 内で実行 |
 | `make_observer_version_record.py` | P2-rの版の記録（P2-i の draft-2 → draft-3）を、旧版・新版のコミットの木の比較から作る。宣言と予測は文書73・74から手で書いた値、測定値は比較器の出力を固定する |
 | `make_required_observer_version_record.py` | P2-sの版の記録（P2-i の draft-3 → draft-4。観察者を必須にし旧入力を拒否する）を作る。`make_observer_version_record.py` の予測の表を使う |
 | `inheritance_suspects.py` | 継承の疑いの機械的な探索（P2-n。二つの拡張だけが共有する識別子らしい文字列定数）。登録の条件ではなく、測定のための道具 |

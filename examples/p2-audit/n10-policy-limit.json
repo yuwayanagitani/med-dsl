@@ -1,0 +1,498 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N10-policy-limit",
+  "condition": "N10",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-audit-request-draft-1",
+    "operation": "run_terminology_audit",
+    "consumer": {
+      "profile": "p2-terminology-audit-draft-1",
+      "profile_spec_sha256": "8291f2df3ad0cb07d650d05aae9bce7a9f716b6ee43f4347742a54dfb12c2ea4",
+      "operations": [
+        "run_terminology_audit"
+      ]
+    },
+    "from": {
+      "ref": "fiction:terminology:drugs",
+      "version": "2026-09",
+      "concepts": [
+        {
+          "id": "c1",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a1",
+              "kind": "full",
+              "name": "alpha 5 mg tablet",
+              "attributes": [
+                {
+                  "name": "code_list",
+                  "value": "N1"
+                },
+                {
+                  "name": "strength",
+                  "value": "5 mg"
+                }
+              ]
+            },
+            {
+              "id": "a2",
+              "kind": "syn",
+              "name": "alpha tab 5",
+              "attributes": []
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            },
+            {
+              "kind": "has_form",
+              "target": "c8"
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a3",
+              "kind": "full",
+              "name": "beta 10 mg tablet",
+              "attributes": [
+                {
+                  "name": "strength",
+                  "value": "10 mg"
+                }
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            }
+          ]
+        },
+        {
+          "id": "c8",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a8",
+              "kind": "form",
+              "name": "tablet",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        },
+        {
+          "id": "c9",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a9",
+              "kind": "ingredient",
+              "name": "alpha",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        }
+      ]
+    },
+    "to": {
+      "ref": "fiction:terminology:drugs",
+      "version": "2026-10",
+      "concepts": [
+        {
+          "id": "c1",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a1",
+              "kind": "full",
+              "name": "alpha 5 mg tablet",
+              "attributes": [
+                {
+                  "name": "code_list",
+                  "value": "N1"
+                },
+                {
+                  "name": "strength",
+                  "value": "5 mg"
+                }
+              ]
+            },
+            {
+              "id": "a2",
+              "kind": "syn",
+              "name": "alpha tab 5",
+              "attributes": []
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            },
+            {
+              "kind": "has_form",
+              "target": "c8"
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a3",
+              "kind": "full",
+              "name": "beta 10 mg tablet",
+              "attributes": [
+                {
+                  "name": "strength",
+                  "value": "10 mg"
+                }
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "kind": "has_ingredient",
+              "target": "c9"
+            }
+          ]
+        },
+        {
+          "id": "c8",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a8",
+              "kind": "form",
+              "name": "tablet",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        },
+        {
+          "id": "c9",
+          "source": "S",
+          "atoms": [
+            {
+              "id": "a9",
+              "kind": "ingredient",
+              "name": "alpha",
+              "attributes": []
+            }
+          ],
+          "relations": []
+        }
+      ]
+    },
+    "scope": {
+      "sources": [
+        "S"
+      ]
+    },
+    "policy": {
+      "attributes": [
+        {
+          "name": "p0",
+          "class": "definitional"
+        },
+        {
+          "name": "p1",
+          "class": "definitional"
+        },
+        {
+          "name": "p2",
+          "class": "definitional"
+        },
+        {
+          "name": "p3",
+          "class": "definitional"
+        },
+        {
+          "name": "p4",
+          "class": "definitional"
+        },
+        {
+          "name": "p5",
+          "class": "definitional"
+        },
+        {
+          "name": "p6",
+          "class": "definitional"
+        },
+        {
+          "name": "p7",
+          "class": "definitional"
+        },
+        {
+          "name": "p8",
+          "class": "definitional"
+        },
+        {
+          "name": "p9",
+          "class": "definitional"
+        },
+        {
+          "name": "p10",
+          "class": "definitional"
+        },
+        {
+          "name": "p11",
+          "class": "definitional"
+        },
+        {
+          "name": "p12",
+          "class": "definitional"
+        },
+        {
+          "name": "p13",
+          "class": "definitional"
+        },
+        {
+          "name": "p14",
+          "class": "definitional"
+        },
+        {
+          "name": "p15",
+          "class": "definitional"
+        },
+        {
+          "name": "p16",
+          "class": "definitional"
+        },
+        {
+          "name": "p17",
+          "class": "definitional"
+        },
+        {
+          "name": "p18",
+          "class": "definitional"
+        },
+        {
+          "name": "p19",
+          "class": "definitional"
+        },
+        {
+          "name": "p20",
+          "class": "definitional"
+        },
+        {
+          "name": "p21",
+          "class": "definitional"
+        },
+        {
+          "name": "p22",
+          "class": "definitional"
+        },
+        {
+          "name": "p23",
+          "class": "definitional"
+        },
+        {
+          "name": "p24",
+          "class": "definitional"
+        },
+        {
+          "name": "p25",
+          "class": "definitional"
+        },
+        {
+          "name": "p26",
+          "class": "definitional"
+        },
+        {
+          "name": "p27",
+          "class": "definitional"
+        },
+        {
+          "name": "p28",
+          "class": "definitional"
+        },
+        {
+          "name": "p29",
+          "class": "definitional"
+        },
+        {
+          "name": "p30",
+          "class": "definitional"
+        },
+        {
+          "name": "p31",
+          "class": "definitional"
+        },
+        {
+          "name": "p32",
+          "class": "definitional"
+        },
+        {
+          "name": "p33",
+          "class": "definitional"
+        },
+        {
+          "name": "p34",
+          "class": "definitional"
+        },
+        {
+          "name": "p35",
+          "class": "definitional"
+        },
+        {
+          "name": "p36",
+          "class": "definitional"
+        },
+        {
+          "name": "p37",
+          "class": "definitional"
+        },
+        {
+          "name": "p38",
+          "class": "definitional"
+        },
+        {
+          "name": "p39",
+          "class": "definitional"
+        },
+        {
+          "name": "p40",
+          "class": "definitional"
+        },
+        {
+          "name": "p41",
+          "class": "definitional"
+        },
+        {
+          "name": "p42",
+          "class": "definitional"
+        },
+        {
+          "name": "p43",
+          "class": "definitional"
+        },
+        {
+          "name": "p44",
+          "class": "definitional"
+        },
+        {
+          "name": "p45",
+          "class": "definitional"
+        },
+        {
+          "name": "p46",
+          "class": "definitional"
+        },
+        {
+          "name": "p47",
+          "class": "definitional"
+        },
+        {
+          "name": "p48",
+          "class": "definitional"
+        },
+        {
+          "name": "p49",
+          "class": "definitional"
+        },
+        {
+          "name": "p50",
+          "class": "definitional"
+        },
+        {
+          "name": "p51",
+          "class": "definitional"
+        },
+        {
+          "name": "p52",
+          "class": "definitional"
+        },
+        {
+          "name": "p53",
+          "class": "definitional"
+        },
+        {
+          "name": "p54",
+          "class": "definitional"
+        },
+        {
+          "name": "p55",
+          "class": "definitional"
+        },
+        {
+          "name": "p56",
+          "class": "definitional"
+        },
+        {
+          "name": "p57",
+          "class": "definitional"
+        },
+        {
+          "name": "p58",
+          "class": "definitional"
+        },
+        {
+          "name": "p59",
+          "class": "definitional"
+        },
+        {
+          "name": "p60",
+          "class": "definitional"
+        },
+        {
+          "name": "p61",
+          "class": "definitional"
+        },
+        {
+          "name": "p62",
+          "class": "definitional"
+        },
+        {
+          "name": "p63",
+          "class": "definitional"
+        },
+        {
+          "name": "p64",
+          "class": "definitional"
+        }
+      ]
+    },
+    "references": [
+      "c1",
+      "c2"
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "item_limit"
+        ]
+      }
+    ]
+  }
+}
