@@ -43,18 +43,27 @@ class PageText(HTMLParser):
             self.title.append(data)
 
 
+# 資料の種類ごとの、ページ名と、版ごとに必ず現れるべき項目（版の取り違えを検出するための目印）
+HTML_RESOURCES = {
+    "Procedure": {"4.0.1": "performed[x]", "5.0.0": "occurrence[x]"},
+    "Observation": {"5.0.0": "dataAbsentReason"},
+    "Specimen": {"5.0.0": "accessionIdentifier"},
+}
+
+
 def check_html(path, material):
     page = PageText()
     page.feed(path.read_text(encoding="utf-8-sig"))
     title = " ".join("".join(page.title).split())
     text = " ".join(page.text)
-    field = {"4.0.1": "performed[x]", "5.0.0": "occurrence[x]"}[material["version"]]
+    resource = material.get("resource", "Procedure")
+    field = HTML_RESOURCES[resource][material["version"]]
     version = re.search(r"FHIR v([0-9.]+)", title)
-    if not re.search(r"\bProcedure\b", title) or not version or version.group(1) != material["version"]:
-        raise ValueError("Procedure のページ名・版が一致しません")
+    if not re.search(rf"\b{resource}\b", title) or not version or version.group(1) != material["version"]:
+        raise ValueError(f"{resource} のページ名・版が一致しません")
     if field not in text:
-        raise ValueError(f"時点の項目 {field} を確認できません")
-    return {"kind": "html_identity", "title": title, "time_field": field}
+        raise ValueError(f"目印の項目 {field} を確認できません")
+    return {"kind": "html_identity", "title": title, "time_field" if resource == "Procedure" else "marker_field": field}
 
 
 def check_zip(path, material):
