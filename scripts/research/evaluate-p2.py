@@ -148,6 +148,20 @@ EXPECTED["extensions"]["independent_pairs"] = 143
 EXPECTED["extensions"]["inherits"] = {"entries": 9, "witnesses": 30, "gaps": 2}
 
 
+# P2-nの分母を保持し、薄い臨床ライブラリ（P2-o）を加えた現在値を固定する。宣言1件（義務19、各1件の防護例、検査の水準は有限の検査10・検査済みの型9）、
+# 例141、継承3項目（証人16）を足す。基底を除く他の19件との組19のうち、依存か継承で結ばれる4件を除く15組が独立。
+P2_N_EXPECTED = copy.deepcopy(EXPECTED)
+EXPECTED["extensions"] = {
+    "registered": 21, "refused": 0, "obligations": 278, "guards": 460, "guard_gaps": 3,
+    "evidence": {"checked_native_template": 181, "finite_check": 89, "hand_derivation": 8, "self_declared": 0, "individual_io": 0},
+    "independent_pairs": 158, "pairs": 190,
+    "inherits": {"entries": 12, "witnesses": 46, "gaps": 2},
+}
+EXPECTED["suites"]["p2-library"] = {"examples": 141, "checks": 2417}
+# 要求は1111＋140（予算欄欠落の負例1件は掃引へ含めない）。掃引の回数24,895は実測の値（予測ではない）。
+EXPECTED["budget"] = {"requests": 1251, "budget_evaluations": 24895, "violations": 0, "allowed_budget_dependent_refusals": 1}
+
+
 def _p1d():
     spec = importlib.util.spec_from_file_location("evaluate_p1_d", ROOT / "scripts/research/evaluate-p1-d.py")
     module = importlib.util.module_from_spec(spec)

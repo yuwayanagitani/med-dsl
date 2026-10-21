@@ -685,11 +685,15 @@ manifests.append(refinement_manifest(ROOT))
 from gen_longitudinal_manifest import longitudinal_manifest
 manifests.append(longitudinal_manifest(ROOT))
 
+from gen_library_manifest import library_manifest
+manifests.append(library_manifest(ROOT))
+
 # ---- 継承（P2-n、manifest draft-2）：実装を共有せず、断片で元の拡張と観測が一致することの宣言 ----
 # 継承する側 -> 項目の列。宣言の正本はここではなく extensions/*.json だが、書き手が一箇所で監査できるよう表にまとめる。
 DIRECTORIES = {"p2-temporal-assertion": "p2-temporal", "p2-measurement-binding": "p2-measurement", "p2-temporal-measurement": "p2-temporal-measurement",
                "p2-quantity-display": "p2-display", "p2-temporal-display": "p2-temporal-display", "p2-longitudinal-comparison": "p2-longitudinal",
-               "p2-validity-refinement": "p2-refinement", "p2-quantity-literal": "p2-quantity", "p1-finite-forecast": "p1-a"}
+               "p2-validity-refinement": "p2-refinement", "p2-quantity-literal": "p2-quantity", "p1-finite-forecast": "p1-a",
+               "p2-clinical-library": "p2-library"}
 REASONS = ["results", 0, "reason_codes"]
 
 
@@ -710,6 +714,12 @@ def inherit(inheritor, source, fragment, obligation, pairs=(), gap=None):
 STEPS = ["steps_used"]
 RESERVED = ["results", 0, "projection_evidence", "temporal_measurement_reserved_steps"]
 COMPARED = ["results", 0, "comparison_evidence", "temporal_measurement_reserved_steps"]
+OUTPUT_TEXT = ["results", 0, "output", "text"]
+RELATION = ["results", 0, "relation_set"]
+OUTPUT_RELATION = ["results", 0, "output", "relation_set"]
+FIRST_DIFFERENCE = ["results", 0, "context_differences", 0, "field"]
+LIBRARY_DIFFERENCE = ["results", 0, "elements", 1, "differences", 0, "field"]
+LIBRARY_RESERVED = ["temporal_measurement", "reserved_steps"]
 TEXT = ["results", 0, "artifact", "text"]
 ANSWER = ["results", 0, "question_results", 0, "projection_answer"]
 INHERITS = {
@@ -736,6 +746,16 @@ INHERITS = {
     "p2-measurement-binding": [
         inherit("p2-measurement-binding", "p2-temporal-assertion", "記録・確認の可視性（recorded_at が参照時点以前）と、適格性（確定かつ可視の人の確認がある）",
                 "MB-2", gap="台帳の型が違い（測定の記録と主張）、構造的に等しい例の組がない。P2-g の設計は P2-e の台帳を読まないと書くが、規則は同形")],
+    "p2-clinical-library": [
+        inherit("p2-clinical-library", "p2-temporal-display", "10進の最近接偶数丸め（係数・文字列）の数式の再述",
+                "CL-7", [("j02-5", "o02-5-4", TEXT, OUTPUT_TEXT), ("j02-27", "o02-27-20", TEXT, OUTPUT_TEXT), ("j02--5", "o02-m5-4", TEXT, OUTPUT_TEXT),
+                         ("j02--27", "o02-m27-20", TEXT, OUTPUT_TEXT), ("j06-5", "o02-5-2", TEXT, OUTPUT_TEXT), ("j06-7", "o02-7-2", TEXT, OUTPUT_TEXT),
+                         ("j06--5", "o02-m5-2", TEXT, OUTPUT_TEXT), ("j06--7", "o02-m7-2", TEXT, OUTPUT_TEXT)]),
+        inherit("p2-clinical-library", "p2-longitudinal-comparison", "二時点の値を独立な変数として比べた関係の集合と、文脈（method・property・specimen）が一致しないときの扱い",
+                "CL-7", [("l01", "o40", RELATION, OUTPUT_RELATION), ("l04", "o41", RELATION, OUTPUT_RELATION), ("l02", "o44", RELATION, OUTPUT_RELATION),
+                         ("l20", "o42", FIRST_DIFFERENCE, LIBRARY_DIFFERENCE), ("l23", "o49", FIRST_DIFFERENCE, LIBRARY_DIFFERENCE)]),
+        inherit("p2-clinical-library", "p2-temporal-measurement", "P2-i の全計画の料金 C の再述",
+                "CL-7", [("c01", "o01", STEPS, LIBRARY_RESERVED), ("c25", "o40", STEPS, LIBRARY_RESERVED), ("c30", "o41", STEPS, LIBRARY_RESERVED)])],
     "p2-quantity-literal": [
         inherit("p2-quantity-literal", "p1-finite-forecast", "有理数の入力の検査：整数・正の分母の形（invalid_rational）と、分子・分母の63bit上限（rational_integer_limit）。意図した差：重みの範囲 0〜1 は P1 固有、中間の上限は P1 が4096bit・P2-f が256bit",
                 "QT-2", [("zero-denominator", "n01-zero", ["status"]), ("zero-denominator", "n01-zero", ["reason_codes"]), ("integer-limit", "n02-n", ["status"]), ("integer-limit", "n02-n", ["reason_codes"])])],

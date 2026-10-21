@@ -1,6 +1,6 @@
 # 拡張の宣言（P2-a、`p2-extension-manifest-draft-2`）
 
-既存の handler 10件への後付けに、P2-b・P2-c・P2-e・P2-f・P2-g・P2-h・P2-i・P2-j・P2-k・P2-mで追加した10件を加え、計20件の **拡張契約の宣言** があります。書式・検査・限界は [P2-a の実行契約](../docs/research/20-p2-a-contract.md)、結果は [P2-a の結果](../docs/research/21-p2-a-results.md) と [追加作業](../docs/research/22-p2-a-hardening.md)、P2-b は [23](../docs/research/23-p2-b-design.md)・[24](../docs/research/24-p2-b-results.md)、P2-c は [25](../docs/research/25-p2-c-design.md)・[26](../docs/research/26-p2-c-results.md)、P2-eは [31](../docs/research/31-p2-e-design.md)・[33](../docs/research/33-p2-e-results.md)、P2-fは [34](../docs/research/34-p2-f-design.md)・[36](../docs/research/36-p2-f-results.md)、P2-gは [37](../docs/research/37-p2-g-design.md)・[39](../docs/research/39-p2-g-results.md)、P2-hは [40](../docs/research/40-p2-h-design.md)・[42](../docs/research/42-p2-h-results.md) にあります。状態は作成者側の草案で、[運用方針](../docs/research/29-review-repository-policy.md) に従って内部検証を進めます。`independent_review` はfalseです。
+既存の handler 10件への後付けに、P2-b・P2-c・P2-e・P2-f・P2-g・P2-h・P2-i・P2-j・P2-k・P2-m・P2-oで追加した11件を加え、計21件の **拡張契約の宣言** があります。書式・検査・限界は [P2-a の実行契約](../docs/research/20-p2-a-contract.md)、結果は [P2-a の結果](../docs/research/21-p2-a-results.md) と [追加作業](../docs/research/22-p2-a-hardening.md)、P2-b は [23](../docs/research/23-p2-b-design.md)・[24](../docs/research/24-p2-b-results.md)、P2-c は [25](../docs/research/25-p2-c-design.md)・[26](../docs/research/26-p2-c-results.md)、P2-eは [31](../docs/research/31-p2-e-design.md)・[33](../docs/research/33-p2-e-results.md)、P2-fは [34](../docs/research/34-p2-f-design.md)・[36](../docs/research/36-p2-f-results.md)、P2-gは [37](../docs/research/37-p2-g-design.md)・[39](../docs/research/39-p2-g-results.md)、P2-hは [40](../docs/research/40-p2-h-design.md)・[42](../docs/research/42-p2-h-results.md) にあります。状態は作成者側の草案で、[運用方針](../docs/research/29-review-repository-policy.md) に従って内部検証を進めます。`independent_review` はfalseです。
 
 宣言は作成者の主張で、**意味の正しさの証拠ではありません**。検査が確かめるのは、必須項目がそろっていること、実体（仕様の hash・実装・例）と食い違わないこと、所有する名前が衝突しないこと、防護例が宣言どおりの結果を返すことです。この系列は P1 の20条件・80 JSON・417必須パス、231開発テスト、レビュー系列とは別の分母です。
 
@@ -25,6 +25,7 @@
 | [p2-temporal-measurement](p2-temporal-measurement.json) | R5 | 明示された期間つき数量主張の内容指定確認・部分訂正・換算。表示・臨床認定なし | p0-positive, p2-quantity-literal |
 | [p2-temporal-display](p2-temporal-display.json) | R4 | I計画の再実行、型付き表示だけの問い、原値・記録・両時点・期間の別回答 | p0-positive, p2-quantity-literal, p2-temporal-measurement |
 | [p2-validity-refinement](p2-validity-refinement.json) | R5 | 確認済みの期間不明記録を、確認した期間で精密化する（記録についての記録。元の記録は消さない） | p0-positive |
+| [p2-clinical-library](p2-clinical-library.json) | R5 | 医療者の操作（記録・確認・訂正）から台帳を組み立て、出力先の要求（宣言）の充足を診断する薄い臨床ライブラリ（P2-o）。臨床の認定・推測で補った情報なし | p0-positive, p2-quantity-literal, p2-temporal-measurement |
 | [p2-longitudinal-comparison](p2-longitudinal-comparison.json) | R5 | 同じ slot の二時点の期間つき数量を、独立な変数として比べる（P2-iの端点とP2-fの比較）。臨床の傾向・有意性なし | p0-positive, p2-quantity-literal, p2-temporal-measurement |
 
 [index.json](index.json) は上の一覧と、各宣言の sha256 です。登録は基底から順に行い、依存が先に登録されていることが必要です。
@@ -43,6 +44,9 @@ python3 scripts/research/evaluate-p2.py                 # 統合評価：登録�
 
 | 継承する側 | 元 | 断片 | 義務 | 証人 |
 | --- | --- | --- | --- | --- |
+| p2-clinical-library | p2-longitudinal-comparison | 二時点の値を独立な変数として比べた関係の集合と、文脈が一致しないときの扱い | CL-7 | 5 |
+| p2-clinical-library | p2-temporal-display | 10進の最近接偶数丸め（係数・文字列）の数式の再述 | CL-7 | 8 |
+| p2-clinical-library | p2-temporal-measurement | P2-i の全計画の料金 C の再述 | CL-7 | 3 |
 | p2-longitudinal-comparison | p2-measurement-binding | matched_context：property・specimen・method の一致と、不一致の理由 diffe… | LC-10 | 5 |
 | p2-longitudinal-comparison | p2-temporal-measurement | P2-i の全計画の料金 C の再述 | LC-6 | 2 |
 | p2-measurement-binding | p2-temporal-assertion | 記録・確認の可視性（recorded_at が参照時点以前）と、適格性（確定かつ可視の人の確認がある） | MB-2 | 欠落（理由つき） |
@@ -67,6 +71,8 @@ python3 scripts/research/evaluate-p2.py                 # 統合評価：登録�
 P2-iの契約と内部評価は [43](../docs/research/43-p2-i-design.md)・[45](../docs/research/45-p2-i-results.md) に記録します。
 
 P2-jの契約と内部評価は [46](../docs/research/46-p2-j-design.md)・[48](../docs/research/48-p2-j-results.md) に記録します。
+
+P2-oの契約と内部評価は [63](../docs/research/63-p2-o-design.md)・[65](../docs/research/65-p2-o-results.md) に記録します。この宣言はP2-iの選択とP2-fの換算・比較に依存し、P2-j（丸め）、P2-m（関係と文脈）、P2-i（料金）の規則を再び述べるので、P2-nの `inherits` で継承を宣言しています。要求プロファイル（出力先の版）は架空です。
 
 P2-lの契約と内部評価は [53](../docs/research/53-p2-l-design.md)・[55](../docs/research/55-p2-l-results.md) に記録します。数量の宣言を draft-2 に上げ（単位表の改訂）、依存する4件の宣言の版と依存の版を draft-2 に更新しました。数量の宣言には継承の差分の義務 VR-1 があります。
 

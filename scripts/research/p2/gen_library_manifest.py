@@ -1,0 +1,73 @@
+"""P2-oのR5宣言。操作から台帳を組み立て、出力先の要求（宣言）を満たせるかを診断する薄い臨床ライブラリの19義務（共通4＋R5の3＋CL-1〜12）。"""
+import hashlib
+
+
+def library_manifest(root):
+    tests = 'tests/p2/test_library.py::LibraryTests.'
+    mutants = 'test_selected_mutants_are_detected_by_reference'
+    first = lambda name: name if isinstance(name, list) else [name]
+    rows = [
+        ('K-ID', '自己・P2-i・P2-fの版と実体を固定し、旧profileや他拡張の結果を代用しない', 'test_static_validation_hashes_pins_limits_and_native_refusals',
+         'N06-profile_spec_sha256', ['status'], 'unsupported_profile', False, 'refusal'),
+        ('K-STOP', '能力・選択・要素・集約の順に止め、満たされない理由を区別する', 'test_selection_stops_and_requests_against_the_oracle',
+         'O25', ['results', 0, 'reason_codes'], ['unknown_capability'], False, 'boundary'),
+        ('K-INV', '推測で補った情報を作らず、入力を変更せず、臨床の主張を追加しない', 'test_ai_candidates_never_satisfy_a_requirement_and_nothing_is_inferred',
+         'O13', ['inferred_information'], [], False, 'non_conversion'),
+        ('K-RES', '共通予算に従い、未完了の行に値を返さず、資源停止で認定しない', 'test_budget_sweep_keeps_finished_rows_and_has_no_partial_values',
+         'B01-31', ['certificate', 'status'], 'not_certified', False, 'boundary'),
+        ('R5-1', '要求の評価が診断であり、独立な変数の前提を二時点の出力に示す', 'test_hand_expectations_api_cli_manifest_and_obligations',
+         'O40', ['results', 0, 'output', 'assumptions'], ['independent_time_variables'], False, 'boundary'),
+        ('R5-2', '保存・医学的な意味の認定を出さない', 'test_ai_candidates_never_satisfy_a_requirement_and_nothing_is_inferred',
+         'O01', ['certificate', 'status'], 'not_certified', False, 'non_conversion'),
+        ('R5-3', '臨床の傾向・有意性・基底への変換を追加しない', 'test_ai_candidates_never_satisfy_a_requirement_and_nothing_is_inferred',
+         'O01', ['clinical_assertions_added'], [], False, 'non_conversion'),
+        ('CL-1', '自己・P2-i・P2-fのprofileと仕様hashを固定し、外部の台帳・hash・結果、操作のhashを受け付けない', 'test_static_validation_hashes_pins_limits_and_native_refusals',
+         'N03-hash', ['reason_codes'], ['unknown_field'], False, 'refusal'),
+        ('CL-2', '操作から台帳を組み立て、確認が記録の内容を拘束し、台帳の妥当性をP2-iの再実行で検査する', 'test_operations_build_a_ledger_that_the_temporal_measurement_extension_accepts',
+         'N03-review-time', ['reason_codes'], ['review_precedes_record'], False, 'refusal'),
+        ('CL-3', '参照時点以前の操作だけで選び、妥当な未来の操作が完成した結果を変えない', 'test_order_future_operations_and_input_immutability',
+         'O62', ['results', 0, 'selection', 'record_ref'], 'A', True, 'boundary'),
+        ('CL-4', '訂正・競合・非復活が出力先の評価へそのまま伝わり、後勝ちで解決しない', 'test_selection_stops_and_requests_against_the_oracle',
+         'O30', ['results', 1, 'selection', 'record_ref'], 'B', True, 'boundary'),
+        ('CL-5', '停止の順序（能力→選択→要素→集約）と状態の優先を固定する', 'test_selection_stops_and_requests_against_the_oracle',
+         'O46', ['results', 0, 'reason_codes'], ['no_adopted_measurement', 'unresolved_measurement_conflict'], True, 'boundary'),
+        ('CL-6', '全計画C・問い合わせごとのfee・子の予約の使い切り・原子性・最後の確定を照合する', ['test_full_plan_cost_funded_once_and_children_use_their_reservation', 'test_child_partial_and_later_row_resource_failure_are_atomic'],
+         'O60', ['steps_used'], 97, True, 'boundary'),
+        ('CL-7', 'P2-jの丸め・P2-mの関係と文脈の規則・P2-iの料金を再び述べた部分が、元と一致する（継承の宣言と証人）', ['test_rounding_and_relations_agree_with_the_restated_extensions', 'test_interface_closure_holds_near_the_limits', mutants],
+         'O02-5-4', ['results', 0, 'output', 'text'], '1.2', True, 'boundary'),
+        ('CL-8', 'AI由来の候補は要求を満たさず、確認後も出自の種類を保つ。推測で補った情報は常に空', 'test_ai_candidates_never_satisfy_a_requirement_and_nothing_is_inferred',
+         'O13', ['results', 0, 'status'], 'needs_information', True, 'non_conversion'),
+        ('CL-9', '出力先の要求を宣言として持ち、出力先のidで処理を分岐せず、未知の種類を拒否する', ['test_a_new_destination_needs_only_a_profile', mutants],
+         'O50', ['results', 0, 'output', 'unit_ref'], 'u_ten', True, 'boundary'),
+        ('CL-10', '追加の依頼が不足ごとに一つで、満たされた行や表せない行に出ず、版の差が不足の数に等しい', ['test_requirement_versions_and_information_requests', mutants],
+         'O11', ['results', 1, 'requests', 0, 'action'], 'observe_and_record', True, 'boundary'),
+        ('CL-11', '表せない（not_representable）と不足（needs_information）を分け、失う区別を返す', ['test_selection_stops_and_requests_against_the_oracle', mutants],
+         'O03', ['results', 0, 'status'], 'not_representable', True, 'boundary'),
+        ('CL-12', '出力ごとの保持・喪失・追加と、選択された記録の出所を全ての出力で保つ', 'test_outputs_keep_provenance_and_flows',
+         'O14', ['results', 0, 'output', 'origin', 'record'], 'ai_candidate', True, 'non_conversion')]
+    obligations = [{'id': ident, 'statement': text, 'evidence': 'finite_check' if finite else 'checked_native_template',
+                    'checks': [tests+name for name in first(test)],
+                    'guards': [{'example': 'examples/p2-library/'+example.lower()+'.json', 'path': path, 'equals': value, 'kind': kind}]}
+                   for ident, text, test, example, path, value, finite, kind in rows]
+    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-clinical-library', 'version': 'draft-1',
+            'title': '医療者の操作（記録・確認・訂正）から台帳を組み立て、出力先の要求（宣言）を満たせるかを診断する薄い臨床ライブラリ',
+            'status': {'review_state': 'author_draft', 'independent_review': False}, 'class': 'R5',
+            'spec': {'path': 'src/med_dsl/clinical_library_spec.json', 'sha256': hashlib.sha256((root/'src/med_dsl/clinical_library_spec.json').read_bytes()).hexdigest()},
+            'contract_doc': 'docs/research/63-p2-o-design.md', 'implementation': {'modules': ['src/med_dsl/clinical_library.py']},
+            'pins': [{'path': 'src/med_dsl/host.py', 'role': 'dispatcher'}, {'path': 'docs/research/64-p2-o-cases.md', 'role': 'hand_specified_expectations'},
+                     {'path': 'src/med_dsl/temporal_measurement_spec.json', 'role': 'temporal_measurement_native_spec'}, {'path': 'src/med_dsl/quantity_spec.json', 'role': 'quantity_native_spec'}],
+            'embedded_in': ['src/med_dsl/clinical_library_spec.json', 'src/med_dsl/temporal_measurement.py', 'src/med_dsl/temporal_measurement_spec.json', 'src/med_dsl/quantity.py',
+                            'examples/p2-library/*.json', 'examples/p2-temporal-measurement/*.json', 'examples/p2-quantity/*.json'],
+            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-quantity-literal', 'version': 'draft-2'}, {'id': 'p2-temporal-measurement', 'version': 'draft-2'}],
+            'owns': {'operations': ['run_clinical_library'], 'schema_versions': ['p2-library-request-draft-1', 'p2-library-result-draft-1'],
+                     'profiles': ['p2-clinical-library-draft-1'], 'answer_kinds': ['clinical_library_projection'], 'predicates': [],
+                     'capabilities': ['p2-clinical-library-draft-1']},
+            'scope': {'base_requests': '旧要求とP2-i・P2-f・P2-g・P2-j・P2-mを変えず、操作から組み立てた台帳をP2-iの再実行で選び、P2-fへ委譲する',
+                      'fragment': '三つの操作（記録・確認・訂正）と、三つの出力の種類（line・exchange・trend）の要求の宣言。画面・LLM・実マスター・永続化・請求・診断は範囲外。要求の版は架空'},
+            'obligations': obligations,
+            'stops': {'unknown_capability': '能力の未知はunassessed。選択の段階の停止は依頼つきのneeds_information',
+                      'unsupported': 'unsupported_profile。未知の操作・出力・要素・形・欄を補完しない',
+                      'resource': 'resource_limit。未完了の五欄は全てnull、完成料金前は認定なし、子の部分結果は使わない',
+                      'invalid_input': '操作の形と組み立てた台帳（P2-iの検査）、要求プロファイル、問い合わせを予算前に検査'},
+            'composition': {'shares_names_with': [], 'reads_extensions': ['p2-temporal-measurement', 'p2-quantity-literal'], 'order_dependent': False},
+            'evaluation': {'examples': ['examples/p2-library/*.json'], 'tests': ['tests/p2/test_library.py'], 'budget_sweep': True, 'oracle': 'tests/p2/library_oracle.py'}}

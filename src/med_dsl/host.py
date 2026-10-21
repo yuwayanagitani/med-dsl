@@ -3,6 +3,7 @@
 
 from typing import Callable, NamedTuple
 
+from .clinical_library import LIBRARY_PROFILE, run_library
 from .compare import run_compare
 from .definitions import check_extension
 from .display import DISPLAY_PROFILE, run_displays
@@ -43,6 +44,7 @@ def run_p0(request):
 
 P0 = Surface("p0-request-draft-1", "p0-result-draft-1", PROFILE, run_p0)
 SURFACES = {s.request_schema: s for s in (
+    Surface("p2-library-request-draft-1", "p2-library-result-draft-1", LIBRARY_PROFILE, run_library),
     Surface("p2-longitudinal-request-draft-1", "p2-longitudinal-result-draft-1", LONGITUDINAL_PROFILE, run_longitudinal),
     Surface("p2-refinement-request-draft-1", "p2-refinement-result-draft-1", REFINEMENT_PROFILE, run_refinement),
     Surface("p2-temporal-display-request-draft-1", "p2-temporal-display-result-draft-1", TEMPORAL_DISPLAY_PROFILE, run_temporal_displays),

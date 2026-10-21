@@ -1,0 +1,3667 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "B04-plan",
+  "condition": "B04",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-library-request-draft-1",
+    "operation": "run_clinical_library",
+    "consumer": {
+      "profile": "p2-clinical-library-draft-1",
+      "profile_spec_sha256": "9f9c6363d9f7b58fe6fc810ef9b45484b1e5a364257ba9c37f865e85c8d73c23",
+      "operations": [
+        "run_clinical_library"
+      ],
+      "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
+      "temporal_measurement_profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+      "quantity_profile": "p2-quantity-literal-draft-1",
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
+    },
+    "library": {
+      "ref": "fiction:library:session@1",
+      "slots": [
+        {
+          "id": "S",
+          "subject_ref": "u"
+        }
+      ],
+      "operations": [
+        {
+          "id": "R0",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R0"
+          }
+        },
+        {
+          "id": "R1",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R1"
+          }
+        },
+        {
+          "id": "R2",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R2"
+          }
+        },
+        {
+          "id": "R3",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R3"
+          }
+        },
+        {
+          "id": "R4",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R4"
+          }
+        },
+        {
+          "id": "R5",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R5"
+          }
+        },
+        {
+          "id": "R6",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R6"
+          }
+        },
+        {
+          "id": "R7",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R7"
+          }
+        },
+        {
+          "id": "R8",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R8"
+          }
+        },
+        {
+          "id": "R9",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R9"
+          }
+        },
+        {
+          "id": "R10",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R10"
+          }
+        },
+        {
+          "id": "R11",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R11"
+          }
+        },
+        {
+          "id": "R12",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R12"
+          }
+        },
+        {
+          "id": "R13",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R13"
+          }
+        },
+        {
+          "id": "R14",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R14"
+          }
+        },
+        {
+          "id": "R15",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R15"
+          }
+        },
+        {
+          "id": "R16",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R16"
+          }
+        },
+        {
+          "id": "R17",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R17"
+          }
+        },
+        {
+          "id": "R18",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R18"
+          }
+        },
+        {
+          "id": "R19",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R19"
+          }
+        },
+        {
+          "id": "R20",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R20"
+          }
+        },
+        {
+          "id": "R21",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R21"
+          }
+        },
+        {
+          "id": "R22",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R22"
+          }
+        },
+        {
+          "id": "R23",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R23"
+          }
+        },
+        {
+          "id": "R24",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R24"
+          }
+        },
+        {
+          "id": "R25",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R25"
+          }
+        },
+        {
+          "id": "R26",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R26"
+          }
+        },
+        {
+          "id": "R27",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R27"
+          }
+        },
+        {
+          "id": "R28",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R28"
+          }
+        },
+        {
+          "id": "R29",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R29"
+          }
+        },
+        {
+          "id": "R30",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R30"
+          }
+        },
+        {
+          "id": "R31",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R31"
+          }
+        },
+        {
+          "id": "R32",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R32"
+          }
+        },
+        {
+          "id": "R33",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R33"
+          }
+        },
+        {
+          "id": "R34",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R34"
+          }
+        },
+        {
+          "id": "R35",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R35"
+          }
+        },
+        {
+          "id": "R36",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R36"
+          }
+        },
+        {
+          "id": "R37",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R37"
+          }
+        },
+        {
+          "id": "R38",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R38"
+          }
+        },
+        {
+          "id": "R39",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R39"
+          }
+        },
+        {
+          "id": "R40",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R40"
+          }
+        },
+        {
+          "id": "R41",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R41"
+          }
+        },
+        {
+          "id": "R42",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R42"
+          }
+        },
+        {
+          "id": "R43",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R43"
+          }
+        },
+        {
+          "id": "R44",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R44"
+          }
+        },
+        {
+          "id": "R45",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R45"
+          }
+        },
+        {
+          "id": "R46",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R46"
+          }
+        },
+        {
+          "id": "R47",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R47"
+          }
+        },
+        {
+          "id": "R48",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R48"
+          }
+        },
+        {
+          "id": "R49",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R49"
+          }
+        },
+        {
+          "id": "R50",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R50"
+          }
+        },
+        {
+          "id": "R51",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R51"
+          }
+        },
+        {
+          "id": "R52",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R52"
+          }
+        },
+        {
+          "id": "R53",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R53"
+          }
+        },
+        {
+          "id": "R54",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R54"
+          }
+        },
+        {
+          "id": "R55",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R55"
+          }
+        },
+        {
+          "id": "R56",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R56"
+          }
+        },
+        {
+          "id": "R57",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R57"
+          }
+        },
+        {
+          "id": "R58",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R58"
+          }
+        },
+        {
+          "id": "R59",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R59"
+          }
+        },
+        {
+          "id": "R60",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R60"
+          }
+        },
+        {
+          "id": "R61",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R61"
+          }
+        },
+        {
+          "id": "R62",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R62"
+          }
+        },
+        {
+          "id": "R63",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:R63"
+          }
+        },
+        {
+          "id": "C0",
+          "kind": "confirm",
+          "record_ref": "R0",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C1",
+          "kind": "confirm",
+          "record_ref": "R1",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C2",
+          "kind": "confirm",
+          "record_ref": "R2",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C3",
+          "kind": "confirm",
+          "record_ref": "R3",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C4",
+          "kind": "confirm",
+          "record_ref": "R4",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C5",
+          "kind": "confirm",
+          "record_ref": "R5",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C6",
+          "kind": "confirm",
+          "record_ref": "R6",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C7",
+          "kind": "confirm",
+          "record_ref": "R7",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C8",
+          "kind": "confirm",
+          "record_ref": "R8",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C9",
+          "kind": "confirm",
+          "record_ref": "R9",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C10",
+          "kind": "confirm",
+          "record_ref": "R10",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C11",
+          "kind": "confirm",
+          "record_ref": "R11",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C12",
+          "kind": "confirm",
+          "record_ref": "R12",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C13",
+          "kind": "confirm",
+          "record_ref": "R13",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C14",
+          "kind": "confirm",
+          "record_ref": "R14",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C15",
+          "kind": "confirm",
+          "record_ref": "R15",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C16",
+          "kind": "confirm",
+          "record_ref": "R16",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C17",
+          "kind": "confirm",
+          "record_ref": "R17",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C18",
+          "kind": "confirm",
+          "record_ref": "R18",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C19",
+          "kind": "confirm",
+          "record_ref": "R19",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C20",
+          "kind": "confirm",
+          "record_ref": "R20",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C21",
+          "kind": "confirm",
+          "record_ref": "R21",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C22",
+          "kind": "confirm",
+          "record_ref": "R22",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C23",
+          "kind": "confirm",
+          "record_ref": "R23",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C24",
+          "kind": "confirm",
+          "record_ref": "R24",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C25",
+          "kind": "confirm",
+          "record_ref": "R25",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C26",
+          "kind": "confirm",
+          "record_ref": "R26",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C27",
+          "kind": "confirm",
+          "record_ref": "R27",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C28",
+          "kind": "confirm",
+          "record_ref": "R28",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C29",
+          "kind": "confirm",
+          "record_ref": "R29",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C30",
+          "kind": "confirm",
+          "record_ref": "R30",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C31",
+          "kind": "confirm",
+          "record_ref": "R31",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C32",
+          "kind": "confirm",
+          "record_ref": "R32",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C33",
+          "kind": "confirm",
+          "record_ref": "R33",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C34",
+          "kind": "confirm",
+          "record_ref": "R34",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C35",
+          "kind": "confirm",
+          "record_ref": "R35",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C36",
+          "kind": "confirm",
+          "record_ref": "R36",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C37",
+          "kind": "confirm",
+          "record_ref": "R37",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C38",
+          "kind": "confirm",
+          "record_ref": "R38",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C39",
+          "kind": "confirm",
+          "record_ref": "R39",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C40",
+          "kind": "confirm",
+          "record_ref": "R40",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C41",
+          "kind": "confirm",
+          "record_ref": "R41",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C42",
+          "kind": "confirm",
+          "record_ref": "R42",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C43",
+          "kind": "confirm",
+          "record_ref": "R43",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C44",
+          "kind": "confirm",
+          "record_ref": "R44",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C45",
+          "kind": "confirm",
+          "record_ref": "R45",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C46",
+          "kind": "confirm",
+          "record_ref": "R46",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C47",
+          "kind": "confirm",
+          "record_ref": "R47",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C48",
+          "kind": "confirm",
+          "record_ref": "R48",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C49",
+          "kind": "confirm",
+          "record_ref": "R49",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C50",
+          "kind": "confirm",
+          "record_ref": "R50",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C51",
+          "kind": "confirm",
+          "record_ref": "R51",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C52",
+          "kind": "confirm",
+          "record_ref": "R52",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C53",
+          "kind": "confirm",
+          "record_ref": "R53",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C54",
+          "kind": "confirm",
+          "record_ref": "R54",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C55",
+          "kind": "confirm",
+          "record_ref": "R55",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C56",
+          "kind": "confirm",
+          "record_ref": "R56",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C57",
+          "kind": "confirm",
+          "record_ref": "R57",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C58",
+          "kind": "confirm",
+          "record_ref": "R58",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C59",
+          "kind": "confirm",
+          "record_ref": "R59",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C60",
+          "kind": "confirm",
+          "record_ref": "R60",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C61",
+          "kind": "confirm",
+          "record_ref": "R61",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C62",
+          "kind": "confirm",
+          "record_ref": "R62",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "C63",
+          "kind": "confirm",
+          "record_ref": "R63",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        }
+      ]
+    },
+    "destinations": [
+      {
+        "id": "dest:record-line",
+        "version": "1",
+        "output": {
+          "kind": "line"
+        },
+        "elements": [
+          {
+            "element": "value",
+            "form": "single_point",
+            "unit_ref": "u_base",
+            "decimal_places": 1
+          }
+        ]
+      }
+    ],
+    "views": [
+      {
+        "id": "v0",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v1",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v2",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v3",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v4",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v5",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v6",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v7",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v8",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v9",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v10",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v11",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v12",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v13",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v14",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v15",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v16",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v17",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v18",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v19",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v20",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v21",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v22",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v23",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v24",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v25",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v26",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v27",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v28",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v29",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v30",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v31",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v32",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v33",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v34",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v35",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v36",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v37",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v38",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v39",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v40",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v41",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v42",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v43",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v44",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v45",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v46",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v47",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v48",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v49",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v50",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v51",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v52",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v53",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v54",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v55",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v56",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v57",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v58",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v59",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v60",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v61",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v62",
+        "as_of": "2026-10-08T00:00:00Z"
+      },
+      {
+        "id": "v63",
+        "as_of": "2026-10-08T00:00:00Z"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q0",
+        "view_ref": "v0",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q1",
+        "view_ref": "v1",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q2",
+        "view_ref": "v2",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q3",
+        "view_ref": "v3",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q4",
+        "view_ref": "v4",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q5",
+        "view_ref": "v5",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q6",
+        "view_ref": "v6",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q7",
+        "view_ref": "v7",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q8",
+        "view_ref": "v8",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q9",
+        "view_ref": "v9",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q10",
+        "view_ref": "v10",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q11",
+        "view_ref": "v11",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q12",
+        "view_ref": "v12",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q13",
+        "view_ref": "v13",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q14",
+        "view_ref": "v14",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q15",
+        "view_ref": "v15",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q16",
+        "view_ref": "v16",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q17",
+        "view_ref": "v17",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q18",
+        "view_ref": "v18",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q19",
+        "view_ref": "v19",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q20",
+        "view_ref": "v20",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q21",
+        "view_ref": "v21",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q22",
+        "view_ref": "v22",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q23",
+        "view_ref": "v23",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q24",
+        "view_ref": "v24",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q25",
+        "view_ref": "v25",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q26",
+        "view_ref": "v26",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q27",
+        "view_ref": "v27",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q28",
+        "view_ref": "v28",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q29",
+        "view_ref": "v29",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q30",
+        "view_ref": "v30",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      },
+      {
+        "id": "q31",
+        "view_ref": "v31",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "steps_used"
+        ],
+        "equals": 100000
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "unassessed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "assessment_complete"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reason_codes"
+        ],
+        "equals": [
+          "step_limit"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "selection"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "elements"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "requests"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "output"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "flows"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "clinical_library_projection"
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "inferred_information"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "review_verification"
+        ],
+        "equals": "structural_only"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "evidence_level"
+        ],
+        "equals": "known_policy_change"
+      },
+      {
+        "path": [
+          "certificate",
+          "scope"
+        ],
+        "equals": null
+      }
+    ]
+  }
+}

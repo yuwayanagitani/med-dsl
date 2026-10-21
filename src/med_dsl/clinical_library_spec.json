@@ -1,0 +1,55 @@
+{
+  "profile": "p2-clinical-library-draft-1",
+  "request_schema": "p2-library-request-draft-1",
+  "result_schema": "p2-library-result-draft-1",
+  "operation": "run_clinical_library",
+  "answer_kind": "clinical_library_projection",
+  "class": "R5",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
+  "temporal_measurement_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+  "quantity_profile": "p2-quantity-literal-draft-1",
+  "quantity_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
+  "scope": "three clinician operations (record, confirm, correct) build a P2-i ledger; destination requirement profiles are data; each query asks whether a destination version is satisfied by the ledger at a reference time and target time(s); no UI, LLM, DSL syntax, real master, persistence, billing or clinical judgment",
+  "operations": "record and correct become a P2-i record plus a P2-f quantity wrapper; confirm becomes a human content-bound review; content hashes are computed by the library; operations never carry hashes",
+  "selection": "the fixed P2-i plan (all views, all queries; trend uses two) is re-executed once and each row is read: unknown capability is unassessed; validity_unknown, validity_unspecified, no_adopted_measurement and unresolved_measurement_conflict are needs_information with requests; any other row has a unique candidate in diagnostics.candidate_refs and context requirements are judged per destination",
+  "requirements": {
+    "output_kinds": {
+      "line": {"elements": ["value", "context"], "value_forms": ["single_point"], "decimal_places": true},
+      "exchange": {"elements": ["value", "context"], "value_forms": ["domain", "single_point"], "decimal_places": false},
+      "trend": {"elements": ["trend"]}
+    },
+    "context_fields": ["method", "property", "specimen"],
+    "context_requires": ["known"],
+    "max_decimal_places": 6,
+    "rounding_policy": "fiction:decimal-half-even@1"
+  },
+  "states": "element states met, unmet, unrepresentable, unassessed; aggregation unassessed over not_representable over needs_information over satisfied; requests only on needs_information; no inferred information; ai_candidate never satisfies an element",
+  "requests": {
+    "selection_actions": ["refine_validity", "confirm_pending", "record_and_confirm", "resolve_conflict"],
+    "context_actions": ["confirm_candidate", "observe_and_record"],
+    "candidate": "visible unconfirmed record of confirmed certainty covering the target time whose field is known; origin kind kept; never counted as satisfying"
+  },
+  "flows": {
+    "line": {"retained": ["value:rounded_text"], "lost": ["value:exact", "record:identity", "validity", "context:specimen", "context:method", "origin", "confirmation"], "added": ["rounding_policy"]},
+    "exchange": {"retained": ["value:exact_domain", "unit", "quantity_kind", "context:property", "context:specimen", "context:method", "origin_kind", "human_confirmed"], "lost": ["record:identity", "validity", "review:identity", "revision_history"], "added": []},
+    "trend": {"retained": ["relation_set", "direction"], "lost": ["value:exact", "record:identity", "validity", "context", "origin", "confirmation"], "added": ["assumption:independent_time_variables"]},
+    "not_representable_lost": {"value_not_a_single_point": ["interval_bounds"], "unit_not_convertible": ["value"], "contexts_differ": ["relation"], "incompatible_dimension": ["relation"], "incompatible_quantity_kind": ["relation"]}
+  },
+  "steps": "1 + C + sum over queries of (6 + 8 for line or exchange, 6 + 12 for trend) + 1; C is the full P2-i plan fee and P2-i is called once at budget C and must use exactly C; the P2-f child must use exactly its reservation; fees are prepaid, never refunded",
+  "answers": "unfinished rows have null selection, elements, requests, output and flows; the certificate is always not_certified; inferred_information is always empty",
+  "limits": {
+    "slots": 64,
+    "operations": 256,
+    "destinations": 16,
+    "views": 64,
+    "queries": 32,
+    "elements_per_destination": 16,
+    "max_steps": 100000,
+    "json_bytes": 1048576,
+    "json_depth": 64
+  },
+  "limitations": "diagnostic only; not a certification of preservation or clinical correctness; no destination outside the three output kinds; rounding only half-even; requirement versions are fictional"
+}

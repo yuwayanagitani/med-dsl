@@ -1,0 +1,1890 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N08-operations",
+  "condition": "N08",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-library-request-draft-1",
+    "operation": "run_clinical_library",
+    "consumer": {
+      "profile": "p2-clinical-library-draft-1",
+      "profile_spec_sha256": "9f9c6363d9f7b58fe6fc810ef9b45484b1e5a364257ba9c37f865e85c8d73c23",
+      "operations": [
+        "run_clinical_library"
+      ],
+      "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
+      "temporal_measurement_profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+      "quantity_profile": "p2-quantity-literal-draft-1",
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
+    },
+    "library": {
+      "ref": "fiction:library:session@1",
+      "slots": [
+        {
+          "id": "S",
+          "subject_ref": "u"
+        }
+      ],
+      "operations": [
+        {
+          "id": "c0",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c1",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c2",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c3",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c4",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c5",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c6",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c7",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c8",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c9",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c10",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c11",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c12",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c13",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c14",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c15",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c16",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c17",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c18",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c19",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c20",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c21",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c22",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c23",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c24",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c25",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c26",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c27",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c28",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c29",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c30",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c31",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c32",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c33",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c34",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c35",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c36",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c37",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c38",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c39",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c40",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c41",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c42",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c43",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c44",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c45",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c46",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c47",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c48",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c49",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c50",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c51",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c52",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c53",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c54",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c55",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c56",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c57",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c58",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c59",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c60",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c61",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c62",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c63",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c64",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c65",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c66",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c67",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c68",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c69",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c70",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c71",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c72",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c73",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c74",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c75",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c76",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c77",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c78",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c79",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c80",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c81",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c82",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c83",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c84",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c85",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c86",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c87",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c88",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c89",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c90",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c91",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c92",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c93",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c94",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c95",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c96",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c97",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c98",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c99",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c100",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c101",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c102",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c103",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c104",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c105",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c106",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c107",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c108",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c109",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c110",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c111",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c112",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c113",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c114",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c115",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c116",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c117",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c118",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c119",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c120",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c121",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c122",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c123",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c124",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c125",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c126",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c127",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c128",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c129",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c130",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c131",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c132",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c133",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c134",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c135",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c136",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c137",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c138",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c139",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c140",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c141",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c142",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c143",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c144",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c145",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c146",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c147",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c148",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c149",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c150",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c151",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c152",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c153",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c154",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c155",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c156",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c157",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c158",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c159",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c160",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c161",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c162",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c163",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c164",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c165",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c166",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c167",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c168",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c169",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c170",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c171",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c172",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c173",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c174",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c175",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c176",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c177",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c178",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c179",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c180",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c181",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c182",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c183",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c184",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c185",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c186",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c187",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c188",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c189",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c190",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c191",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c192",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c193",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c194",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c195",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c196",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c197",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c198",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c199",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c200",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c201",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c202",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c203",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c204",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c205",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c206",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c207",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c208",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c209",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c210",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c211",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c212",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c213",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c214",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c215",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c216",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c217",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c218",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c219",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c220",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c221",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c222",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c223",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c224",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c225",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c226",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c227",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c228",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c229",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c230",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c231",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c232",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c233",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c234",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c235",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c236",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c237",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c238",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c239",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c240",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c241",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c242",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c243",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c244",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c245",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c246",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c247",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c248",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c249",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c250",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c251",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c252",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c253",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c254",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c255",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        },
+        {
+          "id": "c256",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        }
+      ]
+    },
+    "destinations": [
+      {
+        "id": "dest:record-line",
+        "version": "1",
+        "output": {
+          "kind": "line"
+        },
+        "elements": [
+          {
+            "element": "value",
+            "form": "single_point",
+            "unit_ref": "u_base",
+            "decimal_places": 1
+          }
+        ]
+      }
+    ],
+    "views": [
+      {
+        "id": "v",
+        "as_of": "2026-10-08T00:00:00Z"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "view_ref": "v",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:record-line",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "item_limit"
+        ]
+      }
+    ]
+  }
+}

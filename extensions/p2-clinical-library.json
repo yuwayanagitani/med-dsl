@@ -1,0 +1,836 @@
+{
+  "schema_version": "p2-extension-manifest-draft-2",
+  "id": "p2-clinical-library",
+  "version": "draft-1",
+  "title": "医療者の操作（記録・確認・訂正）から台帳を組み立て、出力先の要求（宣言）を満たせるかを診断する薄い臨床ライブラリ",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R5",
+  "spec": {
+    "path": "src/med_dsl/clinical_library_spec.json",
+    "sha256": "9f9c6363d9f7b58fe6fc810ef9b45484b1e5a364257ba9c37f865e85c8d73c23"
+  },
+  "contract_doc": "docs/research/63-p2-o-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/clinical_library.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
+      "path": "docs/research/64-p2-o-cases.md",
+      "role": "hand_specified_expectations"
+    },
+    {
+      "path": "src/med_dsl/temporal_measurement_spec.json",
+      "role": "temporal_measurement_native_spec"
+    },
+    {
+      "path": "src/med_dsl/quantity_spec.json",
+      "role": "quantity_native_spec"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/clinical_library_spec.json",
+    "src/med_dsl/temporal_measurement.py",
+    "src/med_dsl/temporal_measurement_spec.json",
+    "src/med_dsl/quantity.py",
+    "examples/p2-library/*.json",
+    "examples/p2-temporal-measurement/*.json",
+    "examples/p2-quantity/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    },
+    {
+      "id": "p2-quantity-literal",
+      "version": "draft-2"
+    },
+    {
+      "id": "p2-temporal-measurement",
+      "version": "draft-2"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "run_clinical_library"
+    ],
+    "schema_versions": [
+      "p2-library-request-draft-1",
+      "p2-library-result-draft-1"
+    ],
+    "profiles": [
+      "p2-clinical-library-draft-1"
+    ],
+    "answer_kinds": [
+      "clinical_library_projection"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-clinical-library-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "旧要求とP2-i・P2-f・P2-g・P2-j・P2-mを変えず、操作から組み立てた台帳をP2-iの再実行で選び、P2-fへ委譲する",
+    "fragment": "三つの操作（記録・確認・訂正）と、三つの出力の種類（line・exchange・trend）の要求の宣言。画面・LLM・実マスター・永続化・請求・診断は範囲外。要求の版は架空"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "自己・P2-i・P2-fの版と実体を固定し、旧profileや他拡張の結果を代用しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_static_validation_hashes_pins_limits_and_native_refusals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/n06-profile_spec_sha256.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "能力・選択・要素・集約の順に止め、満たされない理由を区別する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_selection_stops_and_requests_against_the_oracle"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o25.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "推測で補った情報を作らず、入力を変更せず、臨床の主張を追加しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_ai_candidates_never_satisfy_a_requirement_and_nothing_is_inferred"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o13.json",
+          "path": [
+            "inferred_information"
+          ],
+          "equals": [],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "共通予算に従い、未完了の行に値を返さず、資源停止で認定しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_budget_sweep_keeps_finished_rows_and_has_no_partial_values"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/b01-31.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-1",
+      "statement": "要求の評価が診断であり、独立な変数の前提を二時点の出力に示す",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_hand_expectations_api_cli_manifest_and_obligations"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o40.json",
+          "path": [
+            "results",
+            0,
+            "output",
+            "assumptions"
+          ],
+          "equals": [
+            "independent_time_variables"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-2",
+      "statement": "保存・医学的な意味の認定を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_ai_candidates_never_satisfy_a_requirement_and_nothing_is_inferred"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o01.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R5-3",
+      "statement": "臨床の傾向・有意性・基底への変換を追加しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_ai_candidates_never_satisfy_a_requirement_and_nothing_is_inferred"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o01.json",
+          "path": [
+            "clinical_assertions_added"
+          ],
+          "equals": [],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "CL-1",
+      "statement": "自己・P2-i・P2-fのprofileと仕様hashを固定し、外部の台帳・hash・結果、操作のhashを受け付けない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_static_validation_hashes_pins_limits_and_native_refusals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/n03-hash.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_field"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "CL-2",
+      "statement": "操作から台帳を組み立て、確認が記録の内容を拘束し、台帳の妥当性をP2-iの再実行で検査する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_operations_build_a_ledger_that_the_temporal_measurement_extension_accepts"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/n03-review-time.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "review_precedes_record"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "CL-3",
+      "statement": "参照時点以前の操作だけで選び、妥当な未来の操作が完成した結果を変えない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_order_future_operations_and_input_immutability"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o62.json",
+          "path": [
+            "results",
+            0,
+            "selection",
+            "record_ref"
+          ],
+          "equals": "A",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "CL-4",
+      "statement": "訂正・競合・非復活が出力先の評価へそのまま伝わり、後勝ちで解決しない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_selection_stops_and_requests_against_the_oracle"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o30.json",
+          "path": [
+            "results",
+            1,
+            "selection",
+            "record_ref"
+          ],
+          "equals": "B",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "CL-5",
+      "statement": "停止の順序（能力→選択→要素→集約）と状態の優先を固定する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_selection_stops_and_requests_against_the_oracle"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o46.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "no_adopted_measurement",
+            "unresolved_measurement_conflict"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "CL-6",
+      "statement": "全計画C・問い合わせごとのfee・子の予約の使い切り・原子性・最後の確定を照合する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_full_plan_cost_funded_once_and_children_use_their_reservation",
+        "tests/p2/test_library.py::LibraryTests.test_child_partial_and_later_row_resource_failure_are_atomic"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o60.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 97,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "CL-7",
+      "statement": "P2-jの丸め・P2-mの関係と文脈の規則・P2-iの料金を再び述べた部分が、元と一致する（継承の宣言と証人）",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_rounding_and_relations_agree_with_the_restated_extensions",
+        "tests/p2/test_library.py::LibraryTests.test_interface_closure_holds_near_the_limits",
+        "tests/p2/test_library.py::LibraryTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o02-5-4.json",
+          "path": [
+            "results",
+            0,
+            "output",
+            "text"
+          ],
+          "equals": "1.2",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "CL-8",
+      "statement": "AI由来の候補は要求を満たさず、確認後も出自の種類を保つ。推測で補った情報は常に空",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_ai_candidates_never_satisfy_a_requirement_and_nothing_is_inferred"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o13.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "needs_information",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "CL-9",
+      "statement": "出力先の要求を宣言として持ち、出力先のidで処理を分岐せず、未知の種類を拒否する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_a_new_destination_needs_only_a_profile",
+        "tests/p2/test_library.py::LibraryTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o50.json",
+          "path": [
+            "results",
+            0,
+            "output",
+            "unit_ref"
+          ],
+          "equals": "u_ten",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "CL-10",
+      "statement": "追加の依頼が不足ごとに一つで、満たされた行や表せない行に出ず、版の差が不足の数に等しい",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_requirement_versions_and_information_requests",
+        "tests/p2/test_library.py::LibraryTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o11.json",
+          "path": [
+            "results",
+            1,
+            "requests",
+            0,
+            "action"
+          ],
+          "equals": "observe_and_record",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "CL-11",
+      "statement": "表せない（not_representable）と不足（needs_information）を分け、失う区別を返す",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_selection_stops_and_requests_against_the_oracle",
+        "tests/p2/test_library.py::LibraryTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o03.json",
+          "path": [
+            "results",
+            0,
+            "status"
+          ],
+          "equals": "not_representable",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "CL-12",
+      "statement": "出力ごとの保持・喪失・追加と、選択された記録の出所を全ての出力で保つ",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_outputs_keep_provenance_and_flows"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o14.json",
+          "path": [
+            "results",
+            0,
+            "output",
+            "origin",
+            "record"
+          ],
+          "equals": "ai_candidate",
+          "kind": "non_conversion"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "能力の未知はunassessed。選択の段階の停止は依頼つきのneeds_information",
+    "unsupported": "unsupported_profile。未知の操作・出力・要素・形・欄を補完しない",
+    "resource": "resource_limit。未完了の五欄は全てnull、完成料金前は認定なし、子の部分結果は使わない",
+    "invalid_input": "操作の形と組み立てた台帳（P2-iの検査）、要求プロファイル、問い合わせを予算前に検査"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [
+      "p2-temporal-measurement",
+      "p2-quantity-literal"
+    ],
+    "order_dependent": false
+  },
+  "inherits": [
+    {
+      "from": "p2-temporal-display",
+      "fragment": "10進の最近接偶数丸め（係数・文字列）の数式の再述",
+      "obligation": "CL-7",
+      "witnesses": [
+        {
+          "from": {
+            "example": "examples/p2-temporal-display/j02-5.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o02-5-4.json",
+            "path": [
+              "results",
+              0,
+              "output",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal-display/j02-27.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o02-27-20.json",
+            "path": [
+              "results",
+              0,
+              "output",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal-display/j02--5.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o02-m5-4.json",
+            "path": [
+              "results",
+              0,
+              "output",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal-display/j02--27.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o02-m27-20.json",
+            "path": [
+              "results",
+              0,
+              "output",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal-display/j06-5.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o02-5-2.json",
+            "path": [
+              "results",
+              0,
+              "output",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal-display/j06-7.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o02-7-2.json",
+            "path": [
+              "results",
+              0,
+              "output",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal-display/j06--5.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o02-m5-2.json",
+            "path": [
+              "results",
+              0,
+              "output",
+              "text"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal-display/j06--7.json",
+            "path": [
+              "results",
+              0,
+              "artifact",
+              "text"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o02-m7-2.json",
+            "path": [
+              "results",
+              0,
+              "output",
+              "text"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "from": "p2-longitudinal-comparison",
+      "fragment": "二時点の値を独立な変数として比べた関係の集合と、文脈（method・property・specimen）が一致しないときの扱い",
+      "obligation": "CL-7",
+      "witnesses": [
+        {
+          "from": {
+            "example": "examples/p2-longitudinal/l01.json",
+            "path": [
+              "results",
+              0,
+              "relation_set"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o40.json",
+            "path": [
+              "results",
+              0,
+              "output",
+              "relation_set"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-longitudinal/l04.json",
+            "path": [
+              "results",
+              0,
+              "relation_set"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o41.json",
+            "path": [
+              "results",
+              0,
+              "output",
+              "relation_set"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-longitudinal/l02.json",
+            "path": [
+              "results",
+              0,
+              "relation_set"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o44.json",
+            "path": [
+              "results",
+              0,
+              "output",
+              "relation_set"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-longitudinal/l20.json",
+            "path": [
+              "results",
+              0,
+              "context_differences",
+              0,
+              "field"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o42.json",
+            "path": [
+              "results",
+              0,
+              "elements",
+              1,
+              "differences",
+              0,
+              "field"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-longitudinal/l23.json",
+            "path": [
+              "results",
+              0,
+              "context_differences",
+              0,
+              "field"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o49.json",
+            "path": [
+              "results",
+              0,
+              "elements",
+              1,
+              "differences",
+              0,
+              "field"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "from": "p2-temporal-measurement",
+      "fragment": "P2-i の全計画の料金 C の再述",
+      "obligation": "CL-7",
+      "witnesses": [
+        {
+          "from": {
+            "example": "examples/p2-temporal-measurement/c01.json",
+            "path": [
+              "steps_used"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o01.json",
+            "path": [
+              "temporal_measurement",
+              "reserved_steps"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal-measurement/c25.json",
+            "path": [
+              "steps_used"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o40.json",
+            "path": [
+              "temporal_measurement",
+              "reserved_steps"
+            ]
+          }
+        },
+        {
+          "from": {
+            "example": "examples/p2-temporal-measurement/c30.json",
+            "path": [
+              "steps_used"
+            ]
+          },
+          "to": {
+            "example": "examples/p2-library/o41.json",
+            "path": [
+              "temporal_measurement",
+              "reserved_steps"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "evaluation": {
+    "examples": [
+      "examples/p2-library/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_library.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/library_oracle.py"
+  }
+}

@@ -123,6 +123,12 @@
       "class": "R5",
       "path": "p2-longitudinal-comparison.json",
       "sha256": "a5ef634edf181c6625efa374d22d255c537aece016f3b83aa871cee6a11a55b8"
+    },
+    {
+      "id": "p2-clinical-library",
+      "class": "R5",
+      "path": "p2-clinical-library.json",
+      "sha256": "6a4e0a6f9543fae94df99c37240f82c07de33803e6f12fee39da7b822eba9f50"
     }
   ]
 }

@@ -21,7 +21,8 @@ import test_longitudinal
 # 直前の契約（draft-1）の最後のコミット。P2-m を含む
 OLD_COMMIT = '3c16f68f4e43a5f77953af9f435835bbf93a3519'
 
-# 宣言した継承（継承する側, 元）-> (結ぶ義務, 証人の数)。文書60の一覧（8件）に、監査で見つかった P2-f ← P1 の予測を加えた（予測外）
+# 宣言した継承（継承する側, 元）-> (結ぶ義務, 証人の数)。文書60の一覧（8件）に、監査で見つかった P2-f ← P1 の予測を加えた（予測外）。
+# 薄い臨床ライブラリ（P2-o）の3件は、契約の書式を更新した後に宣言した継承（文書63の予測V7は3項目・証人11、実際は証人16）
 DECLARED = {
     ('p2-temporal-measurement', 'p2-temporal-assertion'): ('TM-5', 2),
     ('p2-temporal-measurement', 'p2-measurement-binding'): ('TM-5', 7),
@@ -32,8 +33,12 @@ DECLARED = {
     ('p2-longitudinal-comparison', 'p2-temporal-measurement'): ('LC-6', 2),
     ('p2-measurement-binding', 'p2-temporal-assertion'): ('MB-2', 0),
     ('p2-quantity-literal', 'p1-finite-forecast'): ('QT-2', 4),
+    ('p2-clinical-library', 'p2-temporal-display'): ('CL-7', 8),
+    ('p2-clinical-library', 'p2-longitudinal-comparison'): ('CL-7', 5),
+    ('p2-clinical-library', 'p2-temporal-measurement'): ('CL-7', 3),
 }
-PREDICTED = {key: value for key, value in DECLARED.items() if key != ('p2-quantity-literal', 'p1-finite-forecast')}
+LIBRARY = {key for key in DECLARED if key[0] == 'p2-clinical-library'}
+PREDICTED = {key: value for key, value in DECLARED.items() if key != ('p2-quantity-literal', 'p1-finite-forecast') and key not in LIBRARY}
 
 
 def registry_for(target, evaluate_witnesses=True):
@@ -196,22 +201,25 @@ class ShippedInheritanceTests(unittest.TestCase):
     def test_the_hand_listed_prediction_is_included_and_exactly_one_was_not_predicted(self):
         self.assertEqual(len(PREDICTED), 8)
         self.assertTrue(set(PREDICTED) < set(DECLARED))
-        self.assertEqual(set(DECLARED) - set(PREDICTED), {('p2-quantity-literal', 'p1-finite-forecast')})
+        self.assertEqual(set(DECLARED) - set(PREDICTED) - LIBRARY, {('p2-quantity-literal', 'p1-finite-forecast')})
+        self.assertEqual(len(LIBRARY), 3)                                # P2-o が契約の更新の後に足した宣言。P2-n の予測の外
         with_witnesses = [key for key, (_, n) in PREDICTED.items() if n]
         self.assertEqual((len(with_witnesses), sum(PREDICTED[k][1] for k in with_witnesses)), (6, 26))     # 予測：6項目・26証人
 
     def test_the_enumeration_follows_inheritance_transitively_and_in_one_direction(self):
         one = lambda path: affected(self.registry, [f'src/med_dsl/{path}.py'])['extensions']
-        self.assertEqual(one('measurement'), sorted(['p2-measurement-binding', 'p2-quantity-display', 'p2-temporal-measurement', 'p2-longitudinal-comparison', 'p2-temporal-display']))
+        library = 'p2-clinical-library'                                  # 継承（temporal-display・longitudinal）と依存（temporal-measurement・quantity）の両方で結ばれる
+        self.assertEqual(one('measurement'), sorted(['p2-measurement-binding', 'p2-quantity-display', 'p2-temporal-measurement', 'p2-longitudinal-comparison', 'p2-temporal-display', library]))
         self.assertEqual(one('temporal'), sorted(['p2-temporal-assertion', 'p2-temporal-measurement', 'p2-validity-refinement', 'p2-measurement-binding',
-                                                  'p2-quantity-display', 'p2-temporal-display', 'p2-longitudinal-comparison']))
-        self.assertEqual(one('display'), ['p2-quantity-display', 'p2-temporal-display'])
-        self.assertEqual(one('temporal_measurement'), sorted(['p2-temporal-measurement', 'p2-temporal-display', 'p2-longitudinal-comparison']))
+                                                  'p2-quantity-display', 'p2-temporal-display', 'p2-longitudinal-comparison', library]))
+        self.assertEqual(one('display'), sorted(['p2-quantity-display', 'p2-temporal-display', library]))
+        self.assertEqual(one('temporal_measurement'), sorted(['p2-temporal-measurement', 'p2-temporal-display', 'p2-longitudinal-comparison', library]))
         self.assertEqual(one('quantity'), sorted(['p2-quantity-literal', 'p2-measurement-binding', 'p2-quantity-display', 'p2-temporal-measurement',
-                                                  'p2-temporal-display', 'p2-longitudinal-comparison']))
+                                                  'p2-temporal-display', 'p2-longitudinal-comparison', library]))
         self.assertEqual(one('forecast'), contract.FORECAST_FAMILY)
         # 継承する側の変更は元に及ばない
-        self.assertEqual(one('longitudinal'), ['p2-longitudinal-comparison'])
+        self.assertEqual(one('longitudinal'), sorted(['p2-longitudinal-comparison', library]))
+        self.assertEqual(one('clinical_library'), [library])
         self.assertEqual(one('refinement'), ['p2-validity-refinement'])
 
     def test_the_reason_names_the_inheritance(self):
@@ -223,8 +231,14 @@ class ShippedInheritanceTests(unittest.TestCase):
         self.assertEqual(p2_checks.tree_affected(ROOT, ['src/med_dsl/measurement.py'])['extensions'], affected(self.registry, ['src/med_dsl/measurement.py'])['extensions'])
 
     def test_inheritance_couples_a_pair_and_the_independent_pairs_fall_from_150_to_143(self):
+        """P2-n の時点（20件）は150→143。P2-o の1件は、基底を除く他の19件と19組をつくり、依存か継承で結ばれるのが4件なので、独立は15組増える（手で数える）。"""
         pairs = set(independent_pairs(self.registry))
-        self.assertEqual(len(pairs), 143)
+        library = {pair for pair in pairs if 'p2-clinical-library' in pair}
+        self.assertEqual(len(pairs - library), 143)
+        self.assertEqual(len(library), 19-4)
+        self.assertEqual({other for pair in {tuple(sorted(key)) for key in LIBRARY} for other in pair} - {'p2-clinical-library'},
+                         {'p2-temporal-display', 'p2-longitudinal-comparison', 'p2-temporal-measurement'})
+        self.assertEqual(len(pairs), 143+15)
         coupled = {tuple(sorted(key)) for key in DECLARED}
         previously_independent = {('p2-temporal-assertion', 'p2-temporal-measurement'), ('p2-measurement-binding', 'p2-temporal-measurement'),
                                   ('p2-quantity-display', 'p2-temporal-display'), ('p2-temporal-assertion', 'p2-validity-refinement'),
@@ -350,18 +364,22 @@ class SuspectProbeTests(unittest.TestCase):
 
     def test_exclusive_shared_literals_find_most_declared_pairs_with_one_false_suspect(self):
         report = inheritance_suspects.suspects(minimum=2)
-        self.assertEqual(report['independent_pairs'], 150)
-        found = {tuple(sorted(pair)) for pair in report['suspects']}
-        declared = {tuple(sorted(key)) for key in DECLARED}
+        self.assertEqual(report['independent_pairs'], 150+17)            # P2-o の1件は、依存だけで結ばれる2件を除く17組が独立（継承の宣言を除いた判定）
+        every = {tuple(sorted(pair)) for pair in report['suspects']}
+        found = {pair for pair in every if 'p2-clinical-library' not in pair}
+        declared = {tuple(sorted(key)) for key in DECLARED if key not in LIBRARY}
         pre_independent = {tuple(sorted(pair)) for pair in {k for k in declared} - {('p2-longitudinal-comparison', 'p2-temporal-measurement'), ('p2-temporal-display', 'p2-temporal-measurement')}}
         self.assertEqual(len(pre_independent), 7)
         self.assertEqual((len(found), len(found & pre_independent)), (6, 5))               # 適合率 5/6、再現率 5/7
         self.assertEqual(found - pre_independent, {('p2-longitudinal-comparison', 'p2-temporal-display')})   # 偽の疑い：同じ親（P2-i）の語彙を共有
         self.assertEqual(pre_independent - found, {('p2-temporal-assertion', 'p2-temporal-measurement'), ('p2-measurement-binding', 'p2-temporal-assertion')})
+        # 新しい拡張に対する探索（標本の外）：宣言した2組（temporal-display、longitudinal）のうち、見つかるのは1組。
+        # 丸めを自分の言葉で述べ直した temporal-display との組は、二つだけが持つ識別子が2つに届かず、見つからない
+        self.assertEqual(every - found, {('p2-clinical-library', 'p2-longitudinal-comparison')})
 
     def test_counting_the_shared_vocabulary_makes_almost_everything_a_suspect(self):
         report = inheritance_suspects.suspects(minimum=3, exclusive=False)
-        self.assertEqual((report['independent_pairs'], len(report['suspects'])), (150, 104))
+        self.assertEqual((report['independent_pairs'], len(report['suspects'])), (167, 119))
 
 
 class ContractVersionTests(unittest.TestCase):
@@ -373,7 +391,10 @@ class ContractVersionTests(unittest.TestCase):
             raise unittest.SkipTest('git の履歴（直前の契約のコミット）がない')
         cls.old = {}
         for manifest in load_manifests(ROOT/'extensions'):
-            raw = p2_checks.git('show', f"{OLD_COMMIT}:extensions/{manifest['id']}.json").stdout
+            try:
+                raw = p2_checks.git('show', f"{OLD_COMMIT}:extensions/{manifest['id']}.json").stdout
+            except subprocess.CalledProcessError:                              # 契約の更新の後に足した宣言には、旧い版がない
+                continue
             cls.old[manifest['id']] = json.loads(raw)
 
     def test_the_old_declarations_are_all_refused_by_the_new_registry(self):
@@ -385,8 +406,13 @@ class ContractVersionTests(unittest.TestCase):
                 self.assertIn('unsupported_manifest_schema', caught.exception.codes)
 
     def test_the_new_declarations_differ_from_the_old_only_in_the_declared_fields(self):
-        self.assertEqual(len(self.old), 20)
+        self.assertEqual(len(self.old), 20)   # 直前の契約のコミットにある宣言の数
+        shipped = {manifest['id'] for manifest in load_manifests(ROOT/'extensions')}
+        self.assertEqual(shipped - set(self.old), {'p2-clinical-library'})       # 契約の更新の後に足した宣言（旧い版を持たない）
         for manifest in load_manifests(ROOT/'extensions'):
+            if manifest['id'] not in self.old:
+                self.assertEqual(manifest['schema_version'], 'p2-extension-manifest-draft-2')
+                continue
             with self.subTest(manifest['id']):
                 old = {k: v for k, v in self.old[manifest['id']].items() if k != 'schema_version'}
                 new = {k: v for k, v in manifest.items() if k not in ('schema_version', 'inherits')}
@@ -399,7 +425,7 @@ class ContractVersionTests(unittest.TestCase):
             result = p2_checks.tree_affected(tree, ['src/med_dsl/measurement.py'])
             self.assertEqual(result['extensions'], ['p2-measurement-binding', 'p2-quantity-display'])      # 旧い契約：継承の辺を持たない
             registry = standard_registry(ROOT, evaluate=evaluate)
-            self.assertEqual(len(affected(registry, ['src/med_dsl/measurement.py'])['extensions']), 5)
+            self.assertEqual(len(affected(registry, ['src/med_dsl/measurement.py'])['extensions']), 6)
             with self.assertRaises(Refused):
                 standard_registry(tree)                                                                  # 作業ツリーの registry は旧い宣言を拒否する
 
