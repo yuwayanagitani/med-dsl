@@ -10,6 +10,7 @@ from .events import EVENT_PROFILE, run_events
 from .forecast import FORECAST_PROFILE, run_forecast
 from .handover import HANDOVER_PROFILE, run_handover
 from .identity import attach_certifier
+from .longitudinal import LONGITUDINAL_PROFILE, run_longitudinal
 from .measurement import MEASUREMENT_PROFILE, run_measurements
 from .model import PROFILE, Problem
 from .quantity import QUANTITY_PROFILE, run_quantities
@@ -42,6 +43,7 @@ def run_p0(request):
 
 P0 = Surface("p0-request-draft-1", "p0-result-draft-1", PROFILE, run_p0)
 SURFACES = {s.request_schema: s for s in (
+    Surface("p2-longitudinal-request-draft-1", "p2-longitudinal-result-draft-1", LONGITUDINAL_PROFILE, run_longitudinal),
     Surface("p2-refinement-request-draft-1", "p2-refinement-result-draft-1", REFINEMENT_PROFILE, run_refinement),
     Surface("p2-temporal-display-request-draft-1", "p2-temporal-display-result-draft-1", TEMPORAL_DISPLAY_PROFILE, run_temporal_displays),
     Surface("p1-handover-request-draft-1", "p1-handover-result-draft-1", HANDOVER_PROFILE, run_handover),

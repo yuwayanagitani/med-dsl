@@ -130,6 +130,17 @@ EXPECTED["suites"]["p2-quantity"] = {"examples": 80, "checks": 622}
 EXPECTED["budget"] = {"requests": 1009, "budget_evaluations": 17177, "violations": 0, "allowed_budget_dependent_refusals": 1}
 
 
+# P2-lの分母を保持し、縦断比較（P2-m）を加えた現在値を固定する。19義務と103例を足す。既存の系列と宣言は変更しない。
+P2_L_EXPECTED = copy.deepcopy(EXPECTED)
+EXPECTED["extensions"] = {
+    "registered": 20, "refused": 0, "obligations": 259, "guards": 441, "guard_gaps": 3,
+    "evidence": {"checked_native_template": 172, "finite_check": 79, "hand_derivation": 8, "self_declared": 0, "individual_io": 0},
+    "independent_pairs": 150, "pairs": 171,
+}
+EXPECTED["suites"]["p2-longitudinal"] = {"examples": 103, "checks": 2020}
+EXPECTED["budget"] = {"requests": 1111, "budget_evaluations": 20909, "violations": 0, "allowed_budget_dependent_refusals": 1}
+
+
 def _p1d():
     spec = importlib.util.spec_from_file_location("evaluate_p1_d", ROOT / "scripts/research/evaluate-p1-d.py")
     module = importlib.util.module_from_spec(spec)

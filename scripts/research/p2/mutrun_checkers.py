@@ -35,6 +35,7 @@ M = [
     ("B14", CHECKS, '    if full["status"] != "ok":', '    if False:', [BUDGET], ""),
     ("B15", CHECKS, ', "leaf_candidates", "information_requests",\n', ', "leaf_candidates",\n', [BUDGET], ""),
     ("B16", CHECKS, 'BUDGET_DEPENDENT_REFUSALS = {"p1-a/unnormalized.json": "forecast_spec.json: 重みの加算と正規化の比較は課金される"}', 'BUDGET_DEPENDENT_REFUSALS = {}', [BUDGET], ""),
+    ("B17", CHECKS, '"projection_evidence", "source_evidence",\n                "relation_set", "certain_relation", "context_differences", "endpoints", "comparison_evidence"))', '"projection_evidence", "source_evidence"))', ["tests.p2.test_longitudinal"], "縦断比較（P2-m）の未完了行の値の検査（空配列・falseも漏れとして扱う）"),
     # ---- 版の比較：分類と正規化 ----
     ("C01", CHECKS, '    if a == b:\n        return "identical"', '    if True:\n        return "identical"', [VERSIONS], ""),
     ("C02", CHECKS, '[0] in refusal_codes and embeds_pin(request, mapping):', '[0] in refusal_codes:', [VERSIONS], ""),

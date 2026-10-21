@@ -6,15 +6,17 @@
 """
 
 from copy import deepcopy
+import hashlib
 import json
 from pathlib import Path
 import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts/research")]
+sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts/research"), str(ROOT / "scripts/research/p2")]
 
 import p2_checks as checks
+import repin_specs
 
 RECORD_PATH = ROOT / "examples/p2-versions/p2-quantity-draft-1-to-draft-2.json"
 RECORD = json.loads(RECORD_PATH.read_text(encoding="utf-8")) if RECORD_PATH.is_file() else None
@@ -193,6 +195,34 @@ class QuantityVersionTests(unittest.TestCase):
 
     def test_the_cost_of_the_revision_is_recorded(self):
         self.assertEqual(len(self.report["changed_files"]), RECORD["measured"]["changed_files"])
+
+
+class RepinChainTests(unittest.TestCase):
+    """P2-m の発見：再固定の連鎖は手で保つ一覧で、依存する拡張を足すと、一覧への追加を忘れても宣言の登録では気付けない。
+    この検査は、仕様が別の仕様の hash を含むなら、その両方が連鎖に、依存の順で載ることを、仕様の内容から求める。"""
+
+    def test_the_repin_chain_lists_every_spec_that_embeds_another_specs_hash_in_dependency_order(self):
+        # P1 の handover→events は別の連鎖（P0／P1 の固定手順）なので、P2 の連鎖に載る仕様の hash を含む仕様だけを対象にする。
+        # P2 の連鎖の根は数量の仕様で、それを（直接または間接に）含む仕様は全て連鎖に載る。
+        specs = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((ROOT / "src/med_dsl").glob("*_spec.json"))}
+        chain = [spec for spec, _, _ in repin_specs.CHAIN]
+        embedded = {name: {other for other, digest in specs.items() if other != name and digest in (ROOT / name).read_text(encoding="utf-8")}
+                    for name in specs}
+        self.assertEqual(chain[0], "src/med_dsl/quantity_spec.json")
+        members = {chain[0]}
+        grown = True
+        while grown:                                                    # 連鎖の仕様を含む仕様を、推移的に集める
+            found = {name for name, dependencies in embedded.items() if dependencies & members} - members
+            members |= found
+            grown = bool(found)
+        self.assertEqual(members, set(chain))
+        for name in chain[1:]:
+            self.assertTrue(embedded[name] & set(chain), name)
+            for other in embedded[name] & set(chain):
+                self.assertLess(chain.index(other), chain.index(name), (name, other))
+
+    def test_no_pin_is_stale_in_the_working_tree(self):
+        self.assertEqual(repin_specs.main(["--check"]), 0)
 
 
 class RecordSyntaxTests(unittest.TestCase):

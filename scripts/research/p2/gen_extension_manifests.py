@@ -682,6 +682,9 @@ manifests.append(temporal_display_manifest(ROOT))
 from gen_refinement_manifest import refinement_manifest
 manifests.append(refinement_manifest(ROOT))
 
+from gen_longitudinal_manifest import longitudinal_manifest
+manifests.append(longitudinal_manifest(ROOT))
+
 OUT.mkdir(exist_ok=True)
 for m in manifests:
     (OUT / (m["id"] + ".json")).write_text(json.dumps(m, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

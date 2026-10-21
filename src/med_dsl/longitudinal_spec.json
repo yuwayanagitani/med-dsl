@@ -1,0 +1,38 @@
+{
+  "profile": "p2-longitudinal-comparison-draft-1",
+  "request_schema": "p2-longitudinal-request-draft-1",
+  "result_schema": "p2-longitudinal-result-draft-1",
+  "operation": "compare_longitudinal_measurements",
+  "answer_kind": "longitudinal_measurement_comparison",
+  "policy_ref": "fiction:independent-time-variables@1",
+  "class": "R5",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
+  "temporal_measurement_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+  "quantity_profile": "p2-quantity-literal-draft-1",
+  "quantity_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
+  "scope": "two time points of the same slot under one view; endpoint rows are the rows of the fixed P2-i plan re-executed once; relation of the two converted domains is delegated to the P2-f compare; no trend, difference size, rate of change, reference range, clinical significance, cross-slot or cross-view comparison, no instant, aggregate or unknown-validity input",
+  "endpoints": "the endpoint row of (view, query) equals the row P2-i returns for the same plan; selection is never changed for the comparison",
+  "variables": "values at the two time points are independent variables, each constrained only by its converted domain; the same record selected twice is not one variable; no identity, correlation or continuity is assumed; P2-f shared-reference self comparison is never used",
+  "relation": "relation_set is the subset of less/equal/greater that some pair of values from the two domains satisfies, from relative to to; certain_relation is the single member or null; the words carry no increase, worsening or improvement meaning",
+  "comparability": "selected endpoint records must have equal property_ref, specimen and method (kind, ref, version); differences stop the row with not_comparable and different_property, different_specimen, different_method; value, origin and certainty do not matter",
+  "derived_literals": "each converted domain becomes a new P2-f literal with a distinct id, the original quantity kind and origin, the query target unit and an exact point or interval; no original literal is substituted, no float or rounding; a derived rational beyond the P2-f 63-bit input limit stops the run with the P2-f resource_limit code",
+  "assumptions": [
+    "independent_time_variables",
+    "explicit_period_quantity_domain",
+    "scoped_revision"
+  ],
+  "stops": "comparison unknown capability first; then any endpoint not computed (union of endpoint reason codes, endpoint rows kept); then context mismatch; then relation; structural validation is independent of budget",
+  "answers": "the five value fields relation_set, certain_relation, context_differences, endpoints, comparison_evidence are null on unfinished rows; certificate is always not_certified with known_policy_change",
+  "steps": "1 + C + 18 per comparison + 1; C is the full P2-i plan fee; P2-i is called once at budget C and must use exactly C; each comparison prepays 6 own + 12 reserved for the P2-f compare child, which must use exactly 12 on a computed row; no refund, cache discount or child partial salvage",
+  "limits": {
+    "comparisons": 64,
+    "capabilities_per_comparison": 64,
+    "max_steps": 100000,
+    "json_bytes": 1048576,
+    "json_depth": 64
+  },
+  "limitations": "pairwise only; no transitivity of relation sets; no uncertainty; no persistence; no external standard, clinical threshold or code system"
+}

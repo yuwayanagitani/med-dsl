@@ -1,0 +1,73 @@
+"""P2-mのR5宣言。二時点の期間つき数量を独立な変数として比べる断片の19義務（共通4＋R5の3＋LC-1〜12）。"""
+import hashlib
+
+
+def longitudinal_manifest(root):
+    tests = 'tests/p2/test_longitudinal.py::LongitudinalTests.'
+    mutants = 'test_selected_mutants_are_detected_by_reference'
+    first = lambda name: name if isinstance(name, list) else [name]
+    rows = [
+        ('K-ID', '自己・P2-i・P2-fの版と実体を固定し、旧profileや他拡張の結果を代用しない', 'test_static_validation_hashes_pins_limits_and_native_refusals',
+         'N07-profile_spec_sha256', ['status'], 'unsupported_profile', False, 'refusal'),
+        ('K-STOP', '比較の未知能力、端点の停止、文脈の不一致、不正、資源を区別して止める', 'test_seeded_plans_with_contexts_units_and_stops_against_the_oracle',
+         'L35', ['results', 0, 'reason_codes'], ['unknown_capability'], False, 'boundary'),
+        ('K-INV', 'AI由来を保ち、入力を変更せず、臨床の主張を追加しない', 'test_ai_origin_old_profiles_and_no_clinical_labels',
+         'L45', ['clinical_assertions_added'], [], False, 'non_conversion'),
+        ('K-RES', '共通予算に従い、未完了の行に値を返さず、資源停止で認定しない', 'test_budget_sweep_keeps_finished_rows_and_has_no_partial_values',
+         'B01-46', ['certificate', 'status'], 'not_certified', False, 'boundary'),
+        ('R5-1', '独立な変数・明示した期間の数量・部分訂正の前提を示す', 'test_hand_expectations_api_cli_manifest_and_obligations',
+         'L01', ['results', 0, 'comparison_evidence', 'assumptions'], ['independent_time_variables', 'explicit_period_quantity_domain', 'scoped_revision'], False, 'boundary'),
+        ('R5-2', '保存・医学的な意味の認定を出さない', 'test_ai_origin_old_profiles_and_no_clinical_labels',
+         'L01', ['certificate', 'status'], 'not_certified', False, 'non_conversion'),
+        ('R5-3', '臨床の傾向・有意性・基底への変換を追加しない', 'test_ai_origin_old_profiles_and_no_clinical_labels',
+         'L01', ['clinical_significance'], 'not_evaluated', False, 'non_conversion'),
+        ('LC-1', '自己・P2-i・P2-fのprofileと仕様hashを消費側が固定し、P2-i／P2-f以外のprofileの計画を受理しない', 'test_static_validation_hashes_pins_limits_and_native_refusals',
+         'N07-temporal_measurement_profile_spec_sha256', ['reason_codes'], ['temporal_measurement_profile_mismatch'], False, 'refusal'),
+        ('LC-2', 'P2-iの計画を再実行し、利用者の送った結果・端点の行・関係を根拠にしない', 'test_upstream_static_negatives_are_never_repaired',
+         'N09-child_result', ['status'], 'invalid_input', False, 'refusal'),
+        ('LC-3', '二端点は同じ参照時点の見え方で選び、妥当な未来の追加は完成した比較を変えない', 'test_order_snapshot_future_additions_and_input_immutability',
+         'L41', ['results', 1, 'relation_set'], ['less'], True, 'boundary'),
+        ('LC-4', '訂正・競合・非復活が端点へそのまま伝わり、片方の競合を他方で埋めない', 'test_seeded_plans_with_contexts_units_and_stops_against_the_oracle',
+         'L32', ['results', 0, 'reason_codes'], ['no_adopted_measurement', 'unresolved_measurement_conflict'], True, 'boundary'),
+        ('LC-5', '端点の未知期間・未知能力の理由を和集合で保ち、停止の順序を固定する', 'test_seeded_plans_with_contexts_units_and_stops_against_the_oracle',
+         'L33', ['results', 0, 'reason_codes'], ['validity_unknown'], True, 'boundary'),
+        ('LC-6', '全計画C・比較ごとの18・子の実費12・一度の呼出・原子性・最後の確定を照合する', 'test_full_plan_cost_funded_once_and_compare_children_use_twelve',
+         'L44', ['steps_used'], 127, True, 'boundary'),
+        ('LC-7', '端点の行がP2-iの直接実行と一致する（継承の差分）。P2-i・P2-fを変更しない', 'test_endpoint_rows_equal_the_direct_temporal_measurement_rows',
+         'L01', ['results', 0, 'endpoints', 'from', 'binding_evidence', 'selected', 0, 'record_ref'], 'A', True, 'boundary'),
+        ('LC-8', '関係は算術のみで、AI由来の出自を保ち、臨床の語を結果に加えない', 'test_ai_origin_old_profiles_and_no_clinical_labels',
+         'L45', ['results', 0, 'endpoints', 'from', 'binding_evidence', 'selected', 0, 'record_origin', 'kind'], 'ai_candidate', True, 'non_conversion'),
+        ('LC-9', '二時点の値を独立な変数として扱い、同じ記録でも共有参照にしない', ['test_independent_variables_are_not_one_shared_variable', mutants],
+         'L02', ['results', 0, 'relation_set'], ['less', 'equal', 'greater'], True, 'boundary'),
+        ('LC-10', '選ばれた記録の文脈の一致を要求し、slotや最新の記録で代用しない', ['test_context_agrees_with_the_measurement_extension_on_the_common_fragment', mutants],
+         'L20', ['results', 0, 'reason_codes'], ['different_method'], True, 'boundary'),
+        ('LC-11', '同じslot・前から後の順を静的に要求し、同じ時点・逆順・別slotを受理しない', ['test_static_validation_hashes_pins_limits_and_native_refusals', mutants],
+         'N03-reversed', ['reason_codes'], ['invalid_comparison_order'], True, 'refusal'),
+        ('LC-12', '導出リテラルをP2-fの入力の上限で検査し、超えたら元のリテラルへ切り替えず止める', ['test_the_input_limit_of_the_compare_stops_instead_of_switching_routes', mutants],
+         'L50', ['reason_codes'], ['rational_integer_limit'], True, 'boundary')]
+    obligations = [{'id': ident, 'statement': text, 'evidence': 'finite_check' if finite else 'checked_native_template',
+                    'checks': [tests+name for name in first(test)],
+                    'guards': [{'example': 'examples/p2-longitudinal/'+example.lower()+'.json', 'path': path, 'equals': value, 'kind': kind}]}
+                   for ident, text, test, example, path, value, finite, kind in rows]
+    return {'schema_version': 'p2-extension-manifest-draft-1', 'id': 'p2-longitudinal-comparison', 'version': 'draft-1',
+            'title': '同じslotの二時点の期間つき数量を、独立な変数として比べる縦断比較',
+            'status': {'review_state': 'author_draft', 'independent_review': False}, 'class': 'R5',
+            'spec': {'path': 'src/med_dsl/longitudinal_spec.json', 'sha256': hashlib.sha256((root/'src/med_dsl/longitudinal_spec.json').read_bytes()).hexdigest()},
+            'contract_doc': 'docs/research/56-p2-m-design.md', 'implementation': {'modules': ['src/med_dsl/longitudinal.py']},
+            'pins': [{'path': 'src/med_dsl/host.py', 'role': 'dispatcher'}, {'path': 'docs/research/57-p2-m-cases.md', 'role': 'hand_specified_expectations'},
+                     {'path': 'src/med_dsl/temporal_measurement_spec.json', 'role': 'temporal_measurement_native_spec'}, {'path': 'src/med_dsl/quantity_spec.json', 'role': 'quantity_native_spec'}],
+            'embedded_in': ['src/med_dsl/longitudinal_spec.json', 'src/med_dsl/temporal_measurement.py', 'src/med_dsl/temporal_measurement_spec.json', 'src/med_dsl/quantity.py',
+                            'examples/p2-longitudinal/*.json', 'examples/p2-temporal-measurement/*.json', 'examples/p2-quantity/*.json'],
+            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-quantity-literal', 'version': 'draft-2'}, {'id': 'p2-temporal-measurement', 'version': 'draft-2'}],
+            'owns': {'operations': ['compare_longitudinal_measurements'], 'schema_versions': ['p2-longitudinal-request-draft-1', 'p2-longitudinal-result-draft-1'],
+                     'profiles': ['p2-longitudinal-comparison-draft-1'], 'answer_kinds': ['longitudinal_measurement_comparison'], 'predicates': [],
+                     'capabilities': ['p2-longitudinal-comparison-draft-1']},
+            'scope': {'base_requests': '旧要求とP2-i・P2-f・P2-j等を変えず、P2-iの原計画を再実行して二端点を得る',
+                      'fragment': '同じslot・同じviewの二時点。換算領域どうしの関係の集合だけ。傾向・差の大きさ・基準範囲・別slot・別viewは範囲外。推移的な導出はしない'},
+            'obligations': obligations,
+            'stops': {'unknown_capability': '比較自身の必須能力を先に検査し、端点側の未知能力は端点の行の理由として保持',
+                      'unsupported': 'unsupported_profile。別方針・別slot・旧schema等を補完しない',
+                      'resource': 'resource_limit。未完了の五欄は全てnull、完成料金前は認定なし、子の部分結果は使わない。導出リテラルが上限を超えたら元のリテラルへ切り替えない',
+                      'invalid_input': '全計画の型・参照・hashと比較の指定（時刻の順序を含む）を予算前に検査'},
+            'composition': {'shares_names_with': [], 'reads_extensions': ['p2-temporal-measurement', 'p2-quantity-literal'], 'order_dependent': False},
+            'evaluation': {'examples': ['examples/p2-longitudinal/*.json'], 'tests': ['tests/p2/test_longitudinal.py'], 'budget_sweep': True, 'oracle': 'tests/p2/longitudinal_oracle.py'}}

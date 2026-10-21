@@ -19,6 +19,9 @@ P2-a〜P2-c の作業で、宣言・例・検査の強さを確かめるため�
 | `gen_measurement_fixtures.py`・`gen_measurement_manifest.py` | P2-gの137例・R5宣言。期待は文書38から手指定。10変異と共有予算の観測は `tests/p2/test_measurement.py` 内で実行 |
 | `gen_display_fixtures.py`・`gen_display_manifest.py` | P2-hの145例・R4宣言。期待は文書41から手指定。表示固有の10変異と子予算の観測は `tests/p2/test_display.py` 内で実行 |
 | `gen_temporal_measurement_fixtures.py`・`gen_temporal_measurement_manifest.py` | P2-iの151例・R5宣言。期待は文書44から手指定。区間差引きと12変異・子予算の観測は `tests/p2/test_temporal_measurement.py` 内で実行 |
+| `gen_temporal_display_fixtures.py`・`gen_temporal_display_manifest.py` | P2-jの170例・R4宣言。期待は文書47から手指定 |
+| `gen_refinement_fixtures.py`・`gen_refinement_manifest.py` | P2-kの66例・R5宣言。期待は文書51から手指定 |
+| `gen_longitudinal_fixtures.py`・`gen_longitudinal_manifest.py` | P2-mの103例・R5宣言。期待は文書57から手指定。別計算の二つの経路・P2-gとの文脈の差分・27変異と子予算の観測は `tests/p2/test_longitudinal.py` 内で実行 |
 
 正本は、宣言・例については `extensions/`・`examples/p2*/` の JSON です。生成器はそれを再現できることを `tests/p2/test_p2_tools.py` が確かめます（コピーした木で生成し、バイト単位で比較）。
 

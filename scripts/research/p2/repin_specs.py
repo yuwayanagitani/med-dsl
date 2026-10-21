@@ -18,6 +18,7 @@ CHAIN = [
     ("src/med_dsl/display_spec.json", "src/med_dsl/display.py", "SPEC_SHA256"),
     ("src/med_dsl/temporal_measurement_spec.json", "src/med_dsl/temporal_measurement.py", "SPEC_SHA256"),
     ("src/med_dsl/temporal_display_spec.json", "src/med_dsl/temporal_display.py", "SPEC_SHA256"),
+    ("src/med_dsl/longitudinal_spec.json", "src/med_dsl/longitudinal.py", "SPEC_SHA256"),
 ]
 
 

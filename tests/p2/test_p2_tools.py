@@ -56,8 +56,8 @@ class MutantTableTests(unittest.TestCase):
 
     def test_the_tables_have_the_documented_sizes(self):
         sizes = {name: len(rows) for name, rows in self.tables().items()}
-        # guards の 29 ＝ 変異 28 ＋ 対照 C0、checkers の 71 ＝ 変異 70 ＋ 対照 Z0
-        self.assertEqual(sizes, {"mutants_extensions": 53, "mutrun_split": 35, "mutrun_splits": 39, "mutrun_guards": 29, "mutrun_checkers": 71})
+        # guards の 29 ＝ 変異 28 ＋ 対照 C0、checkers の 72 ＝ 変異 71 ＋ 対照 Z0
+        self.assertEqual(sizes, {"mutants_extensions": 53, "mutrun_split": 35, "mutrun_splits": 39, "mutrun_guards": 29, "mutrun_checkers": 72})
 
     def test_every_pattern_occurs_exactly_once_in_the_current_source(self):
         for name, rows in self.tables().items():
@@ -99,10 +99,10 @@ class GeneratorTests(unittest.TestCase):
                 shutil.copytree(ROOT / part, work / part, ignore=shutil.ignore_patterns("__pycache__"))
             shutil.copytree(ROOT / "docs/research", work / "docs/research")
             env = {"P2_REPO": str(work), "PATH": "/usr/bin:/bin", "PYTHONDONTWRITEBYTECODE": "1"}
-            for generator in ("gen_extension_manifests", "gen_guard_fixtures", "gen_split_fixtures", "gen_splits_fixtures", "gen_temporal_fixtures", "gen_quantity_fixtures", "gen_measurement_fixtures", "gen_display_fixtures", "gen_temporal_measurement_fixtures", "gen_temporal_display_fixtures", "gen_refinement_fixtures"):
+            for generator in ("gen_extension_manifests", "gen_guard_fixtures", "gen_split_fixtures", "gen_splits_fixtures", "gen_temporal_fixtures", "gen_quantity_fixtures", "gen_measurement_fixtures", "gen_display_fixtures", "gen_temporal_measurement_fixtures", "gen_temporal_display_fixtures", "gen_refinement_fixtures", "gen_longitudinal_fixtures"):
                 done = subprocess.run([sys.executable, "-I", "-B", str(TOOLS / f"{generator}.py")], capture_output=True, text=True, env=env)
                 self.assertEqual(done.returncode, 0, (generator, done.stderr[-300:]))
-            for part in ("examples/p2", "examples/p2-split", "examples/p2-splits", "examples/p2-temporal", "examples/p2-quantity", "examples/p2-measurement", "examples/p2-display", "examples/p2-temporal-measurement", "examples/p2-temporal-display", "examples/p2-refinement", "extensions"):
+            for part in ("examples/p2", "examples/p2-split", "examples/p2-splits", "examples/p2-temporal", "examples/p2-quantity", "examples/p2-measurement", "examples/p2-display", "examples/p2-temporal-measurement", "examples/p2-temporal-display", "examples/p2-refinement", "examples/p2-longitudinal", "extensions"):
                 committed = {p.name: p.read_bytes() for p in (ROOT / part).iterdir() if p.is_file()}
                 generated = {p.name: p.read_bytes() for p in (work / part).iterdir() if p.is_file()}
                 self.assertEqual(sorted(generated), sorted(committed), part)

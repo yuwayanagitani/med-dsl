@@ -13,10 +13,10 @@ sys.path.insert(0, str(ROOT / "src"))
 from med_dsl.model import Problem
 from med_dsl.validation import decode_json
 
-SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity", "p2-measurement", "p2-display", "p2-temporal-measurement", "p2-temporal-display", "p2-refinement")
+SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity", "p2-measurement", "p2-display", "p2-temporal-measurement", "p2-temporal-display", "p2-refinement", "p2-longitudinal")
 # 不活性にできる拡張。基底（p0-positive）と p0-definitions は、実装のモジュールが核（validation.py）を含むので対象外
 DISABLABLE = ["p1-finite-forecast", "p1-events", "p1-handover-host", "p1-event-chain", "p1-projection", "p1-reference",
-              "p1-absence", "p1-replay", "p2-concept-split", "p2-split-combination", "p2-temporal-assertion", "p2-quantity-literal", "p2-measurement-binding", "p2-quantity-display", "p2-temporal-measurement", "p2-temporal-display", "p2-validity-refinement"]
+              "p1-absence", "p1-replay", "p2-concept-split", "p2-split-combination", "p2-temporal-assertion", "p2-quantity-literal", "p2-measurement-binding", "p2-quantity-display", "p2-temporal-measurement", "p2-temporal-display", "p2-validity-refinement", "p2-longitudinal-comparison"]
 
 
 def load_requests(suites=SUITES):

@@ -117,6 +117,12 @@
       "class": "R5",
       "path": "p2-validity-refinement.json",
       "sha256": "4cc1c4fd5bdd0ec1d6a6a68cf8411cbe69ddf223048da65c03ed63d01d34734e"
+    },
+    {
+      "id": "p2-longitudinal-comparison",
+      "class": "R5",
+      "path": "p2-longitudinal-comparison.json",
+      "sha256": "451b91ecada479ad5bd1f7139092da4fe156da04daadee910c07cfa0d636da11"
     }
   ]
 }

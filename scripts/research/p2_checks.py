@@ -23,7 +23,7 @@ from med_dsl.extensions import affected, standard_registry
 from med_dsl.validation import canonical_bytes, decode_json
 
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
-SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity", "p2-measurement", "p2-display", "p2-temporal-measurement", "p2-temporal-display", "p2-refinement")
+SUITES = ("p0", "p1-a", "p1-b", "p1-c", "review", "p2-split", "p2-splits", "p2-temporal", "p2-quantity", "p2-measurement", "p2-display", "p2-temporal-measurement", "p2-temporal-display", "p2-refinement", "p2-longitudinal")
 
 
 # ---- 例の読み込みと期待の照合 ----
@@ -76,13 +76,15 @@ def suite_report(directory, evaluate):
 BUDGET_DEPENDENT_REFUSALS = {"p1-a/unnormalized.json": "forecast_spec.json: 重みの加算と正規化の比較は課金される"}
 VALUE_FIELDS = ("bindings", "evidence", "answer", "split", "splits", "base", "leaf_candidates", "information_requests",
                 "literal_state", "positive_assertion_refs", "negative_assertion_refs", "masked_assertion_refs", "assertion_evidence", "revision_evidence",
-                "converted_domain", "relation_set", "certain_relation", "calculation_evidence", "binding_evidence", "diagnostics", "artifact", "artifact_sha256", "rounding_cell", "question_results", "projection_evidence", "source_evidence")
+                "converted_domain", "relation_set", "certain_relation", "calculation_evidence", "binding_evidence", "diagnostics", "artifact", "artifact_sha256", "rounding_cell", "question_results", "projection_evidence", "source_evidence",
+                "context_differences", "endpoints", "comparison_evidence")
 
 
 def display_values_on_stopped(row):
     # 表示の未完了値は空配列・空object・falseでもnullの代わりにしない。
     return any(key in row and row[key] is not None for key in
-               ("artifact", "artifact_sha256", "rounding_cell", "question_results", "projection_evidence", "source_evidence"))
+               ("artifact", "artifact_sha256", "rounding_cell", "question_results", "projection_evidence", "source_evidence",
+                "relation_set", "certain_relation", "context_differences", "endpoints", "comparison_evidence"))
 
 
 def unfinished_conversion_values(row):
