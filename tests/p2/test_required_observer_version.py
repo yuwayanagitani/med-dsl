@@ -135,15 +135,23 @@ class RequiredObserverVersionTests(unittest.TestCase):
         self.assertEqual(self.report["inputs"]["removed"], [])
 
     def test_the_new_inputs_that_state_an_unknown_observer_are_refused_by_the_old_version(self):
-        """V8（S9）：新版の入力を旧い pin に替えて旧版（draft-3）へ渡すと、明示の unknown を含む入力は旧版が受理しない（未知の値を黙って受理しない）。
-        人・機器の観察者だけの入力は、旧版が受理する（互換の部分集合）。"""
+        """V8（S9）：新版の入力を旧い pin に替えて旧版（draft-3）へ渡すと、明示の unknown を含む入力は一つも受理されない（未知の値を黙って受理しない）。
+        予測（S9）は拒否の理由を invalid_observer としたが、旧版は ref の有無を先に検査するため、理由は主に missing_field（文書78に記録）。
+        受理されるのは、unknown を含まない入力だけ：人・機器の観察者だけの入力と、観察者を欠くため新版が拒否する N03-observer-missing。"""
         forward = self.report["forward_old_pin"]
+        measured = RECORD["measured"]["forward_to_old_version"]
+        unknown = maker.unknown_observer_inputs(RECORD["to"]["commit"], forward)
         accepted = sorted(n for n, r in forward.items() if r["status"] == "ok")
-        self.assertTrue(accepted)
-        self.assertEqual(len(accepted), RECORD["measured"]["forward_to_old_version"]["accepted"])
-        refused = [n for n, r in forward.items() if (r["reason_codes"] or [None])[0] == "invalid_observer"]
-        self.assertEqual(len(refused), RECORD["measured"]["forward_to_old_version"]["invalid_observer"])
-        self.assertGreater(len(refused), len(accepted))
+        first = lambda result: (result["reason_codes"] or [None])[0]
+        self.assertEqual(len(accepted), measured["accepted"])
+        self.assertEqual(len(unknown), measured["unknown_observer_inputs"])
+        self.assertEqual([n for n in unknown if forward[n]["status"] == "ok"], [])
+        self.assertEqual(measured["unknown_observer_accepted"], 0)
+        self.assertEqual(set(accepted) & set(unknown), set())
+        self.assertEqual({key: sum(1 for n in unknown if first(forward[n]) == key) for key in ("missing_field", "invalid_observer")},
+                         {key: measured["unknown_observer_first_reason"][key] for key in ("missing_field", "invalid_observer")})
+        self.assertGreater(len(unknown), len(accepted))
+        self.assertIn("p2-library/n03-observer-missing.json", accepted)                             # 新版が拒否し、旧版が受理する唯一の欠落
         self.assertNotIn("p2-temporal-measurement/o23.json", accepted)                              # 既定の unknown の入力
         self.assertNotIn("p2-temporal-measurement/o21.json", accepted)                              # 明示の unknown の入力
 

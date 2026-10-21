@@ -52,6 +52,23 @@ def skeleton(old, new):
     }
 
 
+def states_unknown(value):
+    if isinstance(value, dict):
+        observer = value.get("observer")
+        return (isinstance(observer, dict) and observer.get("kind") == "unknown") or any(states_unknown(item) for item in value.values())
+    return isinstance(value, list) and any(states_unknown(item) for item in value)
+
+
+def unknown_observer_inputs(commit, names):
+    """新版のコミットの入力のうち、観察者に明示の unknown を含むものの名前。"""
+    found = []
+    for name in sorted(names):
+        document = json.loads(p2_checks.git("show", commit + ":examples/" + name).stdout)
+        if states_unknown(document.get("request", document)):
+            found.append(name)
+    return found
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("to", help="新版の実装を含むコミット")
@@ -65,6 +82,8 @@ def main(argv=None):
     listed = set(report["affected"]["regenerate"]) | set(record["intended_changes"]) | ({report["affected"]["lock"]} if report["affected"]["lock"] else set())
     unpredicted = sorted(set(report["necessary_repin"]) - listed)
     forward = report["forward_old_pin"]
+    unknown = unknown_observer_inputs(new, forward)
+    first = lambda result: (result["reason_codes"] or [None])[0] if result["status"] != "ok" else None
     record["from"]["evaluation"], record["to"]["evaluation"] = report["reproduction"]["from"], report["reproduction"]["to"]
     record["measured"] = {
         "old_inputs_without_regeneration": {k: len(v) for k, v in report["old_inputs_without_regeneration"].items()},
@@ -76,7 +95,9 @@ def main(argv=None):
         "migrated": {"requests_changed": len(report["request_changed"]), "expectations_changed": len(report["expectation_changed"]),
                      "results_changed": len(report["result_differences"])},
         "forward_to_old_version": {"inputs": len(forward), "accepted": sum(1 for r in forward.values() if r["status"] == "ok"),
-                                   "invalid_observer": sum(1 for r in forward.values() if r["status"] == "invalid_input" and (r["reason_codes"] or [None])[0] == "invalid_observer")},
+                                   "unknown_observer_inputs": len(unknown), "unknown_observer_accepted": sum(1 for n in unknown if forward[n]["status"] == "ok"),
+                                   "unknown_observer_first_reason": {key: sum(1 for n in unknown if first(forward[n]) == key) for key in ("missing_field", "invalid_observer")}
+                                   | {"other": sum(1 for n in unknown if first(forward[n]) not in ("missing_field", "invalid_observer"))}},
     }
     problems = p2_checks.regenerated_mismatches(record, report)
     if problems:

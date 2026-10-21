@@ -6238,6 +6238,10 @@
       "sha256": "a18c35224ff547249d7bc6dffeed9b22500e59c6003443ec7bf8c1a843bf04c8",
       "bytes": 9236
     },
+    "examples/p2-versions/p2-temporal-measurement-draft-3-to-draft-4.json": {
+      "sha256": "52c1fabf35eae3b8c2d6d7530296b28bf27a0b2d90ef03694d4906898eb1a6ba",
+      "bytes": 9004
+    },
     "examples/p2/budget-below-absence.json": {
       "sha256": "81dddf10fd14d63a0797fd7100812ed081bfae0b6a51182c57186c5eaea0cf85",
       "bytes": 4460
@@ -6683,8 +6687,8 @@
       "bytes": 7717
     },
     "scripts/research/p2/make_required_observer_version_record.py": {
-      "sha256": "9f21e2cc042bde9d6302f96ed89b616fcdd4099931d849bf7a595ad6d6a2873a",
-      "bytes": 6947
+      "sha256": "7090259d3d906c7b2b225651b0846432289350816b6d02b03208013cdb3ef4d1",
+      "bytes": 8122
     },
     "scripts/research/p2/make_version_record.py": {
       "sha256": "ae2c0b2fe05afc3c987d3478eb20261d252849151083c2c148ed16de1b150c27",
@@ -7059,8 +7063,8 @@
       "bytes": 26686
     },
     "tests/p2/test_required_observer_version.py": {
-      "sha256": "cb86a44171faff25c8f2836f8da411cc769168eb3b63bc5a5550d8aa8d7ffa3d",
-      "bytes": 12614
+      "sha256": "f2737e1749b49dcb06342a6d571ca7395b029180952cfeb451f444705a5ba37e",
+      "bytes": 13524
     },
     "tests/p2/test_review_materials.py": {
       "sha256": "6e7752377d27f382cfa9b34cf2dfd86480cf9db2dbd07e950d199c2667b57c58",
@@ -7151,5 +7155,5 @@
       "bytes": 25815
     }
   },
-  "bundle_sha256": "2c368451a45904a061a685fd267b0984044de908872888569219f4dcfc99cefc"
+  "bundle_sha256": "4b4b83d4f86c68d6466421dcbdc90876b44b5efc0b697bdeb8f65cbf916bd669"
 }

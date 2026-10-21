@@ -1,0 +1,326 @@
+{
+  "schema_version": "p2-version-record-draft-2",
+  "id": "p2-temporal-measurement-draft-3-to-draft-4",
+  "status": "author_draft",
+  "independent_review": false,
+  "note": "期間つき数量（P2-i）の記録の観察者を必須にし、不明は明示の unknown で書かせる版の更新（旧入力を拒否する）と、依存する5拡張の再固定・採用の記録。旧版は消さず、旧入力は新版で受理されず、移行（旧入力に明示の unknown を足す）した入力は宣言した追加だけが違う。declared_changes と predicted は文書76・77から手で書いた値、measured と from／to の評価は比較器の測定値を固定したもの。",
+  "from": {
+    "version": "draft-3",
+    "commit": "ab4c35871748156b78c206be33ef81ebbf4de475",
+    "evaluation": {
+      "passed": true,
+      "registered": 23,
+      "obligations": 316,
+      "guards": 498,
+      "suites": {
+        "p2": [
+          35,
+          128
+        ],
+        "p2-split": [
+          34,
+          224
+        ],
+        "p2-splits": [
+          38,
+          221
+        ],
+        "p2-temporal": [
+          61,
+          462
+        ],
+        "p2-quantity": [
+          80,
+          622
+        ],
+        "p2-measurement": [
+          137,
+          1425
+        ],
+        "p2-display": [
+          145,
+          2128
+        ],
+        "p2-temporal-measurement": [
+          162,
+          1757
+        ],
+        "p2-temporal-display": [
+          170,
+          2670
+        ],
+        "p2-refinement": [
+          66,
+          721
+        ],
+        "p2-longitudinal": [
+          103,
+          2020
+        ],
+        "p2-library": [
+          147,
+          2527
+        ],
+        "p2-grounding": [
+          97,
+          1998
+        ],
+        "p2-observation": [
+          83,
+          1446
+        ]
+      },
+      "manifest_sha256": "4aa13b97841b3fe1b80826b753689c09e7259203c3c7cd026e3187c0866cdc13",
+      "bundle_sha256": "4861a082bfc142c080a8c8048cc4ecf2d41aa2acce4637245ad9205ed5813094"
+    }
+  },
+  "to": {
+    "version": "draft-4",
+    "commit": "c586272bffd4816ca06828bacb25a54c1b2df374",
+    "evaluation": {
+      "passed": true,
+      "registered": 23,
+      "obligations": 318,
+      "guards": 500,
+      "suites": {
+        "p2": [
+          35,
+          128
+        ],
+        "p2-split": [
+          34,
+          224
+        ],
+        "p2-splits": [
+          38,
+          221
+        ],
+        "p2-temporal": [
+          61,
+          462
+        ],
+        "p2-quantity": [
+          80,
+          622
+        ],
+        "p2-measurement": [
+          137,
+          1425
+        ],
+        "p2-display": [
+          145,
+          2128
+        ],
+        "p2-temporal-measurement": [
+          166,
+          1796
+        ],
+        "p2-temporal-display": [
+          170,
+          2670
+        ],
+        "p2-refinement": [
+          66,
+          721
+        ],
+        "p2-longitudinal": [
+          103,
+          2020
+        ],
+        "p2-library": [
+          150,
+          2559
+        ],
+        "p2-grounding": [
+          97,
+          1998
+        ],
+        "p2-observation": [
+          83,
+          1446
+        ]
+      },
+      "manifest_sha256": "e458292bb8583f813e3bae249e671959633141af03de28b6b81182792c057be2",
+      "bundle_sha256": "2c368451a45904a061a685fd267b0984044de908872888569219f4dcfc99cefc"
+    }
+  },
+  "extensions": [
+    "p2-clinical-library",
+    "p2-longitudinal-comparison",
+    "p2-observation-projection",
+    "p2-structure-grounding",
+    "p2-temporal-display",
+    "p2-temporal-measurement"
+  ],
+  "suites": [
+    "p2-temporal-measurement",
+    "p2-temporal-display",
+    "p2-longitudinal",
+    "p2-library",
+    "p2-grounding",
+    "p2-observation"
+  ],
+  "pins": [
+    {
+      "file": "src/med_dsl/temporal_measurement.py",
+      "name": "SPEC_SHA256"
+    },
+    {
+      "file": "src/med_dsl/temporal_display.py",
+      "name": "SPEC_SHA256"
+    },
+    {
+      "file": "src/med_dsl/longitudinal.py",
+      "name": "SPEC_SHA256"
+    },
+    {
+      "file": "src/med_dsl/clinical_library.py",
+      "name": "SPEC_SHA256"
+    },
+    {
+      "file": "src/med_dsl/structure_grounding.py",
+      "name": "SPEC_SHA256"
+    },
+    {
+      "file": "src/med_dsl/observation_projection.py",
+      "name": "SPEC_SHA256"
+    }
+  ],
+  "pin_refusals": [
+    {
+      "status": "unsupported_profile",
+      "code": "profile_spec_mismatch"
+    }
+  ],
+  "pure_pin_suites": [],
+  "intended_changes": [
+    "src/med_dsl/temporal_measurement_spec.json"
+  ],
+  "predicted": {
+    "extensions": [
+      "p2-clinical-library",
+      "p2-longitudinal-comparison",
+      "p2-observation-projection",
+      "p2-structure-grounding",
+      "p2-temporal-display",
+      "p2-temporal-measurement"
+    ],
+    "regenerate": [
+      "src/med_dsl/clinical_library.py",
+      "src/med_dsl/clinical_library_spec.json",
+      "src/med_dsl/longitudinal_spec.json",
+      "src/med_dsl/observation_projection_spec.json",
+      "src/med_dsl/quantity.py",
+      "src/med_dsl/structure_grounding.py",
+      "src/med_dsl/structure_grounding_spec.json",
+      "src/med_dsl/temporal_display_spec.json",
+      "src/med_dsl/temporal_measurement.py",
+      "src/med_dsl/temporal_measurement_spec.json",
+      "examples/p2-temporal-measurement/*.json",
+      "examples/p2-temporal-display/*.json",
+      "examples/p2-longitudinal/*.json",
+      "examples/p2-library/*.json",
+      "examples/p2-grounding/*.json",
+      "examples/p2-observation/*.json",
+      "examples/p2-quantity/*.json"
+    ],
+    "undercount": [
+      "src/med_dsl/temporal_display.py",
+      "src/med_dsl/longitudinal.py",
+      "src/med_dsl/observation_projection.py",
+      "extensions/p2-clinical-library.json",
+      "extensions/p2-longitudinal-comparison.json",
+      "extensions/p2-observation-projection.json",
+      "extensions/p2-structure-grounding.json",
+      "extensions/p2-temporal-display.json",
+      "extensions/p2-temporal-measurement.json"
+    ]
+  },
+  "declared_changes": [
+    {
+      "id": "D-1",
+      "kind": "required_field",
+      "extension": "p2-temporal-measurement",
+      "field": "record.observer",
+      "inputs": [
+        "p2-temporal-measurement/o04.json"
+      ],
+      "added_inputs": [
+        "p2-temporal-measurement/o20.json",
+        "p2-temporal-measurement/o21.json",
+        "p2-temporal-measurement/o22.json",
+        "p2-temporal-measurement/o23.json"
+      ],
+      "request_leaf": "observer",
+      "result_leaf": "record_observer",
+      "substitution_refusal": {
+        "status": "invalid_input",
+        "code": "missing_field"
+      },
+      "description": "記録の観察者を必須にする（P2-r の任意の項目から）。{kind: human|device, ref} か {kind: unknown}（ref なし）。根拠に record_observer を常に出す。旧入力は新版の入力の形でなく、移行（全ての記録に明示の unknown を足す）が要る"
+    },
+    {
+      "id": "D-2",
+      "kind": "added_field",
+      "extension": "p2-clinical-library",
+      "field": "operation.observer",
+      "inputs": [],
+      "added_inputs": [
+        "p2-library/o73.json",
+        "p2-library/n03-observer-missing.json",
+        "p2-library/n03-observer-unknown-ref.json"
+      ],
+      "description": "操作 record・correct の観察者を必須にする。ライブラリは欠落を補わない。選択の根拠に record_observer を常に出す"
+    },
+    {
+      "id": "D-3",
+      "kind": "repinned",
+      "inputs": [],
+      "description": "意味の変更のない再固定：P2-j・P2-m・P2-p・P2-q（P2-q は unknown の観察者を、観察者がないことと同じに扱う）。6つの仕様の hash、それを固定するモジュールの定数、依存先の仕様・宣言・実行例"
+    }
+  ],
+  "measured": {
+    "old_inputs_without_regeneration": {
+      "identical": 59,
+      "pin_refused": 703,
+      "changed": 0
+    },
+    "inputs": {
+      "old": 762,
+      "new": 769
+    },
+    "unpredicted_repin": [
+      "extensions/p2-clinical-library.json",
+      "extensions/p2-longitudinal-comparison.json",
+      "extensions/p2-observation-projection.json",
+      "extensions/p2-structure-grounding.json",
+      "extensions/p2-temporal-display.json",
+      "extensions/p2-temporal-measurement.json",
+      "src/med_dsl/longitudinal.py",
+      "src/med_dsl/observation_projection.py",
+      "src/med_dsl/temporal_display.py"
+    ],
+    "prediction_deviation": {
+      "missed": [],
+      "wrong": []
+    },
+    "changed_files": 820,
+    "listed_but_unnecessary": 100,
+    "migrated": {
+      "requests_changed": 733,
+      "expectations_changed": 102,
+      "results_changed": 405
+    },
+    "forward_to_old_version": {
+      "inputs": 765,
+      "accepted": 8,
+      "unknown_observer_inputs": 734,
+      "unknown_observer_accepted": 0,
+      "unknown_observer_first_reason": {
+        "missing_field": 585,
+        "invalid_observer": 2,
+        "other": 147
+      }
+    }
+  }
+}
