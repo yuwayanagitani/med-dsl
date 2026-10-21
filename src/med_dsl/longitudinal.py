@@ -12,7 +12,7 @@ from .quantity import run_quantities
 from .validation import check_json, fields, indexed, string, strings
 
 LONGITUDINAL_PROFILE = 'p2-longitudinal-comparison-draft-1'
-SPEC_SHA256 = 'a571a773862db47883d96efa1c17c57749292839ab88a6d019723c5601acce56'
+SPEC_SHA256 = '8e84f9059091605aa9539f43736d860e7a93528863eff1d770fba2e740784575'
 OPERATION = 'compare_longitudinal_measurements'
 POLICY = 'fiction:independent-time-variables@1'
 ANSWER_KIND = 'longitudinal_measurement_comparison'

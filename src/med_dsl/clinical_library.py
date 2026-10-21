@@ -13,7 +13,7 @@ from .temporal_measurement import (TEMPORAL_MEASUREMENT_PROFILE, SPEC_SHA256 as 
 from .validation import check_json, digest, fields, indexed, string, strings, timestamp, values
 
 LIBRARY_PROFILE = 'p2-clinical-library-draft-1'
-SPEC_SHA256 = '9f9c6363d9f7b58fe6fc810ef9b45484b1e5a364257ba9c37f865e85c8d73c23'
+SPEC_SHA256 = 'bb87cc22078825e776e13933609ec37c341d152f31629b8a5f8574d402ee0d67'
 OPERATION = 'run_clinical_library'
 ANSWER_KIND = 'clinical_library_projection'
 VALUE_FIELDS = ('selection', 'elements', 'requests', 'output', 'flows')
@@ -93,7 +93,7 @@ def _operations(library):
             if op['record_ref'] not in records:
                 raise Problem('unresolved_record', 'operation.record_ref')
             continue
-        fields(op, CORRECT_FIELDS if op['kind'] == 'correct' else RECORD_FIELDS, ('capabilities',), 'operation')
+        fields(op, CORRECT_FIELDS if op['kind'] == 'correct' else RECORD_FIELDS, ('capabilities', 'observer'), 'operation')
         for key in ('slot_ref', 'property_ref'):
             string(op[key], 'operation.' + key)
         if op['slot_ref'] not in slots:
@@ -138,6 +138,8 @@ def _ledger(library, slots, operations):
                   'certainty': op['certainty'], 'recorded_at': op['recorded_at'], 'origin': deepcopy(op['origin']),
                   'required_capabilities': [TEMPORAL_MEASUREMENT_PROFILE, *op.get('capabilities', [])],
                   'revises': list(op['corrects']) if op['kind'] == 'correct' else []}
+        if 'observer' in op:
+            record['observer'] = deepcopy(op['observer'])
         if op['kind'] == 'correct':
             record['change_reason'] = op['reason']
         records.append(record)
@@ -349,8 +351,11 @@ def _evidence(state, key, view, at):
     record = state['records'][key]
     literal = state['quantities'][record['quantity_ref']['ref']]['literal']
     reviews = sorted(r['id'] for r in state['reviews'].values() if r['record_ref'] == key and r['recorded_at'] <= view['as_of'])
-    return {'record_ref': key, 'record_sha256': state['hashes'][key], 'review_refs': reviews, 'as_of': view['as_of'], 'target_at': at,
-            'record_origin': deepcopy(record['origin']), 'quantity_origin': deepcopy(literal['origin']), 'validity': deepcopy(record['validity'])}
+    evidence = {'record_ref': key, 'record_sha256': state['hashes'][key], 'review_refs': reviews, 'as_of': view['as_of'], 'target_at': at,
+                'record_origin': deepcopy(record['origin']), 'quantity_origin': deepcopy(literal['origin']), 'validity': deepcopy(record['validity'])}
+    if 'observer' in record:
+        evidence['record_observer'] = deepcopy(record['observer'])
+    return evidence
 
 
 def _candidates(state, row, field, at):

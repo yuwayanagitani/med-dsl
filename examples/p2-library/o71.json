@@ -1,0 +1,420 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "O71",
+  "condition": "O71",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-library-request-draft-1",
+    "operation": "run_clinical_library",
+    "consumer": {
+      "profile": "p2-clinical-library-draft-1",
+      "profile_spec_sha256": "bb87cc22078825e776e13933609ec37c341d152f31629b8a5f8574d402ee0d67",
+      "operations": [
+        "run_clinical_library"
+      ],
+      "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
+      "temporal_measurement_profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+      "quantity_profile": "p2-quantity-literal-draft-1",
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
+    },
+    "library": {
+      "ref": "fiction:library:session@1",
+      "slots": [
+        {
+          "id": "S",
+          "subject_ref": "u"
+        }
+      ],
+      "operations": [
+        {
+          "id": "A",
+          "kind": "record",
+          "slot_ref": "S",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "value": {
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "unit_ref": "u_ten",
+            "quantity_kind_ref": "k_a"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:library:origin:A"
+          },
+          "observer": {
+            "kind": "device",
+            "ref": "fiction:device:meter"
+          }
+        },
+        {
+          "id": "RA",
+          "kind": "confirm",
+          "record_ref": "A",
+          "reviewer_ref": "fiction:human:reviewer",
+          "recorded_at": "2026-10-03T00:00:00Z"
+        }
+      ]
+    },
+    "destinations": [
+      {
+        "id": "dest:numeric-exchange",
+        "version": "1",
+        "output": {
+          "kind": "exchange"
+        },
+        "elements": [
+          {
+            "element": "value",
+            "form": "domain",
+            "unit_ref": "u_base"
+          },
+          {
+            "element": "context",
+            "field": "property",
+            "requires": "known"
+          }
+        ]
+      }
+    ],
+    "views": [
+      {
+        "id": "v",
+        "as_of": "2026-10-08T00:00:00Z"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "view_ref": "v",
+        "slot_ref": "S",
+        "destination_ref": {
+          "id": "dest:numeric-exchange",
+          "version": "1"
+        },
+        "target_at": "2026-10-05T00:00:00Z"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "steps_used"
+        ],
+        "equals": 32
+      },
+      {
+        "path": [
+          "incomplete"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "satisfied"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "assessment_complete"
+        ],
+        "equals": true
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reason_codes"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "requests"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "output"
+        ],
+        "equals": {
+          "converted_domain": {
+            "lower": {
+              "numerator": 20,
+              "denominator": 1
+            },
+            "upper": {
+              "numerator": 20,
+              "denominator": 1
+            },
+            "lower_closed": true,
+            "upper_closed": true
+          },
+          "unit_ref": "u_base",
+          "quantity_kind_ref": "k_a",
+          "context": {
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "known",
+              "ref": "fiction:method:m",
+              "version": "1"
+            }
+          },
+          "origin": {
+            "record": "observed",
+            "quantity": "literal"
+          },
+          "human_confirmed": true
+        }
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "flows"
+        ],
+        "equals": {
+          "retained": [
+            "value:exact_domain",
+            "unit",
+            "quantity_kind",
+            "context:property",
+            "context:specimen",
+            "context:method",
+            "origin_kind",
+            "human_confirmed"
+          ],
+          "lost": [
+            "record:identity",
+            "validity",
+            "review:identity",
+            "revision_history"
+          ],
+          "added": []
+        }
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "elements",
+          0,
+          "element"
+        ],
+        "equals": "selection"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "elements",
+          0,
+          "state"
+        ],
+        "equals": "met"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "elements",
+          1,
+          "element"
+        ],
+        "equals": "value"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "elements",
+          1,
+          "state"
+        ],
+        "equals": "met"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "elements",
+          2,
+          "element"
+        ],
+        "equals": "context:property"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "elements",
+          2,
+          "state"
+        ],
+        "equals": "met"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "selection",
+          "record_ref"
+        ],
+        "equals": "A"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "selection",
+          "review_refs"
+        ],
+        "equals": [
+          "RA"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "selection",
+          "as_of"
+        ],
+        "equals": "2026-10-08T00:00:00Z"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "selection",
+          "target_at"
+        ],
+        "equals": "2026-10-05T00:00:00Z"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "selection",
+          "record_observer"
+        ],
+        "equals": {
+          "kind": "device",
+          "ref": "fiction:device:meter"
+        }
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "clinical_library_projection"
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "inferred_information"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "review_verification"
+        ],
+        "equals": "structural_only"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "evidence_level"
+        ],
+        "equals": "known_policy_change"
+      },
+      {
+        "path": [
+          "certificate",
+          "scope"
+        ],
+        "equals": null
+      }
+    ]
+  }
+}

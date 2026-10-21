@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-structure-grounding",
-  "version": "draft-1",
+  "version": "draft-2",
   "title": "満たされた exchange の行が、出力先の構造（FHIR R5 Observation）で、丸めず・閉じず・補わずに表せるかを診断する",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R5",
   "spec": {
     "path": "src/med_dsl/structure_grounding_spec.json",
-    "sha256": "cec41a2dea6e6fd39ee75cc712153757189bd0dab0fe3cc0660046028a735d61"
+    "sha256": "3f8527fbf60baea044e7116de4a6d9e6e2d12fd47e2f471b791012653938be73"
   },
   "contract_doc": "docs/research/67-p2-p-design.md",
   "implementation": {
@@ -53,7 +53,7 @@
     },
     {
       "id": "p2-clinical-library",
-      "version": "draft-1"
+      "version": "draft-2"
     }
   ],
   "owns": {

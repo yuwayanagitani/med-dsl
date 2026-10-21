@@ -56,5 +56,6 @@
   "assumptions": [
     "explicit_period_quantity_domain",
     "scoped_revision"
-  ]
+  ],
+  "observer": "optional record field {kind: human|device, ref}; absent means observer unknown; part of the record content that a review binds; binding evidence emits record_observer only when the selected record has one; a correction does not inherit the observer of the record it revises"
 }

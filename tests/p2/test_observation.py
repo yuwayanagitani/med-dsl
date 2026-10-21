@@ -43,9 +43,9 @@ def compare_row(row, expected, request, context=None):
         if row['observation']['provenance'] is not None:
             raise AssertionError((context, 'provenance', row['observation']['provenance']))
     else:
-        got_entries = [{'activity': e['activity'], 'record_ref': e['target']['record_ref'], 'recorded': e['recorded'], 'who': e['agents'][0]['who'],
-                        'agents': len(e['agents']), 'type': e['target']['type']} for e in row['observation']['provenance']]
-        want_entries = [dict(e, agents=1, type='Observation') for e in expected['provenance']]
+        got_entries = [{'activity': e['activity'], 'record_ref': e['target']['record_ref'], 'recorded': e['recorded'], 'agents': [a['who'] for a in e['agents']],
+                        'type': e['target']['type']} for e in row['observation']['provenance']]
+        want_entries = [dict(e, type='Observation') for e in expected['provenance']]
         if got_entries != want_entries:
             raise AssertionError((context, 'provenance', got_entries, want_entries))
         for entry in row['observation']['provenance']:                       # 対象は版つき：選択の記録のハッシュ
@@ -81,6 +81,8 @@ def random_observation(rng):
         found = {'destination_ref': profile, 'status': status, 'code_map': deepcopy(code_map)}
         if rng.random() < .8:
             found['provenance'] = {'reviewer_type': rng.choice(REVIEWER_TYPES)}
+            if rng.random() < .6:
+                found['provenance']['observer_type'] = rng.choice(REVIEWER_TYPES)
         declarations.append(found)
     if not declarations:
         target = grounding['targets'][0]
@@ -91,10 +93,10 @@ def random_observation(rng):
 class ObservationTests(unittest.TestCase):
     def test_hand_expectations_api_cli_manifest_and_obligations(self):
         manifest = json.loads((DIRECTORY/'manifest.json').read_text())
-        self.assertEqual(manifest['conditions'], {'Q': 19, 'N': 13, 'B': 3})
-        self.assertEqual(len(manifest['files']), 75)
+        self.assertEqual(manifest['conditions'], {'Q': 25, 'N': 14, 'B': 3})
+        self.assertEqual(len(manifest['files']), 83)
         declaration = json.loads((ROOT/'extensions/p2-observation-projection.json').read_text())
-        self.assertEqual({o['id'] for o in declaration['obligations']}, {'K-ID', 'K-STOP', 'K-INV', 'K-RES', 'R5-1', 'R5-2', 'R5-3'} | {f'QR-{i}' for i in range(1, 12)})
+        self.assertEqual({o['id'] for o in declaration['obligations']}, {'K-ID', 'K-STOP', 'K-INV', 'K-RES', 'R5-1', 'R5-2', 'R5-3'} | {f'QR-{i}' for i in range(1, 13)})
         self.assertEqual(declaration['inherits'], [])
         self.assertEqual({p.name for p in DIRECTORY.glob('*.json')}, {e['path'] for e in manifest['files']} | {'manifest.json'})
         for entry in manifest['files']:
@@ -109,7 +111,7 @@ class ObservationTests(unittest.TestCase):
             self.assertEqual(done.returncode, {'ok': 0, 'invalid_input': 2, 'unsupported_profile': 3, 'resource_limit': 4}[out['status']], done.stderr)
             self.assertEqual(p2_checks.failed_checks(out, data['expected']['checks']), [], entry['path'])
         report = p2_checks.suite_report('p2-observation', evaluate)
-        self.assertEqual((report['examples'], report['checks'], report['failures']), (75, 1249, []))
+        self.assertEqual((report['examples'], report['checks'], report['failures']), (83, 1446, []))
 
     def test_declaration_enumeration_against_the_oracle(self):
         """D1：status.correction の有無 × code_map（空／該当／別の性質）× 選ばれる記録（原本／訂正）× provenance（なし／4種の型）の全数。
@@ -155,6 +157,33 @@ class ObservationTests(unittest.TestCase):
         row = reference(make.observation(ground.one(ops=late), [make.declare(lib.PB1)]))['results'][0]
         self.assertEqual((row['selection']['review_refs'], len(row['observation']['provenance'])), (['RA'], 1))
         self.assertEqual(count, 9)
+
+    def test_observer_creation_provenance_and_types_are_never_guessed(self):
+        """P2-r・QR-12：観察者（なし／human／device）× 出自（observed／ai_candidate）× 観察者の型の宣言（なし／4種）× Provenance の宣言（あり／なし）の全数。
+        人の観察者で型の宣言がなければ依頼。device は Device。生成の Provenance は、AI 由来か観察者があるときだけ。"""
+        human, device = {'kind': 'human', 'ref': 'fiction:human:observer'}, {'kind': 'device', 'ref': 'fiction:device:meter'}
+        count = 0
+        for observer, origin, observer_type, declared in product([None, human, device], ['observed', 'ai_candidate'], [None]+REVIEWER_TYPES, [True, False]):
+            op = lib.rec(origin={'kind': origin, 'ref': 'fiction:origin:A'})
+            if observer:
+                op['observer'] = deepcopy(observer)
+            declaration = make.declare(lib.PB1, reviewer='Practitioner' if declared else None, observer_type=observer_type if declared else None)
+            row = reference(make.observation(ground.one(ops=[op, lib.confirm('A')]), [declaration]))['results'][0]
+            count += 1
+            needs_type = declared and observer is not None and observer['kind'] == 'human' and observer_type is None
+            self.assertEqual(row['observation']['state'], 'needs_information' if needs_type else 'projected')
+            if needs_type:
+                self.assertEqual(row['requests'], [make.observer_request('A')])
+                continue
+            entries = [e for e in row['observation']['provenance'] if e['activity'] == 'creation']
+            self.assertEqual(len(entries), 1 if declared and (origin == 'ai_candidate' or observer) else 0)
+            if entries:
+                kinds = [a['who']['type'] for a in entries[0]['agents']]
+                expected = (['Device'] if origin == 'ai_candidate' else [])+([] if observer is None else ['Device' if observer['kind'] == 'device' else observer_type])
+                self.assertEqual(kinds, expected)
+            self.assertEqual('observer' in row['flows']['retained'], bool(declared and observer))
+            self.assertEqual('observer' in row['flows']['lost'], bool(observer and not declared))
+        self.assertEqual(count, 3*2*5*2)
 
     def test_rows_not_evaluated_or_not_declared_pass_through_the_grounding_rows(self):
         """D5：P2-p 単独の実行との差分。通す行は P2-p の行と全欄が同じ。投影した行は P2-p の欄を保つ。"""
@@ -406,6 +435,9 @@ class ObservationTests(unittest.TestCase):
             ('property_still_lost', '_project', "    lost -= set(flows['always_retained'])\n", "", 'Q01'),
             ('undeclared_projected', '_row', "        return _passed(row, 'not_declared')", "        return _project(row, {'status': {'original': 'final'}, 'code_map': {}, 'reviewer_type': None}, ledger, spec)", 'Q13'),
             ('unrepresentable_rows_asked', '_row', "        return _passed(row, 'not_evaluated')", "        return _project(row, declaration, ledger, spec)", 'Q12'),
+            ('observer_type_guessed', '_project', "declaration['observer_type'] is None:\n        requests.append", "False:\n        requests.append", 'Q21'),
+            ('observer_agent_missing', '_project', "        if observer is not None:\n            agents.append(", "        if False:\n            agents.append(", 'Q22'),
+            ('observer_flow_not_reported', '_project', "            retained |= set(flows['observer_retained'])\n            lost -= set(flows['observer_retained'])\n", '', 'Q22'),
             ('prepayment_removed', 'run_observation', "        for _ in range(cost):\n            budget.tick()\n", "", 'Q01'),
             ('completion_fee_removed', 'run_observation', "        current, stage = None, 'completion'\n        budget.tick()\n", "        current, stage = None, 'completion'\n", 'B01-41'),
             ('inferred_information', 'run_observation', "'clinical_assertions_added': [], 'inferred_information': []", "'clinical_assertions_added': [], 'inferred_information': ['guess']", 'Q01'),
@@ -425,7 +457,7 @@ class ObservationTests(unittest.TestCase):
                 except Exception as error:                       # 変異で内部の前提が崩れて例外になることも、検出に数える
                     bad = [repr(error)]
             self.assertTrue(bad, ident)
-        self.assertEqual(len(mutants), 18)
+        self.assertEqual(len(mutants), 21)
         data = json.loads((DIRECTORY/'q01.json').read_text())
         with patch.object(native, 'OWN_FEE', 2):
             self.assertTrue(p2_checks.failed_checks(evaluate(deepcopy(data['request'])), data['expected']['checks']))

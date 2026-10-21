@@ -1,6 +1,6 @@
 # P2-q：Observation の status・code の写像と Provenance への出力の実行例
 
-[設計70](../../docs/research/70-p2-q-design.md)・[手指定期待71](../../docs/research/71-p2-q-cases.md) を75 JSON・1,249必須パスへ展開した、架空データだけの作成者草案です。独立確認・評価用正解の凍結は未実施です。現在の結果と制限は [内部評価72](../../docs/research/72-p2-q-results.md) に記録します。
+[設計70](../../docs/research/70-p2-q-design.md)・[手指定期待71](../../docs/research/71-p2-q-cases.md) を75 JSON・1,249必須パスへ展開し、P2-r（[設計73](../../docs/research/73-p2-r-design.md)・[手指定期待74](../../docs/research/74-p2-r-cases.md)）で観察者の例8 JSONを足して、83 JSON・1,446必須パスとした、架空データだけの作成者草案です。独立確認・評価用正解の凍結は未実施です。現在の結果と制限は [内部評価72](../../docs/research/72-p2-q-results.md) に記録します。
 
 [P2-p の構造への写像の可否の診断](../p2-grounding/README.md)を一度だけ実行し、表せる行に、**呼び出し側の宣言**で `status`・`code`・確認者の型を適用します。ライブラリは `status` や `code` を決めません。宣言が足りないとき（訂正が選ばれたのに訂正の `status` がない、記録の性質が `code` の表にない）は、推測で補わず、宣言する人への依頼を返します。使った宣言は、仮定として流れの `added` に残ります。人の確認は Provenance（確認ごとに一つ、時刻順）として運び、AI 由来の記録だけが、先頭に生成の Provenance（Device）を持ちます。FHIR への適合は主張しません。
 
@@ -11,6 +11,7 @@ python3 -B -m unittest discover -s tests/p2 -p test_observation.py -v
 ```
 
 - Q01〜Q07・Q11：宣言が足りて出せる行。標準（原本、確認者 Practitioner）、Provenance なし、確認者の型の違い、確認が2件、AI 由来の記録、訂正が選ばれたとき（`amended`／`corrected`）、使わない宣言は影響しない。
+- Q20〜Q25：観察者（P2-r）。記録の観察者から生成の Provenance を出す（人の観察者の型は宣言を使い、なければ依頼 `declare_observer_type`。device は Device）。AI 由来の記録に観察者があれば、生成の agent は2件。Provenance を宣言しなければ観察者は失うものに残る。N14：許容外の観察者の型の拒否。
 - Q15〜Q19：P2-p の期間の規約との併用、文脈の不在、`range` の対象、参照時点より後の確認は出さない。Q08〜Q10：宣言が足りない行（訂正の `status`、`code` の表、両方）は `needs_information` で、`status`・`code` を補わない。
 - Q12〜Q14・Q18：P2-p の行が表せない・不足の行は判定せず（`not_evaluated`）、宣言のない出力先は `not_declared`。複数の出力先の宣言。
 - N01〜N13：型・版・ハッシュ・子の要求（P2-p・P2-o の検査をそのまま返す）・許容外の `status` の写像・`code` の表の形と重複・許容外の確認者の型・宣言の重複と対象の欠落・予算。入力不正は予算に依らず同じ結果です。

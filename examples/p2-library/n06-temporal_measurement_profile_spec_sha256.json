@@ -10,7 +10,7 @@
     "operation": "run_clinical_library",
     "consumer": {
       "profile": "p2-clinical-library-draft-1",
-      "profile_spec_sha256": "9f9c6363d9f7b58fe6fc810ef9b45484b1e5a364257ba9c37f865e85c8d73c23",
+      "profile_spec_sha256": "bb87cc22078825e776e13933609ec37c341d152f31629b8a5f8574d402ee0d67",
       "operations": [
         "run_clinical_library"
       ],

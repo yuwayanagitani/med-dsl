@@ -38,6 +38,9 @@ DECLARED = {
     ('p2-clinical-library', 'p2-temporal-measurement'): ('CL-7', 3),
 }
 LIBRARY = {key for key in DECLARED if key[0] == 'p2-clinical-library'}
+# 契約の更新（P2-n）の後に、P2-r（観察者の追加）が版を上げた拡張と、その宣言で変わってよい項目
+VERSIONED_SINCE = {'p2-temporal-measurement', 'p2-temporal-display', 'p2-longitudinal-comparison'}
+VERSION_KEYS = {'version', 'depends_on', 'spec', 'obligations', 'pins', 'embedded_in'}
 PREDICTED = {key: value for key, value in DECLARED.items() if key != ('p2-quantity-literal', 'p1-finite-forecast') and key not in LIBRARY}
 
 
@@ -430,7 +433,11 @@ class ContractVersionTests(unittest.TestCase):
             with self.subTest(manifest['id']):
                 old = {k: v for k, v in self.old[manifest['id']].items() if k != 'schema_version'}
                 new = {k: v for k, v in manifest.items() if k not in ('schema_version', 'inherits')}
-                self.assertEqual(new, old)
+                if manifest['id'] in VERSIONED_SINCE:                    # P2-r が版を上げた3件：版・依存・仕様・義務・pin だけが違う（宣言した変更）
+                    self.assertEqual({k for k in set(old) | set(new) if old.get(k) != new.get(k)} - VERSION_KEYS, set())
+                    self.assertEqual((new['id'], new['class'], new['owns']), (old['id'], old['class'], old['owns']))
+                else:
+                    self.assertEqual(new, old)
                 self.assertEqual(manifest['schema_version'], 'p2-extension-manifest-draft-2')
 
     def test_the_comparator_enumerates_an_old_tree_with_that_trees_own_registry(self):

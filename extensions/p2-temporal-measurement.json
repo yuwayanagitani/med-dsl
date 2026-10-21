@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-temporal-measurement",
-  "version": "draft-2",
+  "version": "draft-3",
   "title": "明示された期間つき数量主張の内容指定確認・部分訂正と換算",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R5",
   "spec": {
     "path": "src/med_dsl/temporal_measurement_spec.json",
-    "sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1"
+    "sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f"
   },
   "contract_doc": "docs/research/43-p2-i-design.md",
   "implementation": {
@@ -454,6 +454,26 @@
             "status"
           ],
           "equals": "invalid_input",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "TM-13",
+      "statement": "観察者は任意の項目で記録の内容の一部。選ばれた記録に観察者があるときだけ根拠に出し、訂正は継がない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_temporal_measurement.py::TemporalMeasurementTests.test_optional_observer_is_content_bound_and_shown_only_when_present"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-temporal-measurement/o05.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "review_record_hash_mismatch"
+          ],
           "kind": "boundary"
         }
       ]

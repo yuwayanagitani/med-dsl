@@ -11,7 +11,7 @@ from .structure_grounding import (GROUNDING_PROFILE, SPEC_SHA256 as GROUNDING_SP
 from .validation import check_json, fields, string, strings, values
 
 OBSERVATION_PROFILE = 'p2-observation-projection-draft-1'
-SPEC_SHA256 = '847037e60ef393c9f09b8ebb14e389ad799fa33b3ec20969da6c34d706f6c591'
+SPEC_SHA256 = '422285b02c1d33d40d1e96d598fddc10c30decf51e3c91daaf1ba6f3bae1b20a'
 OPERATION = 'run_observation_projection'
 ANSWER_KIND = 'observation_projection'
 GROUNDING_REQUEST_SCHEMA = 'p2-grounding-request-draft-1'
@@ -79,16 +79,21 @@ def _observations(raw, targets, spec):
                 raise Problem('duplicate_property_mapping', 'observation.code_map')
             mapping[entry['property_ref']] = {'system': entry['system'], 'code': entry['code']}
         if 'provenance' in item:
-            fields(item['provenance'], ('reviewer_type',), path='observation.provenance')
+            fields(item['provenance'], ('reviewer_type',), ('observer_type',), 'observation.provenance')
             string(item['provenance']['reviewer_type'], 'observation.provenance.reviewer_type')
             if item['provenance']['reviewer_type'] not in spec['reviewer_types']:
                 _unsupported('unsupported_reviewer_type', 'observation.provenance.reviewer_type')
+            if 'observer_type' in item['provenance']:
+                string(item['provenance']['observer_type'], 'observation.provenance.observer_type')
+                if item['provenance']['observer_type'] not in spec['reviewer_types']:
+                    _unsupported('unsupported_observer_type', 'observation.provenance.observer_type')
         key = (reference['id'], reference['version'])
         if key in found:
             raise Problem('duplicate_observation', 'observations')
         if key not in targets:
             raise Problem('unresolved_target', 'observation.destination_ref')
-        found[key] = {'status': deepcopy(status), 'code_map': mapping, 'reviewer_type': item['provenance']['reviewer_type'] if 'provenance' in item else None}
+        provenance = item.get('provenance', {})
+        found[key] = {'status': deepcopy(status), 'code_map': mapping, 'reviewer_type': provenance.get('reviewer_type'), 'observer_type': provenance.get('observer_type')}
     return found
 
 
@@ -130,6 +135,9 @@ def _project(row, declaration, ledger, spec):
     state = 'correction' if record['revises'] else 'original'
     property_ref = row['output']['context']['property_ref']
     requests = []
+    observer = selection.get('record_observer')
+    if declaration['reviewer_type'] is not None and observer is not None and observer['kind'] == 'human' and declaration['observer_type'] is None:
+        requests.append({'element': 'provenance', 'action': spec['requests']['observer'], 'record_ref': record['id'], 'property_ref': None})
     if property_ref not in declaration['code_map']:
         requests.append({'element': 'code', 'action': spec['requests']['code'], 'record_ref': record['id'], 'property_ref': property_ref})
     status_code = declaration['status'].get(state)
@@ -146,12 +154,23 @@ def _project(row, declaration, ledger, spec):
     lost -= set(flows['always_retained'])
     added |= {flows['assumptions']['code'], flows['assumptions']['status'].format(state=state, code=status_code)}
     provenance = []
+    if observer is not None and declaration['reviewer_type'] is None:
+        lost |= set(flows['observer_retained'])
     if declaration['reviewer_type'] is not None:
+        agents = []
         if selection['record_origin']['kind'] == 'ai_candidate':
-            provenance.append({'activity': 'creation', 'target': {'type': 'Observation', 'record_ref': record['id'], 'record_sha256': selection['record_sha256']},
-                               'recorded': record['recorded_at'], 'agents': [{'who': {'type': 'Device', 'identifier': selection['record_origin']['ref']}}]})
+            agents.append({'who': {'type': 'Device', 'identifier': selection['record_origin']['ref']}})
             retained |= set(flows['creation_retained'])
             lost -= set(flows['creation_retained'])
+        if observer is not None:
+            agents.append({'who': {'type': 'Device' if observer['kind'] == 'device' else declaration['observer_type'], 'identifier': observer['ref']}})
+            retained |= set(flows['observer_retained'])
+            lost -= set(flows['observer_retained'])
+            if observer['kind'] == 'human':
+                added.add(flows['assumptions']['observer'])
+        if agents:
+            provenance.append({'activity': 'creation', 'target': {'type': 'Observation', 'record_ref': record['id'], 'record_sha256': selection['record_sha256']},
+                               'recorded': record['recorded_at'], 'agents': agents})
         for review in sorted((ledger['reviews'][ref] for ref in selection['review_refs']), key=lambda r: (r['recorded_at'], r['id'])):
             provenance.append({'activity': 'confirmation', 'target': {'type': 'Observation', 'record_ref': record['id'], 'record_sha256': review['record_sha256']},
                                'recorded': review['recorded_at'], 'agents': [{'who': {'type': declaration['reviewer_type'], 'identifier': review['reviewer_ref']}}]})

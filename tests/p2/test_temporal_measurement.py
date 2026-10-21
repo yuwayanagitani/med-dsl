@@ -49,10 +49,10 @@ def reference(req):
 class TemporalMeasurementTests(unittest.TestCase):
     def test_hand_expectations_api_cli_and_manifest(self):
         manifest=json.loads((DIRECTORY/'manifest.json').read_text())
-        self.assertEqual(manifest['conditions'],{'C':32,'N':12,'B':4});self.assertEqual(len(manifest['files']),151)
+        self.assertEqual(manifest['conditions'],{'C':32,'N':12,'B':4,'O':10});self.assertEqual(len(manifest['files']),162)
         self.assertFalse(manifest['independent_review']);self.assertFalse(manifest['evaluation_frozen'])
         decl=json.loads((ROOT/'extensions/p2-temporal-measurement.json').read_text())
-        self.assertEqual({o['id'] for o in decl['obligations']},{'K-ID','K-STOP','K-INV','K-RES','R5-1','R5-2','R5-3'}|{f'TM-{i}' for i in range(1,13)})
+        self.assertEqual({o['id'] for o in decl['obligations']},{'K-ID','K-STOP','K-INV','K-RES','R5-1','R5-2','R5-3'}|{f'TM-{i}' for i in range(1,14)})
         self.assertEqual({p.name for p in DIRECTORY.glob('*.json')},{e['path'] for e in manifest['files']}|{'manifest.json'})
         count=0
         for entry in manifest['files']:
@@ -61,8 +61,32 @@ class TemporalMeasurementTests(unittest.TestCase):
             self.assertEqual(p2_checks.failed_checks(evaluate(data['request']),data['expected']['checks']),[],entry['path'])
             done=subprocess.run([sys.executable,'-B','-m','med_dsl','--fixture',str(path)],cwd=ROOT,env={**os.environ,'PYTHONPATH':str(ROOT/'src')},capture_output=True,text=True,timeout=30)
             result=json.loads(done.stdout);self.assertEqual(done.returncode,{'ok':0,'invalid_input':2,'unsupported_profile':3,'resource_limit':4}[result['status']]);self.assertEqual(p2_checks.failed_checks(result,data['expected']['checks']),[],entry['path'])
-        self.assertEqual(count,1676)
+        self.assertEqual(count,1757)
         self.assertEqual(json.loads((ROOT/'src/med_dsl/measurement_spec.json').read_text())['properties'],native._spec()['properties'])
+
+    def test_optional_observer_is_content_bound_and_shown_only_when_present(self):
+        """P2-r：観察者は任意の項目で、記録の内容の一部。選ばれた記録に観察者があるときだけ根拠に出し、訂正は元の観察者を継がない。"""
+        human={'kind':'human','ref':'fiction:human:observer'};device={'kind':'device','ref':'fiction:device:meter'}
+        hashes=set()
+        for first,second in itertools.product([None,human,device],[None,human,device]):
+            req=make.chain(at=5)
+            for index,observer in enumerate((first,second)):
+                if observer:req['source']['records'][index]['observer']=deepcopy(observer)
+            make.seal(req);result=reference(req);selected=result['results'][0]['binding_evidence']['selected'][0]
+            self.assertEqual(selected['record_ref'],'B')
+            if second:self.assertEqual(selected['record_observer'],second)
+            else:self.assertNotIn('record_observer',selected)
+            self.assertEqual(selected['record_sha256'],make.record_hash(req['source'],req['source']['records'][1]))
+            hashes.add(selected['record_sha256'])
+        self.assertEqual(len(hashes),3)                                   # 観察者の有無と値で、記録の内容の hash が変わる
+        req=make.request();bare=req['source']['records'][0]
+        self.assertNotIn('observer',bare);self.assertNotIn('record_observer',reference(req)['results'][0]['binding_evidence']['selected'][0])
+        for value in (None,[],'x',{},{'kind':'human'},{'ref':'x'},{'kind':'robot','ref':'x'},{'kind':'human','ref':''},{'kind':'human','ref':'x','extra':1}):
+            req=make.request();req['source']['records'][0]['observer']=value;make.seal(req)
+            self.assertEqual(evaluate(req)['status'],'invalid_input',value)
+        req=make.request();req['source']['records'][0]['observer']=deepcopy(human);make.seal(req)
+        req['source']['records'][0]['observer']['kind']='device'                                    # 確認の後に観察者を替えると、確認の内容が合わない
+        self.assertEqual(evaluate(req)['reason_codes'],['review_record_hash_mismatch'])
 
     def test_finite_contained_dags_against_interval_subtraction(self):
         histories=rows=0
@@ -271,7 +295,9 @@ class TemporalMeasurementTests(unittest.TestCase):
             ('unknown-period-ignored','if unknown:','if False:','C14-reviewed'),
             ('old-review-reused',"if review['record_sha256'] != hashes[ref]:",'if False:','C29-old-hash'),
             ('unfunded-child','charge += 8','charge += 0','B01-15'),
-            ('clinical-promotion',"'certificate': {'status': 'not_certified'","'certificate': {'status': 'certified'",'C01')]
+            ('clinical-promotion',"'certificate': {'status': 'not_certified'","'certificate': {'status': 'certified'",'C01'),
+            ('observer-kind-unchecked',"if record['observer']['kind'] not in ('human', 'device'):",'if False:','O10'),
+            ('observer-not-shown',"        binding['record_observer'] = deepcopy(record['observer'])",'        pass','O01')]
         for name,old,new,ident in cases:
             self.assertEqual(source.count(old),1,name);namespace=dict(vars(native));exec(compile(source.replace(old,new),str(native.__file__),'exec'),namespace)
             surface=host.SURFACES[make.request()['schema_version']]

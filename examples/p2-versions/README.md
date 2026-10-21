@@ -34,3 +34,21 @@ python3 -B -m unittest tests.p2.test_quantity_version -v
 ```
 
 手順（V1〜V8）と予測は [設計53](../../docs/research/53-p2-l-design.md)・[期待54](../../docs/research/54-p2-l-cases.md)、結果は [55](../../docs/research/55-p2-l-results.md)。宣言と予測は作成者の主張です。履歴がない環境では、記録に沿った比較は行われません。
+
+## 記録に観察者を足す版の更新（P2-r、`p2-version-record-draft-2`）
+
+[p2-temporal-measurement-draft-2-to-draft-3.json](p2-temporal-measurement-draft-2-to-draft-3.json) は、期間つき数量（P2-i）の記録に任意の項目 `observer` を足す版の更新（draft-2 → draft-3）と、依存する5拡張（P2-j・P2-m・P2-o・P2-p・P2-q）の再固定・採用の記録です。書式は P2-l と同じで、宣言の種類 `added_field` と `repinned` を使います。
+
+| 項目 | 内容 |
+| --- | --- |
+| `from`・`to` | 旧版 `dc0aabe`（P2-q の追加後）と新版のコミットと、その木での統合評価の要約 |
+| `pins`・`pin_refusals` | 再固定するモジュールの定数6つと、旧入力を新版へ渡したときの宣言した拒否（`unsupported_profile`／`profile_spec_mismatch`） |
+| `declared_changes` | D-1〜D-3：観察者の追加（P2-i）、選択の根拠への `record_observer`（P2-o）、生成の Provenance と観察者の型（P2-q）。追加した入力25件。D-4：意味の変更のない再固定 |
+| `predicted`・`measured` | 手で書いた予測（列挙される拡張と範囲、列挙から漏れる実体）と、比較器の測定値 |
+
+```bash
+python3 -B scripts/research/compare-versions.py --record examples/p2-versions/p2-temporal-measurement-draft-2-to-draft-3.json   # git の履歴に旧版・新版のコミットが要る
+python3 -B -m unittest tests.p2.test_observer_version -v
+```
+
+手順（V1〜V8）と予測は [設計73](../../docs/research/73-p2-r-design.md)・[期待74](../../docs/research/74-p2-r-cases.md)。宣言と予測は作成者の主張です。履歴がない環境では、記録に沿った比較は行われません。

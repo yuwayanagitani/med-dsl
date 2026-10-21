@@ -20,13 +20,15 @@ CODE = {'system': 'fiction:code-system:s', 'code': 'fiction-code-1'}
 REVIEWER = 'fiction:human:reviewer'
 
 
-def declare(profile, original='final', correction=None, code_map=None, reviewer='Practitioner'):
+def declare(profile, original='final', correction=None, code_map=None, reviewer='Practitioner', observer_type=None):
     status = {'original': original}
     if correction is not None:
         status['correction'] = correction
     found = {'destination_ref': lib.ref(profile), 'status': status, 'code_map': deepcopy(MAP if code_map is None else code_map)}
     if reviewer is not None:
         found['provenance'] = {'reviewer_type': reviewer}
+        if observer_type is not None:
+            found['provenance']['observer_type'] = observer_type
     return found
 
 
@@ -39,7 +41,7 @@ def observation(grounding_request, observations, budget=100000):
             'grounding_request': child, 'observations': deepcopy(observations), 'budget': {'max_steps': budget}}
 
 
-def flows_q(base, state='original', code='final', provenance=True, creation=False):
+def flows_q(base, state='original', code='final', provenance=True, creation=False, observer=None, observer_type=False):
     retained, lost = set(base['retained']) | {'context:property'}, set(base['lost']) - {'context:property'}
     added = set(base['added']) | {'assumption:code_mapping_declared', f'assumption:status_mapping:{state}:{code}'}
     if provenance:
@@ -49,13 +51,20 @@ def flows_q(base, state='original', code='final', provenance=True, creation=Fals
     if creation:
         retained.add('origin_kind')
         lost.discard('origin_kind')
+    if observer == 'kept':
+        retained.add('observer')
+    elif observer == 'lost':
+        lost.add('observer')
+    if observer_type:
+        added.add('assumption:observer_type_declared')
     return {'retained': sorted(retained), 'lost': sorted(lost), 'added': sorted(added)}
 
 
-def provenance(index, k, activity, record, recorded, who_type, identifier):
+def provenance(index, k, activity, record, recorded, who_type, identifier=None):
     p = ['results', index, 'observation', 'provenance', k]
+    agents = [{'who': {'type': kind, 'identifier': ref}} for kind, ref in who_type] if type(who_type) is list else [{'who': {'type': who_type, 'identifier': identifier}}]
     return [check(p+['activity'], activity), check(p+['target', 'type'], 'Observation'), check(p+['target', 'record_ref'], record), check(p+['recorded'], recorded),
-            check(p+['agents'], [{'who': {'type': who_type, 'identifier': identifier}}])]
+            check(p+['agents'], agents)]
 
 
 def projected(index, flows, state='original', code='final', record='A', entries=(), grounding_value=None):
@@ -96,6 +105,10 @@ def unfinished(index=0, reason='step_limit'):
 
 def code_request(record, property_ref=PROPERTY):
     return {'element': 'code', 'action': 'declare_code_mapping', 'record_ref': record, 'property_ref': property_ref}
+
+
+def observer_request(record):
+    return {'element': 'provenance', 'action': 'declare_observer_type', 'record_ref': record, 'property_ref': None}
 
 
 def status_request(record):
@@ -157,6 +170,24 @@ def main():
     late = [lib.rec(), lib.confirm('A', 3, 'RA'), lib.confirm('A', 9, 'RA9')]
     good('Q19', observation(ground.one(ops=late), [declare(PB1)]), projected(0, flows_q(base_flows), entries=[confirm_a])
          + [check(['results', 0, 'selection', 'review_refs'], ['RA'])], 43, 38)
+
+    # ---- 観察者（P2-r、文書74の§3）：記録の観察者から生成の Provenance を出す ----
+    human, device = {'kind': 'human', 'ref': 'fiction:human:observer'}, {'kind': 'device', 'ref': 'fiction:device:meter'}
+    watched = [lib.rec(observer=human), lib.confirm('A')]
+    good('Q20', observation(ground.one(ops=watched), [declare(PB1, observer_type='PractitionerRole')]),
+         projected(0, flows_q(base_flows, observer='kept', observer_type=True), entries=[('creation', 'A', day(2), 'PractitionerRole', 'fiction:human:observer'), confirm_a]), 42, 37)
+    good('Q21', observation(ground.one(ops=watched), [declare(PB1)]), waiting(0, [observer_request('A')], 'A'), 42, 37)
+    good('Q22', observation(ground.one(ops=[lib.rec(observer=device), lib.confirm('A')]), [declare(PB1)]),
+         projected(0, flows_q(base_flows, observer='kept'), entries=[('creation', 'A', day(2), 'Device', 'fiction:device:meter'), confirm_a]), 42, 37)
+    both_agents = [lib.rec(origin={'kind': 'ai_candidate', 'ref': 'fiction:ai:A'}, observer=human), lib.confirm('A')]
+    good('Q23', observation(ground.one(ops=both_agents), [declare(PB1, observer_type='Practitioner')]),
+         projected(0, flows_q(base_flows, creation=True, observer='kept', observer_type=True),
+                   entries=[('creation', 'A', day(2), [('Device', 'fiction:ai:A'), ('Practitioner', 'fiction:human:observer')], None), confirm_a]), 42, 37)
+    good('Q24', observation(ground.one(ops=watched), [declare(PB1, reviewer=None)]), projected(0, flows_q(base_flows, provenance=False, observer='lost')), 42, 37)
+    watched_fix = [lib.rec(), lib.confirm('A'), lib.fix('B', ['A'], validity=m.span(4, 6), value=lib.value(q.point(3)), method=lib.METHOD2, observer=human), lib.confirm('B', 7)]
+    good('Q25', observation(ground.one(ops=watched_fix, query=lib.single('q1', PB1, 5)), [declare(PB1, correction='amended', observer_type='Practitioner')]),
+         projected(0, flows_q(base_flows, 'correction', 'amended', observer='kept', observer_type=True), 'correction', 'amended', 'B',
+                   [('creation', 'B', day(6), 'Practitioner', 'fiction:human:observer'), ('confirmation', 'B', day(7), 'Practitioner', REVIEWER)]), 47, 42)
 
     # ---- 宣言が足りない行（依頼） ----
     good('Q08', observation(ground.one(**fixed), [declare(PB1)]), waiting(0, [status_request('B')], 'B'), 47, 42)
@@ -241,6 +272,10 @@ def main():
         broken = deepcopy(base)
         broken['observations'][0]['provenance']['reviewer_type'] = kind
         bad('N11-reviewer-'+name, broken, 'unsupported_reviewer_type', 'unsupported_profile')
+    for name, kind in [('device', 'Device'), ('organization', 'Organization')]:
+        broken = deepcopy(base)
+        broken['observations'][0]['provenance']['observer_type'] = kind
+        bad('N14-observer-type-'+name, broken, 'unsupported_observer_type', 'unsupported_profile')
     broken = deepcopy(base)
     broken['observations'] = [declare(PB1), declare(PB1, code_map=[])]
     bad('N12-duplicate-observation', broken, 'duplicate_observation')

@@ -48,6 +48,11 @@ def row(request, query):
     state = 'correction' if record['kind'] == 'correct' else 'original'
     mapping = {entry['property_ref']: entry for entry in declaration['code_map']}
     needs = []
+    observer = record.get('observer')
+    reviewer = declaration.get('provenance', {}).get('reviewer_type')
+    observer_type = declaration.get('provenance', {}).get('observer_type')
+    if reviewer is not None and observer is not None and observer['kind'] == 'human' and observer_type is None:
+        needs.append({'element': 'provenance', 'action': 'declare_observer_type', 'record_ref': record_id, 'property_ref': None})
     if property_ref not in mapping:
         needs.append({'element': 'code', 'action': 'declare_code_mapping', 'record_ref': record_id, 'property_ref': property_ref})
     chosen = declaration['status'].get(state)
@@ -57,13 +62,17 @@ def row(request, query):
         found.update(status='needs_information', reasons=['required_information_missing'], requests=sorted(needs, key=lambda r: (r['element'], r['record_ref'])),
                      output=None, flows=None, observation_state='needs_information')
         return found
-    reviewer = declaration.get('provenance', {}).get('reviewer_type')
     entries = []
     if reviewer is not None:
+        agents = []
         if record['origin']['kind'] == 'ai_candidate':
-            entries.append({'activity': 'creation', 'record_ref': record_id, 'recorded': record['recorded_at'], 'who': {'type': 'Device', 'identifier': record['origin']['ref']}})
+            agents.append({'type': 'Device', 'identifier': record['origin']['ref']})
+        if observer is not None:
+            agents.append({'type': 'Device' if observer['kind'] == 'device' else observer_type, 'identifier': observer['ref']})
+        if agents:
+            entries.append({'activity': 'creation', 'record_ref': record_id, 'recorded': record['recorded_at'], 'agents': agents})
         for review in visible_reviews(request, record_id, view['as_of']):
-            entries.append({'activity': 'confirmation', 'record_ref': record_id, 'recorded': review['recorded_at'], 'who': {'type': reviewer, 'identifier': review['reviewer_ref']}})
+            entries.append({'activity': 'confirmation', 'record_ref': record_id, 'recorded': review['recorded_at'], 'agents': [{'type': reviewer, 'identifier': review['reviewer_ref']}]})
     retained, lost, added = set(grounded['flows']['retained']), set(grounded['flows']['lost']), set(grounded['flows']['added'])
     retained.add('context:property')
     lost.discard('context:property')
@@ -72,9 +81,15 @@ def row(request, query):
         retained |= {'human_confirmed', 'record:identity'}
         lost -= {'human_confirmed', 'record:identity'}
         added.add('assumption:reviewer_type_declared')
-        if entries and entries[0]['activity'] == 'creation':
+        if record['origin']['kind'] == 'ai_candidate':
             retained.add('origin_kind')
             lost.discard('origin_kind')
+        if observer is not None:
+            retained.add('observer')
+            if observer['kind'] == 'human':
+                added.add('assumption:observer_type_declared')
+    elif observer is not None:
+        lost.add('observer')
     found.update(observation_state='projected', status_value={'state': state, 'code': chosen},
                  code_value={'system': mapping[property_ref]['system'], 'code': mapping[property_ref]['code']}, provenance=entries,
                  flows={'retained': sorted(retained), 'lost': sorted(lost), 'added': sorted(added)})

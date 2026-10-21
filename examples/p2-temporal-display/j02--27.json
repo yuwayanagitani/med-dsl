@@ -10,12 +10,12 @@
     "operation": "project_temporal_measurement_displays",
     "consumer": {
       "profile": "p2-temporal-display-draft-1",
-      "profile_spec_sha256": "547aeb12de2e28da73b94f783710299b8ac1ae6acc0473764c9757931d0b8a1a",
+      "profile_spec_sha256": "d1673a14d406656a7baaa89569d6676f322b40c878d314ac48a542c2edd1defb",
       "operations": [
         "project_temporal_measurement_displays"
       ],
       "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
-      "temporal_measurement_profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+      "temporal_measurement_profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
       "quantity_profile": "p2-quantity-literal-draft-1",
       "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
@@ -24,7 +24,7 @@
       "operation": "evaluate_temporal_measurements",
       "consumer": {
         "profile": "p2-temporal-measurement-draft-1",
-        "profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+        "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
         "operations": [
           "evaluate_temporal_measurements"
         ],
@@ -111,7 +111,7 @@
           {
             "id": "RA",
             "record_ref": "A",
-            "record_sha256": "732f4ac3fbbceb0437943e206b69a3adf5aee4a260c5025be29a29c43da6e1df",
+            "record_sha256": "654aea22ef5739ceccbe782761f604776cb9834572ecf53ce063284393f54abb",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -193,7 +193,7 @@
         "equals": {
           "schema_version": "p2-temporal-display-artifact-draft-1",
           "profile": "p2-temporal-display-draft-1",
-          "profile_spec_sha256": "547aeb12de2e28da73b94f783710299b8ac1ae6acc0473764c9757931d0b8a1a",
+          "profile_spec_sha256": "d1673a14d406656a7baaa89569d6676f322b40c878d314ac48a542c2edd1defb",
           "quantity_profile": "p2-quantity-literal-draft-1",
           "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
           "quantity_kind_ref": "k_a",
@@ -210,7 +210,7 @@
           0,
           "artifact_sha256"
         ],
-        "equals": "7c907b5dcf710f2eedeacc6c9af76c8cbb46d19a4af4153d1e3004939ef345c6"
+        "equals": "fdde6859874c0653d03cbab7fcfbba88d0529b805bfca169f167c58f5e695c29"
       },
       {
         "path": [
@@ -240,8 +240,8 @@
         ],
         "equals": {
           "kind": "canonical_json",
-          "bytes_base64": "eyJjb2VmZmljaWVudCI6LTE0LCJkZWNpbWFsX3BsYWNlcyI6MSwicHJvZmlsZSI6InAyLXRlbXBvcmFsLWRpc3BsYXktZHJhZnQtMSIsInByb2ZpbGVfc3BlY19zaGEyNTYiOiI1NDdhZWIxMmRlMmUyOGRhNzNiOTRmNzgzNzEwMjk5YjhhYzFhZTZhY2MwNDczNzY0Yzk3NTc5MzFkMGI4YTFhIiwicXVhbnRpdHlfa2luZF9yZWYiOiJrX2EiLCJxdWFudGl0eV9wcm9maWxlIjoicDItcXVhbnRpdHktbGl0ZXJhbC1kcmFmdC0xIiwicXVhbnRpdHlfcHJvZmlsZV9zcGVjX3NoYTI1NiI6ImY1MmVhNTI2OTQ2NTY4MjIyNDRhOGJlNjBlNDM5OTYyNGFjY2E2NmY1Y2JiNWYzZTQzNGVkODBkOWFmNTFkNDIiLCJyb3VuZGluZ19wb2xpY3kiOiJmaWN0aW9uOmRlY2ltYWwtaGFsZi1ldmVuQDEiLCJzY2hlbWFfdmVyc2lvbiI6InAyLXRlbXBvcmFsLWRpc3BsYXktYXJ0aWZhY3QtZHJhZnQtMSIsInRleHQiOiItMS40IiwidW5pdF9yZWYiOiJ1X2Jhc2UifQ==",
-          "sha256": "7c907b5dcf710f2eedeacc6c9af76c8cbb46d19a4af4153d1e3004939ef345c6",
+          "bytes_base64": "eyJjb2VmZmljaWVudCI6LTE0LCJkZWNpbWFsX3BsYWNlcyI6MSwicHJvZmlsZSI6InAyLXRlbXBvcmFsLWRpc3BsYXktZHJhZnQtMSIsInByb2ZpbGVfc3BlY19zaGEyNTYiOiJkMTY3M2ExNGQ0MDY2NTZhN2JhYWE4OTU2OWQ2Njc2ZjMyMmI0MGM4NzhkMzE0YWM0OGE1NDJjMmVkZDFkZWZiIiwicXVhbnRpdHlfa2luZF9yZWYiOiJrX2EiLCJxdWFudGl0eV9wcm9maWxlIjoicDItcXVhbnRpdHktbGl0ZXJhbC1kcmFmdC0xIiwicXVhbnRpdHlfcHJvZmlsZV9zcGVjX3NoYTI1NiI6ImY1MmVhNTI2OTQ2NTY4MjIyNDRhOGJlNjBlNDM5OTYyNGFjY2E2NmY1Y2JiNWYzZTQzNGVkODBkOWFmNTFkNDIiLCJyb3VuZGluZ19wb2xpY3kiOiJmaWN0aW9uOmRlY2ltYWwtaGFsZi1ldmVuQDEiLCJzY2hlbWFfdmVyc2lvbiI6InAyLXRlbXBvcmFsLWRpc3BsYXktYXJ0aWZhY3QtZHJhZnQtMSIsInRleHQiOiItMS40IiwidW5pdF9yZWYiOiJ1X2Jhc2UifQ==",
+          "sha256": "fdde6859874c0653d03cbab7fcfbba88d0529b805bfca169f167c58f5e695c29",
           "roundtrip_matches": true
         }
       },

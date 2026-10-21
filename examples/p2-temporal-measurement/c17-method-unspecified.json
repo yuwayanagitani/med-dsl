@@ -10,7 +10,7 @@
     "operation": "evaluate_temporal_measurements",
     "consumer": {
       "profile": "p2-temporal-measurement-draft-1",
-      "profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+      "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
       "operations": [
         "evaluate_temporal_measurements"
       ],
@@ -95,7 +95,7 @@
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "38ae6505a0d0cf55ae7d88de28470322ba5d0482751bf00083f83026d6824435",
+          "record_sha256": "25ce4638138cd38204d9be66c618a8266f0d7984ae1b803464dbb638e15ff566",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-03T00:00:00Z",
@@ -323,7 +323,7 @@
             {
               "id": "RA",
               "record_ref": "A",
-              "record_sha256": "38ae6505a0d0cf55ae7d88de28470322ba5d0482751bf00083f83026d6824435",
+              "record_sha256": "25ce4638138cd38204d9be66c618a8266f0d7984ae1b803464dbb638e15ff566",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-03T00:00:00Z",

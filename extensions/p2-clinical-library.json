@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-clinical-library",
-  "version": "draft-1",
+  "version": "draft-2",
   "title": "医療者の操作（記録・確認・訂正）から台帳を組み立て、出力先の要求（宣言）を満たせるかを診断する薄い臨床ライブラリ",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R5",
   "spec": {
     "path": "src/med_dsl/clinical_library_spec.json",
-    "sha256": "9f9c6363d9f7b58fe6fc810ef9b45484b1e5a364257ba9c37f865e85c8d73c23"
+    "sha256": "bb87cc22078825e776e13933609ec37c341d152f31629b8a5f8574d402ee0d67"
   },
   "contract_doc": "docs/research/63-p2-o-design.md",
   "implementation": {
@@ -56,7 +56,7 @@
     },
     {
       "id": "p2-temporal-measurement",
-      "version": "draft-2"
+      "version": "draft-3"
     }
   ],
   "owns": {
@@ -472,6 +472,30 @@
           ],
           "equals": "ai_candidate",
           "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "CL-13",
+      "statement": "観察者を台帳へそのまま渡し、選択の根拠に、あるときだけ出す。確認の操作は観察者を持たない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_library.py::LibraryTests.test_observer_passes_through_and_selection_shows_it_only_when_present"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-library/o72.json",
+          "path": [
+            "results",
+            1,
+            "selection",
+            "record_observer"
+          ],
+          "equals": {
+            "kind": "human",
+            "ref": "fiction:human:observer"
+          },
+          "kind": "boundary"
         }
       ]
     }

@@ -10,12 +10,12 @@
     "operation": "compare_longitudinal_measurements",
     "consumer": {
       "profile": "p2-longitudinal-comparison-draft-1",
-      "profile_spec_sha256": "a571a773862db47883d96efa1c17c57749292839ab88a6d019723c5601acce56",
+      "profile_spec_sha256": "8e84f9059091605aa9539f43736d860e7a93528863eff1d770fba2e740784575",
       "operations": [
         "compare_longitudinal_measurements"
       ],
       "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
-      "temporal_measurement_profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+      "temporal_measurement_profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
       "quantity_profile": "p2-quantity-literal-draft-1",
       "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
@@ -24,7 +24,7 @@
       "operation": "evaluate_temporal_measurements",
       "consumer": {
         "profile": "p2-temporal-measurement-draft-1",
-        "profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+        "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
         "operations": [
           "evaluate_temporal_measurements"
         ],
@@ -183,7 +183,7 @@
           {
             "id": "RA",
             "record_ref": "A",
-            "record_sha256": "0dea80db2cb7c371a990fc86881c0a782a327ad414b63f30f99978cf0eca35bb",
+            "record_sha256": "5f49ed453799fcd020cae915faaac989b82cb95663b594e93ceb5d5c0bae9b3b",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -192,7 +192,7 @@
           {
             "id": "RB",
             "record_ref": "B",
-            "record_sha256": "434da6b9b56a93df84dce27e7acd17fa19e8fabeb1807b61b72674d61f75e5a5",
+            "record_sha256": "637731ddc27312e5b313a7bb8c5fb3160bde8895f25093220736ffd70325ca3b",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-07T00:00:00Z",

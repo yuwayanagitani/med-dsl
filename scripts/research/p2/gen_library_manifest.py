@@ -44,12 +44,14 @@ def library_manifest(root):
         ('CL-11', '表せない（not_representable）と不足（needs_information）を分け、失う区別を返す', ['test_selection_stops_and_requests_against_the_oracle', mutants],
          'O03', ['results', 0, 'status'], 'not_representable', True, 'boundary'),
         ('CL-12', '出力ごとの保持・喪失・追加と、選択された記録の出所を全ての出力で保つ', 'test_outputs_keep_provenance_and_flows',
-         'O14', ['results', 0, 'output', 'origin', 'record'], 'ai_candidate', True, 'non_conversion')]
+         'O14', ['results', 0, 'output', 'origin', 'record'], 'ai_candidate', True, 'non_conversion'),
+        ('CL-13', '観察者を台帳へそのまま渡し、選択の根拠に、あるときだけ出す。確認の操作は観察者を持たない', 'test_observer_passes_through_and_selection_shows_it_only_when_present',
+         'O72', ['results', 1, 'selection', 'record_observer'], {'kind': 'human', 'ref': 'fiction:human:observer'}, True, 'boundary')]
     obligations = [{'id': ident, 'statement': text, 'evidence': 'finite_check' if finite else 'checked_native_template',
                     'checks': [tests+name for name in first(test)],
                     'guards': [{'example': 'examples/p2-library/'+example.lower()+'.json', 'path': path, 'equals': value, 'kind': kind}]}
                    for ident, text, test, example, path, value, finite, kind in rows]
-    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-clinical-library', 'version': 'draft-1',
+    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-clinical-library', 'version': 'draft-2',
             'title': '医療者の操作（記録・確認・訂正）から台帳を組み立て、出力先の要求（宣言）を満たせるかを診断する薄い臨床ライブラリ',
             'status': {'review_state': 'author_draft', 'independent_review': False}, 'class': 'R5',
             'spec': {'path': 'src/med_dsl/clinical_library_spec.json', 'sha256': hashlib.sha256((root/'src/med_dsl/clinical_library_spec.json').read_bytes()).hexdigest()},
@@ -58,7 +60,7 @@ def library_manifest(root):
                      {'path': 'src/med_dsl/temporal_measurement_spec.json', 'role': 'temporal_measurement_native_spec'}, {'path': 'src/med_dsl/quantity_spec.json', 'role': 'quantity_native_spec'}],
             'embedded_in': ['src/med_dsl/clinical_library_spec.json', 'src/med_dsl/temporal_measurement.py', 'src/med_dsl/temporal_measurement_spec.json', 'src/med_dsl/quantity.py',
                             'examples/p2-library/*.json', 'examples/p2-temporal-measurement/*.json', 'examples/p2-quantity/*.json'],
-            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-quantity-literal', 'version': 'draft-2'}, {'id': 'p2-temporal-measurement', 'version': 'draft-2'}],
+            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-quantity-literal', 'version': 'draft-2'}, {'id': 'p2-temporal-measurement', 'version': 'draft-3'}],
             'owns': {'operations': ['run_clinical_library'], 'schema_versions': ['p2-library-request-draft-1', 'p2-library-result-draft-1'],
                      'profiles': ['p2-clinical-library-draft-1'], 'answer_kinds': ['clinical_library_projection'], 'predicates': [],
                      'capabilities': ['p2-clinical-library-draft-1']},

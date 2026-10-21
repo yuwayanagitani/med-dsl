@@ -10,7 +10,7 @@
     "operation": "evaluate_temporal_measurements",
     "consumer": {
       "profile": "p2-temporal-measurement-draft-1",
-      "profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+      "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
       "operations": [
         "evaluate_temporal_measurements"
       ],
@@ -97,7 +97,7 @@
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "6e831dd4f896986455e78364861c086df37a1484c0a1b4cc6a71436862d49a9f",
+          "record_sha256": "01c6c716af04e51daaa556a759e3309607cc4933af2b8e0e42c011d801cd05ae",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-03T00:00:00Z",

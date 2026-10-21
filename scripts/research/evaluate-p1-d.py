@@ -29,7 +29,7 @@ SUITES = {
 }
 CONTRACTS = ["06-p0-contract", "11-p1-contract", "11-p1-cases", "12-p1-a-contract",
              "13-p1-b-contract", "14-p1-c-contract", "15-p1-d-contract", "23-p2-b-design", "25-p2-c-design",
-             "31-p2-e-design", "32-p2-e-cases", "34-p2-f-design", "35-p2-f-cases", "37-p2-g-design", "38-p2-g-cases", "40-p2-h-design", "41-p2-h-cases", "43-p2-i-design", "44-p2-i-cases", "46-p2-j-design", "47-p2-j-cases", "50-p2-k-design", "51-p2-k-cases", "53-p2-l-design", "54-p2-l-cases", "56-p2-m-design", "57-p2-m-cases", "59-p2-n-design", "60-p2-n-cases", "63-p2-o-design", "64-p2-o-cases", "67-p2-p-design", "68-p2-p-cases", "70-p2-q-design", "71-p2-q-cases"]
+             "31-p2-e-design", "32-p2-e-cases", "34-p2-f-design", "35-p2-f-cases", "37-p2-g-design", "38-p2-g-cases", "40-p2-h-design", "41-p2-h-cases", "43-p2-i-design", "44-p2-i-cases", "46-p2-j-design", "47-p2-j-cases", "50-p2-k-design", "51-p2-k-cases", "53-p2-l-design", "54-p2-l-cases", "56-p2-m-design", "57-p2-m-cases", "59-p2-n-design", "60-p2-n-cases", "63-p2-o-design", "64-p2-o-cases", "67-p2-p-design", "68-p2-p-cases", "70-p2-q-design", "71-p2-q-cases", "73-p2-r-design", "74-p2-r-cases"]
 MODES = {**{f"H{i:02}": "typed_forecast" for i in range(1, 7)},
          **{f"H{i:02}": "finite_event_support" for i in range(7, 13)},
          "H13": "first_order_reference", "H14": "first_order_reference",

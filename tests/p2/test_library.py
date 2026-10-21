@@ -90,6 +90,8 @@ def random_request(rng):
             change['property_ref'] = 'fiction:measurement:property:A-other@1'
         if rng.random() < .1:
             change['origin'] = AI
+        if rng.random() < .15:
+            change['observer'] = rng.choice([{'kind': 'human', 'ref': 'fiction:human:observer'}, {'kind': 'device', 'ref': 'fiction:device:meter'}])
         if rng.random() < .1:
             change['certainty'] = 'suspected'
         if rng.random() < .06:
@@ -119,10 +121,10 @@ def independent_record_hash(ledger, record):
 class LibraryTests(unittest.TestCase):
     def test_hand_expectations_api_cli_manifest_and_obligations(self):
         manifest = json.loads((DIRECTORY/'manifest.json').read_text())
-        self.assertEqual(manifest['conditions'], {'O': 41, 'N': 8, 'B': 4})
-        self.assertEqual(len(manifest['files']), 141)
+        self.assertEqual(manifest['conditions'], {'O': 44, 'N': 8, 'B': 4})
+        self.assertEqual(len(manifest['files']), 147)
         declaration = json.loads((ROOT/'extensions/p2-clinical-library.json').read_text())
-        self.assertEqual({o['id'] for o in declaration['obligations']}, {'K-ID', 'K-STOP', 'K-INV', 'K-RES', 'R5-1', 'R5-2', 'R5-3'} | {f'CL-{i}' for i in range(1, 13)})
+        self.assertEqual({o['id'] for o in declaration['obligations']}, {'K-ID', 'K-STOP', 'K-INV', 'K-RES', 'R5-1', 'R5-2', 'R5-3'} | {f'CL-{i}' for i in range(1, 14)})
         self.assertEqual({p.name for p in DIRECTORY.glob('*.json')}, {e['path'] for e in manifest['files']} | {'manifest.json'})
         for entry in manifest['files']:
             path = DIRECTORY/entry['path']
@@ -135,7 +137,7 @@ class LibraryTests(unittest.TestCase):
             self.assertEqual(done.returncode, {'ok': 0, 'invalid_input': 2, 'unsupported_profile': 3, 'resource_limit': 4}[out['status']], done.stderr)
             self.assertEqual(p2_checks.failed_checks(out, data['expected']['checks']), [], entry['path'])
         report = p2_checks.suite_report('p2-library', evaluate)
-        self.assertEqual((report['examples'], report['checks'], report['failures']), (141, 2417, []))
+        self.assertEqual((report['examples'], report['checks'], report['failures']), (147, 2527, []))
 
     def test_selection_stops_and_requests_against_the_oracle(self):
         rows = 0
@@ -159,6 +161,30 @@ class LibraryTests(unittest.TestCase):
         self.assertEqual(statuses, {'satisfied', 'needs_information', 'not_representable', 'unassessed'})
         for name in ['O01', 'O03', 'O13', 'O14', 'O23', 'O24', 'O30', 'O41', 'O42', 'O46', 'O60']:
             reference(fixture(name))
+
+    def test_observer_passes_through_and_selection_shows_it_only_when_present(self):
+        """P2-r・CL-13：操作の observer は台帳の記録へそのまま渡り、選択の根拠に、選ばれた記録が持つときだけ出る。確認の操作は持たない。"""
+        human, device = {'kind': 'human', 'ref': 'fiction:human:observer'}, {'kind': 'device', 'ref': 'fiction:device:meter'}
+        for first, second in product([None, human, device], [None, human, device]):
+            ops = [make.rec(), make.confirm('A'), make.fix('B', ['A'], validity=m.span(4, 6), value=make.value(q.point(3))), make.confirm('B', 7)]
+            for index, observer in ((0, first), (2, second)):
+                if observer:
+                    ops[index]['observer'] = deepcopy(observer)
+            req = make.request(ops, destinations=[make.PB1], queries=[make.single('q3', make.PB1, 3), make.single('q5', make.PB1, 5)])
+            result = reference(req)
+            for row, observer in zip(result['results'], (first, second)):
+                if observer:
+                    self.assertEqual(row['selection']['record_observer'], observer)
+                else:
+                    self.assertNotIn('record_observer', row['selection'])
+            records = {r['id']: r for r in result['ledger']['records']}
+            self.assertEqual(records['A'].get('observer'), first)
+            self.assertEqual(records['B'].get('observer'), second)
+        ops = [make.rec(), make.confirm('A')]
+        ops[1]['observer'] = deepcopy(human)
+        self.assertEqual(evaluate(make.request(ops))['reason_codes'], ['unknown_field'])
+        for value in (None, 'x', {}, {'kind': 'robot', 'ref': 'x'}, {'kind': 'human', 'ref': ''}):
+            self.assertEqual(evaluate(make.request([make.rec(observer=value), make.confirm('A')]))['status'], 'invalid_input', value)
 
     def test_requirement_versions_and_information_requests(self):
         """V3・CL-10：要求の版 v1→v2→v3 の依頼の数の差は、選択された記録で新しく要求される欄が known でない数に等しい。情報が揃えば0。"""
@@ -589,6 +615,8 @@ class LibraryTests(unittest.TestCase):
             ('output_without_selection_check', '_single', "if selection['state'] != 'met':", 'if False:', 'O20'),
             ('requests_on_unsettled', '_single', "requests = requests if status == 'needs_information' else []", 'requests = requests', 'O08'),
             ('origin_lost', '_single', "'origin': {'record': record['origin']['kind'], 'quantity': literal['origin']['kind']}", "'origin': {'record': 'observed', 'quantity': 'literal'}", 'O14'),
+            ('observer_dropped', '_ledger', "        if 'observer' in op:\n            record['observer'] = deepcopy(op['observer'])\n", '', 'O70'),
+            ('observer_not_shown', '_evidence', "    if 'observer' in record:\n        evidence['record_observer'] = deepcopy(record['observer'])\n", '', 'O71'),
             ('child_prepayment_removed', 'run_library', '        for _ in range(cost):\n            budget.tick()\n', '', 'O01'),
             ('completion_fee_removed', 'run_library', "        current, stage = None, 'completion'\n        budget.tick()\n", "        current, stage = None, 'completion'\n", 'B01-31'),
             ('inferred_information', 'run_library', "'clinical_assertions_added': [], 'inferred_information': []", "'clinical_assertions_added': [], 'inferred_information': ['guess']", 'O01'),

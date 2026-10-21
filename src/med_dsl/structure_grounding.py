@@ -11,7 +11,7 @@ from .model import Budget, Problem
 from .validation import check_json, fields, string, strings, values
 
 GROUNDING_PROFILE = 'p2-structure-grounding-draft-1'
-SPEC_SHA256 = 'cec41a2dea6e6fd39ee75cc712153757189bd0dab0fe3cc0660046028a735d61'
+SPEC_SHA256 = '3f8527fbf60baea044e7116de4a6d9e6e2d12fd47e2f471b791012653938be73'
 OPERATION = 'run_structure_grounding'
 ANSWER_KIND = 'structure_grounding_projection'
 LIBRARY_REQUEST_SCHEMA = 'p2-library-request-draft-1'

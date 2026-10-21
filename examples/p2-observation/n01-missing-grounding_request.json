@@ -10,12 +10,12 @@
     "operation": "run_observation_projection",
     "consumer": {
       "profile": "p2-observation-projection-draft-1",
-      "profile_spec_sha256": "847037e60ef393c9f09b8ebb14e389ad799fa33b3ec20969da6c34d706f6c591",
+      "profile_spec_sha256": "422285b02c1d33d40d1e96d598fddc10c30decf51e3c91daaf1ba6f3bae1b20a",
       "operations": [
         "run_observation_projection"
       ],
       "grounding_profile": "p2-structure-grounding-draft-1",
-      "grounding_profile_spec_sha256": "cec41a2dea6e6fd39ee75cc712153757189bd0dab0fe3cc0660046028a735d61"
+      "grounding_profile_spec_sha256": "3f8527fbf60baea044e7116de4a6d9e6e2d12fd47e2f471b791012653938be73"
     },
     "observations": [
       {

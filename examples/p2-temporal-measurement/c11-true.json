@@ -10,7 +10,7 @@
     "operation": "evaluate_temporal_measurements",
     "consumer": {
       "profile": "p2-temporal-measurement-draft-1",
-      "profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+      "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
       "operations": [
         "evaluate_temporal_measurements"
       ],
@@ -160,7 +160,7 @@
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "2dabd3cc183c43f15b291102e6fad5aa73d3d3e10c35d7f1b5d1830925f48995",
+          "record_sha256": "027b2fae4f350afe525de6c5a710cf86ac5de5eb601df76894613bc665eb0bb8",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-03T00:00:00Z",
@@ -169,7 +169,7 @@
         {
           "id": "RB",
           "record_ref": "B",
-          "record_sha256": "cc19ef9166a6a6703264f43856fa24099aab0d1420a6fea59b0cfc67752bda6a",
+          "record_sha256": "0bd2296c91a37b6d505337ad61a20944e606c3f0defa253648574c08f33191fc",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-07T00:00:00Z",
@@ -462,7 +462,7 @@
             {
               "id": "RA",
               "record_ref": "A",
-              "record_sha256": "2dabd3cc183c43f15b291102e6fad5aa73d3d3e10c35d7f1b5d1830925f48995",
+              "record_sha256": "027b2fae4f350afe525de6c5a710cf86ac5de5eb601df76894613bc665eb0bb8",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-03T00:00:00Z",
@@ -471,7 +471,7 @@
             {
               "id": "RB",
               "record_ref": "B",
-              "record_sha256": "cc19ef9166a6a6703264f43856fa24099aab0d1420a6fea59b0cfc67752bda6a",
+              "record_sha256": "0bd2296c91a37b6d505337ad61a20944e606c3f0defa253648574c08f33191fc",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-07T00:00:00Z",

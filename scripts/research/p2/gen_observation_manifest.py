@@ -47,12 +47,14 @@ def observation_manifest(root):
          'Q16', ['results', 0, 'flows', 'lost'],
          ['context_state_distinction:method', 'origin_kind', 'quantity_kind', 'review:identity', 'revision_history', 'validity'], True, 'boundary'),
         ('QR-11', '構造の事実が出典に結ばれ、許容外の確認者の型を拒否する', 'test_structure_facts_are_bound_to_their_sources',
-         'N11-reviewer-device', ['reason_codes'], ['unsupported_reviewer_type'], False, 'refusal')]
+         'N11-reviewer-device', ['reason_codes'], ['unsupported_reviewer_type'], False, 'refusal'),
+        ('QR-12', '記録の観察者から生成のProvenanceを出す。人の観察者の型は宣言を使い、推測せず依頼にする', 'test_observer_creation_provenance_and_types_are_never_guessed',
+         'Q21', ['results', 0, 'requests'], [{'element': 'provenance', 'action': 'declare_observer_type', 'record_ref': 'A', 'property_ref': None}], True, 'non_conversion')]
     obligations = [{'id': ident, 'statement': text, 'evidence': 'finite_check' if finite else 'checked_native_template',
                     'checks': [tests+name for name in first(test)],
                     'guards': [{'example': 'examples/p2-observation/'+example.lower()+'.json', 'path': path, 'equals': value, 'kind': kind}]}
                    for ident, text, test, example, path, value, finite, kind in rows]
-    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-observation-projection', 'version': 'draft-1',
+    return {'schema_version': 'p2-extension-manifest-draft-2', 'id': 'p2-observation-projection', 'version': 'draft-2',
             'title': '構造への写像の可否の診断の表せる行に、Observation の status・code と Provenance の宣言を適用し、足りない宣言を依頼にする',
             'status': {'review_state': 'author_draft', 'independent_review': False}, 'class': 'R5',
             'spec': {'path': 'src/med_dsl/observation_projection_spec.json', 'sha256': hashlib.sha256((root/'src/med_dsl/observation_projection_spec.json').read_bytes()).hexdigest()},
@@ -64,7 +66,7 @@ def observation_manifest(root):
                      {'path': 'src/med_dsl/quantity_spec.json', 'role': 'quantity_native_spec'}],
             'embedded_in': ['src/med_dsl/observation_projection_spec.json', 'src/med_dsl/structure_grounding.py', 'src/med_dsl/structure_grounding_spec.json', 'src/med_dsl/clinical_library.py',
                             'examples/p2-observation/*.json', 'examples/p2-grounding/*.json', 'examples/p2-library/*.json'],
-            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-structure-grounding', 'version': 'draft-1'}],
+            'depends_on': [{'id': 'p0-positive', 'version': 'draft-2'}, {'id': 'p2-structure-grounding', 'version': 'draft-2'}],
             'owns': {'operations': ['run_observation_projection'], 'schema_versions': ['p2-observation-request-draft-1', 'p2-observation-result-draft-1'],
                      'profiles': ['p2-observation-projection-draft-1'], 'answer_kinds': ['observation_projection'], 'predicates': [],
                      'capabilities': ['p2-observation-projection-draft-1']},

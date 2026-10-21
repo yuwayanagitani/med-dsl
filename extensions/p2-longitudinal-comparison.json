@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-longitudinal-comparison",
-  "version": "draft-1",
+  "version": "draft-2",
   "title": "同じslotの二時点の期間つき数量を、独立な変数として比べる縦断比較",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R5",
   "spec": {
     "path": "src/med_dsl/longitudinal_spec.json",
-    "sha256": "a571a773862db47883d96efa1c17c57749292839ab88a6d019723c5601acce56"
+    "sha256": "8e84f9059091605aa9539f43736d860e7a93528863eff1d770fba2e740784575"
   },
   "contract_doc": "docs/research/56-p2-m-design.md",
   "implementation": {
@@ -56,7 +56,7 @@
     },
     {
       "id": "p2-temporal-measurement",
-      "version": "draft-2"
+      "version": "draft-3"
     }
   ],
   "owns": {

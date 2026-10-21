@@ -190,6 +190,17 @@ EXPECTED["suites"]["p2-observation"] = {"examples": 75, "checks": 1249}
 EXPECTED["budget"] = {"requests": 1421, "budget_evaluations": 30579, "violations": 0, "allowed_budget_dependent_refusals": 1}
 
 
+# P2-qの分母を保持し、記録への観察者の追加（P2-r。P2-iを draft-3 に上げ、依存する5拡張を再固定）後の現在値を固定する。新しい宣言はなく、
+# 義務を3つ足す（TM-13・CL-13・QR-12、いずれも有限の検査と防護例各1）。例はP2-iに11、P2-oに6、P2-qに8を足す。
+P2_Q_EXPECTED = copy.deepcopy(EXPECTED)
+EXPECTED["extensions"].update({"obligations": 316, "guards": 498, "evidence": {"checked_native_template": 200, "finite_check": 108, "hand_derivation": 8, "self_declared": 0, "individual_io": 0}})
+EXPECTED["suites"]["p2-temporal-measurement"] = {"examples": 162, "checks": 1757}
+EXPECTED["suites"]["p2-library"] = {"examples": 147, "checks": 2527}
+EXPECTED["suites"]["p2-observation"] = {"examples": 83, "checks": 1446}
+# 要求は1421＋11＋6＋8。掃引の回数31,113は実測の値（予測ではない）。
+EXPECTED["budget"] = {"requests": 1446, "budget_evaluations": 31113, "violations": 0, "allowed_budget_dependent_refusals": 1}
+
+
 def _p1d():
     spec = importlib.util.spec_from_file_location("evaluate_p1_d", ROOT / "scripts/research/evaluate-p1-d.py")
     module = importlib.util.module_from_spec(spec)

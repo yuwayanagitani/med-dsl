@@ -26,7 +26,7 @@ def temporal_display_manifest(root):
     obligations=[{'id':ident,'statement':text,'evidence':'finite_check' if finite else 'checked_native_template',
         'checks':['tests/p2/test_temporal_display.py::TemporalDisplayTests.'+test],
         'guards':[{'example':'examples/p2-temporal-display/'+name.lower()+'.json','path':path,'equals':value,'kind':'boundary'}]} for ident,text,test,name,path,value,finite in rows]
-    return {'schema_version':'p2-extension-manifest-draft-2','id':'p2-temporal-display','version':'draft-2',
+    return {'schema_version':'p2-extension-manifest-draft-2','id':'p2-temporal-display','version':'draft-3',
         'title':'期間付き数量計画の丸め表示と、原値・記録・時点・期間の保存境界',
         'status':{'review_state':'author_draft','independent_review':False},'class':'R4',
         'spec':{'path':'src/med_dsl/temporal_display_spec.json','sha256':hashlib.sha256((root/'src/med_dsl/temporal_display_spec.json').read_bytes()).hexdigest()},
@@ -34,7 +34,7 @@ def temporal_display_manifest(root):
         'pins':[{'path':'src/med_dsl/host.py','role':'dispatcher'},{'path':'docs/research/47-p2-j-cases.md','role':'hand_specified_expectations'},
                 {'path':'src/med_dsl/temporal_measurement_spec.json','role':'temporal_measurement_native_spec'},{'path':'src/med_dsl/quantity_spec.json','role':'quantity_native_spec'}],
         'embedded_in':['src/med_dsl/temporal_display_spec.json','src/med_dsl/temporal_measurement.py','src/med_dsl/temporal_measurement_spec.json','src/med_dsl/quantity.py','examples/p2-temporal-display/*.json','examples/p2-temporal-measurement/*.json','examples/p2-quantity/*.json'],
-        'depends_on':[{'id':'p0-positive','version':'draft-2'},{'id':'p2-quantity-literal','version':'draft-2'},{'id':'p2-temporal-measurement','version':'draft-2'}],
+        'depends_on':[{'id':'p0-positive','version':'draft-2'},{'id':'p2-quantity-literal','version':'draft-2'},{'id':'p2-temporal-measurement','version':'draft-3'}],
         'owns':{'operations':['project_temporal_measurement_displays'],'schema_versions':['p2-temporal-display-request-draft-1','p2-temporal-display-result-draft-1','p2-temporal-display-artifact-draft-1'],
                 'profiles':['p2-temporal-display-draft-1'],'answer_kinds':['temporal_measurement_display_projection'],'predicates':[],'capabilities':['p2-temporal-display-draft-1']},
         'scope':{'base_requests':'旧要求とG/Hを変えずIの原計画を再実行',

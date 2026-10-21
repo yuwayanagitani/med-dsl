@@ -9,9 +9,9 @@
   "independent_review": false,
   "evaluation_frozen": false,
   "grounding_profile": "p2-structure-grounding-draft-1",
-  "grounding_spec_sha256": "cec41a2dea6e6fd39ee75cc712153757189bd0dab0fe3cc0660046028a735d61",
+  "grounding_spec_sha256": "3f8527fbf60baea044e7116de4a6d9e6e2d12fd47e2f471b791012653938be73",
   "grounding_request_schema": "p2-grounding-request-draft-1",
-  "scope": "for each representable row of the structure grounding, applies the declared status mapping, code mapping and provenance declaration; missing declarations become requests to the author of the declaration and nothing is guessed",
+  "scope": "for each representable row of the structure grounding, applies the declared status mapping, code mapping and provenance declaration; missing declarations become requests to the author of the declaration and nothing is guessed; a creation provenance is emitted when the record origin is ai_candidate or the record has an observer, the observer type of a human observer being declared and never guessed",
   "status_mapping": {
     "original": [
       "final"
@@ -106,12 +106,17 @@
     "assumptions": {
       "code": "assumption:code_mapping_declared",
       "status": "assumption:status_mapping:{state}:{code}",
-      "reviewer": "assumption:reviewer_type_declared"
-    }
+      "reviewer": "assumption:reviewer_type_declared",
+      "observer": "assumption:observer_type_declared"
+    },
+    "observer_retained": [
+      "observer"
+    ]
   },
   "requests": {
     "code": "declare_code_mapping",
-    "status": "declare_correction_status"
+    "status": "declare_correction_status",
+    "observer": "declare_observer_type"
   },
   "steps": "1 + M_g + 3 per query + 1; M_g is the full structure grounding fee and the grounding is called once at budget M_g and must use exactly M_g; fees are prepaid, never refunded",
   "answers": "results keep the grounding row and add observation; certificate is always not_certified and inferred information is always empty",

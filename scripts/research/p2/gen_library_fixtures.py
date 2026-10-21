@@ -324,6 +324,14 @@ def main():
     good('O61', reverse, expected, 97)
     later = request(std()+[rec('F', recorded_at=day(12)), confirm('F', 13)], **multi)
     good('O62', later, expected, 100)
+    # ---- 観察者（P2-r、文書74の§2）：記録・訂正の任意の項目 observer を台帳へ渡し、選択の根拠に出す ----
+    human, device = {'kind': 'human', 'ref': 'fiction:human:observer'}, {'kind': 'device', 'ref': 'fiction:device:meter'}
+    shown = lambda index, observer: [check(['results', index, 'selection', 'record_observer'], observer)]
+    good('O70', request([rec(observer=human), confirm('A')]), satisfied(0, 'line', line_output('20.0', 200), S0) + shown(0, human), 32)
+    good('O71', request([rec(observer=device), confirm('A')], destinations=[PB1], queries=[single('q1', PB1)]), satisfied(0, 'exchange', point(), S1) + shown(0, device), 32)
+    watched = [rec(), confirm('A'), fix('B', ['A'], validity=m.span(4, 6), value=value(q.point(3)), method=METHOD2, observer=human), confirm('B', 7)]
+    good('O72', request(watched, destinations=[PB1], queries=[single('q3', PB1, 3), single('q5', PB1, 5)]),
+         satisfied(0, 'exchange', point(), S1, 'A', ('RA',), 3) + satisfied(1, 'exchange', exchange_output(dom((30, 1)), method=METHOD2), S1, 'B', ('RB',), 5) + shown(1, human), 64)
     # ---- 静的検査 ----
     for key in ('library', 'destinations', 'views', 'queries', 'consumer', 'budget'):
         broken = request()
@@ -372,6 +380,11 @@ def main():
     bad('N03-denominator', request([rec(value=value(q.point(1, 0))), confirm('A')]), 'invalid_rational')
     bad('N03-bits', request([rec(value=value(q.point(2**63))), confirm('A')]), 'rational_integer_limit', 'resource_limit')
     bad('N03-dimension', request([rec(value=value(q.point(1), 'v_base')), confirm('A')]), 'input_dimension_mismatch')
+    bad('N03-observer-kind', request([rec(observer={'kind': 'robot', 'ref': 'x'}), confirm('A')]), 'invalid_observer')
+    bad('N03-observer-ref', request([rec(observer={'kind': 'human', 'ref': ''}), confirm('A')]), 'expected_nonempty_string')
+    watching = [rec(), confirm('A')]
+    watching[1]['observer'] = {'kind': 'human', 'ref': 'x'}
+    bad('N03-observer-confirm', request(watching), 'unknown_field')
     bad('N03-property-kind', request([rec(property_ref='fiction:measurement:property:B@1'), confirm('A')]), 'property_quantity_kind_mismatch')
     bad('N03-origin', request([rec(origin={'kind': 'guess', 'ref': 'x'}), confirm('A')]), 'invalid_origin')
     # 要求プロファイルの形

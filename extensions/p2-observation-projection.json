@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-observation-projection",
-  "version": "draft-1",
+  "version": "draft-2",
   "title": "構造への写像の可否の診断の表せる行に、Observation の status・code と Provenance の宣言を適用し、足りない宣言を依頼にする",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R5",
   "spec": {
     "path": "src/med_dsl/observation_projection_spec.json",
-    "sha256": "847037e60ef393c9f09b8ebb14e389ad799fa33b3ec20969da6c34d706f6c591"
+    "sha256": "422285b02c1d33d40d1e96d598fddc10c30decf51e3c91daaf1ba6f3bae1b20a"
   },
   "contract_doc": "docs/research/70-p2-q-design.md",
   "implementation": {
@@ -60,7 +60,7 @@
     },
     {
       "id": "p2-structure-grounding",
-      "version": "draft-1"
+      "version": "draft-2"
     }
   ],
   "owns": {
@@ -479,6 +479,33 @@
             "unsupported_reviewer_type"
           ],
           "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "QR-12",
+      "statement": "記録の観察者から生成のProvenanceを出す。人の観察者の型は宣言を使い、推測せず依頼にする",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_observer_creation_provenance_and_types_are_never_guessed"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q21.json",
+          "path": [
+            "results",
+            0,
+            "requests"
+          ],
+          "equals": [
+            {
+              "element": "provenance",
+              "action": "declare_observer_type",
+              "record_ref": "A",
+              "property_ref": null
+            }
+          ],
+          "kind": "non_conversion"
         }
       ]
     }

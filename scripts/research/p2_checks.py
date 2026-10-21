@@ -545,7 +545,7 @@ def regenerated_mismatches(record, report):
         problems.append("pins_changed")
     changes = [c for c in record["declared_changes"] if c["kind"] == "changed_value"]
     declared = {n for c in changes for n in c["inputs"]}
-    added = {n for c in record["declared_changes"] if c["kind"] == "added_unit" for n in c["added_inputs"]}
+    added = {n for c in record["declared_changes"] for n in c.get("added_inputs", [])}
     measured = record["measured"]
     if {k: len(v) for k, v in report["old_inputs_without_regeneration"].items()} != measured["old_inputs_without_regeneration"]:
         problems.append("classification_counts")

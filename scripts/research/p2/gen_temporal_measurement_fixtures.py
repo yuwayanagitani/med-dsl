@@ -282,7 +282,22 @@ def main():
             if two:checks += row(value=((30,1),),index=1) if budget>=34 else row('unassessed',reasons=['step_limit'],index=1,complete=False)
             emit('B03-'+str(two).lower()+'-'+str(budget),req,checks)
     # B04の下位資源停止・部分結果の注入は専用テスト。
-    manifest={'schema_version':'p2-fixture-manifest-draft-1','suite':'p2-temporal-measurement','review_state':'author_draft','independent_review':False,'evaluation_frozen':False,'conditions':{'C':32,'N':12,'B':4},'files':entries}
+    # ---- 観察者（P2-r、文書74の§1）：記録の任意の項目 observer ----
+    human={'kind':'human','ref':'fiction:human:observer'};device={'kind':'device','ref':'fiction:device:meter'}
+    def observed(req,index,observer):
+        req['source']['records'][index]['observer']=deepcopy(observer);return seal(req)
+    shown=lambda observer:[check(['results',0,'binding_evidence','selected',0,'record_observer'],observer)]
+    good('O01',observed(request(),0,human),extra=shown(human))
+    good('O02',observed(request(),0,device),extra=shown(device))
+    good('O03',observed(chain(at=5),1,human),'B',((30,1),),shown(human))
+    good('O04',observed(chain(at=5),0,human),'B',((30,1),))          # 訂正は元の観察者を継がない：record_observer を出さない（キーの不在はテストで確認）
+    req=observed(request(),0,human);req['source']['records'][0]['observer']['ref']='fiction:human:other';bad('O05',req,'review_record_hash_mismatch')
+    for name,change,code in [('O10',lambda o:o.update(kind='robot'),'invalid_observer'),('O11',lambda o:o.update(ref=''),'expected_nonempty_string'),
+                             ('O12',lambda o:o.pop('ref'),'missing_field'),('O13',lambda o:o.update(extra=1),'unknown_field')]:
+        req=observed(request(),0,human);change(req['source']['records'][0]['observer']);seal(req);bad(name,req,code)
+    for suffix,value in [('null',None),('string','fiction:human:observer')]:
+        req=request();req['source']['records'][0]['observer']=value;seal(req);bad('O14-'+suffix,req,'expected_object')
+    manifest={'schema_version':'p2-fixture-manifest-draft-1','suite':'p2-temporal-measurement','review_state':'author_draft','independent_review':False,'evaluation_frozen':False,'conditions':{'C':32,'N':12,'B':4,'O':10},'files':entries}
     (DIRECTORY/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'files':len(entries),'checks':sum(len(json.loads((DIRECTORY/e['path']).read_text())['expected']['checks']) for e in entries)}))
 

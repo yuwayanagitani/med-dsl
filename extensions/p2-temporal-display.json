@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-2",
   "id": "p2-temporal-display",
-  "version": "draft-2",
+  "version": "draft-3",
   "title": "期間付き数量計画の丸め表示と、原値・記録・時点・期間の保存境界",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R4",
   "spec": {
     "path": "src/med_dsl/temporal_display_spec.json",
-    "sha256": "547aeb12de2e28da73b94f783710299b8ac1ae6acc0473764c9757931d0b8a1a"
+    "sha256": "d1673a14d406656a7baaa89569d6676f322b40c878d314ac48a542c2edd1defb"
   },
   "contract_doc": "docs/research/46-p2-j-design.md",
   "implementation": {
@@ -56,7 +56,7 @@
     },
     {
       "id": "p2-temporal-measurement",
-      "version": "draft-2"
+      "version": "draft-3"
     }
   ],
   "owns": {

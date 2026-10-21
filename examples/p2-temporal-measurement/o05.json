@@ -1,0 +1,151 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "O05",
+  "condition": "O05",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-temporal-measurement-request-draft-1",
+    "operation": "evaluate_temporal_measurements",
+    "consumer": {
+      "profile": "p2-temporal-measurement-draft-1",
+      "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
+      "operations": [
+        "evaluate_temporal_measurements"
+      ],
+      "quantity_profile": "p2-quantity-literal-draft-1",
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
+    },
+    "source": {
+      "schema_version": "p2-temporal-measurement-ledger-draft-1",
+      "ref": "fiction:period:source@1",
+      "slots": [
+        {
+          "id": "S",
+          "subject_ref": "u"
+        }
+      ],
+      "quantities": [
+        {
+          "ref": "Q",
+          "profile": "p2-quantity-literal-draft-1",
+          "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
+          "literal": {
+            "id": "Q",
+            "quantity_kind_ref": "k_a",
+            "unit_ref": "u_ten",
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 2,
+                "denominator": 1
+              }
+            },
+            "uncertainty": {
+              "kind": "not_evaluated"
+            },
+            "origin": {
+              "kind": "literal",
+              "ref": "fiction:quantity:Q"
+            },
+            "required_capabilities": [
+              "p2-quantity-literal-draft-1"
+            ]
+          }
+        }
+      ],
+      "records": [
+        {
+          "id": "A",
+          "kind": "period_quantity",
+          "slot_ref": "S",
+          "subject_ref": "u",
+          "property_ref": "fiction:measurement:property:A@1",
+          "specimen": {
+            "kind": "known",
+            "ref": "fiction:specimen:s",
+            "version": "1"
+          },
+          "method": {
+            "kind": "known",
+            "ref": "fiction:method:m",
+            "version": "1"
+          },
+          "validity": {
+            "kind": "bounded",
+            "start": "2026-10-01T00:00:00Z",
+            "end": "2026-10-10T00:00:00Z"
+          },
+          "quantity_ref": {
+            "ref": "Q",
+            "sha256": "a4fb3eb30086ab95c6adec5390a229c1b0fb8ff590e127bd600750ae43967a73"
+          },
+          "certainty": "confirmed",
+          "recorded_at": "2026-10-02T00:00:00Z",
+          "origin": {
+            "kind": "observed",
+            "ref": "fiction:measurement:origin:A"
+          },
+          "required_capabilities": [
+            "p2-temporal-measurement-draft-1"
+          ],
+          "revises": [],
+          "observer": {
+            "kind": "human",
+            "ref": "fiction:human:other"
+          }
+        }
+      ],
+      "reviews": [
+        {
+          "id": "RA",
+          "record_ref": "A",
+          "record_sha256": "54a3cb2c1e1a8e6c5894a262b799052048c701bf59981ecaadad364042bf0421",
+          "reviewer_ref": "fiction:human:reviewer",
+          "reviewer_kind": "human",
+          "recorded_at": "2026-10-03T00:00:00Z",
+          "outcome": "confirmed"
+        }
+      ]
+    },
+    "views": [
+      {
+        "id": "v",
+        "as_of": "2026-10-08T00:00:00Z",
+        "policy_ref": "fiction:reviewed-scoped-measurement@1"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q",
+        "kind": "convert",
+        "slot_ref": "S",
+        "target_unit_ref": "u_base",
+        "target_at": "2026-10-05T00:00:00Z"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "review_record_hash_mismatch"
+        ]
+      }
+    ]
+  }
+}

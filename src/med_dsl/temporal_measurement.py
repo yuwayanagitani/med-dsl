@@ -10,7 +10,7 @@ from .quantity import (QUANTITY_PROFILE, SPEC_SHA256 as QUANTITY_SPEC_SHA256,
 from .validation import check_json, digest, fields, indexed, string, strings, timestamp
 
 TEMPORAL_MEASUREMENT_PROFILE = 'p2-temporal-measurement-draft-1'
-SPEC_SHA256 = '5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1'
+SPEC_SHA256 = '168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f'
 OPERATION = 'evaluate_temporal_measurements'
 POLICY = 'fiction:reviewed-scoped-measurement@1'
 ANSWER_KIND = 'temporal_measurement_projection'
@@ -140,7 +140,7 @@ def _validate(request):
             'quantity_ref': literals[0]['id'], 'target_unit_ref': literals[0].get('unit_ref')}], 0))
     for record in records.values():
         fields(record, ('id', 'kind', 'slot_ref', 'subject_ref', 'property_ref', 'specimen', 'method', 'validity',
-                        'quantity_ref', 'certainty', 'recorded_at', 'origin', 'required_capabilities', 'revises'), ('change_reason',), 'record')
+                        'quantity_ref', 'certainty', 'recorded_at', 'origin', 'required_capabilities', 'revises'), ('change_reason', 'observer'), 'record')
         string(record['kind'], 'record.kind')
         if record['kind'] != 'period_quantity':
             _unsupported('unsupported_record_kind', 'record.kind')
@@ -171,6 +171,12 @@ def _validate(request):
         if record['origin']['kind'] not in ('observed', 'judgment', 'imported', 'ai_candidate'):
             raise Problem('invalid_origin', 'record.origin.kind')
         string(record['origin']['ref'], 'record.origin.ref')
+        if 'observer' in record:
+            fields(record['observer'], ('kind', 'ref'), path='record.observer')
+            string(record['observer']['kind'], 'record.observer.kind')
+            if record['observer']['kind'] not in ('human', 'device'):
+                raise Problem('invalid_observer', 'record.observer.kind')
+            string(record['observer']['ref'], 'record.observer.ref')
         strings(record['required_capabilities'], 64, 'record.required_capabilities')
         if TEMPORAL_MEASUREMENT_PROFILE not in record['required_capabilities']:
             raise Problem('missing_measurement_capability', 'record.required_capabilities')
@@ -302,6 +308,8 @@ def _assess(query, view, visible, eligible, confirmations, quantities, hashes, s
                'quantity_ref': deepcopy(record['quantity_ref']), 'native_quantity_id': 'operand:0',
                'validity': deepcopy(record['validity']), 'review_refs': confirmations[key],
                'record_origin': deepcopy(record['origin']), 'quantity_origin': deepcopy(literal['origin'])}
+    if 'observer' in record:
+        binding['record_observer'] = deepcopy(record['observer'])
     return {**result, 'status': 'computed', 'converted_domain': value['converted_domain'],
             'binding_evidence': {'source_sha256': source_hash, 'profile_spec_sha256': SPEC_SHA256,
                                  'quantity_spec_sha256': QUANTITY_SPEC_SHA256, 'policy_ref': POLICY,

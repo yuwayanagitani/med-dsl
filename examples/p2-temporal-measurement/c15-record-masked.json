@@ -10,7 +10,7 @@
     "operation": "evaluate_temporal_measurements",
     "consumer": {
       "profile": "p2-temporal-measurement-draft-1",
-      "profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+      "profile_spec_sha256": "168e9f8782253b75db3b79d49c06766fb827d3629ea187028efd2d63c6a8780f",
       "operations": [
         "evaluate_temporal_measurements"
       ],
@@ -230,7 +230,7 @@
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "2dabd3cc183c43f15b291102e6fad5aa73d3d3e10c35d7f1b5d1830925f48995",
+          "record_sha256": "027b2fae4f350afe525de6c5a710cf86ac5de5eb601df76894613bc665eb0bb8",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-03T00:00:00Z",
@@ -239,7 +239,7 @@
         {
           "id": "RB",
           "record_ref": "B",
-          "record_sha256": "cca7432558d90ba8efc3456e03d7c158096ea49ba9882ac5742e26ebacd10d62",
+          "record_sha256": "d55fd0dbaf0f04bd699b8a5e9b1c21b16aff0da937bd1754086fa4008821e726",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-07T00:00:00Z",
@@ -248,7 +248,7 @@
         {
           "id": "RC",
           "record_ref": "C",
-          "record_sha256": "11374c4240e76505c20e44fc202e76e08448c1c3f07963b0a4c248807e27dbad",
+          "record_sha256": "ad6f72c1e4f7281509174c64ca39823206e40d9f1305917862306fda4c845dc6",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-09T00:00:00Z",
@@ -611,7 +611,7 @@
             {
               "id": "RA",
               "record_ref": "A",
-              "record_sha256": "2dabd3cc183c43f15b291102e6fad5aa73d3d3e10c35d7f1b5d1830925f48995",
+              "record_sha256": "027b2fae4f350afe525de6c5a710cf86ac5de5eb601df76894613bc665eb0bb8",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-03T00:00:00Z",
@@ -620,7 +620,7 @@
             {
               "id": "RB",
               "record_ref": "B",
-              "record_sha256": "cca7432558d90ba8efc3456e03d7c158096ea49ba9882ac5742e26ebacd10d62",
+              "record_sha256": "d55fd0dbaf0f04bd699b8a5e9b1c21b16aff0da937bd1754086fa4008821e726",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-07T00:00:00Z",
@@ -629,7 +629,7 @@
             {
               "id": "RC",
               "record_ref": "C",
-              "record_sha256": "11374c4240e76505c20e44fc202e76e08448c1c3f07963b0a4c248807e27dbad",
+              "record_sha256": "ad6f72c1e4f7281509174c64ca39823206e40d9f1305917862306fda4c845dc6",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-09T00:00:00Z",
