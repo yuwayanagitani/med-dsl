@@ -210,18 +210,20 @@ class ShippedInheritanceTests(unittest.TestCase):
         one = lambda path: affected(self.registry, [f'src/med_dsl/{path}.py'])['extensions']
         library = 'p2-clinical-library'                                  # 継承（temporal-display・longitudinal）と依存（temporal-measurement・quantity）の両方で結ばれる
         grounding = 'p2-structure-grounding'                             # ライブラリに依存するので、ライブラリが影響を受けるとき必ず影響を受ける
-        self.assertEqual(one('measurement'), sorted(['p2-measurement-binding', 'p2-quantity-display', 'p2-temporal-measurement', 'p2-longitudinal-comparison', 'p2-temporal-display', library, grounding]))
+        observation = 'p2-observation-projection'                        # 写像の可否の診断に依存するので、それが影響を受けるとき必ず影響を受ける
+        self.assertEqual(one('measurement'), sorted(['p2-measurement-binding', 'p2-quantity-display', 'p2-temporal-measurement', 'p2-longitudinal-comparison', 'p2-temporal-display', library, grounding, observation]))
         self.assertEqual(one('temporal'), sorted(['p2-temporal-assertion', 'p2-temporal-measurement', 'p2-validity-refinement', 'p2-measurement-binding',
-                                                  'p2-quantity-display', 'p2-temporal-display', 'p2-longitudinal-comparison', library, grounding]))
-        self.assertEqual(one('display'), sorted(['p2-quantity-display', 'p2-temporal-display', library, grounding]))
-        self.assertEqual(one('temporal_measurement'), sorted(['p2-temporal-measurement', 'p2-temporal-display', 'p2-longitudinal-comparison', library, grounding]))
+                                                  'p2-quantity-display', 'p2-temporal-display', 'p2-longitudinal-comparison', library, grounding, observation]))
+        self.assertEqual(one('display'), sorted(['p2-quantity-display', 'p2-temporal-display', library, grounding, observation]))
+        self.assertEqual(one('temporal_measurement'), sorted(['p2-temporal-measurement', 'p2-temporal-display', 'p2-longitudinal-comparison', library, grounding, observation]))
         self.assertEqual(one('quantity'), sorted(['p2-quantity-literal', 'p2-measurement-binding', 'p2-quantity-display', 'p2-temporal-measurement',
-                                                  'p2-temporal-display', 'p2-longitudinal-comparison', library, grounding]))
+                                                  'p2-temporal-display', 'p2-longitudinal-comparison', library, grounding, observation]))
         self.assertEqual(one('forecast'), contract.FORECAST_FAMILY)
         # 継承する側の変更は元に及ばない
-        self.assertEqual(one('longitudinal'), sorted(['p2-longitudinal-comparison', library, grounding]))
-        self.assertEqual(one('clinical_library'), sorted([library, grounding]))
-        self.assertEqual(one('structure_grounding'), [grounding])
+        self.assertEqual(one('longitudinal'), sorted(['p2-longitudinal-comparison', library, grounding, observation]))
+        self.assertEqual(one('clinical_library'), sorted([library, grounding, observation]))
+        self.assertEqual(one('structure_grounding'), sorted([grounding, observation]))
+        self.assertEqual(one('observation_projection'), [observation])
         self.assertEqual(one('refinement'), ['p2-validity-refinement'])
 
     def test_the_reason_names_the_inheritance(self):
@@ -234,17 +236,21 @@ class ShippedInheritanceTests(unittest.TestCase):
 
     def test_inheritance_couples_a_pair_and_the_independent_pairs_fall_from_150_to_143(self):
         """P2-n の時点（20件）は150→143。P2-o の1件は、基底を除く他の19件と19組をつくり、依存か継承で結ばれるのが4件なので、独立は15組増える（手で数える）。
-        P2-p の1件は、基底を除く他の20件と20組をつくり、ライブラリへの依存とその推移（数量・期間つき数量）の3件と結ばれるので、独立は17組増える。"""
+        P2-p の1件は、基底を除く他の20件と20組をつくり、ライブラリへの依存とその推移（数量・期間つき数量）の3件と結ばれるので、独立は17組増える。
+        P2-q の1件は、基底を除く他の21件と21組をつくり、写像の可否の診断への依存とその推移（ライブラリ・数量・期間つき数量）の4件と結ばれるので、独立は17組増える。"""
         pairs = set(independent_pairs(self.registry))
         library = {pair for pair in pairs if 'p2-clinical-library' in pair}
         grounding = {pair for pair in pairs if 'p2-structure-grounding' in pair}
-        self.assertEqual(len(pairs - library - grounding), 143)
+        observation = {pair for pair in pairs if 'p2-observation-projection' in pair}
+        self.assertEqual(len(pairs - library - grounding - observation), 143)
         self.assertEqual(len(library), 19-4)
         self.assertEqual(len(grounding), 20-3)
+        self.assertEqual(len(observation), 21-4)
+        self.assertEqual({other for pair in observation for other in pair} & {'p2-structure-grounding', 'p2-clinical-library', 'p2-quantity-literal', 'p2-temporal-measurement'}, set())
         self.assertEqual({other for pair in grounding for other in pair} & {'p2-clinical-library', 'p2-quantity-literal', 'p2-temporal-measurement'}, set())
         self.assertEqual({other for pair in {tuple(sorted(key)) for key in LIBRARY} for other in pair} - {'p2-clinical-library'},
                          {'p2-temporal-display', 'p2-longitudinal-comparison', 'p2-temporal-measurement'})
-        self.assertEqual(len(pairs), 143+15+17)
+        self.assertEqual(len(pairs), 143+15+17+17)
         coupled = {tuple(sorted(key)) for key in DECLARED}
         previously_independent = {('p2-temporal-assertion', 'p2-temporal-measurement'), ('p2-measurement-binding', 'p2-temporal-measurement'),
                                   ('p2-quantity-display', 'p2-temporal-display'), ('p2-temporal-assertion', 'p2-validity-refinement'),
@@ -370,7 +376,7 @@ class SuspectProbeTests(unittest.TestCase):
 
     def test_exclusive_shared_literals_find_most_declared_pairs_with_one_false_suspect(self):
         report = inheritance_suspects.suspects(minimum=2)
-        self.assertEqual(report['independent_pairs'], 150+17+17)         # P2-o の1件は、依存だけで結ばれる2件を除く17組が独立（継承の宣言を除いた判定）。P2-p の1件は、20組から依存（推移）の3件を除く17組
+        self.assertEqual(report['independent_pairs'], 150+17+17+17)         # P2-o の1件は、依存だけで結ばれる2件を除く17組が独立（継承の宣言を除いた判定）。P2-p の1件は、20組から依存（推移）の3件を除く17組
         every = {tuple(sorted(pair)) for pair in report['suspects']}
         found = {pair for pair in every if 'p2-clinical-library' not in pair}
         declared = {tuple(sorted(key)) for key in DECLARED if key not in LIBRARY}
@@ -381,12 +387,13 @@ class SuspectProbeTests(unittest.TestCase):
         self.assertEqual(pre_independent - found, {('p2-temporal-assertion', 'p2-temporal-measurement'), ('p2-measurement-binding', 'p2-temporal-assertion')})
         # 新しい拡張に対する探索（標本の外）：宣言した2組（temporal-display、longitudinal）のうち、見つかるのは1組。
         # 丸めを自分の言葉で述べ直した temporal-display との組は、二つだけが持つ識別子が2つに届かず、見つからない
-        self.assertEqual({pair for pair in every if 'p2-structure-grounding' in pair}, set())        # P2-p は継承を宣言せず、探索も疑いを挙げない（予測どおり。偽の疑いなし）
-        self.assertEqual(every - found - {pair for pair in every if 'p2-structure-grounding' in pair}, {('p2-clinical-library', 'p2-longitudinal-comparison')})
+        composed = {pair for pair in every if {'p2-structure-grounding', 'p2-observation-projection'} & set(pair)}
+        self.assertEqual(composed, set())        # P2-p・P2-q は継承を宣言せず、探索も疑いを挙げない（予測どおり。偽の疑いなし）
+        self.assertEqual(every - found - composed, {('p2-clinical-library', 'p2-longitudinal-comparison')})
 
     def test_counting_the_shared_vocabulary_makes_almost_everything_a_suspect(self):
         report = inheritance_suspects.suspects(minimum=3, exclusive=False)
-        self.assertEqual((report['independent_pairs'], len(report['suspects'])), (184, 133))
+        self.assertEqual((report['independent_pairs'], len(report['suspects'])), (201, 147))
 
 
 class ContractVersionTests(unittest.TestCase):
@@ -415,7 +422,7 @@ class ContractVersionTests(unittest.TestCase):
     def test_the_new_declarations_differ_from_the_old_only_in_the_declared_fields(self):
         self.assertEqual(len(self.old), 20)   # 直前の契約のコミットにある宣言の数
         shipped = {manifest['id'] for manifest in load_manifests(ROOT/'extensions')}
-        self.assertEqual(shipped - set(self.old), {'p2-clinical-library', 'p2-structure-grounding'})       # 契約の更新の後に足した宣言（旧い版を持たない）
+        self.assertEqual(shipped - set(self.old), {'p2-clinical-library', 'p2-structure-grounding', 'p2-observation-projection'})       # 契約の更新の後に足した宣言（旧い版を持たない）
         for manifest in load_manifests(ROOT/'extensions'):
             if manifest['id'] not in self.old:
                 self.assertEqual(manifest['schema_version'], 'p2-extension-manifest-draft-2')
@@ -432,7 +439,7 @@ class ContractVersionTests(unittest.TestCase):
             result = p2_checks.tree_affected(tree, ['src/med_dsl/measurement.py'])
             self.assertEqual(result['extensions'], ['p2-measurement-binding', 'p2-quantity-display'])      # 旧い契約：継承の辺を持たない
             registry = standard_registry(ROOT, evaluate=evaluate)
-            self.assertEqual(len(affected(registry, ['src/med_dsl/measurement.py'])['extensions']), 7)
+            self.assertEqual(len(affected(registry, ['src/med_dsl/measurement.py'])['extensions']), 8)
             with self.assertRaises(Refused):
                 standard_registry(tree)                                                                  # 作業ツリーの registry は旧い宣言を拒否する
 

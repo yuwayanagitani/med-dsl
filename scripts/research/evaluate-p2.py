@@ -176,6 +176,20 @@ EXPECTED["suites"]["p2-grounding"] = {"examples": 97, "checks": 1998}
 EXPECTED["budget"] = {"requests": 1347, "budget_evaluations": 28345, "violations": 0, "allowed_budget_dependent_refusals": 1}
 
 
+# P2-pの分母を保持し、Observation の status・code の写像と Provenance への出力（P2-q）を加えた現在値を固定する。宣言1件（義務18、各1件の防護例、
+# 検査の水準は有限の検査8・検査済みの型10）、例75。継承は宣言しない。基底を除く他の21件との組21のうち、依存（推移）で結ばれる4件を除く17組が独立。
+P2_P_EXPECTED = copy.deepcopy(EXPECTED)
+EXPECTED["extensions"] = {
+    "registered": 23, "refused": 0, "obligations": 313, "guards": 495, "guard_gaps": 3,
+    "evidence": {"checked_native_template": 200, "finite_check": 105, "hand_derivation": 8, "self_declared": 0, "individual_io": 0},
+    "independent_pairs": 192, "pairs": 231,
+    "inherits": {"entries": 12, "witnesses": 46, "gaps": 2},
+}
+EXPECTED["suites"]["p2-observation"] = {"examples": 75, "checks": 1249}
+# 要求は1347＋74（予算欄欠落の負例1件は掃引へ含めない）。掃引の回数30,579は実測の値（予測ではない）。
+EXPECTED["budget"] = {"requests": 1421, "budget_evaluations": 30579, "violations": 0, "allowed_budget_dependent_refusals": 1}
+
+
 def _p1d():
     spec = importlib.util.spec_from_file_location("evaluate_p1_d", ROOT / "scripts/research/evaluate-p1-d.py")
     module = importlib.util.module_from_spec(spec)

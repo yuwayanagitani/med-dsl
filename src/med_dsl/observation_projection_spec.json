@@ -1,0 +1,126 @@
+{
+  "profile": "p2-observation-projection-draft-1",
+  "request_schema": "p2-observation-request-draft-1",
+  "result_schema": "p2-observation-result-draft-1",
+  "operation": "run_observation_projection",
+  "answer_kind": "observation_projection",
+  "class": "R5",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "grounding_profile": "p2-structure-grounding-draft-1",
+  "grounding_spec_sha256": "cec41a2dea6e6fd39ee75cc712153757189bd0dab0fe3cc0660046028a735d61",
+  "grounding_request_schema": "p2-grounding-request-draft-1",
+  "scope": "for each representable row of the structure grounding, applies the declared status mapping, code mapping and provenance declaration; missing declarations become requests to the author of the declaration and nothing is guessed",
+  "status_mapping": {
+    "original": [
+      "final"
+    ],
+    "correction": [
+      "amended",
+      "corrected"
+    ]
+  },
+  "reviewer_types": [
+    "Practitioner",
+    "PractitionerRole",
+    "Patient",
+    "RelatedPerson"
+  ],
+  "facts": [
+    {
+      "id": "F-S1",
+      "statement": "final: the observation is complete and needs no further action; released or signed states are represented with Provenance",
+      "source": "fhir-codesystem-observation-status-5.0.0",
+      "source_sha256": "1952e015dd5380cf6a1d228aee8bc545a33ad4b6071959c57ac778eb9f55a7b4",
+      "marker": "The observation is complete and there are no further actions needed"
+    },
+    {
+      "id": "F-S2",
+      "statement": "amended: modified after being final, including updates and corrections",
+      "source": "fhir-codesystem-observation-status-5.0.0",
+      "source_sha256": "1952e015dd5380cf6a1d228aee8bc545a33ad4b6071959c57ac778eb9f55a7b4",
+      "marker": "Subsequent to being Final, the observation has been modified subsequent"
+    },
+    {
+      "id": "F-S3",
+      "statement": "corrected: modified after being final to correct an error",
+      "source": "fhir-codesystem-observation-status-5.0.0",
+      "source_sha256": "1952e015dd5380cf6a1d228aee8bc545a33ad4b6071959c57ac778eb9f55a7b4",
+      "marker": "to correct an error in the test result"
+    },
+    {
+      "id": "F-S4",
+      "statement": "Observation.status is 1..1",
+      "source": "fhir-observation-5.0.0",
+      "source_sha256": "02beab65b3980b61b1414eb52a131fbe681381fa29388572ee427d8454e609de",
+      "marker": "registered | preliminary | final | amended"
+    },
+    {
+      "id": "F-S5",
+      "statement": "Observation.code is 1..1 and a CodeableConcept",
+      "source": "fhir-observation-5.0.0",
+      "source_sha256": "02beab65b3980b61b1414eb52a131fbe681381fa29388572ee427d8454e609de",
+      "marker": "Type of observation (code / type)"
+    },
+    {
+      "id": "F-S6",
+      "statement": "a CodeableConcept is a text description and/or a list of Codings",
+      "source": "fhir-datatypes-5.0.0",
+      "source_sha256": "d826e1819b10280b5d089b81efd14b6531419bd0fa9668d62ad6a3c2a333e201",
+      "marker": "a text description and/or a list of Codings"
+    },
+    {
+      "id": "F-P1",
+      "statement": "Provenance.agent is 1..* and agent.who is 1..1 referencing one of Practitioner, PractitionerRole, Organization, CareTeam, Patient, Device, RelatedPerson",
+      "source": "fhir-provenance-5.0.0",
+      "source_sha256": "3124befd937fa142245f09f1db724c524a82f9ce2831e29aff9185dae62487a6",
+      "marker": "The agent that participated in the event"
+    },
+    {
+      "id": "F-P2",
+      "statement": "Provenance.target is 1..* and usually version specific",
+      "source": "fhir-provenance-5.0.0",
+      "source_sha256": "3124befd937fa142245f09f1db724c524a82f9ce2831e29aff9185dae62487a6",
+      "marker": "usually version specific"
+    },
+    {
+      "id": "F-P3",
+      "statement": "Provenance.recorded is 0..1 instant",
+      "source": "fhir-provenance-5.0.0",
+      "source_sha256": "3124befd937fa142245f09f1db724c524a82f9ce2831e29aff9185dae62487a6",
+      "marker": "When the activity was recorded / updated"
+    }
+  ],
+  "flows": {
+    "always_retained": [
+      "context:property"
+    ],
+    "provenance_retained": [
+      "human_confirmed",
+      "record:identity"
+    ],
+    "creation_retained": [
+      "origin_kind"
+    ],
+    "assumptions": {
+      "code": "assumption:code_mapping_declared",
+      "status": "assumption:status_mapping:{state}:{code}",
+      "reviewer": "assumption:reviewer_type_declared"
+    }
+  },
+  "requests": {
+    "code": "declare_code_mapping",
+    "status": "declare_correction_status"
+  },
+  "steps": "1 + M_g + 3 per query + 1; M_g is the full structure grounding fee and the grounding is called once at budget M_g and must use exactly M_g; fees are prepaid, never refunded",
+  "answers": "results keep the grounding row and add observation; certificate is always not_certified and inferred information is always empty",
+  "limits": {
+    "observations": 16,
+    "code_map": 64,
+    "max_steps": 100000,
+    "json_bytes": 1048576,
+    "json_depth": 64
+  },
+  "limitations": "diagnostic only; one structure; the status and code mappings and the reviewer type are declarations by the author and are never decided here; no revision entity, activity code, role or signature; no conformance claim"
+}

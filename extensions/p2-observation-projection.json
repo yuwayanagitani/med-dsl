@@ -1,0 +1,510 @@
+{
+  "schema_version": "p2-extension-manifest-draft-2",
+  "id": "p2-observation-projection",
+  "version": "draft-1",
+  "title": "構造への写像の可否の診断の表せる行に、Observation の status・code と Provenance の宣言を適用し、足りない宣言を依頼にする",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R5",
+  "spec": {
+    "path": "src/med_dsl/observation_projection_spec.json",
+    "sha256": "847037e60ef393c9f09b8ebb14e389ad799fa33b3ec20969da6c34d706f6c591"
+  },
+  "contract_doc": "docs/research/70-p2-q-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/observation_projection.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
+      "path": "docs/research/71-p2-q-cases.md",
+      "role": "hand_specified_expectations"
+    },
+    {
+      "path": "src/med_dsl/structure_grounding_spec.json",
+      "role": "structure_grounding_native_spec"
+    },
+    {
+      "path": "src/med_dsl/clinical_library_spec.json",
+      "role": "clinical_library_native_spec"
+    },
+    {
+      "path": "src/med_dsl/temporal_measurement_spec.json",
+      "role": "temporal_measurement_native_spec"
+    },
+    {
+      "path": "src/med_dsl/quantity_spec.json",
+      "role": "quantity_native_spec"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/observation_projection_spec.json",
+    "src/med_dsl/structure_grounding.py",
+    "src/med_dsl/structure_grounding_spec.json",
+    "src/med_dsl/clinical_library.py",
+    "examples/p2-observation/*.json",
+    "examples/p2-grounding/*.json",
+    "examples/p2-library/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    },
+    {
+      "id": "p2-structure-grounding",
+      "version": "draft-1"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "run_observation_projection"
+    ],
+    "schema_versions": [
+      "p2-observation-request-draft-1",
+      "p2-observation-result-draft-1"
+    ],
+    "profiles": [
+      "p2-observation-projection-draft-1"
+    ],
+    "answer_kinds": [
+      "observation_projection"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-observation-projection-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "旧要求とP2-p・P2-o・P2-i・P2-fを変えず、P2-pを固定版で一度だけ実行し、表せる行にだけ宣言を適用する",
+    "fragment": "Observation の status（original→final、correction→amended／corrected）と code（宣言の表）と、確認ごとの Provenance（確認者の型は宣言）、AI由来の生成の Provenance。revision の entity、activity の符号、署名、他の status の値、符号の系の検証は範囲外。FHIRへの適合は主張しない"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "自己・P2-pの版と実体を固定し、旧profileや他拡張の結果を代用しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_static_validation_pins_limits_and_native_refusals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/n02-profile_spec_sha256.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "P2-pの停止（表せない・評価不能・不足の行）をそのまま通し、宣言の適用は表せる行だけに行う",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_rows_not_evaluated_or_not_declared_pass_through_the_grounding_rows"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q12.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "not_decimal_representable"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "推測で補った情報を作らず、入力を変更せず、臨床の主張を追加しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_declared_mappings_are_used_but_never_chosen"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q01.json",
+          "path": [
+            "inferred_information"
+          ],
+          "equals": [],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "共通予算に従い、未完了の行に値を返さず、資源停止で認定しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_budget_sweep_keeps_finished_rows_and_has_no_partial_values"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/b01-41.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-1",
+      "statement": "使った宣言（status・code・確認者の型）を仮定として示す",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_hand_expectations_api_cli_manifest_and_obligations"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q01.json",
+          "path": [
+            "results",
+            0,
+            "flows",
+            "added"
+          ],
+          "equals": [
+            "assumption:code_mapping_declared",
+            "assumption:reviewer_type_declared",
+            "assumption:status_mapping:original:final"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-2",
+      "statement": "保存・医学的な意味の認定を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_declared_mappings_are_used_but_never_chosen"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q01.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R5-3",
+      "statement": "構造への適合・臨床の傾向・基底への変換を主張しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_declared_mappings_are_used_but_never_chosen"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q01.json",
+          "path": [
+            "converted_to_base"
+          ],
+          "equals": false,
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "QR-1",
+      "statement": "自己・P2-pのprofileと仕様hash、構造の事実の出典のハッシュを固定し、呼び出し側が事実を変えられない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_static_validation_pins_limits_and_native_refusals",
+        "tests/p2/test_observation.py::ObservationTests.test_structure_facts_are_bound_to_their_sources"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/n02-grounding_profile_spec_sha256.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "grounding_profile_mismatch"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "QR-2",
+      "statement": "確認を作らず、参照時点で見える人の確認だけをProvenanceに運ぶ",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_confirmations_origins_and_visibility"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q19.json",
+          "path": [
+            "results",
+            0,
+            "selection",
+            "review_refs"
+          ],
+          "equals": [
+            "RA"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "QR-3",
+      "statement": "P2-pの選択をそのまま使い、再選択しない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_rows_not_evaluated_or_not_declared_pass_through_the_grounding_rows"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q06.json",
+          "path": [
+            "results",
+            0,
+            "selection",
+            "record_ref"
+          ],
+          "equals": "B",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "QR-4",
+      "statement": "停止の順序（P2-pの停止→静的検査→code→status→provenance）と状態の優先を守る",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_rows_not_evaluated_or_not_declared_pass_through_the_grounding_rows"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q13.json",
+          "path": [
+            "results",
+            0,
+            "observation",
+            "state"
+          ],
+          "equals": "not_declared",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "QR-5",
+      "statement": "全体の料金・子の予約の使い切り・原子性・最後の確定を照合する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_full_cost_funded_once_and_the_child_uses_its_reservation",
+        "tests/p2/test_observation.py::ObservationTests.test_child_failure_and_mismatch_are_atomic_and_refused"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q01.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 42,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "QR-6",
+      "statement": "宣言のない写像を推測で補わず、宣言する人への依頼にする",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_declared_mappings_are_used_but_never_chosen",
+        "tests/p2/test_observation.py::ObservationTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q08.json",
+          "path": [
+            "results",
+            0,
+            "requests"
+          ],
+          "equals": [
+            {
+              "element": "status",
+              "action": "declare_correction_status",
+              "record_ref": "B",
+              "property_ref": null
+            }
+          ],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "QR-7",
+      "statement": "statusの許容集合（原本はfinal、訂正はamended・corrected）と、選ばれた記録による選択",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_declaration_enumeration_against_the_oracle",
+        "tests/p2/test_observation.py::ObservationTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/n08-original-amended.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_status_mapping"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "QR-8",
+      "statement": "codeの写像（宣言の表）と、表にない性質の依頼",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_declaration_enumeration_against_the_oracle",
+        "tests/p2/test_observation.py::ObservationTests.test_declared_mappings_are_used_but_never_chosen",
+        "tests/p2/test_observation.py::ObservationTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q09.json",
+          "path": [
+            "results",
+            0,
+            "requests"
+          ],
+          "equals": [
+            {
+              "element": "code",
+              "action": "declare_code_mapping",
+              "record_ref": "A",
+              "property_ref": "fiction:measurement:property:A@1"
+            }
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "QR-9",
+      "statement": "Provenanceの項目の規則（確認ごと、時刻順、AI由来だけ生成を先頭に、観察者が不明な生成は出さない）",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_confirmations_origins_and_visibility",
+        "tests/p2/test_observation.py::ObservationTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q05.json",
+          "path": [
+            "results",
+            0,
+            "observation",
+            "provenance",
+            0,
+            "activity"
+          ],
+          "equals": "creation",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "QR-10",
+      "statement": "流れの規則（運んだものを保持に移し、使った宣言を仮定に足す）",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_declaration_enumeration_against_the_oracle",
+        "tests/p2/test_observation.py::ObservationTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/q16.json",
+          "path": [
+            "results",
+            0,
+            "flows",
+            "lost"
+          ],
+          "equals": [
+            "context_state_distinction:method",
+            "origin_kind",
+            "quantity_kind",
+            "review:identity",
+            "revision_history",
+            "validity"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "QR-11",
+      "statement": "構造の事実が出典に結ばれ、許容外の確認者の型を拒否する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_observation.py::ObservationTests.test_structure_facts_are_bound_to_their_sources"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-observation/n11-reviewer-device.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_reviewer_type"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "P2-pの行（表せない・評価不能・不足）は、そのまま通し not_evaluated と明示する",
+    "unsupported": "unsupported_profile。許容外の status の写像・確認者の型を補完しない",
+    "resource": "resource_limit。未完了の八欄は全てnull、完成料金前は認定なし、子の部分結果は使わない",
+    "invalid_input": "子の要求（P2-p・P2-oの検査）と宣言の形を予算前に検査"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [
+      "p2-structure-grounding"
+    ],
+    "order_dependent": false
+  },
+  "inherits": [],
+  "evaluation": {
+    "examples": [
+      "examples/p2-observation/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_observation.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/observation_oracle.py"
+  }
+}

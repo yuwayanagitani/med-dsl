@@ -1,0 +1,64 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N01-missing-grounding_request",
+  "condition": "N01",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-observation-request-draft-1",
+    "operation": "run_observation_projection",
+    "consumer": {
+      "profile": "p2-observation-projection-draft-1",
+      "profile_spec_sha256": "847037e60ef393c9f09b8ebb14e389ad799fa33b3ec20969da6c34d706f6c591",
+      "operations": [
+        "run_observation_projection"
+      ],
+      "grounding_profile": "p2-structure-grounding-draft-1",
+      "grounding_profile_spec_sha256": "cec41a2dea6e6fd39ee75cc712153757189bd0dab0fe3cc0660046028a735d61"
+    },
+    "observations": [
+      {
+        "destination_ref": {
+          "id": "dest:numeric-exchange",
+          "version": "1"
+        },
+        "status": {
+          "original": "final"
+        },
+        "code_map": [
+          {
+            "property_ref": "fiction:measurement:property:A@1",
+            "system": "fiction:code-system:s",
+            "code": "fiction-code-1"
+          }
+        ],
+        "provenance": {
+          "reviewer_type": "Practitioner"
+        }
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "missing_field"
+        ]
+      }
+    ]
+  }
+}

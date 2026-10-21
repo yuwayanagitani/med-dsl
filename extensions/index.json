@@ -135,6 +135,12 @@
       "class": "R5",
       "path": "p2-structure-grounding.json",
       "sha256": "f1908d476c653c975756f95183490767474b35e8e6cabbdd44ca11a904ad9b64"
+    },
+    {
+      "id": "p2-observation-projection",
+      "class": "R5",
+      "path": "p2-observation-projection.json",
+      "sha256": "36e242e8d8ae283bec967e3527e7e9e0f35b5ab1905576c9fb63d5020e3e551c"
     }
   ]
 }
