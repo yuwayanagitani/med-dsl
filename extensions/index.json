@@ -129,6 +129,12 @@
       "class": "R5",
       "path": "p2-clinical-library.json",
       "sha256": "6a4e0a6f9543fae94df99c37240f82c07de33803e6f12fee39da7b822eba9f50"
+    },
+    {
+      "id": "p2-structure-grounding",
+      "class": "R5",
+      "path": "p2-structure-grounding.json",
+      "sha256": "f1908d476c653c975756f95183490767474b35e8e6cabbdd44ca11a904ad9b64"
     }
   ]
 }

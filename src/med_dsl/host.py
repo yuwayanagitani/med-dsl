@@ -19,6 +19,7 @@ from .query import run_query
 from .refinement import REFINEMENT_PROFILE, run_refinement
 from .split import SPLIT_PROFILE, run_split
 from .splits import SPLITS_PROFILE, run_splits
+from .structure_grounding import GROUNDING_PROFILE, run_grounding
 from .temporal import TEMPORAL_PROFILE, run_temporal
 from .temporal_display import TEMPORAL_DISPLAY_PROFILE, run_temporal_displays
 from .temporal_measurement import TEMPORAL_MEASUREMENT_PROFILE, run_temporal_measurements
@@ -44,6 +45,7 @@ def run_p0(request):
 
 P0 = Surface("p0-request-draft-1", "p0-result-draft-1", PROFILE, run_p0)
 SURFACES = {s.request_schema: s for s in (
+    Surface("p2-grounding-request-draft-1", "p2-grounding-result-draft-1", GROUNDING_PROFILE, run_grounding),
     Surface("p2-library-request-draft-1", "p2-library-result-draft-1", LIBRARY_PROFILE, run_library),
     Surface("p2-longitudinal-request-draft-1", "p2-longitudinal-result-draft-1", LONGITUDINAL_PROFILE, run_longitudinal),
     Surface("p2-refinement-request-draft-1", "p2-refinement-result-draft-1", REFINEMENT_PROFILE, run_refinement),

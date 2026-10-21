@@ -1,0 +1,132 @@
+{
+  "profile": "p2-structure-grounding-draft-1",
+  "request_schema": "p2-grounding-request-draft-1",
+  "result_schema": "p2-grounding-result-draft-1",
+  "operation": "run_structure_grounding",
+  "answer_kind": "structure_grounding_projection",
+  "class": "R5",
+  "status": "author_draft",
+  "independent_review": false,
+  "evaluation_frozen": false,
+  "library_profile": "p2-clinical-library-draft-1",
+  "library_spec_sha256": "9f9c6363d9f7b58fe6fc810ef9b45484b1e5a364257ba9c37f865e85c8d73c23",
+  "library_request_schema": "p2-library-request-draft-1",
+  "scope": "decides, for each satisfied exchange row of the clinical library, whether the declared target structure can represent the output without rounding, closing, or adding anything; the library is run once and its rows are passed through otherwise",
+  "structures": {
+    "fhir-r5-observation": {
+      "version": "5.0.0",
+      "values": {
+        "quantity": {
+          "point_only": true,
+          "closed_only": true
+        },
+        "range": {
+          "closed_only": true
+        }
+      },
+      "decimal": {
+        "max_digits": 18,
+        "digit_count": "digits of the canonical decimal string without sign and point; a leading zero before the point is counted (conservative reading)"
+      },
+      "context_fields": [
+        "method",
+        "specimen"
+      ],
+      "not_carried": [
+        "human_confirmed",
+        "origin_kind",
+        "quantity_kind",
+        "context:property",
+        "record:identity",
+        "review:identity",
+        "revision_history"
+      ],
+      "facts": [
+        {
+          "id": "F-R1",
+          "statement": "Range low and high are both inclusive (closed); no comparator on the ends",
+          "source": "fhir-datatypes-5.0.0",
+          "source_sha256": "d826e1819b10280b5d089b81efd14b6531419bd0fa9668d62ad6a3c2a333e201",
+          "marker": "inclusive"
+        },
+        {
+          "id": "F-R2",
+          "statement": "decimal is a rational with a decimal representation, at most 18 digits",
+          "source": "fhir-datatypes-5.0.0",
+          "source_sha256": "d826e1819b10280b5d089b81efd14b6531419bd0fa9668d62ad6a3c2a333e201",
+          "marker": "18 digits"
+        },
+        {
+          "id": "F-R3",
+          "statement": "Period start and end are both inclusive",
+          "source": "fhir-datatypes-5.0.0",
+          "source_sha256": "d826e1819b10280b5d089b81efd14b6531419bd0fa9668d62ad6a3c2a333e201",
+          "marker": "inclusive boundary"
+        },
+        {
+          "id": "F-R4",
+          "statement": "Observation.value[x] is 0..1 and may be a Quantity or a Range",
+          "source": "fhir-observation-5.0.0",
+          "source_sha256": "02beab65b3980b61b1414eb52a131fbe681381fa29388572ee427d8454e609de",
+          "marker": "dataAbsentReason"
+        },
+        {
+          "id": "F-R5",
+          "statement": "Observation.method and Observation.specimen are 0..1",
+          "source": "fhir-observation-5.0.0",
+          "source_sha256": "02beab65b3980b61b1414eb52a131fbe681381fa29388572ee427d8454e609de",
+          "marker": "specimen"
+        },
+        {
+          "id": "F-R6",
+          "statement": "further states such as released or signed are represented with Provenance",
+          "source": "fhir-codesystem-observation-status-5.0.0",
+          "source_sha256": "1952e015dd5380cf6a1d228aee8bc545a33ad4b6071959c57ac778eb9f55a7b4",
+          "marker": "Provenance"
+        }
+      ]
+    }
+  },
+  "end_conventions": [
+    "undeclared",
+    "exclusive_end_as_last_second"
+  ],
+  "reasons": {
+    "interval_not_representable_as_quantity": [
+      "interval_width"
+    ],
+    "open_boundary_not_representable": [
+      "interval_bounds"
+    ],
+    "not_decimal_representable": [
+      "exact_value"
+    ],
+    "digits_exceed_limit": [
+      "exact_value"
+    ],
+    "period_end_convention_undeclared": [
+      "validity_end"
+    ]
+  },
+  "assumptions": {
+    "exclusive_end_as_last_second": [
+      "assumption:end_convention:last_second",
+      "assumption:second_granularity"
+    ]
+  },
+  "states": [
+    "representable",
+    "not_representable",
+    "not_evaluated",
+    "not_declared"
+  ],
+  "steps": "1 + M_lib + 3 per query + 1; M_lib is the full clinical library fee and the library is called once at budget M_lib and must use exactly M_lib; fees are prepaid, never refunded",
+  "answers": "results keep the library row and add base_status and grounding; certificate is always not_certified and inferred information is always empty",
+  "limits": {
+    "targets": 16,
+    "max_steps": 100000,
+    "json_bytes": 1048576,
+    "json_depth": 64
+  },
+  "limitations": "diagnostic only; one structure; no conformance claim; code, status, Provenance, Quantity comparator and coded units are out of scope; the digit rule is a conservative reading of the page; the period convention is exact only on a one-second grid"
+}

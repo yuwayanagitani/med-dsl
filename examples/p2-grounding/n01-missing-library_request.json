@@ -1,0 +1,57 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "N01-missing-library_request",
+  "condition": "N01",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-grounding-request-draft-1",
+    "operation": "run_structure_grounding",
+    "consumer": {
+      "profile": "p2-structure-grounding-draft-1",
+      "profile_spec_sha256": "cec41a2dea6e6fd39ee75cc712153757189bd0dab0fe3cc0660046028a735d61",
+      "operations": [
+        "run_structure_grounding"
+      ],
+      "library_profile": "p2-clinical-library-draft-1",
+      "library_profile_spec_sha256": "9f9c6363d9f7b58fe6fc810ef9b45484b1e5a364257ba9c37f865e85c8d73c23"
+    },
+    "targets": [
+      {
+        "destination_ref": {
+          "id": "dest:numeric-exchange",
+          "version": "1"
+        },
+        "structure": "fhir-r5-observation",
+        "value": "quantity",
+        "context_fields": [
+          "method",
+          "specimen"
+        ]
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "invalid_input"
+      },
+      {
+        "path": [
+          "reason_codes"
+        ],
+        "equals": [
+          "missing_field"
+        ]
+      }
+    ]
+  }
+}

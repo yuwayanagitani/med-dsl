@@ -1,0 +1,472 @@
+{
+  "schema_version": "p2-extension-manifest-draft-2",
+  "id": "p2-structure-grounding",
+  "version": "draft-1",
+  "title": "満たされた exchange の行が、出力先の構造（FHIR R5 Observation）で、丸めず・閉じず・補わずに表せるかを診断する",
+  "status": {
+    "review_state": "author_draft",
+    "independent_review": false
+  },
+  "class": "R5",
+  "spec": {
+    "path": "src/med_dsl/structure_grounding_spec.json",
+    "sha256": "cec41a2dea6e6fd39ee75cc712153757189bd0dab0fe3cc0660046028a735d61"
+  },
+  "contract_doc": "docs/research/67-p2-p-design.md",
+  "implementation": {
+    "modules": [
+      "src/med_dsl/structure_grounding.py"
+    ]
+  },
+  "pins": [
+    {
+      "path": "src/med_dsl/host.py",
+      "role": "dispatcher"
+    },
+    {
+      "path": "docs/research/68-p2-p-cases.md",
+      "role": "hand_specified_expectations"
+    },
+    {
+      "path": "src/med_dsl/clinical_library_spec.json",
+      "role": "clinical_library_native_spec"
+    },
+    {
+      "path": "src/med_dsl/temporal_measurement_spec.json",
+      "role": "temporal_measurement_native_spec"
+    },
+    {
+      "path": "src/med_dsl/quantity_spec.json",
+      "role": "quantity_native_spec"
+    }
+  ],
+  "embedded_in": [
+    "src/med_dsl/structure_grounding_spec.json",
+    "src/med_dsl/clinical_library.py",
+    "examples/p2-grounding/*.json",
+    "examples/p2-library/*.json"
+  ],
+  "depends_on": [
+    {
+      "id": "p0-positive",
+      "version": "draft-2"
+    },
+    {
+      "id": "p2-clinical-library",
+      "version": "draft-1"
+    }
+  ],
+  "owns": {
+    "operations": [
+      "run_structure_grounding"
+    ],
+    "schema_versions": [
+      "p2-grounding-request-draft-1",
+      "p2-grounding-result-draft-1"
+    ],
+    "profiles": [
+      "p2-structure-grounding-draft-1"
+    ],
+    "answer_kinds": [
+      "structure_grounding_projection"
+    ],
+    "predicates": [],
+    "capabilities": [
+      "p2-structure-grounding-draft-1"
+    ]
+  },
+  "scope": {
+    "base_requests": "旧要求とP2-o・P2-i・P2-fを変えず、P2-oを固定版で一度だけ実行し、満たされたexchangeの行にだけ構造への写像の可否を判定する",
+    "fragment": "構造 fhir-r5-observation の一つだけ。値（quantity・range）、期間の端の規約、文脈（method・specimen）の運び方、運べないもの。status・code・Provenance・Quantityのcomparator・コード化した単位は範囲外。FHIRへの適合は主張しない"
+  },
+  "obligations": [
+    {
+      "id": "K-ID",
+      "statement": "自己・P2-oの版と実体を固定し、旧profileや他拡張の結果を代用しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_static_validation_pins_limits_and_native_refusals"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/n02-profile_spec_sha256.json",
+          "path": [
+            "status"
+          ],
+          "equals": "unsupported_profile",
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "K-STOP",
+      "statement": "P2-oの停止（能力・選択・要素）を先に通し、構造の判定は満たされた行だけに行う",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_other_rows_pass_through_and_representable_rows_keep_the_library_columns"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/r03.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "unknown_capability"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "K-INV",
+      "statement": "推測で補った情報を作らず、入力を変更せず、臨床の主張を追加しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_nothing_is_rounded_closed_or_added"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/g01.json",
+          "path": [
+            "inferred_information"
+          ],
+          "equals": [],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "K-RES",
+      "statement": "共通予算に従い、未完了の行に値を返さず、資源停止で認定しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_budget_sweep_keeps_finished_rows_and_has_no_partial_values"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/b01-36.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-1",
+      "statement": "構造の判定が診断であり、足した仮定（期間の端の規約）を示す",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_hand_expectations_api_cli_manifest_and_obligations"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/p02.json",
+          "path": [
+            "results",
+            0,
+            "flows",
+            "added"
+          ],
+          "equals": [
+            "assumption:end_convention:last_second",
+            "assumption:second_granularity"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "R5-2",
+      "statement": "保存・医学的な意味の認定を出さない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_nothing_is_rounded_closed_or_added"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/g01.json",
+          "path": [
+            "certificate",
+            "status"
+          ],
+          "equals": "not_certified",
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "R5-3",
+      "statement": "構造への適合・臨床の傾向・基底への変換を主張しない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_nothing_is_rounded_closed_or_added"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/g01.json",
+          "path": [
+            "converted_to_base"
+          ],
+          "equals": false,
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "GR-1",
+      "statement": "自己・P2-oのprofileと仕様hash、構造の事実の出典のハッシュを固定し、呼び出し側が事実を変えられない",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_static_validation_pins_limits_and_native_refusals",
+        "tests/p2/test_grounding.py::GroundingTests.test_structure_facts_are_bound_to_their_sources"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/n02-library_profile_spec_sha256.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "library_profile_mismatch"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "GR-2",
+      "statement": "確認を作らず、人の確認と出自の種類を運べないものとして常に失うものに残す",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_period_conventions_and_context_carriage_over_the_enumeration"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/g01.json",
+          "path": [
+            "results",
+            0,
+            "flows",
+            "lost"
+          ],
+          "equals": [
+            "context:property",
+            "human_confirmed",
+            "origin_kind",
+            "quantity_kind",
+            "record:identity",
+            "review:identity",
+            "revision_history",
+            "validity"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "GR-3",
+      "statement": "P2-oの選択をそのまま使い、再選択しない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_other_rows_pass_through_and_representable_rows_keep_the_library_columns"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/p06.json",
+          "path": [
+            "results",
+            0,
+            "selection",
+            "record_ref"
+          ],
+          "equals": "B",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "GR-4",
+      "statement": "停止の順序（P2-oの停止→静的検査→値→期間→文脈）と状態の優先を守る",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_other_rows_pass_through_and_representable_rows_keep_the_library_columns"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/r01.json",
+          "path": [
+            "results",
+            1,
+            "grounding",
+            "state"
+          ],
+          "equals": "not_evaluated",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "GR-5",
+      "statement": "全体の料金・子の予約の使い切り・原子性・最後の確定を照合する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_full_cost_funded_once_and_the_child_uses_its_reservation",
+        "tests/p2/test_grounding.py::GroundingTests.test_child_failure_and_mismatch_are_atomic_and_refused"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/g01.json",
+          "path": [
+            "steps_used"
+          ],
+          "equals": 37,
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "GR-6",
+      "statement": "丸めない・閉じない・補わない。仮定は宣言した規約だけで、流れに残る",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_nothing_is_rounded_closed_or_added",
+        "tests/p2/test_grounding.py::GroundingTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/g22.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "open_boundary_not_representable"
+          ],
+          "kind": "non_conversion"
+        }
+      ]
+    },
+    {
+      "id": "GR-7",
+      "statement": "値（点・区間、有限小数、桁数）と期間の端の規約の判定規則",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_value_rules_over_the_finite_grid_against_the_oracle",
+        "tests/p2/test_grounding.py::GroundingTests.test_period_conventions_and_context_carriage_over_the_enumeration",
+        "tests/p2/test_grounding.py::GroundingTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/g03.json",
+          "path": [
+            "results",
+            0,
+            "reason_codes"
+          ],
+          "equals": [
+            "not_decimal_representable"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "GR-8",
+      "statement": "失う区別（文脈の三状態）と足す仮定を、根拠つきで流れに報告する",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_period_conventions_and_context_carriage_over_the_enumeration",
+        "tests/p2/test_grounding.py::GroundingTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/c01.json",
+          "path": [
+            "results",
+            0,
+            "grounding",
+            "projection",
+            "absent"
+          ],
+          "equals": [
+            "method"
+          ],
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "GR-9",
+      "statement": "構造の事実が、取得したページの出典（台帳のid・ハッシュ・目印の語）に結ばれ、未知の構造を拒否する",
+      "evidence": "checked_native_template",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_structure_facts_are_bound_to_their_sources"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/n08-structure.json",
+          "path": [
+            "reason_codes"
+          ],
+          "equals": [
+            "unsupported_structure"
+          ],
+          "kind": "refusal"
+        }
+      ]
+    },
+    {
+      "id": "GR-10",
+      "statement": "判定していない行（対象のない出力先、満たされない行）を、写像できると言わない",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_grounding.py::GroundingTests.test_other_rows_pass_through_and_representable_rows_keep_the_library_columns",
+        "tests/p2/test_grounding.py::GroundingTests.test_selected_mutants_are_detected_by_reference"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-grounding/d01.json",
+          "path": [
+            "results",
+            0,
+            "grounding",
+            "state"
+          ],
+          "equals": "not_declared",
+          "kind": "boundary"
+        }
+      ]
+    }
+  ],
+  "stops": {
+    "unknown_capability": "P2-oの停止（能力・選択・要素）の行は、そのまま通し not_evaluated と明示する",
+    "unsupported": "unsupported_profile。未知の構造・値の型・期間の規約・文脈の欄・出力の種類を補完しない",
+    "resource": "resource_limit。未完了の七欄は全てnull、完成料金前は認定なし、子の部分結果は使わない",
+    "invalid_input": "子の要求（P2-oの検査）と対象の宣言を予算前に検査"
+  },
+  "composition": {
+    "shares_names_with": [],
+    "reads_extensions": [
+      "p2-clinical-library"
+    ],
+    "order_dependent": false
+  },
+  "inherits": [],
+  "evaluation": {
+    "examples": [
+      "examples/p2-grounding/*.json"
+    ],
+    "tests": [
+      "tests/p2/test_grounding.py"
+    ],
+    "budget_sweep": true,
+    "oracle": "tests/p2/grounding_oracle.py"
+  }
+}

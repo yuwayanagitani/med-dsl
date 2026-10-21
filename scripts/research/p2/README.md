@@ -23,6 +23,7 @@ P2-a〜P2-c の作業で、宣言・例・検査の強さを確かめるため�
 | `gen_refinement_fixtures.py`・`gen_refinement_manifest.py` | P2-kの66例・R5宣言。期待は文書51から手指定 |
 | `gen_longitudinal_fixtures.py`・`gen_longitudinal_manifest.py` | P2-mの103例・R5宣言。期待は文書57から手指定。別計算の二つの経路・P2-gとの文脈の差分・27変異と子予算の観測は `tests/p2/test_longitudinal.py` 内で実行 |
 | `gen_library_fixtures.py`・`gen_library_manifest.py` | P2-oの141例・R5宣言。期待は文書64から手指定（O08・O09は実装中に足した例）。別計算・要求の版の差・出力先の追加・26変異と子予算の観測は `tests/p2/test_library.py` 内で実行 |
+| `gen_grounding_fixtures.py`・`gen_grounding_manifest.py` | P2-pの97例・R5宣言。期待は文書68から手指定（P2-oの生成器の部品を使う）。Decimalによる別計算・値の格子の全数・20変異と子予算の観測は `tests/p2/test_grounding.py` 内で実行 |
 | `inheritance_suspects.py` | 継承の疑いの機械的な探索（P2-n。二つの拡張だけが共有する識別子らしい文字列定数）。登録の条件ではなく、測定のための道具 |
 
 正本は、宣言・例については `extensions/`・`examples/p2*/` の JSON です。生成器はそれを再現できることを `tests/p2/test_p2_tools.py` が確かめます（コピーした木で生成し、バイト単位で比較）。

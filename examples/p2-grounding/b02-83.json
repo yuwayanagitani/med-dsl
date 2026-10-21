@@ -1,0 +1,597 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "B02-83",
+  "condition": "B02",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-grounding-request-draft-1",
+    "operation": "run_structure_grounding",
+    "consumer": {
+      "profile": "p2-structure-grounding-draft-1",
+      "profile_spec_sha256": "cec41a2dea6e6fd39ee75cc712153757189bd0dab0fe3cc0660046028a735d61",
+      "operations": [
+        "run_structure_grounding"
+      ],
+      "library_profile": "p2-clinical-library-draft-1",
+      "library_profile_spec_sha256": "9f9c6363d9f7b58fe6fc810ef9b45484b1e5a364257ba9c37f865e85c8d73c23"
+    },
+    "library_request": {
+      "schema_version": "p2-library-request-draft-1",
+      "operation": "run_clinical_library",
+      "consumer": {
+        "profile": "p2-clinical-library-draft-1",
+        "profile_spec_sha256": "9f9c6363d9f7b58fe6fc810ef9b45484b1e5a364257ba9c37f865e85c8d73c23",
+        "operations": [
+          "run_clinical_library"
+        ],
+        "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
+        "temporal_measurement_profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
+        "quantity_profile": "p2-quantity-literal-draft-1",
+        "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
+      },
+      "library": {
+        "ref": "fiction:library:session@1",
+        "slots": [
+          {
+            "id": "S",
+            "subject_ref": "u"
+          }
+        ],
+        "operations": [
+          {
+            "id": "A",
+            "kind": "record",
+            "slot_ref": "S",
+            "property_ref": "fiction:measurement:property:A@1",
+            "specimen": {
+              "kind": "known",
+              "ref": "fiction:specimen:s",
+              "version": "1"
+            },
+            "method": {
+              "kind": "unknown"
+            },
+            "validity": {
+              "kind": "bounded",
+              "start": "2026-10-01T00:00:00Z",
+              "end": "2026-10-10T00:00:00Z"
+            },
+            "value": {
+              "magnitude": {
+                "kind": "point",
+                "value": {
+                  "numerator": 2,
+                  "denominator": 1
+                }
+              },
+              "unit_ref": "u_ten",
+              "quantity_kind_ref": "k_a"
+            },
+            "certainty": "confirmed",
+            "recorded_at": "2026-10-02T00:00:00Z",
+            "origin": {
+              "kind": "observed",
+              "ref": "fiction:library:origin:A"
+            }
+          },
+          {
+            "id": "RA",
+            "kind": "confirm",
+            "record_ref": "A",
+            "reviewer_ref": "fiction:human:reviewer",
+            "recorded_at": "2026-10-03T00:00:00Z"
+          }
+        ]
+      },
+      "destinations": [
+        {
+          "id": "dest:numeric-exchange",
+          "version": "1",
+          "output": {
+            "kind": "exchange"
+          },
+          "elements": [
+            {
+              "element": "value",
+              "form": "domain",
+              "unit_ref": "u_base"
+            },
+            {
+              "element": "context",
+              "field": "property",
+              "requires": "known"
+            }
+          ]
+        },
+        {
+          "id": "dest:numeric-exchange",
+          "version": "2",
+          "output": {
+            "kind": "exchange"
+          },
+          "elements": [
+            {
+              "element": "value",
+              "form": "domain",
+              "unit_ref": "u_base"
+            },
+            {
+              "element": "context",
+              "field": "property",
+              "requires": "known"
+            },
+            {
+              "element": "context",
+              "field": "method",
+              "requires": "known"
+            }
+          ]
+        },
+        {
+          "id": "dest:numeric-exchange",
+          "version": "3",
+          "output": {
+            "kind": "exchange"
+          },
+          "elements": [
+            {
+              "element": "value",
+              "form": "domain",
+              "unit_ref": "u_base"
+            },
+            {
+              "element": "context",
+              "field": "property",
+              "requires": "known"
+            },
+            {
+              "element": "context",
+              "field": "method",
+              "requires": "known"
+            },
+            {
+              "element": "context",
+              "field": "specimen",
+              "requires": "known"
+            }
+          ]
+        }
+      ],
+      "views": [
+        {
+          "id": "v",
+          "as_of": "2026-10-08T00:00:00Z"
+        }
+      ],
+      "queries": [
+        {
+          "id": "b1",
+          "view_ref": "v",
+          "slot_ref": "S",
+          "destination_ref": {
+            "id": "dest:numeric-exchange",
+            "version": "1"
+          },
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "b2",
+          "view_ref": "v",
+          "slot_ref": "S",
+          "destination_ref": {
+            "id": "dest:numeric-exchange",
+            "version": "2"
+          },
+          "target_at": "2026-10-05T00:00:00Z"
+        },
+        {
+          "id": "b3",
+          "view_ref": "v",
+          "slot_ref": "S",
+          "destination_ref": {
+            "id": "dest:numeric-exchange",
+            "version": "3"
+          },
+          "target_at": "2026-10-05T00:00:00Z"
+        }
+      ],
+      "budget": {
+        "max_steps": 0
+      }
+    },
+    "targets": [
+      {
+        "destination_ref": {
+          "id": "dest:numeric-exchange",
+          "version": "1"
+        },
+        "structure": "fhir-r5-observation",
+        "value": "quantity",
+        "context_fields": [
+          "method",
+          "specimen"
+        ]
+      },
+      {
+        "destination_ref": {
+          "id": "dest:numeric-exchange",
+          "version": "2"
+        },
+        "structure": "fhir-r5-observation",
+        "value": "quantity",
+        "context_fields": [
+          "method",
+          "specimen"
+        ]
+      },
+      {
+        "destination_ref": {
+          "id": "dest:numeric-exchange",
+          "version": "3"
+        },
+        "structure": "fhir-r5-observation",
+        "value": "quantity",
+        "context_fields": [
+          "method",
+          "specimen"
+        ]
+      }
+    ],
+    "budget": {
+      "max_steps": 83
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "resource_limit"
+      },
+      {
+        "path": [
+          "steps_used"
+        ],
+        "equals": 83
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "unassessed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "assessment_complete"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reason_codes"
+        ],
+        "equals": [
+          "step_limit"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "selection"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "elements"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "requests"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "output"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "flows"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "grounding"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "base_status"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "status"
+        ],
+        "equals": "unassessed"
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "assessment_complete"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "reason_codes"
+        ],
+        "equals": [
+          "step_limit"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "selection"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "elements"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "requests"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "output"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "flows"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "grounding"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          1,
+          "base_status"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "status"
+        ],
+        "equals": "unassessed"
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "assessment_complete"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "reason_codes"
+        ],
+        "equals": [
+          "step_limit"
+        ]
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "selection"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "elements"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "requests"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "output"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "flows"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "grounding"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          2,
+          "base_status"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "incomplete"
+        ],
+        "equals": [
+          {
+            "query": "b1",
+            "reason_codes": [
+              "step_limit"
+            ]
+          },
+          {
+            "query": "b2",
+            "reason_codes": [
+              "step_limit"
+            ]
+          },
+          {
+            "query": "b3",
+            "reason_codes": [
+              "step_limit"
+            ]
+          }
+        ]
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "structure_grounding_projection"
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "inferred_information"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "review_verification"
+        ],
+        "equals": "structural_only"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "certificate",
+          "evidence_level"
+        ],
+        "equals": "known_policy_change"
+      },
+      {
+        "path": [
+          "certificate",
+          "scope"
+        ],
+        "equals": null
+      }
+    ]
+  }
+}
