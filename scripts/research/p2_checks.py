@@ -3,6 +3,7 @@
 evaluate-p2.py（統合評価）、compare-versions.py（版の比較）、tests/p2 が、同じ実装を使う。
 """
 
+import base64
 import copy
 import hashlib
 import io
@@ -18,6 +19,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 
+from med_dsl.extensions import affected, standard_registry
 from med_dsl.validation import canonical_bytes, decode_json
 
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
@@ -258,14 +260,32 @@ def repin(value, mapping):
     return mapping.get(value, value) if isinstance(value, str) else value
 
 
+BASE64 = re.compile(r"^[A-Za-z0-9+/]{24,}={0,2}$")
+
+
+def decoded_json(value):
+    """base64 に符号化した JSON（表示の artifact の符号化など）なら、その構造を返す。それ以外は None。"""
+    if len(value) % 4 or not BASE64.match(value):
+        return None
+    try:
+        parsed = json.loads(base64.b64decode(value, validate=True).decode("utf-8"))
+    except ValueError:
+        return None
+    return parsed if isinstance(parsed, (dict, list)) else None
+
+
 def normalize(value, dropped):
-    """宣言した付加の項目を除き、64桁の hash 値を区別しない形にする（再固定で変わる値の違いを無視する）。"""
+    """宣言した付加の項目を除き、64桁の hash 値を区別しない形にする（再固定で変わる値の違いを無視する）。
+    base64 に符号化した JSON は復号して中身を同じ規則で正規化する（符号化の中の hash が、符号の文字列の違いとして現れないように）。"""
     if isinstance(value, dict):
         return {k: normalize(v, dropped) for k, v in value.items() if k not in dropped}
     if isinstance(value, list):
         return [normalize(v, dropped) for v in value]
     if isinstance(value, str) and HEX64.match(value):
         return "<sha256>"
+    parsed = decoded_json(value) if isinstance(value, str) else None
+    if parsed is not None:
+        return {"<base64-json>": normalize(parsed, dropped)}
     return value
 
 
@@ -290,13 +310,14 @@ def embeds_pin(request, pins):
     return any(value in text for value in pins)
 
 
-def classify(old, new, request, mapping, dropped, refusal_codes):
+def classify(old, new, request, mapping, dropped, refusal_codes, refusal_statuses=("invalid_input",)):
     """旧入力を新版で実行した結果の分類：identical（宣言した付加を除き同じ）／pin_refused（固定した hash が変わったことによる
-    拒否。入力が実際に旧い hash を埋め込んでいる場合だけ）／changed（それ以外。黙った再解釈の疑い）。"""
+    拒否。入力が実際に旧い hash を埋め込んでいる場合だけ）／changed（それ以外。黙った再解釈の疑い）。
+    拒否の状態は版の記録が決める（P0 は invalid_input、P2 の拡張は unsupported_profile）。"""
     a, b = normalize(old, dropped), normalize(new, dropped)
     if a == b:
         return "identical"
-    if b.get("status") == "invalid_input" and (b.get("reason_codes") or [None])[0] in refusal_codes and embeds_pin(request, mapping):
+    if b.get("status") in refusal_statuses and (b.get("reason_codes") or [None])[0] in refusal_codes and embeds_pin(request, mapping):
         return "pin_refused"
     return "changed"
 
@@ -380,4 +401,160 @@ def record_mismatches(record, report):
             problems.append(f"{side}:undeclared_change_without_repin")
         if len(part["carry_added_field"]) != measured["carry_added_field"]:
             problems.append(f"{side}:added_field_count")
+    return problems
+
+
+# ---- P2 の拡張の版の更新（P2-l、p2-version-record-draft-2）：再生成した入力の比較 ----
+def read_pins(tree, pins):
+    """記録が指定したモジュールの定数（仕様の hash）を木から読む。"""
+    values = {}
+    for pin in pins:
+        text = (Path(tree) / pin["file"]).read_text(encoding="utf-8")
+        found = re.search(rf"^{pin['name']} = ['\"]([0-9a-f]{{64}})['\"]", text, re.M)
+        values[pin["file"]] = found.group(1) if found else None
+    return values
+
+
+def suite_inputs(tree, suites):
+    """木の実行例（manifest の files）から、名前 -> (要求, 期待の必須パス) を読む。"""
+    found = {}
+    for suite in suites:
+        manifest = decode_json((Path(tree) / "examples" / suite / "manifest.json").read_bytes())
+        for entry in manifest["files"]:
+            data = decode_json((Path(tree) / "examples" / suite / entry["path"]).read_bytes())
+            found[f"{suite}/{entry['path']}"] = (data["request"], data["expected"]["checks"])
+    return found
+
+
+def p2_tree_evaluation(tree):
+    """木に固定された P2 の統合評価（evaluate-p2、版の比較を除く）を、その木で実行して要約する。"""
+    env = dict(os.environ, GIT_DIR=str(ROOT / ".git"), PYTHONDONTWRITEBYTECODE="1")
+    out = subprocess.run([sys.executable, "-I", "-B", "scripts/research/evaluate-p2.py", "--no-versions", "--output", "data/research/p2-d/versions"],
+                         cwd=tree, capture_output=True, text=True, env=env)
+    lines = out.stdout.strip().splitlines()
+    data = json.loads(lines[-1]) if lines else {}
+    return {"passed": data.get("passed") is True, "registered": data.get("extensions", {}).get("registered"),
+            "obligations": data.get("extensions", {}).get("obligations"), "guards": data.get("extensions", {}).get("guards"),
+            "suites": {name: value[:2] for name, value in data.get("suites", {}).items()},
+            "manifest_sha256": data.get("manifest_sha256"), "bundle_sha256": data.get("bundle_sha256")}
+
+
+def changed_files(old_commit, new_commit):
+    return sorted(git("diff", "--name-only", old_commit, new_commit).stdout.decode().split())
+
+
+def allowed_difference(path, prefixes):
+    return any(path == prefix or path.startswith(prefix) for prefix in prefixes)
+
+
+def regenerated_report(record, evaluations=True):
+    """P2 の拡張の版の更新を、再生成した入力の比較で検査する（git の履歴が要る）。
+
+    V4 旧入力を新版へそのまま渡す／V5 同じ ID の入力の要求と期待を比べる／V6 旧版の木での旧入力の結果と、新版の木での
+    再生成した入力の結果を比べる／V8 新版で追加した入力を旧版の木へ渡す。"""
+    suites, pins = record["suites"], record["pins"]
+    refusals = {c["code"] for c in record["pin_refusals"]}
+    statuses = tuple(sorted({c["status"] for c in record["pin_refusals"]}))
+    with tempfile.TemporaryDirectory() as folder:
+        trees = {"from": extract(record["from"]["commit"], Path(folder) / "from"), "to": extract(record["to"]["commit"], Path(folder) / "to")}
+        report = {"reproduction": {side: p2_tree_evaluation(trees[side]) for side in trees} if evaluations else {}}
+        old_pins, new_pins = read_pins(trees["from"], pins), read_pins(trees["to"], pins)
+        mapping = {old_pins[f]: new_pins[f] for f in old_pins if old_pins[f] != new_pins[f]}
+        report["pins_changed"] = sorted(f for f in old_pins if old_pins[f] != new_pins[f])
+        old, new = suite_inputs(trees["from"], suites), suite_inputs(trees["to"], suites)
+        old_requests, new_requests = {n: v[0] for n, v in old.items()}, {n: v[0] for n, v in new.items()}
+        old_results = evaluate_tree(trees["from"], old_requests)
+        old_in_new = evaluate_tree(trees["to"], old_requests)
+        new_results = evaluate_tree(trees["to"], new_requests)
+        categories = {"identical": [], "pin_refused": [], "changed": []}
+        for name in old_requests:
+            categories[classify(old_results[name], old_in_new[name], old_requests[name], mapping, set(), refusals, statuses)].append(name)
+        both = sorted(set(old) & set(new))
+        report["inputs"] = {"old": len(old), "new": len(new), "added": sorted(set(new) - set(old)), "removed": sorted(set(old) - set(new))}
+        report["old_inputs_without_regeneration"] = {k: sorted(v) for k, v in categories.items()}
+        report["request_changed"] = sorted(n for n in both if normalize(old_requests[n], set()) != normalize(new_requests[n], set()))
+        report["expectation_changed"] = sorted(n for n in both if normalize(old[n][1], set()) != normalize(new[n][1], set()))
+        report["result_differences"] = {n: diff_paths(normalize(old_results[n], set()), normalize(new_results[n], set()))
+                                        for n in both if normalize(old_results[n], set()) != normalize(new_results[n], set())}
+        report["steps_changed"] = sorted(n for n in both if old_results[n].get("steps_used") != new_results[n].get("steps_used"))
+        # 新版で追加した入力を、旧版の木へ渡す（V8）。新しい pin のまま、および要求の pin を旧版の値に替えて
+        forward = {}
+        for name in report["inputs"]["added"]:
+            forward[name + "#new-pin"] = new_requests[name]
+            forward[name + "#old-pin"] = repin(new_requests[name], {v: k for k, v in mapping.items()})
+        report["forward"] = {n: {"status": r.get("status"), "reason_codes": r.get("reason_codes"),
+                                 "row_reasons": [row.get("reason_codes") for row in r.get("results", [])]}
+                             for n, r in evaluate_tree(trees["from"], forward).items()} if forward else {}
+        report["changed_files"] = changed_files(record["from"]["commit"], record["to"]["commit"])
+        # 置換での再固定の限界（R1）：旧い pin を新しい値へ文字列で置換した旧入力を、新版の木へ渡す。系列ごとの先頭3件
+        sample = {s: [n for n in sorted(old_requests) if n.startswith(s + "/") and embeds_pin(old_requests[n], mapping)
+                      and old_results[n].get("status") == "ok"][:3] for s in suites}
+        substituted = {n: repin(old_requests[n], mapping) for names in sample.values() for n in names}
+        report["substituted"] = {n: r.get("status") for n, r in evaluate_tree(trees["to"], substituted).items()} if substituted else {}
+        # 再検証の範囲（V7）：宣言から列挙した範囲と、旧版の木で旧い hash を埋め込んでいた実体
+        registry = standard_registry(trees["to"])
+        listed = affected(registry, record["intended_changes"], root=trees["to"])
+        expanded = sorted({p.relative_to(trees["to"]).as_posix() for pattern in record["predicted"]["regenerate"]
+                           for p in Path(trees["to"]).glob(pattern) if p.is_file()})
+        report["affected"] = {"extensions": listed["extensions"], "regenerate": listed["regenerate"], "lock": listed["lock"], "predicted_regenerate": expanded}
+        report["necessary_repin"] = embedding_files(trees["from"], list(mapping))
+    return report
+
+
+def embedding_files(tree, hashes):
+    """木のうち、実装・仕様・宣言・実行例・道具（docs を除く .py／.json）で、与えた hash の文字列を含む実体。"""
+    found = []
+    for path in sorted(Path(tree).rglob("*")):
+        relative = path.relative_to(tree).as_posix()
+        if (not path.is_file() or path.suffix not in (".py", ".json") or relative.startswith(("docs/", "data/", ".git/"))
+                or "__pycache__" in path.parts):
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        if any(h in text for h in hashes):
+            found.append(relative)
+    return found
+
+
+def regenerated_mismatches(record, report):
+    """記録（宣言と固定した測定値）と計算した報告の食い違い。空なら一致。"""
+    problems = []
+    for side in ("from", "to"):
+        if report["reproduction"] and report["reproduction"][side] != record[side]["evaluation"]:
+            problems.append(f"reproduction_{side}")
+    if report["pins_changed"] != sorted(p["file"] for p in record["pins"]):
+        problems.append("pins_changed")
+    changes = [c for c in record["declared_changes"] if c["kind"] == "changed_value"]
+    declared = {n for c in changes for n in c["inputs"]}
+    added = {n for c in record["declared_changes"] if c["kind"] == "added_unit" for n in c["added_inputs"]}
+    measured = record["measured"]
+    if {k: len(v) for k, v in report["old_inputs_without_regeneration"].items()} != measured["old_inputs_without_regeneration"]:
+        problems.append("classification_counts")
+    if report["old_inputs_without_regeneration"]["changed"]:
+        problems.append("silent_reinterpretation")
+    if report["request_changed"]:
+        problems.append("regenerated_request_changed")
+    if set(report["expectation_changed"]) != declared:
+        problems.append("undeclared_or_missing_expectation_change")
+    if set(report["result_differences"]) != declared:
+        problems.append("undeclared_or_missing_result_difference")
+    prefixes = {n: c["allowed_prefixes"] for c in changes for n in c["inputs"]}
+    for name, paths in report["result_differences"].items():
+        if name in prefixes and any(not allowed_difference(path, prefixes[name]) for path in paths):
+            problems.append("difference_outside_declared_paths:" + name)
+    if report["steps_changed"]:
+        problems.append("steps_changed")
+    if set(report["inputs"]["added"]) != added or report["inputs"]["removed"]:
+        problems.append("added_or_removed_inputs")
+    if (report["inputs"]["old"], report["inputs"]["new"]) != (measured["inputs"]["old"], measured["inputs"]["new"]):
+        problems.append("input_counts")
+    # 置換での再固定の限界：確認が拘束する内容の hash を持つ系列は、置換した入力が受理されない
+    if any(report["substituted"].get(n) == "ok" for n in report["substituted"] if not n.startswith(tuple(record["pure_pin_suites"]))):
+        problems.append("substitution_repinned_a_content_bound_input")
+    # 再検証の範囲：宣言した予測が、列挙の実際の出力と一致すること（列挙そのものが変わったら失敗）
+    predicted = record["predicted"]
+    if report["affected"]["extensions"] != sorted(predicted["extensions"]) or report["affected"]["regenerate"] != report["affected"]["predicted_regenerate"]:
+        problems.append("affected_prediction_changed")
+    listed = set(report["affected"]["regenerate"]) | set(record["intended_changes"]) | ({report["affected"]["lock"]} if report["affected"]["lock"] else set())
+    if sorted(set(report["necessary_repin"]) - listed) != sorted(measured["unpredicted_repin"]):
+        problems.append("unpredicted_repin")
     return problems

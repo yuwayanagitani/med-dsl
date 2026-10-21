@@ -77,10 +77,11 @@ def main():
     def good(name,req,converted=None,relations=None,status='computed',reasons=(),extra=()):
         emit(name,name[:3],req,[check(['status'],'ok'),*row(status,converted,relations,reasons),*extra])
     for n,mag,unit,target,out in [(1,point(2),'u_ten','u_base',domain((20,1))),
-         (2,point(20),'u_base','u_ten',domain((2,1))),(3,point(1),'u_third','u_base',domain((1,3))),
-         (4,point(1),'u_base','u_third',domain((3,1))),(5,point(2,4),'u_ten','u_base',domain((5,1))),
+         (2,point(20),'u_base','u_ten',domain((2,1))),(3,point(1),'u_third','u_base',domain((2,3))),
+         (4,point(1),'u_base','u_third',domain((3,2))),(5,point(2,4),'u_ten','u_base',domain((5,1))),
          (6,point(-3),'u_half','u_base',domain((-3,2))),(7,interval(1,2,False,True),'u_ten','u_base',domain((10,1),(20,1),False,True)),
-         (8,interval(3,3),'u_third','u_base',domain((1,1)))]:
+         (8,interval(3,3),'u_third','u_base',domain((2,1))),
+         (25,point(3),'u_hundred','u_base',domain((300,1)))]:
         good(f'Q{n:02}',request([quantity(magnitude=mag,unit=unit)],[convert(target=target)]),out)
     pairs=[(9,point(1),point(10),'u_ten',['equal']),(10,point(2),point(3),'u_base',['less']),
            (11,point(3),point(2),'u_base',['greater']),(12,interval(1,2,True,False),interval(2,3),'u_base',['less']),

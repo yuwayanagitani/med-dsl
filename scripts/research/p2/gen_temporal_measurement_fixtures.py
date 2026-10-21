@@ -14,6 +14,7 @@ DIRECTORY=ROOT/'examples/p2-temporal-measurement'
 PROFILE='p2-temporal-measurement-draft-1'
 SPEC=hashlib.sha256((ROOT/'src/med_dsl/temporal_measurement_spec.json').read_bytes()).hexdigest()
 QPROFILE='p2-quantity-literal-draft-1'
+GSPEC=hashlib.sha256((ROOT/'src/med_dsl/measurement_spec.json').read_bytes()).hexdigest()   # 他の拡張（P2-g）の確認を流用する対照用
 QSPEC=hashlib.sha256((ROOT/'src/med_dsl/quantity_spec.json').read_bytes()).hexdigest()
 POLICY='fiction:reviewed-scoped-measurement@1'
 
@@ -190,7 +191,7 @@ def main():
         req=request(reviews=[review()] if reviewed else []);req['source']['records'][0]['origin']['kind']='ai_candidate';req['source']['quantities'][0]['literal']['origin']['kind']='ai_candidate';seal(req)
         if reviewed:good('C21-reviewed',req)
         else:stop('C21-pending',req,'no_adopted_measurement')
-    good('C22-third',request([wrapper(magnitude=literals.point(1),unit='u_third')]),value=((1,3),))
+    good('C22-third',request([wrapper(magnitude=literals.point(1),unit='u_third')]),value=((2,3),))
     good('C22-negative',request([wrapper(magnitude=literals.point(-3,2))]),value=((-15,1),))
     for k in (6,7):good('C23-'+str(k),chain(k=k),'A' if k==6 else 'B',((20 if k==6 else 30,1),))
     good('C24',request([wrapper(magnitude=literals.interval(1,2))]),value=((10,1),(20,1),True,True))
@@ -199,7 +200,7 @@ def main():
     req=chain();[req['source'][key].reverse() for key in ('slots','quantities','records','reviews')];good('C26',req,'B',((30,1),))
     good('C27-past',chain(k=6),'A');good('C27-now',chain(),'B',((30,1),))
     req=request();req['source']['records'][0]['validity']={'kind':'instant','at':day(1)};seal(req);bad('C28-instant',req,'unsupported_validity','unsupported_profile')
-    req=request();req['source']['reviews'][0]['record_sha256']=digest({'binding_profile':'p2-measurement-binding-draft-1','binding_spec_sha256':'7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454','source_ref':req['source']['ref'],'record':req['source']['records'][0]});bad('C29-old-hash',req,'review_record_hash_mismatch')
+    req=request();req['source']['reviews'][0]['record_sha256']=digest({'binding_profile':'p2-measurement-binding-draft-1','binding_spec_sha256':GSPEC,'source_ref':req['source']['ref'],'record':req['source']['records'][0]});bad('C29-old-hash',req,'review_record_hash_mismatch')
     for case,shared in [('C30',False),('C31',True)]:
         req=chain();req['source']['quantities'][0]['literal'].update(magnitude=literals.point(121,100),unit_ref='u_base');req['source']['quantities'][1]['literal'].update(magnitude=literals.point(121 if shared else 124,100),unit_ref='u_base')
         req['queries']=[convert(ident='a',at=3),convert(ident='b',at=5)];seal(req)

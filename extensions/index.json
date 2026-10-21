@@ -86,31 +86,31 @@
       "id": "p2-quantity-literal",
       "class": "R2",
       "path": "p2-quantity-literal.json",
-      "sha256": "8bc1953ef327ddc2bc331161bb3ba3086eb881ca3d682b2a93ba33e621909c25"
+      "sha256": "57955910a328a5795dde04804c3515f8d15a7eee07a440b6e9b95dc1ecb3369a"
     },
     {
       "id": "p2-measurement-binding",
       "class": "R5",
       "path": "p2-measurement-binding.json",
-      "sha256": "1d77161bd7fa09005753b099dec8e92a27f12dcf3be75a33a8759ab03c091ed8"
+      "sha256": "c7c3e6e659a6e51eba79d3279c1bb74de42779f95a45285c39007db900cb2fdc"
     },
     {
       "id": "p2-quantity-display",
       "class": "R4",
       "path": "p2-quantity-display.json",
-      "sha256": "ed7f5100888e35d9c312288b46c425349f74044526ffd3c95264433810587665"
+      "sha256": "eac8c3b0bb1457730602f248f33a1e8df6bddd15eee29bba1e490908e1d1ab14"
     },
     {
       "id": "p2-temporal-measurement",
       "class": "R5",
       "path": "p2-temporal-measurement.json",
-      "sha256": "e80bfc3a20e7a2a3e35045574bb7c136820bf52062075f8f06ef966ed277c14d"
+      "sha256": "83234a47da19b2d9ad0064dae7039dd951439a18b76394655b075929c966a97c"
     },
     {
       "id": "p2-temporal-display",
       "class": "R4",
       "path": "p2-temporal-display.json",
-      "sha256": "57346e880a8e8481ead75e037c8af47ca972b7c88c2a10365f87421615fd1783"
+      "sha256": "0d42808dfc7121383f71e83fd0f7cc7ac991c5d5e0616f158cab443d86eddeac"
     },
     {
       "id": "p2-validity-refinement",

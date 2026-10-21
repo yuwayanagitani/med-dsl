@@ -10,12 +10,12 @@
     "operation": "evaluate_measurements",
     "consumer": {
       "profile": "p2-measurement-binding-draft-1",
-      "profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+      "profile_spec_sha256": "af1c3a0943067bb38961e22c3a9eaf9cf2587f5e4bb952902cd3766fb14acc4b",
       "operations": [
         "evaluate_measurements"
       ],
       "quantity_profile": "p2-quantity-literal-draft-1",
-      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
     "source": {
       "schema_version": "p2-measurement-ledger-draft-1",
@@ -30,7 +30,7 @@
         {
           "ref": "Q",
           "profile": "p2-quantity-literal-draft-1",
-          "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
           "literal": {
             "id": "Q",
             "quantity_kind_ref": "k_a",
@@ -57,7 +57,7 @@
         {
           "ref": "QB",
           "profile": "p2-quantity-literal-draft-1",
-          "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
           "literal": {
             "id": "QB",
             "quantity_kind_ref": "k_a",
@@ -84,7 +84,7 @@
         {
           "ref": "QC",
           "profile": "p2-quantity-literal-draft-1",
-          "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
           "literal": {
             "id": "QC",
             "quantity_kind_ref": "k_a",
@@ -132,7 +132,7 @@
           },
           "quantity_ref": {
             "ref": "Q",
-            "sha256": "54ef1265c268caee90b006424e57314a3f45f6b6cc2cf7a9715ea9d81f98287c"
+            "sha256": "a4fb3eb30086ab95c6adec5390a229c1b0fb8ff590e127bd600750ae43967a73"
           },
           "certainty": "confirmed",
           "recorded_at": "2026-10-20T02:00:00Z",
@@ -167,7 +167,7 @@
           },
           "quantity_ref": {
             "ref": "QB",
-            "sha256": "c8813fe044abcf01bc0dcaeba0a73aa6d1ba189a2d8d40e52c7100d890ac0108"
+            "sha256": "09a880fab1209788342bab076909b877e5c0d9de39a898478aa7a4043c0e9f28"
           },
           "certainty": "confirmed",
           "recorded_at": "2026-10-20T04:00:00Z",
@@ -205,7 +205,7 @@
           },
           "quantity_ref": {
             "ref": "QC",
-            "sha256": "99363ec2065f8f9f8efa1a6fcea7f575c052d24976c6b82bc362d840769b399c"
+            "sha256": "2c6e6596439ba15a47253a53505deedd22dc0f8250b861a3d91e34eb96bee2e2"
           },
           "certainty": "confirmed",
           "recorded_at": "2026-10-20T06:00:00Z",
@@ -226,7 +226,7 @@
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "32db41fcb14c643d8a1b59a5808003232a5184e5234a644f83fe8f1d84138100",
+          "record_sha256": "6584b79ac414ac183fc6a8eec68339a5b070104461578c65ead3c7353b755f14",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-20T03:00:00Z",
@@ -235,7 +235,7 @@
         {
           "id": "RC",
           "record_ref": "C",
-          "record_sha256": "666bcb4cc47e5cd67044639a76ef6b88503db4faf7ff12ca7761f28923aa6b96",
+          "record_sha256": "be285bbc2bfc4bcfdaf238b7d7ea2139324bc2725aedfd529d3c6db6a38a79c3",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-20T07:00:00Z",
@@ -244,7 +244,7 @@
         {
           "id": "RB",
           "record_ref": "B",
-          "record_sha256": "62c5aa0efd653e910e829357822f9fab25db0e463d6c62ec1abebe60c11e3714",
+          "record_sha256": "3a1b1a660606e77b823d2cbc1f7ab078e666141e974a413e74bd673e1ff1c541",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-20T09:00:00Z",
@@ -410,7 +410,7 @@
             {
               "ref": "Q",
               "profile": "p2-quantity-literal-draft-1",
-              "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+              "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
               "literal": {
                 "id": "Q",
                 "quantity_kind_ref": "k_a",
@@ -437,7 +437,7 @@
             {
               "ref": "QB",
               "profile": "p2-quantity-literal-draft-1",
-              "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+              "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
               "literal": {
                 "id": "QB",
                 "quantity_kind_ref": "k_a",
@@ -464,7 +464,7 @@
             {
               "ref": "QC",
               "profile": "p2-quantity-literal-draft-1",
-              "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+              "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
               "literal": {
                 "id": "QC",
                 "quantity_kind_ref": "k_a",
@@ -512,7 +512,7 @@
               },
               "quantity_ref": {
                 "ref": "Q",
-                "sha256": "54ef1265c268caee90b006424e57314a3f45f6b6cc2cf7a9715ea9d81f98287c"
+                "sha256": "a4fb3eb30086ab95c6adec5390a229c1b0fb8ff590e127bd600750ae43967a73"
               },
               "certainty": "confirmed",
               "recorded_at": "2026-10-20T02:00:00Z",
@@ -547,7 +547,7 @@
               },
               "quantity_ref": {
                 "ref": "QB",
-                "sha256": "c8813fe044abcf01bc0dcaeba0a73aa6d1ba189a2d8d40e52c7100d890ac0108"
+                "sha256": "09a880fab1209788342bab076909b877e5c0d9de39a898478aa7a4043c0e9f28"
               },
               "certainty": "confirmed",
               "recorded_at": "2026-10-20T04:00:00Z",
@@ -585,7 +585,7 @@
               },
               "quantity_ref": {
                 "ref": "QC",
-                "sha256": "99363ec2065f8f9f8efa1a6fcea7f575c052d24976c6b82bc362d840769b399c"
+                "sha256": "2c6e6596439ba15a47253a53505deedd22dc0f8250b861a3d91e34eb96bee2e2"
               },
               "certainty": "confirmed",
               "recorded_at": "2026-10-20T06:00:00Z",
@@ -606,7 +606,7 @@
             {
               "id": "RA",
               "record_ref": "A",
-              "record_sha256": "32db41fcb14c643d8a1b59a5808003232a5184e5234a644f83fe8f1d84138100",
+              "record_sha256": "6584b79ac414ac183fc6a8eec68339a5b070104461578c65ead3c7353b755f14",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-20T03:00:00Z",
@@ -615,7 +615,7 @@
             {
               "id": "RC",
               "record_ref": "C",
-              "record_sha256": "666bcb4cc47e5cd67044639a76ef6b88503db4faf7ff12ca7761f28923aa6b96",
+              "record_sha256": "be285bbc2bfc4bcfdaf238b7d7ea2139324bc2725aedfd529d3c6db6a38a79c3",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-20T07:00:00Z",
@@ -624,7 +624,7 @@
             {
               "id": "RB",
               "record_ref": "B",
-              "record_sha256": "62c5aa0efd653e910e829357822f9fab25db0e463d6c62ec1abebe60c11e3714",
+              "record_sha256": "3a1b1a660606e77b823d2cbc1f7ab078e666141e974a413e74bd673e1ff1c541",
               "reviewer_ref": "fiction:human:reviewer",
               "reviewer_kind": "human",
               "recorded_at": "2026-10-20T09:00:00Z",

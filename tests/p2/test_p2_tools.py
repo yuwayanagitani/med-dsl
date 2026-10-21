@@ -37,7 +37,7 @@ def checker_table():
     """検査器の変異表。定数（テストモジュール名・対象ファイル）を使うので、定義の部分だけを実行して読む。"""
     source = (TOOLS / "mutrun_checkers.py").read_text(encoding="utf-8")
     namespace = {}
-    exec(source[source.index("BUDGET, VERSIONS, EVALUATE"):source.index("if __name__")], namespace)
+    exec(source[source.index("BUDGET, VERSIONS, EVALUATE"):source.index('\nif __name__ == "__main__"')], namespace)
     return namespace["M"]
 
 
@@ -56,8 +56,8 @@ class MutantTableTests(unittest.TestCase):
 
     def test_the_tables_have_the_documented_sizes(self):
         sizes = {name: len(rows) for name, rows in self.tables().items()}
-        # guards の 29 ＝ 変異 28 ＋ 対照 C0、checkers の 56 ＝ 変異 55 ＋ 対照 Z0
-        self.assertEqual(sizes, {"mutants_extensions": 53, "mutrun_split": 35, "mutrun_splits": 39, "mutrun_guards": 29, "mutrun_checkers": 56})
+        # guards の 29 ＝ 変異 28 ＋ 対照 C0、checkers の 71 ＝ 変異 70 ＋ 対照 Z0
+        self.assertEqual(sizes, {"mutants_extensions": 53, "mutrun_split": 35, "mutrun_splits": 39, "mutrun_guards": 29, "mutrun_checkers": 71})
 
     def test_every_pattern_occurs_exactly_once_in_the_current_source(self):
         for name, rows in self.tables().items():

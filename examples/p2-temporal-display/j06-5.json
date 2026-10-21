@@ -10,26 +10,26 @@
     "operation": "project_temporal_measurement_displays",
     "consumer": {
       "profile": "p2-temporal-display-draft-1",
-      "profile_spec_sha256": "8b401795d6687df75ddaf7962f02b49d558a306fff98af9d311a7bbd2a83ba0e",
+      "profile_spec_sha256": "547aeb12de2e28da73b94f783710299b8ac1ae6acc0473764c9757931d0b8a1a",
       "operations": [
         "project_temporal_measurement_displays"
       ],
       "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
-      "temporal_measurement_profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+      "temporal_measurement_profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
       "quantity_profile": "p2-quantity-literal-draft-1",
-      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
     "temporal_measurement_plan": {
       "schema_version": "p2-temporal-measurement-request-draft-1",
       "operation": "evaluate_temporal_measurements",
       "consumer": {
         "profile": "p2-temporal-measurement-draft-1",
-        "profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+        "profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
         "operations": [
           "evaluate_temporal_measurements"
         ],
         "quantity_profile": "p2-quantity-literal-draft-1",
-        "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+        "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
       },
       "source": {
         "schema_version": "p2-temporal-measurement-ledger-draft-1",
@@ -44,7 +44,7 @@
           {
             "ref": "Q",
             "profile": "p2-quantity-literal-draft-1",
-            "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+            "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
             "literal": {
               "id": "Q",
               "quantity_kind_ref": "k_a",
@@ -93,7 +93,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "c88c4c901de0af78fd41a6eaec21813470818d2faf121c9b0986d789eb6b90ce"
+              "sha256": "03edcf05e2c23aeca0d62bd6c058b97f03db269521e4823f91e306d3727fbbf3"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -111,7 +111,7 @@
           {
             "id": "RA",
             "record_ref": "A",
-            "record_sha256": "dda29bcd33b4244872b4af35db4d9594a4871507c7d81215a537d4243e5c8d3b",
+            "record_sha256": "1e1edbf3d43a817e76fbdc62bcd06202e7565aac71ffa22c25fbed92a3faa86e",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -193,9 +193,9 @@
         "equals": {
           "schema_version": "p2-temporal-display-artifact-draft-1",
           "profile": "p2-temporal-display-draft-1",
-          "profile_spec_sha256": "8b401795d6687df75ddaf7962f02b49d558a306fff98af9d311a7bbd2a83ba0e",
+          "profile_spec_sha256": "547aeb12de2e28da73b94f783710299b8ac1ae6acc0473764c9757931d0b8a1a",
           "quantity_profile": "p2-quantity-literal-draft-1",
-          "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
           "quantity_kind_ref": "k_a",
           "unit_ref": "u_base",
           "rounding_policy": "fiction:decimal-half-even@1",
@@ -210,7 +210,7 @@
           0,
           "artifact_sha256"
         ],
-        "equals": "ee2873a038322edd9f8f4d3f5d7fdd69914fd7cc4dbba5bac5b6e10a45710f0d"
+        "equals": "91823e026fd247bb82d84986716afa6a00cb93431f91563b904fdb946ad3db2b"
       },
       {
         "path": [
@@ -240,8 +240,8 @@
         ],
         "equals": {
           "kind": "canonical_json",
-          "bytes_base64": "eyJjb2VmZmljaWVudCI6MiwiZGVjaW1hbF9wbGFjZXMiOjAsInByb2ZpbGUiOiJwMi10ZW1wb3JhbC1kaXNwbGF5LWRyYWZ0LTEiLCJwcm9maWxlX3NwZWNfc2hhMjU2IjoiOGI0MDE3OTVkNjY4N2RmNzVkZGFmNzk2MmYwMmI0OWQ1NThhMzA2ZmZmOThhZjlkMzExYTdiYmQyYTgzYmEwZSIsInF1YW50aXR5X2tpbmRfcmVmIjoia19hIiwicXVhbnRpdHlfcHJvZmlsZSI6InAyLXF1YW50aXR5LWxpdGVyYWwtZHJhZnQtMSIsInF1YW50aXR5X3Byb2ZpbGVfc3BlY19zaGEyNTYiOiI4NGFmMmU3NzFkMTg2ODQ3MWQwYTg0NDEwMjFmZGUyYTcyNTNiMWZjMTdmOGZmOWI4MDc0NjFlM2RmN2YxZjQzIiwicm91bmRpbmdfcG9saWN5IjoiZmljdGlvbjpkZWNpbWFsLWhhbGYtZXZlbkAxIiwic2NoZW1hX3ZlcnNpb24iOiJwMi10ZW1wb3JhbC1kaXNwbGF5LWFydGlmYWN0LWRyYWZ0LTEiLCJ0ZXh0IjoiMiIsInVuaXRfcmVmIjoidV9iYXNlIn0=",
-          "sha256": "ee2873a038322edd9f8f4d3f5d7fdd69914fd7cc4dbba5bac5b6e10a45710f0d",
+          "bytes_base64": "eyJjb2VmZmljaWVudCI6MiwiZGVjaW1hbF9wbGFjZXMiOjAsInByb2ZpbGUiOiJwMi10ZW1wb3JhbC1kaXNwbGF5LWRyYWZ0LTEiLCJwcm9maWxlX3NwZWNfc2hhMjU2IjoiNTQ3YWViMTJkZTJlMjhkYTczYjk0Zjc4MzcxMDI5OWI4YWMxYWU2YWNjMDQ3Mzc2NGM5NzU3OTMxZDBiOGExYSIsInF1YW50aXR5X2tpbmRfcmVmIjoia19hIiwicXVhbnRpdHlfcHJvZmlsZSI6InAyLXF1YW50aXR5LWxpdGVyYWwtZHJhZnQtMSIsInF1YW50aXR5X3Byb2ZpbGVfc3BlY19zaGEyNTYiOiJmNTJlYTUyNjk0NjU2ODIyMjQ0YThiZTYwZTQzOTk2MjRhY2NhNjZmNWNiYjVmM2U0MzRlZDgwZDlhZjUxZDQyIiwicm91bmRpbmdfcG9saWN5IjoiZmljdGlvbjpkZWNpbWFsLWhhbGYtZXZlbkAxIiwic2NoZW1hX3ZlcnNpb24iOiJwMi10ZW1wb3JhbC1kaXNwbGF5LWFydGlmYWN0LWRyYWZ0LTEiLCJ0ZXh0IjoiMiIsInVuaXRfcmVmIjoidV9iYXNlIn0=",
+          "sha256": "91823e026fd247bb82d84986716afa6a00cb93431f91563b904fdb946ad3db2b",
           "roundtrip_matches": true
         }
       },

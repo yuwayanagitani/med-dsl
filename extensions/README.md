@@ -51,4 +51,6 @@ P2-iの契約と内部評価は [43](../docs/research/43-p2-i-design.md)・[45](
 
 P2-jの契約と内部評価は [46](../docs/research/46-p2-j-design.md)・[48](../docs/research/48-p2-j-results.md) に記録します。
 
+P2-lの契約と内部評価は [53](../docs/research/53-p2-l-design.md)・[55](../docs/research/55-p2-l-results.md) に記録します。数量の宣言を draft-2 に上げ（単位表の改訂）、依存する4件の宣言の版と依存の版を draft-2 に更新しました。数量の宣言には継承の差分の義務 VR-1 があります。
+
 P2-kの契約と内部評価は [50](../docs/research/50-p2-k-design.md)・[52](../docs/research/52-p2-k-results.md) に記録します。この宣言は P2-e の意味を継承しますが実装は共有せず、継承は精密化のない要求を P2-e の実装に流す差分の検査で確認しています（宣言に継承を書く欄はありません）。

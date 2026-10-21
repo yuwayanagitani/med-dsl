@@ -29,6 +29,16 @@ def main(argv=None):
         if not p2_checks.has_commit(record[side]["commit"]):
             print(json.dumps({"passed": False, "reason": f"git の履歴に {side} のコミットがない"}, ensure_ascii=False))
             return 2
+    if record["schema_version"] == "p2-version-record-draft-2":
+        report = p2_checks.regenerated_report(record)
+        problems = p2_checks.regenerated_mismatches(record, report)
+        print(json.dumps({"id": record["id"], "passed": not problems, "problems": problems,
+                          "inputs": report["inputs"], "classification": {k: len(v) for k, v in report["old_inputs_without_regeneration"].items()},
+                          "request_changed": len(report["request_changed"]), "expectation_changed": report["expectation_changed"],
+                          "result_differences": {k: v[:4] for k, v in report["result_differences"].items()},
+                          "steps_changed": report["steps_changed"], "forward": report["forward"], "pins_changed": report["pins_changed"],
+                          "reproduction": report["reproduction"], "changed_files": len(report["changed_files"])}, ensure_ascii=False, sort_keys=True))
+        return 0 if not problems else 1
     report = p2_checks.version_report(record, current=not args.no_current)
     problems = p2_checks.record_mismatches(record, report)
     summary = {"id": record["id"], "passed": not problems, "problems": problems, "inputs": report["inputs"],

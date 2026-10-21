@@ -11,6 +11,8 @@ P2-a〜P2-c の作業で、宣言・例・検査の強さを確かめるため�
 | `mutrun_splits.py` | 分割の併用（`splits.py`）の変異 39 件。同上に、独立の検査を加えた |
 | `gen_extension_manifests.py` | `extensions/*.json` と `index.json` の生成 |
 | `gen_guard_fixtures.py`・`gen_split_fixtures.py`・`gen_splits_fixtures.py` | `examples/p2`・`examples/p2-split`・`examples/p2-splits` の生成。期待結果は設計の意味から手で指定し、処理系の出力から作らない（予算の境界の n だけ測る） |
+| `repin_specs.py` | 仕様の改訂の後、依存の順に仕様の hash を再計算し、モジュールの定数と依存先の仕様へ反映する（P2-l。実行例と宣言は生成器で再生成する）。`--check` で再固定が要るかだけを確かめる |
+| `mutrun_checkers.py` | 検査器自体（`p2_checks.py`・`evaluate-p2.py`・`compare-versions.py`）の変異の表と実行器。変異後の木で固定対象の台帳を作り直して判定する |
 | `refactor_digest.py` | 固定済みの全例・改変入力（各 150）・予算の全値掃引の出力（22,052 件）の digest。挙動を変えない変更の前後比較に使う |
 | `gen_temporal_fixtures.py`・`gen_temporal_manifest.py` | P2-eの61例・R5宣言。期待は文書32から手指定。宣言は既存の生成器から呼び出す |
 | `gen_quantity_fixtures.py`・`gen_quantity_manifest.py` | P2-fの79例・R2宣言。期待は文書35から手指定。量固有の変異9件は `tests/p2/test_quantity.py` 内で実行 |

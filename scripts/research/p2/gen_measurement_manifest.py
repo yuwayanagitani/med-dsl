@@ -8,14 +8,14 @@ def measurement_manifest(root):
                 'checks':['tests/p2/test_measurement.py::MeasurementTests.'+test],
                 'guards':[{'example':'examples/p2-measurement/'+name.lower()+'.json','path':path,'equals':value,'kind':'boundary'} for name,path,value in guards]}
     row=lambda key:['results',0,key]
-    return {'schema_version':'p2-extension-manifest-draft-1','id':'p2-measurement-binding','version':'draft-1',
+    return {'schema_version':'p2-extension-manifest-draft-1','id':'p2-measurement-binding','version':'draft-2',
         'title':'確認対象の内容を固定した測定記録の選択と数量計算への接続','status':{'review_state':'author_draft','independent_review':False},'class':'R5',
         'spec':{'path':'src/med_dsl/measurement_spec.json','sha256':hashlib.sha256((root/'src/med_dsl/measurement_spec.json').read_bytes()).hexdigest()},
         'contract_doc':'docs/research/37-p2-g-design.md','implementation':{'modules':['src/med_dsl/measurement.py']},
         'pins':[{'path':'src/med_dsl/host.py','role':'dispatcher'},{'path':'docs/research/38-p2-g-cases.md','role':'hand_specified_expectations'},
                 {'path':'src/med_dsl/quantity_spec.json','role':'quantity_native_spec'}],
         'embedded_in':['src/med_dsl/measurement_spec.json','src/med_dsl/quantity.py','examples/p2-measurement/*.json','examples/p2-quantity/*.json'],
-        'depends_on':[{'id':'p0-positive','version':'draft-2'},{'id':'p2-quantity-literal','version':'draft-1'}],
+        'depends_on':[{'id':'p0-positive','version':'draft-2'},{'id':'p2-quantity-literal','version':'draft-2'}],
         'owns':{'operations':['evaluate_measurements'],'schema_versions':['p2-measurement-request-draft-1','p2-measurement-result-draft-1','p2-measurement-ledger-draft-1'],
                 'profiles':['p2-measurement-binding-draft-1'],'answer_kinds':['measurement_literal_projection'],'predicates':[],'capabilities':['p2-measurement-binding-draft-1']},
         'scope':{'base_requests':'旧schemaは旧経路に保持する。型付き確認から旧基底の支持へ変換しない',

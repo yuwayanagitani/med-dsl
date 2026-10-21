@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-1",
   "id": "p2-temporal-measurement",
-  "version": "draft-1",
+  "version": "draft-2",
   "title": "明示された期間つき数量主張の内容指定確認・部分訂正と換算",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R5",
   "spec": {
     "path": "src/med_dsl/temporal_measurement_spec.json",
-    "sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705"
+    "sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1"
   },
   "contract_doc": "docs/research/43-p2-i-design.md",
   "implementation": {
@@ -45,7 +45,7 @@
     },
     {
       "id": "p2-quantity-literal",
-      "version": "draft-1"
+      "version": "draft-2"
     }
   ],
   "owns": {
@@ -354,7 +354,7 @@
             "lower"
           ],
           "equals": {
-            "numerator": 1,
+            "numerator": 2,
             "denominator": 3
           },
           "kind": "boundary"

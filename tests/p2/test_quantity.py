@@ -34,12 +34,28 @@ def domains():
             if a<b or lc and uc:yield make.interval(a,b,lc,uc)
 
 
+# draft-1 の単位表（版の記録の旧版）。native 仕様を読まず、文書54の§1 から独立に写した表
+UNITS_DRAFT_1 = {'u_base': ((1, 0), (1, 1)), 'u_ten': ((1, 0), (10, 1)), 'u_third': ((1, 0), (1, 3)), 'u_half': ((1, 0), (1, 2)),
+                 'v_base': ((0, 1), (1, 1)), 'w_base': ((0, 0), (1, 1)), 'w_hundredth': ((0, 0), (1, 100))}
+# 宣言した改訂（文書54の§1）：u_third の倍率を改訂し、u_hundred を追加
+DECLARED_REVISION = {'u_third': ((1, 0), (2, 3)), 'u_hundred': ((1, 0), (100, 1))}
+
+
 class QuantityTests(unittest.TestCase):
+    def test_the_unit_table_matches_the_declared_revision(self):
+        """VR-1（単一の木の部分）：draft-2 の単位表は、draft-1 の表に、宣言した変更だけを加えたもの。"""
+        spec = json.loads((ROOT / 'src/med_dsl/quantity_spec.json').read_text())
+        table = {name: (tuple(unit['dimension']), (unit['scale']['numerator'], unit['scale']['denominator'])) for name, unit in spec['units'].items()}
+        self.assertEqual(table, {**UNITS_DRAFT_1, **DECLARED_REVISION})
+        self.assertEqual(set(table) - set(UNITS_DRAFT_1), {'u_hundred'})                              # 追加は1件だけ
+        self.assertEqual({n for n in UNITS_DRAFT_1 if table[n] != UNITS_DRAFT_1[n]}, {'u_third'})   # 変更は1件だけ
+        self.assertEqual({name: oracle.SCALES[name] for name in table}, {name: table[name][1] for name in table})   # 別計算の表と一致
+
     def test_hand_expectations_api_cli_and_manifest(self):
         manifest=json.loads((DIRECTORY/'manifest.json').read_text())
-        self.assertEqual(len(manifest['files']),79)
+        self.assertEqual(len(manifest['files']),80)
         declaration=json.loads((ROOT/'extensions/p2-quantity-literal.json').read_text())
-        self.assertEqual({o['id'] for o in declaration['obligations']},{'K-ID','K-STOP','K-INV','K-RES'}|{f'R2-{i}' for i in range(1,6)}|{f'QT-{i}' for i in range(1,9)})
+        self.assertEqual({o['id'] for o in declaration['obligations']},{'K-ID','K-STOP','K-INV','K-RES'}|{f'R2-{i}' for i in range(1,6)}|{f'QT-{i}' for i in range(1,9)}|{'VR-1'})
         self.assertFalse(manifest['independent_review']);self.assertFalse(manifest['evaluation_frozen'])
         self.assertEqual({p.name for p in DIRECTORY.glob('*.json')},{e['path'] for e in manifest['files']}|{'manifest.json'})
         for entry in manifest['files']:

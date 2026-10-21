@@ -118,6 +118,18 @@ EXPECTED["suites"]["p2-refinement"] = {"examples": 66, "checks": 721}
 EXPECTED["budget"] = {"requests": 1008, "budget_evaluations": 17166, "violations": 0, "allowed_budget_dependent_refusals": 1}
 
 
+# P2-kの分母を保持し、数量の単位表の改訂（P2-l、版draft-2）後の現在値を固定する。
+# 数量の宣言に継承の差分の義務VR-1（有限確認、防護例2件）を足し、数量系列にQ25を加えた。
+P2_K_EXPECTED = copy.deepcopy(EXPECTED)
+EXPECTED["extensions"] = {
+    "registered": 19, "refused": 0, "obligations": 240, "guards": 422, "guard_gaps": 3,
+    "evidence": {"checked_native_template": 163, "finite_check": 69, "hand_derivation": 8, "self_declared": 0, "individual_io": 0},
+    "independent_pairs": 134, "pairs": 153,
+}
+EXPECTED["suites"]["p2-quantity"] = {"examples": 80, "checks": 622}
+EXPECTED["budget"] = {"requests": 1009, "budget_evaluations": 17177, "violations": 0, "allowed_budget_dependent_refusals": 1}
+
+
 def _p1d():
     spec = importlib.util.spec_from_file_location("evaluate_p1_d", ROOT / "scripts/research/evaluate-p1-d.py")
     module = importlib.util.module_from_spec(spec)
@@ -179,6 +191,14 @@ def versions_report():
         missing = [side for side in ("from", "to") if not p2_checks.has_commit(record[side]["commit"])]
         if missing:
             reports.append({"record": relative, "status": "not_run", "reason": "missing_commits:" + ",".join(missing)})
+            continue
+        if record["schema_version"] == "p2-version-record-draft-2":
+            # P2 の拡張の版の更新：再生成した入力の比較（旧版・新版の統合評価の再現は、記録の測定値との照合に含める）
+            report = p2_checks.regenerated_report(record)
+            problems = p2_checks.regenerated_mismatches(record, report)
+            reports.append({"record": relative, "status": "passed" if not problems else "failed", "problems": problems,
+                            "inputs": report["inputs"], "classification": {k: len(v) for k, v in report["old_inputs_without_regeneration"].items()},
+                            "expectation_changed": len(report["expectation_changed"]), "changed_files": len(report["changed_files"])})
             continue
         report = p2_checks.version_report(record)
         problems = p2_checks.record_mismatches(record, report)

@@ -113,7 +113,7 @@ def main():
     good('J04',request(12501,10000),13,'1.3')
     for n in [-1,0,1]:good('J05-'+str(n),request(n,20),0,'0.0')
     for n,k in [(5,2),(-5,-2),(7,4),(-7,-4)]:good('J06-'+str(n),request(n,2,p=0),k,str(k),0)
-    good('J07',request(1,1,p=2,unit='u_third'),33,'0.33',2)
+    good('J07',request(1,1,p=2,unit='u_third'),67,'0.67',2)
     good('J08',request(2,4,p=2,questions=[question('exact_value')],retention='source_bundle'),50,'0.50',2,answers=[None],sources=[ratio(1,2)])
     stop('J09',request(plan=m.request([m.wrapper(magnitude=q.interval(1,2,False,True),unit='u_base')])),'unsupported_display_domain')
     good('J10',request(plan=m.request([m.wrapper(magnitude=q.interval(1,1),unit='u_base')])),10,'1.0')

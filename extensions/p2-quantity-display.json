@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-1",
   "id": "p2-quantity-display",
-  "version": "draft-1",
+  "version": "draft-2",
   "title": "厳密な測定値と型付き表示の射影、問いの因子化と別添えの分離",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R4",
   "spec": {
     "path": "src/med_dsl/display_spec.json",
-    "sha256": "15f57a8b8f5729862a8afe66d86e1dab2406e036a2b3854cbc25e783ee4f3e44"
+    "sha256": "361563166d4465ccf465b77e5f9421cac1c4181f2b8df3ce8065ce761f883a12"
   },
   "contract_doc": "docs/research/40-p2-h-design.md",
   "implementation": {
@@ -52,11 +52,11 @@
     },
     {
       "id": "p2-quantity-literal",
-      "version": "draft-1"
+      "version": "draft-2"
     },
     {
       "id": "p2-measurement-binding",
-      "version": "draft-1"
+      "version": "draft-2"
     }
   ],
   "owns": {

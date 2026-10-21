@@ -10,14 +10,14 @@
     "operation": "project_measurement_displays",
     "consumer": {
       "profile": "p2-quantity-display-draft-1",
-      "profile_spec_sha256": "15f57a8b8f5729862a8afe66d86e1dab2406e036a2b3854cbc25e783ee4f3e44",
+      "profile_spec_sha256": "361563166d4465ccf465b77e5f9421cac1c4181f2b8df3ce8065ce761f883a12",
       "operations": [
         "project_measurement_displays"
       ],
       "measurement_profile": "p2-measurement-binding-draft-1",
-      "measurement_profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+      "measurement_profile_spec_sha256": "af1c3a0943067bb38961e22c3a9eaf9cf2587f5e4bb952902cd3766fb14acc4b",
       "quantity_profile": "p2-quantity-literal-draft-1",
-      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
     "displays": [
       {

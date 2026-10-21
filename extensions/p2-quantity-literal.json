@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-1",
   "id": "p2-quantity-literal",
-  "version": "draft-1",
+  "version": "draft-2",
   "title": "量リテラルの厳密換算と有限区間比較",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R2",
   "spec": {
     "path": "src/med_dsl/quantity_spec.json",
-    "sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+    "sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
   },
   "contract_doc": "docs/research/34-p2-f-design.md",
   "implementation": {
@@ -25,6 +25,10 @@
     },
     {
       "path": "docs/research/35-p2-f-cases.md",
+      "role": "hand_specified_expectations"
+    },
+    {
+      "path": "docs/research/54-p2-l-cases.md",
       "role": "hand_specified_expectations"
     }
   ],
@@ -58,7 +62,7 @@
   },
   "scope": {
     "base_requests": "旧要求は旧経路に保持。量の値・区間関係を基底の支持へ変換しない",
-    "fragment": "架空の固定7単位・5量種。正の倍率、有理数、有限非空区間。臨床状態の読み書きなし。R2-3は基底を読まない範囲で空虚に満たす"
+    "fragment": "架空の固定8単位・5量種（draft-2で u_hundred を追加、u_third の倍率を改訂）。正の倍率、有理数、有限非空区間。臨床状態の読み書きなし。R2-3は基底を読まない範囲で空虚に満たす"
   },
   "obligations": [
     {
@@ -474,6 +478,59 @@
             "status"
           ],
           "equals": "not_certified",
+          "kind": "boundary"
+        }
+      ]
+    },
+    {
+      "id": "VR-1",
+      "statement": "旧版（draft-1）との差分は版の記録で宣言した変更だけ。単位表を改訂しても、変更していない単位を使う入力は再生成の後で同じ結果を返し、改訂した単位だけが宣言どおりに変わる",
+      "evidence": "finite_check",
+      "checks": [
+        "tests/p2/test_quantity.py::QuantityTests.test_the_unit_table_matches_the_declared_revision",
+        "tests/p2/test_quantity_version.py::QuantityVersionTests.test_regenerated_inputs_differ_from_the_old_ones_only_by_the_declared_changes"
+      ],
+      "guards": [
+        {
+          "example": "examples/p2-quantity/q03.json",
+          "path": [
+            "results",
+            0,
+            "converted_domain"
+          ],
+          "equals": {
+            "lower": {
+              "numerator": 2,
+              "denominator": 3
+            },
+            "upper": {
+              "numerator": 2,
+              "denominator": 3
+            },
+            "lower_closed": true,
+            "upper_closed": true
+          },
+          "kind": "boundary"
+        },
+        {
+          "example": "examples/p2-quantity/q25.json",
+          "path": [
+            "results",
+            0,
+            "converted_domain"
+          ],
+          "equals": {
+            "lower": {
+              "numerator": 300,
+              "denominator": 1
+            },
+            "upper": {
+              "numerator": 300,
+              "denominator": 1
+            },
+            "lower_closed": true,
+            "upper_closed": true
+          },
           "kind": "boundary"
         }
       ]

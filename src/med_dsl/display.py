@@ -14,7 +14,7 @@ from .quantity import _rational as rational_input, _bounded as bounded, _encode 
 from .validation import canonical_bytes, check_json, digest, fields, indexed, string, strings
 
 DISPLAY_PROFILE = 'p2-quantity-display-draft-1'
-SPEC_SHA256 = '15f57a8b8f5729862a8afe66d86e1dab2406e036a2b3854cbc25e783ee4f3e44'
+SPEC_SHA256 = '361563166d4465ccf465b77e5f9421cac1c4181f2b8df3ce8065ce761f883a12'
 OPERATION = 'project_measurement_displays'
 POLICY = 'fiction:decimal-half-even@1'
 ANSWER_KIND = 'measurement_display_projection'

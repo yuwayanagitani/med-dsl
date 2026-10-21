@@ -103,7 +103,7 @@ def main():
     good('P08',request(1,3,p=2),33,'0.33',2);good('P09',request(1,2,p=2),50,'0.50',2)
     for n,k in [(5,2),(-5,-2),(7,4),(-7,-4)]:good('P10-'+str(n),request(n,2,p=0),k,str(k),0)
     good('P11',request(9007199254740993,1,p=0),9007199254740993,'9007199254740993',0)
-    good('P12',request(1,1,p=2,unit='u_third'),33,'0.33',2)
+    good('P12',request(1,1,p=2,unit='u_third'),67,'0.67',2)
     req=pair();req['displays'].reverse()
     for key in ('slots','quantities','records','reviews'):req['measurement_plan']['source'][key].reverse()
     req['measurement_plan']['queries'].reverse();good('P13',req,rows=[{'k':12,'text':'1.2'},{'k':12,'text':'1.2'}])

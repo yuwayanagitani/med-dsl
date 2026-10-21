@@ -10,7 +10,7 @@ from .quantity import (QUANTITY_PROFILE, SPEC_SHA256 as QUANTITY_SPEC_SHA256,
 from .validation import check_json, digest, fields, indexed, string, strings, timestamp
 
 TEMPORAL_MEASUREMENT_PROFILE = 'p2-temporal-measurement-draft-1'
-SPEC_SHA256 = '80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705'
+SPEC_SHA256 = '5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1'
 OPERATION = 'evaluate_temporal_measurements'
 POLICY = 'fiction:reviewed-scoped-measurement@1'
 ANSWER_KIND = 'temporal_measurement_projection'

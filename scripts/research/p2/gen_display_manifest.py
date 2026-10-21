@@ -8,7 +8,7 @@ def display_manifest(root):
                 'checks':['tests/p2/test_display.py::DisplayTests.'+test],
                 'guards':[{'example':'examples/p2-display/'+name.lower()+'.json','path':path,'equals':value,'kind':'boundary'} for name,path,value in guards]}
     r=lambda key:['results',0,key]
-    return {'schema_version':'p2-extension-manifest-draft-1','id':'p2-quantity-display','version':'draft-1',
+    return {'schema_version':'p2-extension-manifest-draft-1','id':'p2-quantity-display','version':'draft-2',
         'title':'厳密な測定値と型付き表示の射影、問いの因子化と別添えの分離',
         'status':{'review_state':'author_draft','independent_review':False},'class':'R4',
         'spec':{'path':'src/med_dsl/display_spec.json','sha256':hashlib.sha256((root/'src/med_dsl/display_spec.json').read_bytes()).hexdigest()},
@@ -17,7 +17,7 @@ def display_manifest(root):
                 {'path':'src/med_dsl/measurement_spec.json','role':'measurement_native_spec'},{'path':'src/med_dsl/quantity_spec.json','role':'quantity_native_spec'}],
         'embedded_in':['src/med_dsl/display_spec.json','src/med_dsl/measurement_spec.json','src/med_dsl/measurement.py','src/med_dsl/quantity.py',
                        'examples/p2-display/*.json','examples/p2-measurement/*.json','examples/p2-quantity/*.json'],
-        'depends_on':[{'id':'p0-positive','version':'draft-2'},{'id':'p2-quantity-literal','version':'draft-1'},{'id':'p2-measurement-binding','version':'draft-1'}],
+        'depends_on':[{'id':'p0-positive','version':'draft-2'},{'id':'p2-quantity-literal','version':'draft-2'},{'id':'p2-measurement-binding','version':'draft-2'}],
         'owns':{'operations':['project_measurement_displays'],'schema_versions':['p2-display-request-draft-1','p2-display-result-draft-1','p2-display-artifact-draft-1'],
                 'profiles':['p2-quantity-display-draft-1'],'answer_kinds':['measurement_display_projection'],'predicates':[],'capabilities':['p2-quantity-display-draft-1']},
         'scope':{'base_requests':'旧経路を変更せず、P2-gの一点convert結果を読む',

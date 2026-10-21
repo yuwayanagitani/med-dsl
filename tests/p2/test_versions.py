@@ -109,6 +109,16 @@ class ClassifyTests(unittest.TestCase):
         self.assertTrue(checks.contains_key({"a": [{"b": {"certifier": 1}}]}, "certifier"))
         self.assertFalse(checks.contains_key({"a": [{"b": 1}], "certifierx": 2}, "certifier"))
 
+    def test_normalize_sees_through_hashes_inside_a_base64_encoded_json(self):
+        import base64
+
+        def wrap(h, text="0.33"):
+            return {"bytes": base64.b64encode(json.dumps({"x": h, "text": text}).encode()).decode()}
+        self.assertEqual(checks.normalize(wrap("a" * 64), set()), checks.normalize(wrap("b" * 64), set()))
+        self.assertNotEqual(checks.normalize(wrap("a" * 64), set()), checks.normalize(wrap("a" * 64, "0.67"), set()))      # 中身の違いは残る
+        self.assertEqual(checks.normalize("AAAAAAAAAAAAAAAAAAAAAAAA", set()), "AAAAAAAAAAAAAAAAAAAAAAAA")                  # JSON でない base64 風の文字列はそのまま
+        self.assertEqual(checks.normalize("ordinary-text", set()), "ordinary-text")
+
     def test_repin_rewrites_only_the_old_values_and_normalize_ignores_hash_values(self):
         self.assertEqual(checks.repin({"a": [self.OLD_PIN, "other"], "b": 1}, self.MAPPING), {"a": [self.NEW_PIN, "other"], "b": 1})
         self.assertEqual(checks.normalize({"a": self.OLD_PIN, "b": "xyz", "certifier": 1}, self.DROPPED), {"a": "<sha256>", "b": "xyz"})

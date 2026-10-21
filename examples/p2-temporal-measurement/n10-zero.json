@@ -10,12 +10,12 @@
     "operation": "evaluate_temporal_measurements",
     "consumer": {
       "profile": "p2-temporal-measurement-draft-1",
-      "profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+      "profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
       "operations": [
         "evaluate_temporal_measurements"
       ],
       "quantity_profile": "p2-quantity-literal-draft-1",
-      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
     "source": {
       "schema_version": "p2-temporal-measurement-ledger-draft-1",
@@ -30,7 +30,7 @@
         {
           "ref": "Q",
           "profile": "p2-quantity-literal-draft-1",
-          "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
           "literal": {
             "id": "Q",
             "quantity_kind_ref": "k_a",
@@ -79,7 +79,7 @@
           },
           "quantity_ref": {
             "ref": "Q",
-            "sha256": "6b5f059f64351a3e235d34ec4519c1c86794bff0c8181c9dbab49989a8490f80"
+            "sha256": "39c8c2cf863d7eec663a67f956a35b0af71b0ce02296f7530793cd9eff543358"
           },
           "certainty": "confirmed",
           "recorded_at": "2026-10-02T00:00:00Z",
@@ -97,7 +97,7 @@
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "77f94a669ddd43a2b4e7b6749dca03a89033bd24b8720eaf218b652aa4ef2e30",
+          "record_sha256": "2ca83202a36f3037d7de4c1afb78761786ad280c55663e65dc409259e389db38",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-03T00:00:00Z",

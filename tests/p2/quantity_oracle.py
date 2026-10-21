@@ -4,7 +4,7 @@
 """
 from math import gcd
 
-SCALES = {'u_base':(1,1),'u_ten':(10,1),'u_third':(1,3),'u_half':(1,2),
+SCALES = {'u_base':(1,1),'u_ten':(10,1),'u_third':(2,3),'u_hundred':(100,1),'u_half':(1,2),
           'v_base':(1,1),'w_base':(1,1),'w_hundredth':(1,100)}
 
 

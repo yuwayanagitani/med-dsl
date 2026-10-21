@@ -9,7 +9,7 @@ from .model import Budget, Problem
 from .validation import fields, indexed, string, strings
 
 QUANTITY_PROFILE = 'p2-quantity-literal-draft-1'
-SPEC_SHA256 = '84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43'
+SPEC_SHA256 = 'f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42'
 OPERATION = 'evaluate_quantities'
 ANSWER_KIND = 'quantity_literal_result'
 

@@ -10,26 +10,26 @@
     "operation": "project_measurement_displays",
     "consumer": {
       "profile": "p2-quantity-display-draft-1",
-      "profile_spec_sha256": "15f57a8b8f5729862a8afe66d86e1dab2406e036a2b3854cbc25e783ee4f3e44",
+      "profile_spec_sha256": "361563166d4465ccf465b77e5f9421cac1c4181f2b8df3ce8065ce761f883a12",
       "operations": [
         "project_measurement_displays"
       ],
       "measurement_profile": "p2-measurement-binding-draft-1",
-      "measurement_profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+      "measurement_profile_spec_sha256": "af1c3a0943067bb38961e22c3a9eaf9cf2587f5e4bb952902cd3766fb14acc4b",
       "quantity_profile": "p2-quantity-literal-draft-1",
-      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
     "measurement_plan": {
       "schema_version": "p2-measurement-request-draft-1",
       "operation": "evaluate_measurements",
       "consumer": {
         "profile": "p2-measurement-binding-draft-1",
-        "profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+        "profile_spec_sha256": "af1c3a0943067bb38961e22c3a9eaf9cf2587f5e4bb952902cd3766fb14acc4b",
         "operations": [
           "evaluate_measurements"
         ],
         "quantity_profile": "p2-quantity-literal-draft-1",
-        "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+        "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
       },
       "source": {
         "schema_version": "p2-measurement-ledger-draft-1",
@@ -44,7 +44,7 @@
           {
             "ref": "Q",
             "profile": "p2-quantity-literal-draft-1",
-            "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+            "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
             "literal": {
               "id": "Q",
               "quantity_kind_ref": "k_a",
@@ -92,7 +92,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "5c6a50519e34e3f83afec0016b09dc1f4584a6f875e08610047ceb677c5948bb"
+              "sha256": "8408627260640d740b021d9bda9a0c61b063589f39071627dd7c102c158b9aa2"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-20T02:00:00Z",
@@ -110,7 +110,7 @@
           {
             "id": "RA",
             "record_ref": "A",
-            "record_sha256": "3be290c2e7f384885cc0c3de59d563ba0577f4576dbf652548282c4d2c3ee865",
+            "record_sha256": "6a6dcc06a097598c1264ffa3ac8638d7978c475780d459d1eaa1b0bcce26740a",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-20T03:00:00Z",
@@ -191,9 +191,9 @@
         "equals": {
           "schema_version": "p2-display-artifact-draft-1",
           "profile": "p2-quantity-display-draft-1",
-          "profile_spec_sha256": "15f57a8b8f5729862a8afe66d86e1dab2406e036a2b3854cbc25e783ee4f3e44",
+          "profile_spec_sha256": "361563166d4465ccf465b77e5f9421cac1c4181f2b8df3ce8065ce761f883a12",
           "quantity_profile": "p2-quantity-literal-draft-1",
-          "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
           "quantity_kind_ref": "k_a",
           "unit_ref": "u_base",
           "rounding_policy": "fiction:decimal-half-even@1",
@@ -208,7 +208,7 @@
           0,
           "artifact_sha256"
         ],
-        "equals": "559e5e2adacdad597e15bcbc26ad66c1dbf4aca5dc2b9076f11b7808fa43d334"
+        "equals": "04ea984801958076a67a723c5c367966b9b51c5fb997e5ca3becd4957c1f1d0b"
       },
       {
         "path": [
@@ -238,8 +238,8 @@
         ],
         "equals": {
           "kind": "canonical_json",
-          "bytes_base64": "eyJjb2VmZmljaWVudCI6NCwiZGVjaW1hbF9wbGFjZXMiOjAsInByb2ZpbGUiOiJwMi1xdWFudGl0eS1kaXNwbGF5LWRyYWZ0LTEiLCJwcm9maWxlX3NwZWNfc2hhMjU2IjoiMTVmNTdhOGI4ZjU3Mjk4NjJhOGFmZTY2ZDg2ZTFkYWIyNDA2ZTAzNmEyYjM4NTRjYmMyNWU3ODNlZTRmM2U0NCIsInF1YW50aXR5X2tpbmRfcmVmIjoia19hIiwicXVhbnRpdHlfcHJvZmlsZSI6InAyLXF1YW50aXR5LWxpdGVyYWwtZHJhZnQtMSIsInF1YW50aXR5X3Byb2ZpbGVfc3BlY19zaGEyNTYiOiI4NGFmMmU3NzFkMTg2ODQ3MWQwYTg0NDEwMjFmZGUyYTcyNTNiMWZjMTdmOGZmOWI4MDc0NjFlM2RmN2YxZjQzIiwicm91bmRpbmdfcG9saWN5IjoiZmljdGlvbjpkZWNpbWFsLWhhbGYtZXZlbkAxIiwic2NoZW1hX3ZlcnNpb24iOiJwMi1kaXNwbGF5LWFydGlmYWN0LWRyYWZ0LTEiLCJ0ZXh0IjoiNCIsInVuaXRfcmVmIjoidV9iYXNlIn0=",
-          "sha256": "559e5e2adacdad597e15bcbc26ad66c1dbf4aca5dc2b9076f11b7808fa43d334",
+          "bytes_base64": "eyJjb2VmZmljaWVudCI6NCwiZGVjaW1hbF9wbGFjZXMiOjAsInByb2ZpbGUiOiJwMi1xdWFudGl0eS1kaXNwbGF5LWRyYWZ0LTEiLCJwcm9maWxlX3NwZWNfc2hhMjU2IjoiMzYxNTYzMTY2ZDQ0NjVjY2Y0NjViNzdlNWY5NDIxY2FjMWM0MTgxZjJiOGRmM2NlODA2NWNlNzYxZjg4M2ExMiIsInF1YW50aXR5X2tpbmRfcmVmIjoia19hIiwicXVhbnRpdHlfcHJvZmlsZSI6InAyLXF1YW50aXR5LWxpdGVyYWwtZHJhZnQtMSIsInF1YW50aXR5X3Byb2ZpbGVfc3BlY19zaGEyNTYiOiJmNTJlYTUyNjk0NjU2ODIyMjQ0YThiZTYwZTQzOTk2MjRhY2NhNjZmNWNiYjVmM2U0MzRlZDgwZDlhZjUxZDQyIiwicm91bmRpbmdfcG9saWN5IjoiZmljdGlvbjpkZWNpbWFsLWhhbGYtZXZlbkAxIiwic2NoZW1hX3ZlcnNpb24iOiJwMi1kaXNwbGF5LWFydGlmYWN0LWRyYWZ0LTEiLCJ0ZXh0IjoiNCIsInVuaXRfcmVmIjoidV9iYXNlIn0=",
+          "sha256": "04ea984801958076a67a723c5c367966b9b51c5fb997e5ca3becd4957c1f1d0b",
           "roundtrip_matches": true
         }
       },

@@ -10,12 +10,12 @@
     "operation": "evaluate_measurements",
     "consumer": {
       "profile": "p2-measurement-binding-draft-1",
-      "profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+      "profile_spec_sha256": "af1c3a0943067bb38961e22c3a9eaf9cf2587f5e4bb952902cd3766fb14acc4b",
       "operations": [
         "evaluate_measurements"
       ],
       "quantity_profile": "p2-quantity-literal-draft-1",
-      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
     "source": {
       "schema_version": "p2-measurement-ledger-draft-1",
@@ -34,7 +34,7 @@
         {
           "ref": "Q",
           "profile": "p2-quantity-literal-draft-1",
-          "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
           "literal": {
             "id": "Q",
             "quantity_kind_ref": "k_a",
@@ -61,7 +61,7 @@
         {
           "ref": "QT",
           "profile": "p2-quantity-literal-draft-1",
-          "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
           "literal": {
             "id": "QT",
             "quantity_kind_ref": "k_a",
@@ -109,7 +109,7 @@
           },
           "quantity_ref": {
             "ref": "Q",
-            "sha256": "11e9208d0d1956c4d80cfc290b0813362b3e4afdcf7615ebcd366c20197de495"
+            "sha256": "af96c75340f83ac10c2167f054a1a51860825101e72c4d726d473fcdc0e97f3b"
           },
           "certainty": "confirmed",
           "recorded_at": "2026-10-20T02:00:00Z",
@@ -144,7 +144,7 @@
           },
           "quantity_ref": {
             "ref": "QT",
-            "sha256": "29d25cf92d86f6bfcbac75af834abf77112042000c80abf70ad65ee3ab9cc4ba"
+            "sha256": "82dfa313910a91e0def193d8c2b63d5e744a35247879564a61b395f1abd5beb0"
           },
           "certainty": "confirmed",
           "recorded_at": "2026-10-20T04:00:00Z",
@@ -162,7 +162,7 @@
         {
           "id": "RA",
           "record_ref": "A",
-          "record_sha256": "18dbee3dbd7d38492c47ad3e3ddf2912be8c468d6b77dcdef42832b321671ecc",
+          "record_sha256": "c0f924dae5d8fd0586180941e7c9b1a3e144ed72a2bb0bc52a65ecf2c4db9725",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-20T03:00:00Z",
@@ -171,7 +171,7 @@
         {
           "id": "RB",
           "record_ref": "B",
-          "record_sha256": "9151309af96ad89ffe6938c4c80d6b2ec21b74f0020dc52ffd72d82048cd49ee",
+          "record_sha256": "7e680d959ec6061bd99be2500ce0fb2dbc421b2a9d387dfce1c191669d44e5d9",
           "reviewer_ref": "fiction:human:reviewer",
           "reviewer_kind": "human",
           "recorded_at": "2026-10-20T05:00:00Z",

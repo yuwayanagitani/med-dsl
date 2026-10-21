@@ -12,6 +12,7 @@ S = Path(os.environ.get("P2_SCRATCH") or tempfile.mkdtemp(prefix="p2-mutation-")
 args = sys.argv[1:]
 
 BUDGET, VERSIONS, EVALUATE = "tests.p2.test_budget_contract", "tests.p2.test_versions", "tests.p2.test_evaluate_p2"
+REGENERATED = "tests.p2.test_quantity_version"
 CHECKS, EVAL = "scripts/research/p2_checks.py", "scripts/research/evaluate-p2.py"
 
 # (id, ファイル（リポジトリ相対）, 旧, 新, 実行するテストモジュール, 備考)
@@ -38,12 +39,13 @@ M = [
     ("C01", CHECKS, '    if a == b:\n        return "identical"', '    if True:\n        return "identical"', [VERSIONS], ""),
     ("C02", CHECKS, '[0] in refusal_codes and embeds_pin(request, mapping):', '[0] in refusal_codes:', [VERSIONS], ""),
     ("C03", CHECKS, '(b.get("reason_codes") or [None])[0] in refusal_codes and', 'True and', [VERSIONS], ""),
-    ("C04", CHECKS, '    if b.get("status") == "invalid_input" and', '    if True and', [VERSIONS], ""),
+    ("C04", CHECKS, '    if b.get("status") in refusal_statuses and', '    if True and', [VERSIONS], ""),
     ("C05", CHECKS, 'for k, v in value.items() if k not in dropped}', 'for k, v in value.items() if True}', [VERSIONS], ""),
     ("C06", CHECKS, '    if isinstance(value, str) and HEX64.match(value):', '    if False:', [VERSIONS], ""),
     ("C07", CHECKS, 'return mapping.get(value, value) if isinstance(value, str) else value', 'return value', [VERSIONS], ""),
     ("C08", CHECKS, '            if key not in a or key not in b:', '            if key not in a:', [VERSIONS], ""),
     ("C09", CHECKS, 'found += diff_paths(x, y, f"{path}[]")', 'found += diff_paths(x, y, path)', [VERSIONS], ""),
+    ("C11", CHECKS, '    if parsed is not None:', '    if False:', [VERSIONS], ""),
     ("C10", CHECKS, '    return any(value in text for value in pins)', '    return True', [VERSIONS], ""),
     # ---- 版の比較：記録との照合 ----
     ("R01", CHECKS, '        if got != want:\n            problems.append(f"reproduction_{side}")', '        if False:\n            problems.append(f"reproduction_{side}")', [VERSIONS], ""),
@@ -59,8 +61,23 @@ M = [
     ("V03", CHECKS, '        mapping = {old_pins[n]: new_pins[n] for n in PIN_NAMES if old_pins[n] != new_pins[n]}', '        mapping = {}', [VERSIONS], ""),
     ("V04", CHECKS, 'dropped = {c["path"] for c in record["declared_changes"] if c["kind"] == "added_field"}', 'dropped = set()', [VERSIONS], ""),
     ("V05", CHECKS, 'any(contains_key(again[n], key) for key in dropped)', 'any(contains_key(new[n], key) for key in dropped)', [VERSIONS], ""),
-    ("V06", "scripts/research/compare-versions.py", '    return 0 if not problems else 1', '    return 0', [VERSIONS], ""),
+    ("V06", "scripts/research/compare-versions.py", '    return 0 if not problems else 1\n\n\nif __name__', '    return 0\n\n\nif __name__', [VERSIONS], ""),
     ("V07", "scripts/research/compare-versions.py", '            return 2', '            return 0', [VERSIONS], ""),
+    # ---- P2 の拡張の版の更新：再生成した入力の比較の判定（P2-l） ----
+    ("G01", CHECKS, '    if report["old_inputs_without_regeneration"]["changed"]:', '    if False:', [REGENERATED], ""),
+    ("G02", CHECKS, '    if report["request_changed"]:', '    if False:', [REGENERATED], ""),
+    ("G03", CHECKS, '    if set(report["expectation_changed"]) != declared:', '    if False:', [REGENERATED], ""),
+    ("G04", CHECKS, '    if set(report["result_differences"]) != declared:', '    if False:', [REGENERATED], ""),
+    ("G05", CHECKS, '        if name in prefixes and any(not allowed_difference(path, prefixes[name]) for path in paths):', '        if False:', [REGENERATED], ""),
+    ("G06", CHECKS, '    if report["steps_changed"]:', '    if False:', [REGENERATED], ""),
+    ("G07", CHECKS, '    if set(report["inputs"]["added"]) != added or report["inputs"]["removed"]:', '    if False:', [REGENERATED], ""),
+    ("G08", CHECKS, '    if report["pins_changed"] != sorted(p["file"] for p in record["pins"]):', '    if False:', [REGENERATED], ""),
+    ("G09", CHECKS, '        if report["reproduction"] and report["reproduction"][side] != record[side]["evaluation"]:', '        if False:', [REGENERATED], ""),
+    ("G10", CHECKS, '    if any(report["substituted"].get(n) == "ok" for n in report["substituted"] if not n.startswith(tuple(record["pure_pin_suites"]))):', '    if False:', [REGENERATED], ""),
+    ("G11", CHECKS, '    if report["affected"]["extensions"] != sorted(predicted["extensions"]) or report["affected"]["regenerate"] != report["affected"]["predicted_regenerate"]:', '    if False:', [REGENERATED], ""),
+    ("G12", CHECKS, '    if sorted(set(report["necessary_repin"]) - listed) != sorted(measured["unpredicted_repin"]):', '    if False:', [REGENERATED], ""),
+    ("G13", CHECKS, '    if (report["inputs"]["old"], report["inputs"]["new"]) != (measured["inputs"]["old"], measured["inputs"]["new"]):', '    if False:', [REGENERATED], ""),
+    ("G14", CHECKS, '    if {k: len(v) for k, v in report["old_inputs_without_regeneration"].items()} != measured["old_inputs_without_regeneration"]:', '    if False:', [REGENERATED], ""),
     # ---- 統合評価 ----
     ("E01", EVAL, '        if got != want:\n            found.append(f"extensions.{key}")', '        if False:\n            found.append(f"extensions.{key}")', [EVALUATE], ""),
     ("E02", EVAL, '    if budget["violations"]:', '    if False:', [EVALUATE], ""),

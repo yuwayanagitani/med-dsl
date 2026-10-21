@@ -10,7 +10,7 @@ from .quantity import (QUANTITY_PROFILE, SPEC_SHA256 as QUANTITY_SPEC_SHA256,
 from .validation import check_json, digest, fields, indexed, string, strings, timestamp
 
 MEASUREMENT_PROFILE = 'p2-measurement-binding-draft-1'
-SPEC_SHA256 = '7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454'
+SPEC_SHA256 = 'af1c3a0943067bb38961e22c3a9eaf9cf2587f5e4bb952902cd3766fb14acc4b'
 OPERATION = 'evaluate_measurements'
 POLICY = 'fiction:reviewed-measurement-record@1'
 ANSWER_KIND = 'measurement_literal_projection'

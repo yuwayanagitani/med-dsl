@@ -10,26 +10,26 @@
     "operation": "project_temporal_measurement_displays",
     "consumer": {
       "profile": "p2-temporal-display-draft-1",
-      "profile_spec_sha256": "8b401795d6687df75ddaf7962f02b49d558a306fff98af9d311a7bbd2a83ba0e",
+      "profile_spec_sha256": "547aeb12de2e28da73b94f783710299b8ac1ae6acc0473764c9757931d0b8a1a",
       "operations": [
         "project_temporal_measurement_displays"
       ],
       "temporal_measurement_profile": "p2-temporal-measurement-draft-1",
-      "temporal_measurement_profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+      "temporal_measurement_profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
       "quantity_profile": "p2-quantity-literal-draft-1",
-      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
     "temporal_measurement_plan": {
       "schema_version": "p2-temporal-measurement-request-draft-1",
       "operation": "evaluate_temporal_measurements",
       "consumer": {
         "profile": "p2-temporal-measurement-draft-1",
-        "profile_spec_sha256": "80785e67b978fe9801d36c653a003d8954cba517b4a16500a2bc648931d80705",
+        "profile_spec_sha256": "5f5c138899c297ddbc688263e385e08a2709ef92cb287443667b7bf2a8d5c1c1",
         "operations": [
           "evaluate_temporal_measurements"
         ],
         "quantity_profile": "p2-quantity-literal-draft-1",
-        "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+        "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
       },
       "source": {
         "schema_version": "p2-temporal-measurement-ledger-draft-1",
@@ -44,7 +44,7 @@
           {
             "ref": "Q",
             "profile": "p2-quantity-literal-draft-1",
-            "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+            "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
             "literal": {
               "id": "Q",
               "quantity_kind_ref": "k_a",
@@ -93,7 +93,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -129,7 +129,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -165,7 +165,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -201,7 +201,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -237,7 +237,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -273,7 +273,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -309,7 +309,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -345,7 +345,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -381,7 +381,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -417,7 +417,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -453,7 +453,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -489,7 +489,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -525,7 +525,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -561,7 +561,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -597,7 +597,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -633,7 +633,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -669,7 +669,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -705,7 +705,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -741,7 +741,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -777,7 +777,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "97243a2bed7b0422ee0262195582e82fdf22c4c4784f2c5a48c35342854de589"
+              "sha256": "95d9204f9953ae2f537efd0ad05cd583ec14dd248ac50f0c558d756cd995dfd4"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-02T00:00:00Z",
@@ -795,7 +795,7 @@
           {
             "id": "RR0",
             "record_ref": "R0",
-            "record_sha256": "3946a2d02280c6599122a990be97dac9b10c8bd96ebd16a61b12921b11efaa37",
+            "record_sha256": "b8f786c3b5eee8693997416f703414e61ac5bd9b29f0a61caf7c3472fdd8aa7d",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -804,7 +804,7 @@
           {
             "id": "RR1",
             "record_ref": "R1",
-            "record_sha256": "64ca74719727139e87c45ada2c47c8b2858822fbe0b7592c332e260a3082dd95",
+            "record_sha256": "80d380f5a8e6576d6fc6c408f114c201e6037f7ef0e58123ff303623d573d7f3",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -813,7 +813,7 @@
           {
             "id": "RR2",
             "record_ref": "R2",
-            "record_sha256": "e4453f45c86f95e1630caf95a4a108eb25977f34bf590b19a9fcad1ffcf20326",
+            "record_sha256": "d56e5c17df7e5a33a3c7031f565b0b85459db10a3b76ae186e4aa4285e5caf31",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -822,7 +822,7 @@
           {
             "id": "RR3",
             "record_ref": "R3",
-            "record_sha256": "c0465a8d2d2a12aa158cfc3d3eff783cc28852d648993e1faf8a5026e3edecc2",
+            "record_sha256": "0e399956c29c43b33760501844b565c734f4e1b01c53388dff5756e453f918f3",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -831,7 +831,7 @@
           {
             "id": "RR4",
             "record_ref": "R4",
-            "record_sha256": "de442e4cfbb47f0bca7db217d07d52a17e794b8e55dbce8a2eacf92cf2c715f9",
+            "record_sha256": "3854ca29d70cb2f8a6c5f0c4da6372a14280bec2e830f9cc0089a6432b564b93",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -840,7 +840,7 @@
           {
             "id": "RR5",
             "record_ref": "R5",
-            "record_sha256": "75392f045a566f39e7f234be2107573046d656ce913a0885ee20a495eb093734",
+            "record_sha256": "e134981cfdf296ae671ac136674249074f8fefe9a98d0a8a37d0693ca2e665ae",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -849,7 +849,7 @@
           {
             "id": "RR6",
             "record_ref": "R6",
-            "record_sha256": "abffc543f91a04127af71f655364d3e456ca14f48ade3bcd3e076e1dcd26cc1d",
+            "record_sha256": "426ca3fcbca45f550d7d1278a5ecae90646db3de1e7a32b8865288ca36813f65",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -858,7 +858,7 @@
           {
             "id": "RR7",
             "record_ref": "R7",
-            "record_sha256": "09019d9e03ea99618637475dddee7fed2b98f04a2652fb36206fe0b394ee2895",
+            "record_sha256": "4592c1354dc4fd89ec0ee5fb305c0b7ff9b96f9bff1c712453d34434ded1f0ef",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -867,7 +867,7 @@
           {
             "id": "RR8",
             "record_ref": "R8",
-            "record_sha256": "9fca910016c48c46d94745d9d50f09dbcead5752dd964bdf60a1d74e5120211b",
+            "record_sha256": "3b83ed77c2b50abc051bf833de9792ab4d08d2991a045d3c4137a91951404898",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -876,7 +876,7 @@
           {
             "id": "RR9",
             "record_ref": "R9",
-            "record_sha256": "5168d44dc24d0a7b39cf576d858844d41b4fb4e39a4dbb3399d7f7937c33e37a",
+            "record_sha256": "3bd68f59e018def3e57eae258dd837333d76654043fa89f8ac3573b340a04e55",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -885,7 +885,7 @@
           {
             "id": "RR10",
             "record_ref": "R10",
-            "record_sha256": "bb200e3d8fc720f59eea5011831d09cff5e3f6a0a29a6ea29880e85bfa7dc2ab",
+            "record_sha256": "39775a75b14bb4081297e2730ce3776611cd89f77d9394756191bb206f2b9ac2",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -894,7 +894,7 @@
           {
             "id": "RR11",
             "record_ref": "R11",
-            "record_sha256": "6b3b027452f6f9eab1f8004a0d2d819a2d9679f9efbff240c5a4b42b9841c435",
+            "record_sha256": "7eedb8abbee28bd1cc8648657be1727c0e81fd6051dd45c62bc369f8f9a332a4",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -903,7 +903,7 @@
           {
             "id": "RR12",
             "record_ref": "R12",
-            "record_sha256": "5e260cb0255ea11f24bf55ac8b26cce6e9dbb4a2a429d355ddd2ca361c74181c",
+            "record_sha256": "2935d74881a59637dda82efe55245b765648790c58870145fb3ba71831fcb3f6",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -912,7 +912,7 @@
           {
             "id": "RR13",
             "record_ref": "R13",
-            "record_sha256": "cf38645a325ef758a70bc67d1dc20eb91ab611e1c0ca874e877a80208cd9a046",
+            "record_sha256": "6f06ab85304cf60c877336372a75d4ebe74f6a4d6913be00bd1eaa6cea2ba4bf",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -921,7 +921,7 @@
           {
             "id": "RR14",
             "record_ref": "R14",
-            "record_sha256": "1b15247b3ba0490db43d6f06d6581600cd8008bc291be22483495276b800a05a",
+            "record_sha256": "9f7b229d38d25ed471910982bda5828417a6f144dcb16c2b94cf5893c9c6ccf6",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -930,7 +930,7 @@
           {
             "id": "RR15",
             "record_ref": "R15",
-            "record_sha256": "1e1d649c36e1b6e1fafc972e0ca4e98bdccd540b345c2e07559159a6aa074910",
+            "record_sha256": "640ec851534716b4aa834fce904900d03d367f23d8e9b176b02d601cf80c65de",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -939,7 +939,7 @@
           {
             "id": "RR16",
             "record_ref": "R16",
-            "record_sha256": "618f4dd9f36674142d70bd956178253d669b2ef0a9a594293db432a4886e62b9",
+            "record_sha256": "96d754901565d3e21819a1a029650613d754dd4ded1cd240cf196ab95966345a",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -948,7 +948,7 @@
           {
             "id": "RR17",
             "record_ref": "R17",
-            "record_sha256": "c1fad2e715aa60880078c9ebc8b878f46bac69e41a1e63c3fc6de9d6ed8441a4",
+            "record_sha256": "09ebc47feacfca2b375c91d283b46cccfb47f68542a29684ada83af2cc05d6aa",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -957,7 +957,7 @@
           {
             "id": "RR18",
             "record_ref": "R18",
-            "record_sha256": "74fe31f6bb5fcac3fa8b45cec721a83ada93048983d47fcf2d4c4e0ea6357ba5",
+            "record_sha256": "61ed1ae1dfd8c83a8cd5d4b202f7fad8e2f30584c87f296af3f6e6828b7d8043",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",
@@ -966,7 +966,7 @@
           {
             "id": "RR19",
             "record_ref": "R19",
-            "record_sha256": "67bcc07c9e458f6dd0e4d427d0a814d93724940a84db5d731a7f78da66840992",
+            "record_sha256": "b9647c19e8c6683152ed26e0a46c9087e80014b519efe1db923aacf801fb1c4f",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-03T00:00:00Z",

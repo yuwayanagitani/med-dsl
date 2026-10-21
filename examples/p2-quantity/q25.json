@@ -1,0 +1,182 @@
+{
+  "schema_version": "p1-fixture-draft-1",
+  "fixture_version": 1,
+  "fixture_id": "Q25",
+  "condition": "Q25",
+  "fictional": true,
+  "review_state": "author_draft",
+  "request": {
+    "schema_version": "p2-quantity-request-draft-1",
+    "operation": "evaluate_quantities",
+    "consumer": {
+      "profile": "p2-quantity-literal-draft-1",
+      "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
+      "operations": [
+        "evaluate_quantities"
+      ]
+    },
+    "quantities": [
+      {
+        "id": "a",
+        "quantity_kind_ref": "k_a",
+        "unit_ref": "u_hundred",
+        "magnitude": {
+          "kind": "point",
+          "value": {
+            "numerator": 3,
+            "denominator": 1
+          }
+        },
+        "uncertainty": {
+          "kind": "not_evaluated"
+        },
+        "origin": {
+          "kind": "literal",
+          "ref": "fiction:quantity:a"
+        },
+        "required_capabilities": [
+          "p2-quantity-literal-draft-1"
+        ]
+      }
+    ],
+    "queries": [
+      {
+        "id": "q",
+        "kind": "convert",
+        "quantity_ref": "a",
+        "target_unit_ref": "u_base"
+      }
+    ],
+    "budget": {
+      "max_steps": 100000
+    }
+  },
+  "expected": {
+    "comparison": "required_paths",
+    "checks": [
+      {
+        "path": [
+          "status"
+        ],
+        "equals": "ok"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "status"
+        ],
+        "equals": "computed"
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "converted_domain"
+        ],
+        "equals": {
+          "lower": {
+            "numerator": 300,
+            "denominator": 1
+          },
+          "upper": {
+            "numerator": 300,
+            "denominator": 1
+          },
+          "lower_closed": true,
+          "upper_closed": true
+        }
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "relation_set"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "certain_relation"
+        ],
+        "equals": null
+      },
+      {
+        "path": [
+          "results",
+          0,
+          "reason_codes"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "meaning_mode"
+        ],
+        "equals": "quantity_literal_result"
+      },
+      {
+        "path": [
+          "converted_to_base"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "clinical_assertions_added"
+        ],
+        "equals": []
+      },
+      {
+        "path": [
+          "clinical_confirmation"
+        ],
+        "equals": "not_evaluated"
+      },
+      {
+        "path": [
+          "uncertainty_propagated"
+        ],
+        "equals": false
+      },
+      {
+        "path": [
+          "certificate",
+          "status"
+        ],
+        "equals": "not_certified"
+      },
+      {
+        "path": [
+          "retained_quantities"
+        ],
+        "equals": [
+          {
+            "id": "a",
+            "quantity_kind_ref": "k_a",
+            "unit_ref": "u_hundred",
+            "magnitude": {
+              "kind": "point",
+              "value": {
+                "numerator": 3,
+                "denominator": 1
+              }
+            },
+            "uncertainty": {
+              "kind": "not_evaluated"
+            },
+            "origin": {
+              "kind": "literal",
+              "ref": "fiction:quantity:a"
+            },
+            "required_capabilities": [
+              "p2-quantity-literal-draft-1"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

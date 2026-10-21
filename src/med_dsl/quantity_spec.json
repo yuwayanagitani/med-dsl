@@ -51,13 +51,23 @@
         "denominator": 1
       }
     },
+    "u_hundred": {
+      "dimension": [
+        1,
+        0
+      ],
+      "scale": {
+        "numerator": 100,
+        "denominator": 1
+      }
+    },
     "u_third": {
       "dimension": [
         1,
         0
       ],
       "scale": {
-        "numerator": 1,
+        "numerator": 2,
         "denominator": 3
       }
     },

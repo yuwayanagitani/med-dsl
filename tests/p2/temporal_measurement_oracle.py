@@ -4,7 +4,7 @@ import quantity_oracle as numbers
 PROFILE='p2-temporal-measurement-draft-1'
 QPROFILE='p2-quantity-literal-draft-1'
 PROPERTIES={'fiction:measurement:property:A@1':'k_a','fiction:measurement:property:A-other@1':'k_a','fiction:measurement:property:B@1':'k_b'}
-UNITS={'u_base':'u','u_ten':'u','u_third':'u','u_half':'u','v_base':'v','w_base':'w','w_hundredth':'w'}
+UNITS={'u_base':'u','u_ten':'u','u_third':'u','u_hundred':'u','u_half':'u','v_base':'v','w_base':'w','w_hundredth':'w'}
 KINDS={'k_a','k_b','k_c','k_ratio_a','k_ratio_b'}
 
 

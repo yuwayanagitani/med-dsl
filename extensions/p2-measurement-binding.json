@@ -1,7 +1,7 @@
 {
   "schema_version": "p2-extension-manifest-draft-1",
   "id": "p2-measurement-binding",
-  "version": "draft-1",
+  "version": "draft-2",
   "title": "確認対象の内容を固定した測定記録の選択と数量計算への接続",
   "status": {
     "review_state": "author_draft",
@@ -10,7 +10,7 @@
   "class": "R5",
   "spec": {
     "path": "src/med_dsl/measurement_spec.json",
-    "sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454"
+    "sha256": "af1c3a0943067bb38961e22c3a9eaf9cf2587f5e4bb952902cd3766fb14acc4b"
   },
   "contract_doc": "docs/research/37-p2-g-design.md",
   "implementation": {
@@ -45,7 +45,7 @@
     },
     {
       "id": "p2-quantity-literal",
-      "version": "draft-1"
+      "version": "draft-2"
     }
   ],
   "owns": {

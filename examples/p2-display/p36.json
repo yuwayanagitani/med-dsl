@@ -10,26 +10,26 @@
     "operation": "project_measurement_displays",
     "consumer": {
       "profile": "p2-quantity-display-draft-1",
-      "profile_spec_sha256": "15f57a8b8f5729862a8afe66d86e1dab2406e036a2b3854cbc25e783ee4f3e44",
+      "profile_spec_sha256": "361563166d4465ccf465b77e5f9421cac1c4181f2b8df3ce8065ce761f883a12",
       "operations": [
         "project_measurement_displays"
       ],
       "measurement_profile": "p2-measurement-binding-draft-1",
-      "measurement_profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+      "measurement_profile_spec_sha256": "af1c3a0943067bb38961e22c3a9eaf9cf2587f5e4bb952902cd3766fb14acc4b",
       "quantity_profile": "p2-quantity-literal-draft-1",
-      "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+      "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
     },
     "measurement_plan": {
       "schema_version": "p2-measurement-request-draft-1",
       "operation": "evaluate_measurements",
       "consumer": {
         "profile": "p2-measurement-binding-draft-1",
-        "profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+        "profile_spec_sha256": "af1c3a0943067bb38961e22c3a9eaf9cf2587f5e4bb952902cd3766fb14acc4b",
         "operations": [
           "evaluate_measurements"
         ],
         "quantity_profile": "p2-quantity-literal-draft-1",
-        "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+        "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
       },
       "source": {
         "schema_version": "p2-measurement-ledger-draft-1",
@@ -44,7 +44,7 @@
           {
             "ref": "Q",
             "profile": "p2-quantity-literal-draft-1",
-            "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+            "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
             "literal": {
               "id": "Q",
               "quantity_kind_ref": "k_a",
@@ -92,7 +92,7 @@
             },
             "quantity_ref": {
               "ref": "Q",
-              "sha256": "368a3f8415d4ec0caa549eab1b436b69a15af03156cb8433dc212104128b459f"
+              "sha256": "d5629a0d966fcc701277742f4281bb80fb62c16735041af83b56fa4128160763"
             },
             "certainty": "confirmed",
             "recorded_at": "2026-10-20T02:00:00Z",
@@ -110,7 +110,7 @@
           {
             "id": "RA",
             "record_ref": "A",
-            "record_sha256": "dd05d8826246ac72638236ebba5acf8b3a7009a31f21a32af91353a8947c9bfe",
+            "record_sha256": "c6f55f2c9351c14fbe04b0f79af602b3ad889746b175ac237a3503bab0d990e1",
             "reviewer_ref": "fiction:human:reviewer",
             "reviewer_kind": "human",
             "recorded_at": "2026-10-20T03:00:00Z",
@@ -191,9 +191,9 @@
         "equals": {
           "schema_version": "p2-display-artifact-draft-1",
           "profile": "p2-quantity-display-draft-1",
-          "profile_spec_sha256": "15f57a8b8f5729862a8afe66d86e1dab2406e036a2b3854cbc25e783ee4f3e44",
+          "profile_spec_sha256": "361563166d4465ccf465b77e5f9421cac1c4181f2b8df3ce8065ce761f883a12",
           "quantity_profile": "p2-quantity-literal-draft-1",
-          "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+          "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
           "quantity_kind_ref": "k_a",
           "unit_ref": "u_base",
           "rounding_policy": "fiction:decimal-half-even@1",
@@ -208,7 +208,7 @@
           0,
           "artifact_sha256"
         ],
-        "equals": "1f4ecb3f3078bf143b701f3fe20731ed06017e9d7ae7de18d6001cea4ef92c38"
+        "equals": "0634ddcbbd6edf54b585799c48265c8f49ce94d2314e95494971d20fa0d6ec86"
       },
       {
         "path": [
@@ -238,8 +238,8 @@
         ],
         "equals": {
           "kind": "canonical_json",
-          "bytes_base64": "eyJjb2VmZmljaWVudCI6MTIxMDAwMCwiZGVjaW1hbF9wbGFjZXMiOjYsInByb2ZpbGUiOiJwMi1xdWFudGl0eS1kaXNwbGF5LWRyYWZ0LTEiLCJwcm9maWxlX3NwZWNfc2hhMjU2IjoiMTVmNTdhOGI4ZjU3Mjk4NjJhOGFmZTY2ZDg2ZTFkYWIyNDA2ZTAzNmEyYjM4NTRjYmMyNWU3ODNlZTRmM2U0NCIsInF1YW50aXR5X2tpbmRfcmVmIjoia19hIiwicXVhbnRpdHlfcHJvZmlsZSI6InAyLXF1YW50aXR5LWxpdGVyYWwtZHJhZnQtMSIsInF1YW50aXR5X3Byb2ZpbGVfc3BlY19zaGEyNTYiOiI4NGFmMmU3NzFkMTg2ODQ3MWQwYTg0NDEwMjFmZGUyYTcyNTNiMWZjMTdmOGZmOWI4MDc0NjFlM2RmN2YxZjQzIiwicm91bmRpbmdfcG9saWN5IjoiZmljdGlvbjpkZWNpbWFsLWhhbGYtZXZlbkAxIiwic2NoZW1hX3ZlcnNpb24iOiJwMi1kaXNwbGF5LWFydGlmYWN0LWRyYWZ0LTEiLCJ0ZXh0IjoiMS4yMTAwMDAiLCJ1bml0X3JlZiI6InVfYmFzZSJ9",
-          "sha256": "1f4ecb3f3078bf143b701f3fe20731ed06017e9d7ae7de18d6001cea4ef92c38",
+          "bytes_base64": "eyJjb2VmZmljaWVudCI6MTIxMDAwMCwiZGVjaW1hbF9wbGFjZXMiOjYsInByb2ZpbGUiOiJwMi1xdWFudGl0eS1kaXNwbGF5LWRyYWZ0LTEiLCJwcm9maWxlX3NwZWNfc2hhMjU2IjoiMzYxNTYzMTY2ZDQ0NjVjY2Y0NjViNzdlNWY5NDIxY2FjMWM0MTgxZjJiOGRmM2NlODA2NWNlNzYxZjg4M2ExMiIsInF1YW50aXR5X2tpbmRfcmVmIjoia19hIiwicXVhbnRpdHlfcHJvZmlsZSI6InAyLXF1YW50aXR5LWxpdGVyYWwtZHJhZnQtMSIsInF1YW50aXR5X3Byb2ZpbGVfc3BlY19zaGEyNTYiOiJmNTJlYTUyNjk0NjU2ODIyMjQ0YThiZTYwZTQzOTk2MjRhY2NhNjZmNWNiYjVmM2U0MzRlZDgwZDlhZjUxZDQyIiwicm91bmRpbmdfcG9saWN5IjoiZmljdGlvbjpkZWNpbWFsLWhhbGYtZXZlbkAxIiwic2NoZW1hX3ZlcnNpb24iOiJwMi1kaXNwbGF5LWFydGlmYWN0LWRyYWZ0LTEiLCJ0ZXh0IjoiMS4yMTAwMDAiLCJ1bml0X3JlZiI6InVfYmFzZSJ9",
+          "sha256": "0634ddcbbd6edf54b585799c48265c8f49ce94d2314e95494971d20fa0d6ec86",
           "roundtrip_matches": true
         }
       },
@@ -336,26 +336,26 @@
             "operation": "project_measurement_displays",
             "consumer": {
               "profile": "p2-quantity-display-draft-1",
-              "profile_spec_sha256": "15f57a8b8f5729862a8afe66d86e1dab2406e036a2b3854cbc25e783ee4f3e44",
+              "profile_spec_sha256": "361563166d4465ccf465b77e5f9421cac1c4181f2b8df3ce8065ce761f883a12",
               "operations": [
                 "project_measurement_displays"
               ],
               "measurement_profile": "p2-measurement-binding-draft-1",
-              "measurement_profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+              "measurement_profile_spec_sha256": "af1c3a0943067bb38961e22c3a9eaf9cf2587f5e4bb952902cd3766fb14acc4b",
               "quantity_profile": "p2-quantity-literal-draft-1",
-              "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+              "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
             },
             "measurement_plan": {
               "schema_version": "p2-measurement-request-draft-1",
               "operation": "evaluate_measurements",
               "consumer": {
                 "profile": "p2-measurement-binding-draft-1",
-                "profile_spec_sha256": "7c2f731f2e24423f552bef8fb61efd5bdb74fac326279c7d7800639bb301a454",
+                "profile_spec_sha256": "af1c3a0943067bb38961e22c3a9eaf9cf2587f5e4bb952902cd3766fb14acc4b",
                 "operations": [
                   "evaluate_measurements"
                 ],
                 "quantity_profile": "p2-quantity-literal-draft-1",
-                "quantity_profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43"
+                "quantity_profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42"
               },
               "source": {
                 "schema_version": "p2-measurement-ledger-draft-1",
@@ -370,7 +370,7 @@
                   {
                     "ref": "Q",
                     "profile": "p2-quantity-literal-draft-1",
-                    "profile_spec_sha256": "84af2e771d1868471d0a8441021fde2a7253b1fc17f8ff9b807461e3df7f1f43",
+                    "profile_spec_sha256": "f52ea52694656822244a8be60e4399624acca66f5cbb5f3e434ed80d9af51d42",
                     "literal": {
                       "id": "Q",
                       "quantity_kind_ref": "k_a",
@@ -418,7 +418,7 @@
                     },
                     "quantity_ref": {
                       "ref": "Q",
-                      "sha256": "368a3f8415d4ec0caa549eab1b436b69a15af03156cb8433dc212104128b459f"
+                      "sha256": "d5629a0d966fcc701277742f4281bb80fb62c16735041af83b56fa4128160763"
                     },
                     "certainty": "confirmed",
                     "recorded_at": "2026-10-20T02:00:00Z",
@@ -436,7 +436,7 @@
                   {
                     "id": "RA",
                     "record_ref": "A",
-                    "record_sha256": "dd05d8826246ac72638236ebba5acf8b3a7009a31f21a32af91353a8947c9bfe",
+                    "record_sha256": "c6f55f2c9351c14fbe04b0f79af602b3ad889746b175ac237a3503bab0d990e1",
                     "reviewer_ref": "fiction:human:reviewer",
                     "reviewer_kind": "human",
                     "recorded_at": "2026-10-20T03:00:00Z",
