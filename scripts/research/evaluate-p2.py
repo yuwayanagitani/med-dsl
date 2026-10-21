@@ -25,7 +25,7 @@ from med_dsl import evaluate
 from med_dsl.extensions import EVIDENCE, Refused, Registry, guard_gaps, independent_pairs, load_manifests, weakest_evidence
 from med_dsl.model import Problem
 
-VERSION_RECORDS = ("examples/p2-versions/p0-draft-1-to-draft-2.json",)
+VERSION_RECORDS = ("examples/p2-versions/p0-draft-1-to-draft-2.json", "examples/p2-versions/p2-quantity-draft-1-to-draft-2.json")
 
 # 固定した分母。実装の出力から生成した値ではなく、宣言（extensions/*.json）と例の台帳を数えて固定した値。
 # budget_evaluations だけは、掃引の評価回数（要求ごとの steps_used に依る）を測って固定したもの。

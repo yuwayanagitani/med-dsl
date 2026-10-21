@@ -4366,6 +4366,10 @@
       "sha256": "66e8b799c92047a71c2697d2ccce6b620bc08d282bb06027f943baedd6801198",
       "bytes": 2967
     },
+    "examples/p2-versions/p2-quantity-draft-1-to-draft-2.json": {
+      "sha256": "ac6ffccb1fb7b1f461e1e8f6446c8a2fcd171a369c1906520818ea1d00d193b3",
+      "bytes": 6883
+    },
     "examples/p2/budget-below-absence.json": {
       "sha256": "81dddf10fd14d63a0797fd7100812ed081bfae0b6a51182c57186c5eaea0cf85",
       "bytes": 4460
@@ -4679,8 +4683,8 @@
       "bytes": 14449
     },
     "scripts/research/evaluate-p2.py": {
-      "sha256": "c4bb7a33a1718c5b2d253f899eb258c5b75d628dfe1483e804804eb7af0b24e3",
-      "bytes": 17120
+      "sha256": "662616861d531cabf80f7684a0150dedc79cf397c5f4acc4c8d0e5d2f2809b43",
+      "bytes": 17179
     },
     "scripts/research/p2/gen_display_fixtures.py": {
       "sha256": "623332c82c72e53e8f43e1a09af53221c8ed6b5c741dc79a918970d6c4103808",
@@ -5023,8 +5027,8 @@
       "bytes": 21181
     },
     "tests/p2/test_evaluate_p2.py": {
-      "sha256": "8e98506fce5b246a7a6e4acdaefb76d630860520c1523592540e1cea42c1400b",
-      "bytes": 11330
+      "sha256": "d89bbe974a69261002ea9c0591daf31f983630f11c48e40e58c2c10e4f02b356",
+      "bytes": 11438
     },
     "tests/p2/test_extension_contract.py": {
       "sha256": "3286bd1a45428ce403cb19201ec92e24dd4b0ad6aa9afdc1d64f713d9eb893cc",
@@ -5143,5 +5147,5 @@
       "bytes": 25815
     }
   },
-  "bundle_sha256": "e5c9058aac4abf8bca2a7856cba18549971f5d71929cc866f61b27a274806312"
+  "bundle_sha256": "1091c67703a2fd865cd7bdc55d74d01f3dfb9c5d032f30a4e63e429c6e4c5e7f"
 }

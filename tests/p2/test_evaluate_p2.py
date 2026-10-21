@@ -115,7 +115,8 @@ class RunTests(unittest.TestCase):
     def test_a_skipped_comparison_says_why_when_the_history_lacks_the_commits(self):
         with patch.object(evaluate_p2.p2_checks, "has_commit", return_value=False):
             reports = evaluate_p2.versions_report()
-        self.assertEqual([(r["status"], r["reason"]) for r in reports], [("not_run", "missing_commits:from,to")])
+        self.assertEqual(len(reports), len(evaluate_p2.VERSION_RECORDS))
+        self.assertEqual([(r["status"], r["reason"]) for r in reports], [("not_run", "missing_commits:from,to")] * len(evaluate_p2.VERSION_RECORDS))
 
     def test_a_lock_that_changes_during_the_evaluation_is_not_recorded_as_a_success(self):
         parent = ROOT / "data/research/p2-d"

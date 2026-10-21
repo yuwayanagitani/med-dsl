@@ -15,3 +15,22 @@ python3 -B -m unittest tests.p2.test_versions -v
 ```
 
 手順（V1〜V6）と範囲は [設計 27 の §4](../../docs/research/27-p2-d-design.md)、結果は [28](../../docs/research/28-p2-d-results.md)。宣言は作成者の主張で、旧入力が行使しない新版の変更は旧入力の比較では見えません。有限の旧入力での一致を、版の手順の一般の保存の証明とは扱いません。
+
+## 数量の単位表の改訂（P2-l、`p2-version-record-draft-2`）
+
+[p2-quantity-draft-1-to-draft-2.json](p2-quantity-draft-1-to-draft-2.json) は、数量（P2-f）の単位表の改訂（`u_third` の倍率の変更、`u_hundred` の追加）と、依存する4拡張の再固定の記録です。上の P0 の記録（`p2-version-record-draft-1`）と違い、再固定を文字列の置換ではなく、**再生成した入力の比較**で検査します（確認が拘束する内容の hash は、置換では再固定できないため）。
+
+| 項目 | 内容 |
+| --- | --- |
+| `from`・`to` | 旧版 `906766d` と新版 `a7328b9` のコミットと、その木での統合評価の要約（分母・manifest・束の hash） |
+| `pins`・`pin_refusals` | 再固定するモジュールの定数5つと、旧入力を新版へ渡したときの宣言した拒否（`unsupported_profile`／`profile_spec_mismatch`） |
+| `declared_changes` | 手で書いた宣言：追加した単位（D-1）、換算係数の改訂と影響を受ける入力6件（D-2）、意味の変更のない再固定（D-3） |
+| `predicted` | 手で書いた予測：`affected()` が列挙する拡張と再生成の範囲、列挙から漏れる実体 |
+| `measured` | 比較器の測定値を固定したもの（分類の件数、入力の数、予測との差、変更ファイルの数） |
+
+```bash
+python3 -B scripts/research/compare-versions.py --record examples/p2-versions/p2-quantity-draft-1-to-draft-2.json   # git の履歴に旧版・新版のコミットが要る
+python3 -B -m unittest tests.p2.test_quantity_version -v
+```
+
+手順（V1〜V8）と予測は [設計53](../../docs/research/53-p2-l-design.md)・[期待54](../../docs/research/54-p2-l-cases.md)、結果は [55](../../docs/research/55-p2-l-results.md)。宣言と予測は作成者の主張です。履歴がない環境では、記録に沿った比較は行われません。
