@@ -2,5 +2,6 @@
   "name": "med-dsl",
   "version": "0.0.0",
   "private": true,
+  "license": "UNLICENSED",
   "description": "将来の変化に原理的に耐えうる医療コード体系の確立を目指す研究プロジェクト"
 }

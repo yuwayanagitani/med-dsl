@@ -1,0 +1,21 @@
+Copyright (c) 2026 yuwayanagitani. All rights reserved.
+
+This repository (source code, documents, examples, designs and all other
+contents) is provided for viewing only. No licence is granted to use, copy,
+modify, merge, publish, distribute, sublicense or sell any part of it, and no
+permission is implied, except as GitHub's Terms of Service require while the
+repository is public on GitHub (Section D.5: use, display and reproduction,
+including by forking, through GitHub's functionality).
+
+Third-party material (for example HL7 FHIR specifications and NLM RxNorm) is
+not included in this repository and remains subject to its own terms. This
+notice does not apply to it.
+
+このリポジトリ（ソースコード、文書、例、設計、その他すべての内容）は、閲覧のみを
+目的としています。利用、複製、改変、結合、公開、再配布、サブライセンス、販売の
+許諾は一切行いません。また、許諾を暗に認めるものでもありません。ただし、リポジトリが
+GitHub で公開されている間は、GitHub の利用規約（D.5：GitHub の機能が認める範囲での
+利用・表示・複製。フォークを含む）が求める範囲を除きます。
+
+外部の資料（HL7 FHIR の仕様、NLM の RxNorm など）はこのリポジトリに含まれず、
+それぞれの条件に従います。この表示はそれらには及びません。
