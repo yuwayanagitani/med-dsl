@@ -29,15 +29,15 @@ def sql_of(columns):
 
 
 def conso(rxcui, rxaui, sab, tty, text):
-    return {'RXCUI': rxcui, 'RXAUI': rxaui, 'SAB': sab, 'TTY': tty, 'STR': text}
+    return {'RXCUI': rxcui, 'RXAUI': rxaui, 'SAB': sab, 'TTY': tty, 'STR': text, 'SUPPRESS': 'N', 'CVF': '4096'}
 
 
 def rel(rxcui1, rxcui2, relation, rela, sab='RXNORM', stype1='CUI', stype2='CUI'):
-    return {'RXCUI1': rxcui1, 'RXCUI2': rxcui2, 'REL': relation, 'RELA': rela, 'SAB': sab, 'STYPE1': stype1, 'STYPE2': stype2}
+    return {'RXCUI1': rxcui1, 'RXCUI2': rxcui2, 'REL': relation, 'RELA': rela, 'SAB': sab, 'STYPE1': stype1, 'STYPE2': stype2, 'SUPPRESS': '', 'CVF': '4096'}
 
 
 def sat(rxaui, atn, atv, sab='RXNORM', stype='AUI'):
-    return {'RXAUI': rxaui, 'ATN': atn, 'ATV': atv, 'SAB': sab, 'STYPE': stype}
+    return {'RXAUI': rxaui, 'ATN': atn, 'ATV': atv, 'SAB': sab, 'STYPE': stype, 'SUPPRESS': 'N', 'CVF': '4096'}
 
 
 def make_zip(path, rows, columns=None):
@@ -80,7 +80,8 @@ class NormalizationTests(unittest.TestCase):
         self.assertEqual(concepts['C1']['relations'], [{'kind': 'SY', 'target': 'C2'}, {'kind': 'has_part', 'target': 'C2'}])
         self.assertEqual(concepts['C2']['relations'], [])                                                    # 向きを反転しない：所有者は RXCUI2
         self.assertEqual(stats, {'conso_atoms': 3, 'conso_other_source': 1, 'conso_duplicate_atom': 1, 'sat_attributes': 2, 'sat_duplicate': 1, 'sat_orphan_atom': 1,
-                                 'sat_not_atom': 1, 'sat_other_source': 1, 'rel_relations': 2, 'rel_duplicate': 1, 'rel_not_concept': 1, 'rel_orphan_owner': 1, 'rel_other_source': 1})
+                                 'sat_not_atom': 1, 'sat_other_source': 1, 'rel_relations': 2, 'rel_duplicate': 1, 'rel_not_concept': 1, 'rel_orphan_owner': 1, 'rel_other_source': 1,
+                                 'conso_suppress_flagged': 0, 'conso_cvf_not_4096': 0, 'sat_suppress_flagged': 0, 'sat_cvf_not_4096': 0, 'rel_suppress_flagged': 0, 'rel_cvf_not_4096': 0})
         self.assertEqual(snapshot['ref'], 'rxnorm:cpc')
 
     def test_a_normalized_snapshot_is_a_valid_request_and_the_audit_runs_on_it(self):
@@ -94,10 +95,48 @@ class NormalizationTests(unittest.TestCase):
         self.assertEqual(result['status'], 'ok')
         self.assertEqual([r['audit_state'] for r in result['results']], ['changed', 'unchanged_in_scope'])
 
+    def test_suppressed_and_unflagged_rows_are_counted_not_dropped(self):
+        """F-N5・F-N8：抑制の印（空か N 以外）と、CVF が 4096 でない行は、件数として報告する（読み飛ばさない）。"""
+        rows = deepcopy(FICTION)
+        rows['RXNCONSO'][0]['SUPPRESS'] = 'O'
+        rows['RXNREL'][0]['CVF'] = ''
+        rows['RXNSAT'][0]['SUPPRESS'] = 'Y'
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)/'fiction.zip'
+            make_zip(path, rows)
+            snapshot, stats = tool.normalize(path, 'v1')
+        self.assertEqual((stats['conso_suppress_flagged'], stats['rel_cvf_not_4096'], stats['sat_suppress_flagged']), (1, 1, 1))
+        self.assertEqual(len(snapshot['concepts']), 2)
+
     def test_the_policies_are_declared_never_inferred_from_the_audit(self):
         full, partial = tool.policies({'NDC', 'RXN_STRENGTH', 'RXN_AI', 'OTHER'}).values()
         self.assertEqual([(p['name'], p['class']) for p in full], [('NDC', 'administrative'), ('OTHER', 'definitional'), ('RXN_AI', 'definitional'), ('RXN_STRENGTH', 'definitional')])
         self.assertEqual([(p['name'], p['class']) for p in partial], [('NDC', 'administrative'), ('RXN_STRENGTH', 'definitional')])
+
+
+class FactTests(unittest.TestCase):
+    def test_the_nlm_facts_are_bound_to_the_ledger_and_the_fetched_pages(self):
+        """事実は台帳の取得状態・ハッシュ（commit_payload は false）に結ばれ、手元にページがあれば、ハッシュと目印の語が一致する。"""
+        ledger = {m['id']: m for m in json.loads((ROOT/'docs/research/03-materials.json').read_text())['materials']}
+        self.assertEqual([f['id'] for f in tool.NLM_FACTS], [f'F-N{i}' for i in range(1, 11)])
+        for fact in tool.NLM_FACTS:
+            material = ledger[fact['source']]
+            self.assertEqual((material['local_sha256'], material['acquisition_status'], material['commit_payload'], material['content_verified']),
+                             (fact['source_sha256'], 'acquired_file_checks_passed', False, False), fact['id'])
+        statuses = {f['status'] for f in tool.verify_facts()}
+        self.assertIn(statuses, ({'verified'}, {'page_absent'}))
+        if statuses == {'verified'}:
+            for fact in tool.NLM_FACTS:
+                self.assertIn(fact['marker'], tool.page_text((ROOT/ledger[fact['source']]['local_path']).read_bytes()), fact['id'])
+
+    def test_a_changed_fact_is_not_verified(self):
+        original = tool.NLM_FACTS[0]
+        for change in ({'source_sha256': '0'*64}, {'marker': 'a sentence the page does not contain'}, {'source': 'rxnorm-cpc-2026-10-05'}):
+            tool.NLM_FACTS[0] = {**original, **change}
+            try:
+                self.assertNotEqual(tool.verify_facts()[0]['status'], 'verified', change)
+            finally:
+                tool.NLM_FACTS[0] = original
 
 
 @unittest.skipUnless(all((ROOT/'data/research/r3'/f).is_file() for f in ('RxNorm_full_prescribe_09082026.zip', 'RxNorm_full_prescribe_10052026.zip')), '台帳どおりの CPC 二版が手元にない')
@@ -137,6 +176,21 @@ class RealDataTests(unittest.TestCase):
                           full['unresolved_in_to_unknown_in_from']), (0, 0, 0, 0))
         self.assertEqual(full['state:changed'] - partial['state:changed'], partial['state:needs_information'])
         self.assertEqual(partial['refs_undeclared_difference'], partial['state:needs_information'])
+
+    def test_the_relation_direction_and_the_flags_agree_with_the_documentation(self):
+        """F-N1・F-N4（関係の向き）：has_ingredient で、対象が成分（IN）で所有者が成分でない関係が多数あり、所有者が成分で対象が成分でない関係は0。
+        F-N5・F-N8：抑制の印のある行は0、CVF が 4096 でない行は0（出典 RXNORM）。"""
+        kinds = {c['id']: {a['kind'] for a in c['atoms']} for c in self.new['concepts']}
+        forward = backward = 0
+        for c in self.new['concepts']:
+            for r in c['relations']:
+                if r['kind'] == 'has_ingredient':
+                    forward += 'IN' in kinds.get(r['target'], ()) and 'IN' not in kinds[c['id']]
+                    backward += 'IN' in kinds[c['id']] and 'IN' not in kinds.get(r['target'], ())
+        self.assertEqual((forward, backward), (28026, 0))
+        for stats in (self.old_stats, self.new_stats):
+            for table in ('conso', 'sat', 'rel'):
+                self.assertEqual((stats[table + '_suppress_flagged'], stats[table + '_cvf_not_4096']), (0, 0), table)
 
     def test_swapping_the_versions_swaps_the_new_only_and_not_found_counts(self):
         """AP7（実データ）：入れ替えても継続の数は同じで、旧のみと新のみが入れ替わる。"""

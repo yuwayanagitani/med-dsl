@@ -55,6 +55,12 @@ HTML_RESOURCES = {
     "Provenance": {"5.0.0": "onBehalfOf"},
     "Extensibility": {"5.0.0": "modifierExtension"},
 }
+# NLM の RxNorm 文書（HTML）：ページ名と、目印の語（版は取得日で、ページ自体は版を持たない）
+NLM_PAGES = {
+    "NLM-RxNorm-techdoc": ("RxNorm Technical Documentation", "HAS TO the FIRST concept or atom"),
+    "NLM-RxNorm-prescribe": ("RxNorm Current Prescribable Content", "approximation of the prescription drugs currently marketed in the US"),
+    "NLM-RxNorm-appendix-1": ("Appendix 1 - RxNorm Relationships (RELA)", "has_ingredient"),
+}
 
 
 def check_html(path, material):
@@ -70,6 +76,19 @@ def check_html(path, material):
     if field not in text:
         raise ValueError(f"目印の項目 {field} を確認できません")
     return {"kind": "html_identity", "title": title, "time_field" if resource == "Procedure" else "marker_field": field}
+
+
+def check_nlm_html(path, material):
+    page = PageText()
+    page.feed(path.read_text(encoding="utf-8-sig"))
+    title = " ".join("".join(page.title).split())
+    text = " ".join(" ".join(page.text).split())
+    expected_title, marker = NLM_PAGES[material["resource"]]
+    if title != expected_title:
+        raise ValueError(f"ページ名が一致しません：{title}")
+    if marker not in text:
+        raise ValueError(f"目印の語 {marker} を確認できません")
+    return {"kind": "html_identity", "title": title, "marker_field": marker}
 
 
 def check_zip(path, material):
@@ -139,7 +158,7 @@ def inspect(material, directory, observed_at):
         if expected and result["md5"] != expected:
             result["publisher_md5_status"] = "mismatched"
             raise ValueError("公表 MD5 と一致しません。期待値を変更せず、取得物を確認してください")
-        check = check_zip if filename.endswith(".zip") else check_html
+        check = check_zip if filename.endswith(".zip") else check_nlm_html if material.get("resource", "").startswith("NLM-") else check_html
         result["inspection"] = check(path, material)
         previous = material.get("local_sha256")
         result["previous_local_sha256_status"] = (

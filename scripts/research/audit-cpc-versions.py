@@ -7,6 +7,7 @@
 import argparse
 from collections import Counter, defaultdict
 import hashlib
+import html
 import json
 from pathlib import Path
 import re
@@ -23,8 +24,31 @@ SOURCE = "RXNORM"
 SQL_MEMBER = "scripts/mysql/Table_scripts_mysql_rxn.sql"
 STRENGTH_ATTRIBUTES = ("RXN_AVAILABLE_STRENGTH", "RXN_STRENGTH", "RXN_BOSS_STRENGTH_NUM_VALUE", "RXN_BOSS_STRENGTH_NUM_UNIT",
                        "RXN_BOSS_STRENGTH_DENOM_VALUE", "RXN_BOSS_STRENGTH_DENOM_UNIT")
-NEEDED = {"RXNCONSO": ("RXCUI", "RXAUI", "SAB", "TTY", "STR"), "RXNREL": ("RXCUI1", "STYPE1", "REL", "RXCUI2", "STYPE2", "RELA", "SAB"),
-          "RXNSAT": ("RXAUI", "STYPE", "ATN", "SAB", "ATV")}
+NEEDED = {"RXNCONSO": ("RXCUI", "RXAUI", "SAB", "TTY", "STR", "SUPPRESS", "CVF"), "RXNREL": ("RXCUI1", "STYPE1", "REL", "RXCUI2", "STYPE2", "RELA", "SAB", "SUPPRESS", "CVF"),
+          "RXNSAT": ("RXAUI", "STYPE", "ATN", "SAB", "ATV", "SUPPRESS", "CVF")}
+# NLM の文書に書かれた事実（取得したページに結ぶ。ページは Git 管理外で、台帳にハッシュがある）。ページの語は薬剤用語の内容でなく、ファイル・列・関係・範囲の記述
+NLM_FACTS = [
+    {"id": "F-N1", "statement": "RXNREL の REL は、第2の概念（RXCUI2）が第1の概念（RXCUI1）に対して持つ関係", "source": "nlm-rxnorm-technical-documentation",
+     "source_sha256": "1f05a1f61cb3fb15e20c7304d3764326b31f1b7870b30cabc5a6ac912d68a3e8", "marker": "HAS TO the FIRST concept or atom"},
+    {"id": "F-N2", "statement": "非対称の関係には、向きごとに1行がある", "source": "nlm-rxnorm-technical-documentation",
+     "source_sha256": "1f05a1f61cb3fb15e20c7304d3764326b31f1b7870b30cabc5a6ac912d68a3e8", "marker": "for asymmetrical relationships there is one row for each direction of the relationship"},
+    {"id": "F-N3", "statement": "RELA は追加の（より具体的な）関係の名前で、任意", "source": "nlm-rxnorm-technical-documentation",
+     "source_sha256": "1f05a1f61cb3fb15e20c7304d3764326b31f1b7870b30cabc5a6ac912d68a3e8", "marker": "Additional (more specific) relationship label (optional)"},
+    {"id": "F-N4", "statement": "付録1の関係の表は、RXCUI2 の用語種別、RELA、RXCUI1 の用語種別の順に並ぶ", "source": "nlm-rxnorm-appendix-1",
+     "source_sha256": "7dd0fe70fa6beca3b93606d37369489dde03f15abf95d284b2a79cce2964213e", "marker": "RXNREL RXCUI2 TTY RELA RXNREL RXCUI1 TTY"},
+    {"id": "F-N5", "statement": "CPC は抑制されたデータと廃止されたデータを除く", "source": "nlm-rxnorm-cpc-description",
+     "source_sha256": "da8955128a012559c99bd3903298c49841983fdd38201d412164998f43a2aefd", "marker": "We also removed suppressed and obsolete data"},
+    {"id": "F-N6", "statement": "CPC は米国で市販されている処方薬の近似（市販でなくなった薬剤は入らない）", "source": "nlm-rxnorm-cpc-description",
+     "source_sha256": "da8955128a012559c99bd3903298c49841983fdd38201d412164998f43a2aefd", "marker": "approximation of the prescription drugs currently marketed in the US"},
+    {"id": "F-N7", "statement": "CPC のデータファイルは RXNCONSO・RXNSAT・RXNREL の3つだけ", "source": "nlm-rxnorm-cpc-description",
+     "source_sha256": "da8955128a012559c99bd3903298c49841983fdd38201d412164998f43a2aefd", "marker": "the subset only includes three data files"},
+    {"id": "F-N8", "statement": "CPC の項目は、完全版の三つのファイルで CVF の値 4096 の印を持つ", "source": "nlm-rxnorm-cpc-description",
+     "source_sha256": "da8955128a012559c99bd3903298c49841983fdd38201d412164998f43a2aefd", "marker": 'flagged with a value of "4096" in the CVF field'},
+    {"id": "F-N9", "statement": "退役した RxCUI から現在の RxCUI を引く表（RXNCUI）が、通常のリリースにある", "source": "nlm-rxnorm-technical-documentation",
+     "source_sha256": "1f05a1f61cb3fb15e20c7304d3764326b31f1b7870b30cabc5a6ac912d68a3e8", "marker": "find the current RxCUI(s) for a given retired RxCUI"},
+    {"id": "F-N10", "statement": "RXNCUICHANGES.RRF が通常のリリースのファイルとして記述されている（CPC の3ファイルにはない）", "source": "nlm-rxnorm-technical-documentation",
+     "source_sha256": "1f05a1f61cb3fb15e20c7304d3764326b31f1b7870b30cabc5a6ac912d68a3e8", "marker": "12.11 RXNCUICHANGES.RRF"},
+]
 
 
 def sha256_of(path):
@@ -61,23 +85,55 @@ def position_tables(archive):
     return tables, columns
 
 
+def page_text(raw):
+    """HTML のタグを除き、空白を一つにした本文。"""
+    text = re.sub(r"<script.*?</script>|<style.*?</style>", "", raw.decode("utf-8", "replace"), flags=re.S)
+    return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text)))
+
+
+def verify_facts():
+    """事実を、台帳（取得状態・ハッシュ）と手元のページ（ハッシュ・目印の語）に結ぶ。ページがなければ page_absent。"""
+    ledger = {m["id"]: m for m in json.loads(LEDGER.read_text(encoding="utf-8"))["materials"]}
+    found = []
+    for fact in NLM_FACTS:
+        material = ledger.get(fact["source"])
+        if material is None or material.get("acquisition_status") != "acquired_file_checks_passed" or material.get("local_sha256") != fact["source_sha256"] or material.get("commit_payload"):
+            found.append({"id": fact["id"], "status": "ledger_mismatch"})
+            continue
+        path = ROOT / material["local_path"]
+        if not path.is_file():
+            found.append({"id": fact["id"], "status": "page_absent"})
+            continue
+        raw = path.read_bytes()
+        status = "hash_mismatch" if hashlib.sha256(raw).hexdigest() != fact["source_sha256"] else "verified" if fact["marker"] in page_text(raw) else "marker_missing"
+        found.append({"id": fact["id"], "status": status})
+    return found
+
+
 def lines(archive, member):
     with archive.open(member) as stream:
         for raw in stream:
             yield raw.decode("utf-8").rstrip("\n").split("|")
 
 
+def flags(stats, table, row, positions):
+    """抑制の印と CVF の値（F-N5・F-N8 の裏付け）：抑制されていない行（空か N）と CVF＝4096 から外れる行の件数。"""
+    stats[table + "_suppress_flagged"] += row[positions["SUPPRESS"]] not in ("", "N")
+    stats[table + "_cvf_not_4096"] += row[positions["CVF"]] != "4096"
+
+
 def normalize(path, version, tables=None):
     """ZIP の三つの RRF から、契約の snapshot（出典 RXNORM のみ）と、読み飛ばした行の件数を作る。"""
     archive = zipfile.ZipFile(path)
     positions, _ = position_tables(archive)
-    stats = Counter()
+    stats = Counter({table + suffix: 0 for table in ("conso", "sat", "rel") for suffix in ("_suppress_flagged", "_cvf_not_4096")})
     p = positions["RXNCONSO"]
     atoms, concept_atoms = {}, defaultdict(list)
     for row in lines(archive, "rrf/RXNCONSO.RRF"):
         if row[p["SAB"]] != SOURCE:
             stats["conso_other_source"] += 1
             continue
+        flags(stats, "conso", row, p)
         atom_id = row[p["RXAUI"]]
         if atom_id in atoms:
             stats["conso_duplicate_atom"] += 1
@@ -90,6 +146,7 @@ def normalize(path, version, tables=None):
         if row[p["SAB"]] != SOURCE:
             stats["sat_other_source"] += 1
             continue
+        flags(stats, "sat", row, p)
         if row[p["STYPE"]] != "AUI":
             stats["sat_not_atom"] += 1
             continue
@@ -109,6 +166,7 @@ def normalize(path, version, tables=None):
         if row[p["SAB"]] != SOURCE:
             stats["rel_other_source"] += 1
             continue
+        flags(stats, "rel", row, p)
         if row[p["STYPE1"]] != "CUI" or row[p["STYPE2"]] != "CUI":
             stats["rel_not_concept"] += 1
             continue
@@ -210,7 +268,9 @@ def main(argv=None):
     for snapshot, key in ((old, OLD_ID), (new, NEW_ID)):
         snapshot["source_sha256"] = entries[key]["sha256"]
     declared = policies(attribute_names(old) | attribute_names(new))
-    report = {"versions": {"from": {"version": old["version"], "sha256": old["source_sha256"]}, "to": {"version": new["version"], "sha256": new["source_sha256"]}},
+    facts = verify_facts()
+    report = {"facts": {"verified": sum(1 for f in facts if f["status"] == "verified"), "total": len(facts), "unverified": [f for f in facts if f["status"] != "verified"]},
+              "versions": {"from": {"version": old["version"], "sha256": old["source_sha256"]}, "to": {"version": new["version"], "sha256": new["source_sha256"]}},
               "normalization": {"from": old_stats, "to": new_stats}, "policies": {}}
     kept = {}
     for name, policy in declared.items():

@@ -7711,8 +7711,8 @@
       "bytes": 29199
     },
     "tests/p2/test_audit_cpc.py": {
-      "sha256": "a44614b9ac95b4130d6c0c42f5d37ddfa0c8380b8c995ad3b562caeb9aa2bdc6",
-      "bytes": 13650
+      "sha256": "08aecb9b9e356275d5b46571b7dc53708657c1126005e218d08a128f2570745d",
+      "bytes": 17464
     },
     "tests/p2/test_budget_contract.py": {
       "sha256": "c31614e6b8dc8ecc2e4192cbc1a29b62e083557e69d657b30b5a65b0fcbcfd4d",
@@ -7883,5 +7883,5 @@
       "bytes": 25815
     }
   },
-  "bundle_sha256": "df218a3ba850074fbb4a4136bd5aea7ec6a2105d309beea0d7010cafa952fffa"
+  "bundle_sha256": "35ea6ecbc569f6eddd57c954826c757f7510ce41d0b83f43fb8b751093906864"
 }
