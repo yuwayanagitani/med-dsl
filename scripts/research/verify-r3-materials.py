@@ -60,6 +60,12 @@ NLM_PAGES = {
     "NLM-RxNorm-techdoc": ("RxNorm Technical Documentation", "HAS TO the FIRST concept or atom"),
     "NLM-RxNorm-prescribe": ("RxNorm Current Prescribable Content", "approximation of the prescription drugs currently marketed in the US"),
     "NLM-RxNorm-appendix-1": ("Appendix 1 - RxNorm Relationships (RELA)", "has_ingredient"),
+    # 利用条件の根拠のページ
+    "NLM-RxNorm-terms": ("RxNorm Terms of Service", "A free UMLS License is required to download the full RxNorm releases"),
+    "NLM-RxNorm-files": ("RxNorm Files", "(no license required)"),
+    "NLM-UMLS-license": ("How to License and Access the Unified Medical Language System® (UMLS®) Data", "UMLS licenses are issued only to individuals"),
+    "NLM-RxNav-terms": ("Terms of Service", "With one exception, no license is needed to use these APIs"),
+    "NLM-RxNorm-API": ("RxNorm API - APIs", "getRxcuiHistoryStatus"),
 }
 
 
