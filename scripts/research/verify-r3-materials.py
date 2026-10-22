@@ -66,6 +66,8 @@ NLM_PAGES = {
     "NLM-UMLS-license": ("How to License and Access the Unified Medical Language System® (UMLS®) Data", "UMLS licenses are issued only to individuals"),
     "NLM-RxNav-terms": ("Terms of Service", "With one exception, no license is needed to use these APIs"),
     "NLM-RxNorm-API": ("RxNorm API - APIs", "getRxcuiHistoryStatus"),
+    "NLM-RxNorm-API-historystatus": ("getRxcuiHistoryStatus - RxNorm API", "Concept status values"),
+    "NLM-RxNorm-API-version": ("getRxNormVersion - RxNorm API", "Get the version of the RxNorm data set"),
 }
 
 

@@ -7798,6 +7798,10 @@
       "sha256": "6e7752377d27f382cfa9b34cf2dfd86480cf9db2dbd07e950d199c2667b57c58",
       "bytes": 6808
     },
+    "tests/p2/test_rxnorm_history.py": {
+      "sha256": "f6fb5c3f2bcd180e87556d5458633cbad46b7447bb46062fc4fc7ae7a773d896",
+      "bytes": 8726
+    },
     "tests/p2/test_split_combination.py": {
       "sha256": "96d6743b4522fbb2e074a755709c6370baa848be723fb3e7acfd304acc9cdda1",
       "bytes": 30818
@@ -7883,5 +7887,5 @@
       "bytes": 25815
     }
   },
-  "bundle_sha256": "35ea6ecbc569f6eddd57c954826c757f7510ce41d0b83f43fb8b751093906864"
+  "bundle_sha256": "d6466533c2788ad6162382076ab9df5f9d1e66139c13e215f11e37b26867a878"
 }

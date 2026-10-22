@@ -14,7 +14,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 # p0-draft-1 の基準は 1f01ed65…（e73d4ba）、p0-draft-2 の固定は de307919…（2b501c1）。P2-a で extensions.py を加えた固定に合わせて更新
-BASELINE_MANIFEST_SHA256 = "758e6e83ce25148fb4b1e3f9fe3f619ecbe4fdea53ef5063487affc18c599bb5"
+BASELINE_MANIFEST_SHA256 = "1eea02fdba34a978de131ec240f0b23872df1217976c84e4aaf521de5a8390b3"
 sys.path.insert(0, str(ROOT / "src"))
 from med_dsl import evaluate
 from med_dsl.validation import canonical_bytes, digest
